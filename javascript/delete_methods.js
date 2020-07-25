@@ -1,4 +1,4 @@
-var db = require('./mongodb');
+var db = require('./backend_mongodb');
 
 module.exports = {
     deleteUser: async function(res, id){
