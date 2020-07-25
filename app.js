@@ -12,6 +12,7 @@ const Client = require('pg');
 const app = express()
 const port = 8080
 
+app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -279,6 +280,6 @@ app.post('/clean', function(req, res){
     update_methods.cleanFlagged(res, user_id);
     return;
 })
-var server = app.listen(port, function () {
+var server = app.listen(process.env.PORT || 5000, function () {
     console.log('Server started...')
 })
