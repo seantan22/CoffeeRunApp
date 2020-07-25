@@ -17,6 +17,11 @@ app.use(bodyParser.json());
 
 // **************************** USER *************************
 
+app.get('/', function(req, res){
+    res.send('SUCCESS');
+    return;
+})
+
 app.get('/getUser', function(req, res){
     var user_id = req.body.user_id;
     get_methods.getUser(res, user_id);
