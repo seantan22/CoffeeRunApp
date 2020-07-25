@@ -417,7 +417,7 @@ module.exports = {
         return [true, order_records];
     },
     getAllOpenOrders: async function(){
-        var db = await MongoClient.connect(uri, {}).catch((error) => console.log(error));
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var order_records = await client.collection("Open_Orders").find({delivery_boy: null}).toArray();
         db.close();
