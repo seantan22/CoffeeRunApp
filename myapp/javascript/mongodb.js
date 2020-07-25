@@ -535,7 +535,7 @@ module.exports = {
         if(!delivery_record.loggedIn){
             await detachOrderFromDelivery(order_record, client);
             db.close();
-            return [false, 'Delivery user is flagged. Order has been detached.']
+            return [false, 'Delivery user is flagged. Order has been detached.'];
         }
         if(order_record.delivery_boy != delivery_record.username){
             return [false, 'Delivery user does not exist.'];
@@ -629,31 +629,31 @@ module.exports = {
         return loggedIn;
     },
     // Only admin privilege
-    cleanFlagged: async function(user_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
-        var client = db.db(dbName);
-        var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id)}).catch((error) => console.log(error));
+    // cleanFlagged: async function(user_id){
+    //     var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+    //     var client = db.db(dbName);
+    //     var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id)}).catch((error) => console.log(error));
         
-        if(user_record == null){
-            return [false, 'User does not exist.'];
-        }
-        if(!user_record.flagged){
-            return [false, 'User not flagged.'];
-        }
+    //     if(user_record == null){
+    //         return [false, 'User does not exist.'];
+    //     }
+    //     if(!user_record.flagged){
+    //         return [false, 'User not flagged.'];
+    //     }
 
-        // Delete flagged transaction.
-        var flagged_hist = await client.collection("Transaction").deleteOne({payee: user_record.username, total: 'flag'});
+    //     // Delete flagged transaction.
+    //     var flagged_hist = await client.collection("Transaction").deleteOne({payee: user_record.username, total: 'flag'});
         
-        // Get last updated, clean transaction.
-        var transaction_history = await client.collection("Transaction").find({payee: user_record.username}).sort({$natural: -1}).limit(1).toArray();
-        previous_balance = transaction_history[0].total;
+    //     // Get last updated, clean transaction.
+    //     var transaction_history = await client.collection("Transaction").find({payee: user_record.username}).sort({$natural: -1}).limit(1).toArray();
+    //     previous_balance = transaction_history[0].total;
 
-        let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: false, balance: previous_balance, flagged: false}};
-        var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
-        db.close();
+    //     let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: false, balance: previous_balance, flagged: false}};
+    //     var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
+    //     db.close();
 
-        return [true, 'Account: ' + user_record.username + ' has been reactivated.'];
-    }
+    //     return [true, 'Account: ' + user_record.username + ' has been reactivated.'];
+    // }
 
 };
 
