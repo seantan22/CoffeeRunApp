@@ -1,5 +1,4 @@
 var db = require('./backend_mongodb');
-const e = require('express');
 
 module.exports = {
 
