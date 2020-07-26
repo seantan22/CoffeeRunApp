@@ -42,7 +42,7 @@ async function checkIfCorrupt(type, client, user_record, funds){
         var response = await client.collection("User").updateOne({_id: ObjectId(user_record._id)}, personInfo).catch((error) => console.log(error)); 
         
         var transaction = await client.collection("Transaction").insertOne({flagged: true, type: type, time_created: new Date().toJSON(), transaction_value: funds, username: user_record.username, balance: {expected_balance: previous_balance, corrupt_balance: user_record.balance}});
-        
+
         return [false, 'Your balance is incorrect and has been flagged.'];
     }
 
@@ -550,7 +550,7 @@ module.exports = {
             db.close();
             return [false, 'Delivery user must be logged in to cancel delivery.'];
         }
-        if(delivery_order.delivery_boy == null){
+        if(order_record.delivery_boy == null){
             db.close();
             return [false, 'No assigned delivery users.'];
         }
