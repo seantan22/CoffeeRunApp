@@ -72,15 +72,19 @@ async function loginWithCred(username, password){
     var record = await client.collection("User").findOne({ password: password }).catch((error) => console.log(error));
     
     if(record == null){
+        db.close();
         return [false, 'Incorrect credentials.'];
     }
     if(record.flagged){
+        db.close();
         return [false, 'This account has been flagged.'];
     }
     if(username != record.username){
+        db.close();
         return [false, 'Incorrect username.'];
     }
     if(record.loggedIn){
+        db.close();
         return [false, 'Already loggged in.'];
     }
 
@@ -100,9 +104,11 @@ async function logoutWithCred(id){
     var record = await client.collection("User").findOne({ _id: ObjectId(id)}).catch((error) => console.log(error));
     
     if(record == null){
+        db.close();
         return [false, 'Incorrect credentials.'];
     }
     if(!record.loggedIn){
+        db.close();
         return [false, 'Already loggged out.'];
     }
 
@@ -124,10 +130,12 @@ module.exports = {
         var record = await client.collection("User").findOne({_id: ObjectId(id)});
         
         if(record == null){
+            db.close();
             return [false, 'Please input correct password.'];
         }
 
         if(!record.loggedIn){
+            db.close();
             return [false, 'Have to be logged in to get user information.'];
         }
         
@@ -161,31 +169,37 @@ module.exports = {
         var record = await client.collection("User").findOne({ _id: ObjectId(id)}).catch((error) => console.log(error));
            
         if(record == null){
+            db.close();
             return [false, 'Incorrect credentials.'];
         }
 
         if(!record.loggedIn){
+            db.close();
             return [false, 'You have to be logged in to change credentials.'];
         }
 
         // Check if new info is unique
         if (record.username != username){
             if (await (checkIfInputIsUnique('username', username))){
+                db.close();
                 return [false, 'New username is already taken.'];
             }
         }
         if(record.password != password){
             if (await (checkIfInputIsUnique('password', password))){
+                db.close();
                 return [false, 'New password is already taken.'];
             }
         }
         if(record.email != email){
             if (await (checkIfInputIsUnique('email', email))){
+                db.close();
                 return [false, 'New email is already taken.'];
             }
         }
         if(record.phone_number != number){
             if (await (checkIfInputIsUnique('phone_number', number))){
+                db.close();
                 return [false, 'New phone number is already taken.'];
             }
         }
@@ -204,15 +218,18 @@ module.exports = {
         var record = await client.collection("User").findOne({ _id: ObjectId(id) }).catch((error) => console.log(error));
         
         if(record == null){
+            db.close();
             return [false, 'Incorrect credentials'];
         }
         if(!record.loggedIn){
+            db.close();
             return [false, 'You have to be logged in to delete your account.'];
         }
 
         var number_of_orders = await client.collection("Open_Orders").countDocuments({creator: record.username}).catch((error) => console.log(error));
         
         if(number_of_orders > 1){
+            db.close();
             return 'You cannot delete your account with a pending order.'
         }
 
@@ -231,15 +248,19 @@ module.exports = {
         var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id) }).catch((error) => console.log(error));
 
         if(!user_record.loggedIn){
+            db.close();
             return [false, 'User must be logged in to withdraw funds.'];
         }
         if(funds <= 0.00 || funds > 50.00){
+            db.close();
             return [false, 'Please withdraw between $0.00 and $50.00.'];
         }
         if(funds > user_record.balance){
+            db.close();
             return [false, 'You do not enough enough funds to withdraw: ' + funds];
         }
         if(user_record.flagged){
+            db.close();
             return [false, 'User is flagged.'];
         }
 
@@ -269,12 +290,15 @@ module.exports = {
         var previous_balance = 0.00;
 
         if(funds <= 0.00 || funds > 50.00){
+            db.close();
             return [false, 'Please deposit between $0.00 and $50.00.'];
         }
         if(!user_record.loggedIn){
+            db.close();
             return [false, 'User must be logged in to deposit funds.'];
         }
         if(user_record.flagged){
+            db.close();
             return [false, 'User is flagged.'];
         }
 
@@ -308,12 +332,23 @@ module.exports = {
         var record = await client.collection("User").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
         
         if(record == null){
+            db.close();
             return [false, 'User does not exist.'];
         }
         if(!record.loggedIn){
+            db.close();
             return [false, 'User must be logged in to create order.']
         }
+
+        // Check if user is corrput
+        checkCorruptUser = await checkIfCorrupt('order creation', client, record, cost);
+        if(!checkCorruptUser[0]){
+            db.close();
+            return checkCorruptUser;
+        }
+
         if(record.balance < cost){
+            db.close();
             return [false, 'Not enough funds.'];
         }
 
@@ -321,6 +356,7 @@ module.exports = {
         var num_attached_delivery = await client.collection("Open_Orders").countDocuments({delivery_boy: record.username}).catch((error) => console.log(error));
 
         if(num_attached_delivery != 0){
+            db.close();
             return [false, 'You are already delivery orders. Please finish or cancel.'];
         }
 
@@ -328,6 +364,7 @@ module.exports = {
         var num_current_orders = await client.collection("Open_Orders").countDocuments({creator: username}).catch((error) => console.log(error));
         
         if(num_current_orders >= 1){
+            db.close();
             return [false, 'You already have a pending order.'];
         }
 
@@ -346,9 +383,11 @@ module.exports = {
         var record = await client.collection("Open_Orders").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
         
         if(record == null){
+            db.close();
             return [false, 'Order does not exist.'];
         }
         if(record.creator != username){
+            db.close();
             return [false, 'Only user:'+username+ ' can update their order.'];
         }
 
@@ -367,12 +406,15 @@ module.exports = {
         var record = await client.collection("Open_Orders").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
         
         if(record == null){
+            db.close();
             return [false, 'Order does not exist.'];
         }
         if(record.creator != username){
+            db.close();
             return [false, 'Only user:'+username+ ' can delete their order.'];
         }
         if(record.delivery_boy != null){
+            db.close();
             return [false, 'Cannot delete order as it is being delivered.'];
         }
 
@@ -389,6 +431,7 @@ module.exports = {
         var user_record = await client.collection("User").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
         
         if(user_record == null){
+            db.close();
             return [false, 'User does not exist.'];
         }
 
@@ -406,6 +449,7 @@ module.exports = {
         var delivery_record = await client.collection("User").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
         
         if(delivery_record == null){
+            db.close();
             return [false, 'User does not exist.'];
         }
 
@@ -432,33 +476,49 @@ module.exports = {
         var order_record = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
                 
         if(order_record == null){
+            db.close();
             return [false, 'Order does not exist.'];
         }
         if(order_record.delivery_boy != null){
+            db.close();
             return [false, 'Delivery user on route.'];
         }
         var delivery_record = await client.collection("User").findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
+        if(delivery_record == null){
+            db.close();
+            return [false, 'Delivery user does not exist.'];
+        }
         if(delivery_record.flagged){
+            db.close();
             return [false, 'Delivery account is flagged.'];
         }
         if(!delivery_record.loggedIn){
+            db.close();
             return [false, 'Delivery user is not logged in.'];
         }
-        if(delivery_record == null){
-            return [false, 'Delivery user does not exist.'];
+
+        // Check if delivery person is corrupt
+        checkCorruptDelivery = await checkIfCorrupt('attach order', client, delivery_record, order_record.cost);
+        if(!checkCorruptDelivery[0]){
+            db.close();
+            return checkCorruptDelivery;
         }
+
         if(order_record.creator == delivery_record.username){
+            db.close();
             return [false, 'You cannot order and deliver the same item.'];
         }
         var num_attached_delivery = await client.collection("Open_Orders").countDocuments({delivery_boy: delivery_record.username}).catch((error) => console.log(error));
 
         if(num_attached_delivery >= 3){
+            db.close();
             return [false, 'Maximum orders for: ' + delivery_record.username + ' is 3.'];
         }
 
         // Make sure no orders are being waited upon.
         var num_current_orders = await client.collection("Open_Orders").countDocuments({creator: delivery_record.username}).catch((error) => console.log(error));
         if(num_current_orders != 0){
+            db.close();
             return [false, 'You have pending orders. Cancel before delivering.'];
         }
 
@@ -477,20 +537,25 @@ module.exports = {
         var order_record = await client.collection('Open_Orders').findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
         
         if(order_record == null){
+            db.close();
             return [false, 'Order does not exist.'];
         }
         var delivery_order = await client.collection('User').findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
         
         if(delivery_order == null){
+            db.close();
             return [false, 'Delivery user does not exist.'];
         }
         if(!delivery_order.loggedIn){
+            db.close();
             return [false, 'Delivery user must be logged in to cancel delivery.'];
         }
         if(delivery_order.delivery_boy == null){
+            db.close();
             return [false, 'No assigned delivery users.'];
         }
         if(delivery_order.username != order_record.delivery_boy){
+            db.close();
             return [false, 'Only the delivery user can cancel a delivery.'];
         }
         
@@ -502,6 +567,7 @@ module.exports = {
     completeOrder: async function(delivery_rating, order_id, user_id, delivery_id){
         
         if(delivery_rating < 0 || delivery_rating > 5){
+            db.close();
             return [false, 'Please give a rating between 0 and 5.'];
         }
         
@@ -511,48 +577,57 @@ module.exports = {
         var order_record = await client.collection('Open_Orders').findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
         
         if(order_record == null){
+            db.close();
             return [false, 'Order does not exist.'];
         }
         if(order_record.delivery_boy == null){
+            db.close();
             return [false, 'Cannot complete an order if no delivery person is assigned.'];
         }
 
         var user_record = await client.collection('User').findOne({_id: ObjectId(user_id)}).catch((error) => console.log(error));
 
         if(user_record == null){
+            db.close();
             return [false, 'User does not exist.'];
         }
         if(!user_record.loggedIn){
+            db.close();
             return [false, 'Orderer must be logged in to complete a transaction.'];
         }
         if(user_record.balance < order_record.cost){
+            db.close();
             return [false, 'User does not have enough funds.'];
         }
         if(order_record.creator != user_record.username){
+            db.close();
             return [false, 'User did not create the order.'];
         }
         var delivery_record = await client.collection('User').findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
 
         if(delivery_record == null){
+            db.close();
             return [false, 'User does not exist.'];
         }
         if(!delivery_record.loggedIn){
-            await detachOrderFromDelivery(order_record, client);
             db.close();
-            return [false, 'Delivery user is flagged. Order has been detached.'];
+            return [false, 'Delivery user has to bel logged in to complete order.'];
         }
         if(order_record.delivery_boy != delivery_record.username){
+            db.close();
             return [false, 'Delivery user does not exist.'];
         }
 
-        // Check transaction is correct
+        // Check if transaction is correct
         checkCorruptUser = await checkIfCorrupt('payment', client, user_record, order_record.cost);
         if(!checkCorruptUser[0]){
             db.close();
             return checkCorruptUser;
         }
+        // If delivery person is corrupt
         checkCorruptDelivery = await checkIfCorrupt('payment', client, delivery_record, order_record.cost);
         if(!checkCorruptDelivery[0]){
+            await detachOrderFromDelivery(order_record, client);
             db.close();
             return checkCorruptDelivery;
         }
@@ -586,12 +661,14 @@ module.exports = {
 
         var delivery_record = await client.collection('User').findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
         if(delivery_record == null){
+            db.close();
             return [false, 'No delivery user exists.'];
         }
 
         var username = delivery_record.username;
         var close_orders_array = await client.collection('Closed_Orders').find({payee: username}).toArray();
         if(close_orders_array.length == 0){
+            db.close();
             return [false, 'No ratings for this user.'];
         }
 
@@ -639,9 +716,11 @@ module.exports = {
         var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id)}).catch((error) => console.log(error));
         
         if(user_record == null){
+            db.close();
             return [false, 'User does not exist.'];
         }
         if(!user_record.flagged){
+            db.close();
             return [false, 'User not flagged.'];
         }
 
