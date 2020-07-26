@@ -50,7 +50,7 @@ app.post('/createUser', function (req, res) {
         return;
     }
     if (cred_checker.phoneStrength(req.body.phone_number) || req.body.phone_number == null || req.body.phone_number == ""){
-        res.send([false, "Please enter an appropriate phone number."][false,);
+        res.send([false, "Please enter an appropriate phone number."]);
         return;
     }
     
@@ -138,31 +138,31 @@ app.get('/getOrderDelivery', function(req, res){
 
 app.post('/createOrder', function (req, res) {
     if (req.body.beverage == null || req.body.beverage == ""){
-        res.send("Please fill in the beverage.");
+        res.send([false, "Please fill in the beverage."]);
         return;
     }
     if (req.body.size == null || req.body.size == ""){
-        res.send("Please fill in the size.");
+        res.send([false, "Please fill in the size."]);
         return;
     }
     if (req.body.restaurant == null || req.body.restaurant == ""){
-        res.send("Please enter the restaurant.");
+        res.send([false, "Please enter the restaurant."]);
         return;
     }
     if (req.body.library == null || req.body.library == ""){
-        res.send("Please enter the library you are in.");
+        res.send([false, "Please enter the library you are in."]);
         return;
     }
     if (req.body.floor == null || req.body.floor == ""){
-        res.send("Please enter the floor you are on.");
+        res.send([false,"Please enter the floor you are on."]);
         return;
     }
     if (req.body.segment == null || req.body.segment == ""){
-        res.send("Please enter the floor you are on.");
+        res.send([false,"Please enter the floor you are on."]);
         return;
     }
     if (req.body.cost == null || req.body.cost == "" || req.body.cost < 0){
-        res.send("Please enter the cost.");
+        res.send([false,"Please enter the cost."]);
         return;
     }
     
@@ -181,31 +181,31 @@ app.post('/createOrder', function (req, res) {
 
 app.post('/updateOrder', function(req, res){
     if (req.body.beverage == null || req.body.beverage == ""){
-        res.send("Please fill in the beverage.");
+        res.send([false, "Please fill in the beverage."]);
         return;
     }
     if (req.body.size == null || req.body.size == ""){
-        res.send("Please fill in the size.");
+        res.send([false, "Please fill in the size."]);
         return;
     }
     if (req.body.restaurant == null || req.body.restaurant == ""){
-        res.send("Please enter the restaurant.");
+        res.send([false, "Please enter the restaurant."]);
         return;
     }
     if (req.body.library == null || req.body.library == ""){
-        res.send("Please enter the library you are in.");
+        res.send([false, "Please enter the library you are in."]);
         return;
     }
     if (req.body.floor == null || req.body.floor == ""){
-        res.send("Please enter the floor you are on.");
+        res.send([false, "Please enter the floor you are on."]);
         return;
     }
     if (req.body.segment == null || req.body.segment == ""){
-        res.send("Please enter the floor you are on.");
+        res.send([false, "Please enter the floor you are on."]);
         return;
     }
     if (req.body.cost == null || req.body.cost == "" || req.body.cost < 0){
-        res.send("Please enter the cost.");
+        res.send([false, "Please enter the cost."]);
         return;
     }
 
