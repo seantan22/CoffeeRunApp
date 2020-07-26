@@ -28,7 +28,11 @@ async function checkIfCorrupt(type, client, user_record, funds){
 
     // Get last transaction deposit OR withdraw OR payment
     var transaction_history = await client.collection("Transaction").find({$or: [{username: user_record.username}, {payer_name: user_record.username}, {payee_name: user_record.username}]}).sort({$natural: -1}).limit(1).toArray();    
-    
+
+    if(transaction_history.length == 0) {
+        return [true, 0];
+    }
+
     if(transaction_history[0].flagged){
         return [false, 'Last transaction was flagged. Please contact us.'];
     }
@@ -340,7 +344,7 @@ module.exports = {
             return [false, 'User must be logged in to create order.']
         }
 
-        // Check if user is corrput
+        // Check if user is corrupt
         checkCorruptUser = await checkIfCorrupt('order creation', client, record, cost);
         if(!checkCorruptUser[0]){
             db.close();
@@ -729,7 +733,12 @@ module.exports = {
         
         // Get last updated, clean transaction.
         var transaction_history = await client.collection("Transaction").find({$or: [{username: user_record.username}, {payer_name: user_record.username}, {payee_name: user_record.username}]}).sort({$natural: -1}).limit(1).toArray();    
-        var previous_balance = getPreviousValue(transaction_history, user_record);
+        
+        var previous_balance = 0;
+
+        if (transaction_history.length != 0) {
+            previous_balance = getPreviousValue(transaction_history, user_record);
+        }
 
         let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: false, balance: previous_balance, flagged: false}};
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
