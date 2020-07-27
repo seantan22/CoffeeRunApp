@@ -31,8 +31,8 @@ Important considerations:
 | ------------- | ------------- | ------------- |
 | Get a user.  | `_id` | `User` Object  |
 
-| Errors  |
-| ------------- |
+| Error  | Message |
+| ------------- | ------------- |
 | Please input correct password. |
 | Have to be logged in to get user information. |
 
@@ -58,10 +58,32 @@ Important considerations:
 ## POST
 
 `/createUser`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Create a new user account.  | `username`, `password`, `email`, `phone_numb` | string 'Successfuly added.'  |
+
+| Errors  |
+| ------------- |
+| Please fill in the username. |
+| Please enter an appropriate password. |
+| Please enter an appropriate email. |
+| Please enter an appropriate phone number. |
 
 ------------------------------------------------------------
 
 `/updateUser`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Update a user's account.  | `id`, `username`, `password`, `email`, `phone_numb`, `balance` | string 'Successfully updated credentials.  |
+
+| Errors  |
+| ------------- |
+| Incorrect credentials. |
+| You have to be logged in to change credentials. |
+| New username is already taken. |
+| New email is already taken. |
+| New phone number is already taken. |
+**TODO: Error 'New password is already taken' is unnecessary. Passwords don't have to be unique.**
 
 ------------------------------------------------------------
 
