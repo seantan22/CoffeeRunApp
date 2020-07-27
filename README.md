@@ -24,26 +24,27 @@ Important considerations:
 | balance  | float  | The amount (in $CAD) in the user's account.  |
 | flagged  | boolean  | True, if the user's account has been flagged for suspicious activity; False, otherwise.  |
 
-## GET
+------------------------------------------------------------
+------------------------------------------------------------
 
-`/getUser`
+### GET `/getUser`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get a user.  | `_id` | `User` Object  |
 
-| Error  | Message |
-| ------------- | ------------- |
+| Errors  |
+| ------------- |
 | Please input correct password. |
 | Have to be logged in to get user information. |
 
 ------------------------------------------------------------
 
-`/getUsers`
+### GET `/getUsers`
 **TODO**
 
 ------------------------------------------------------------
 
-`/getRating`
+### GET `/getRating`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get the overall delivery rating of a person.  | `delivery_id` | int `score`  |
@@ -54,10 +55,9 @@ Important considerations:
 | No ratings for this user. |
 
 ------------------------------------------------------------
+------------------------------------------------------------
 
-## POST
-
-`/createUser`
+### POST `/createUser`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Create a new user account.  | `username`, `password`, `email`, `phone_numb` | string 'Successfuly added.'  |
@@ -71,10 +71,10 @@ Important considerations:
 
 ------------------------------------------------------------
 
-`/updateUser`
+### POST `/updateUser`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
-| Update a user's account.  | `id`, `username`, `password`, `email`, `phone_numb`, `balance` | string 'Successfully updated credentials.  |
+| Update a user's account.  | `id`, `username`, `password`, `email`, `phone_numb`, `balance` | string 'Successfully updated credentials.' |
 
 | Errors  |
 | ------------- |
@@ -87,7 +87,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-`/login`
+### POST `/login`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Login to a user's account.  | `username`, `password` | string `_id`  |
@@ -101,7 +101,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-`/logout`
+### POST `/logout`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Logout of a user's account.  | `_id` | string 'Successfully logged out.'  |
@@ -113,7 +113,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-`/deleteUser`
+### POST `/deleteUser`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Delete a user's account.  | `_id` | string 'Successfully deleted.'  |
