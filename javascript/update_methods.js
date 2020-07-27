@@ -2,8 +2,8 @@ var db = require('./backend_mongodb');
 
 module.exports = {
 
-    updateUser: async function(res, id, username, password, email, phone_number, balance){
-        response = await db.updateUser(id, username, password, email, phone_number, balance);
+    updateUser: async function(res, id, username, password, balance){
+        response = await db.updateUser(id, username, password, balance);
         res.send(response);
         return;
     },

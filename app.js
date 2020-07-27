@@ -82,23 +82,13 @@ app.post('/updateUser', function(req, res){
         res.send([false, "Please enter an appropriate password."]);
         return;
     }
-    if (cred_checker.emailStrength(req.body.email) || req.body.email == null || req.body.email == ""){
-        res.send([false, "Please enter an appropriate email."]);
-        return;
-    }
-    if (cred_checker.phoneStrength(req.body.phone_number) || req.body.phone_number == null || req.body.phone_number == ""){
-        res.send([false,"Please enter an appropriate phone number."]);
-        return;
-    }
 
     var user_id = req.body.user_id;
     var username = req.body.username;
     var password = req.body.password;
-    var email = req.body.email;
-    var phone_numb = req.body.phone_number;
     var balance = req.body.balance;
 
-    update_methods.updateUser(res, user_id, username, password, email, phone_numb, balance);
+    update_methods.updateUser(res, user_id, username, password, balance);
     return;
 })
 

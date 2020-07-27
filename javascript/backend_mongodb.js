@@ -11,7 +11,7 @@ function sendSMS(phone_number, verification_code){
     // Phone number format - no '-' allowed.
     number = '+1' + phone_number.split('-').join('');
     console.log(number);
-    c.Messages.send({text: 'CoffeeRun: Your verification number is: ' + verification_code, phones: number});
+    c.Messages.send({text: 'Welcome to CoffeeRun! Your verification number is: ' + verification_code, phones: number});
     return [true, 'Verification code send.'];
 }
 
@@ -202,7 +202,7 @@ module.exports = {
 
         return [true, 'Verification code sent to: ' + number + '. Please verify.'];      
     },
-    updateUser: async function(id, username, password, email, number, balance){
+    updateUser: async function(id, username, password, balance){
 
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -237,26 +237,8 @@ module.exports = {
                 return [false, 'New username is already taken.'];
             }
         }
-        if(record.password != password){
-            if (await (checkIfInputIsUnique('password', password))){
-                db.close();
-                return [false, 'New password is already taken.'];
-            }
-        }
-        if(record.email != email){
-            if (await (checkIfInputIsUnique('email', email))){
-                db.close();
-                return [false, 'New email is already taken.'];
-            }
-        }
-        if(record.phone_number != number){
-            if (await (checkIfInputIsUnique('phone_number', number))){
-                db.close();
-                return [false, 'New phone number is already taken.'];
-            }
-        }
 
-        let personInfo = {$set: {username: username, password: password, email: email, phone_number: number, loggedIn: record.loggedIn, balance: balance, flagged: record.flagged}};
+        let personInfo = {$set: {username: username, password: password, loggedIn: record.loggedIn, balance: balance, flagged: record.flagged}};
         var response = await client.collection("User").updateOne({_id: ObjectId(id)}, personInfo).catch((error) => console.log(error)); 
         db.close();
     
