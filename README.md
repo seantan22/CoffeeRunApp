@@ -29,6 +29,7 @@ Important considerations:
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get a user  | `user_id` | `User` Object  |
+
 | Error  | Message |
 | ------------- | ------------- |
 | Incorrect password  | Please input correct password. |
