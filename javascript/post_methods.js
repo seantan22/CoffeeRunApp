@@ -34,8 +34,8 @@ module.exports = {
         res.send(response);
         return;
     },
-    createOrder: async function(res, beverage, size, restaurant, library, floor, segment, cost, id){
-        response = await db.createOrder(beverage, size, restaurant, library, floor, segment, cost, id);
+    createOrder: async function(res, beverage, size, details, restaurant, library, floor, segment, cost, id){
+        response = await db.createOrder(beverage, size, details, restaurant, library, floor, segment, cost, id);
         res.send(response);
         return response;
     },
