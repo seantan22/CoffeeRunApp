@@ -9,7 +9,7 @@ const uri = "mongodb+srv://Dwarff19:" + cred.getPass() + "@coffeerun.y795l.azure
 function sendSMS(phone_number, verification_code){
     var c = new TMClient('alexgruenwald', 'fzRW0tCWGeQHpenejnz8dt5mBMcjab');
     // Phone number format - no '-' allowed.
-    number = '+1' + phone_number.split('-').join('');
+    number = phone_number.split('-').join('');
     console.log(number);
     c.Messages.send({text: 'CoffeeRun: Your verification number is: ' + verification_code, phones: number});
     return [true, 'Verification code send.'];
