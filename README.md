@@ -83,7 +83,6 @@ Important considerations:
 | New username is already taken. |
 | New email is already taken. |
 | New phone number is already taken. |
-**TODO: Error 'New password is already taken' is unnecessary. Passwords don't have to be unique.**
 
 ------------------------------------------------------------
 
@@ -124,7 +123,6 @@ Important considerations:
 | You have to be logged in to delete your account. |
 | You have to be logged in to delete your account. |
 | You cannot delete your account with a pending order. |
-**TODO: What if you delete an account with a non-zero balance?** 
 
 ------------------------------------------------------------
 
