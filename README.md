@@ -29,6 +29,13 @@ Important considerations:
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get a user  | `user_id` | `User` Object  |
+| Error  | Message |
+| ------------- | ------------- |
+| Incorrect password  | Please input correct password. |
+| Not Logged In  | Have to be logged in to get user information. |
 
 `/getRating`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Get the overall delivery rating of a person  | `delivery_id` | int `score`  |
 
