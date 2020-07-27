@@ -7,8 +7,8 @@ module.exports = {
         res.send(response);
         return;
     },
-    updateOrder: async function(res, order_id, username, beverage, size, details, restaurant, library, floor, segment, cost){
-        response = await db.updateOrder(order_id, username, beverage, size, details, restaurant, library, floor, segment, cost);
+    updateOrder: async function(res, order_id, username, beverage, size, details, restaurant, library, floor, segment, cost, status){
+        response = await db.updateOrder(order_id, username, beverage, size, details, restaurant, library, floor, segment, cost, status);
         res.send(response);
         return;
     },

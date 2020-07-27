@@ -10,7 +10,6 @@ function sendSMS(phone_number, verification_code){
     var c = new TMClient('alexgruenwald', 'fzRW0tCWGeQHpenejnz8dt5mBMcjab');
     // Phone number format - no '-' allowed.
     number = '+1' + phone_number.split('-').join('');
-    console.log(number);
     c.Messages.send({text: 'Welcome to CoffeeRun! Your verification number is: ' + verification_code, phones: number});
     return [true, 'Verification code send.'];
 }
@@ -371,7 +370,7 @@ module.exports = {
 
     // ************************************** ORDER ***************************************
 
-    createOrder: async function(beverage, size, details, restaurant, library, floor, segment, cost, id){
+    createOrder: async function(beverage, size, details, restaurant, library, floor, segment, cost, status, id){
 
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -400,7 +399,7 @@ module.exports = {
             return [false, 'Not enough funds.'];
         }
 
-        // Make sure user is not delivery if they make order.
+        // Make sure user is not delivering if they make an order.
         var num_attached_delivery = await client.collection("Open_Orders").countDocuments({delivery_boy: record.username}).catch((error) => console.log(error));
 
         if(num_attached_delivery != 0){
@@ -416,14 +415,25 @@ module.exports = {
             return [false, 'You already have a pending order.'];
         }
 
-        let personInfo = {time: new Date().toJSON(), beverage: beverage, size: size, details: details, restaurant: restaurant, library: library, floor: floor, segment: segment, cost: cost, creator: record.username, delivery_boy: null};
+        let personInfo = {  time: new Date().toJSON(), 
+                            beverage: beverage, 
+                            size: size, 
+                            details: details, 
+                            restaurant: restaurant, 
+                            library: library, 
+                            floor: floor, 
+                            segment: segment, 
+                            cost: cost, 
+                            status: status,
+                            creator: record.username, 
+                            delivery_boy: null  };
         var response = await client.collection("Open_Orders").insertOne(personInfo);
 
         db.close();
 
         return [true, response.ops[0]._id];
     },
-    updateOrder: async function(id, username, beverage, size, details, restaurant, library, floor, segment, cost){
+    updateOrder: async function(id, username, beverage, size, details, restaurant, library, floor, segment, cost, status){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
@@ -452,6 +462,7 @@ module.exports = {
                                     floor: floor, 
                                     segment: segment, 
                                     cost: cost, 
+                                    status: status,
                                     creator: record.creator, 
                                     delivery_boy: record.delivery_boy   }};
 
