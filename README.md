@@ -9,7 +9,26 @@ Important considerations:
 
 # API Endpoints
 
-`/getUser`
+`User` Object
 
-/getRating
+| Key  | Value Type | Value Description |
+| ------------- | ------------- | ------------- |
+| _id  | string  | Content Cell  |
+| username  | string  | Content Cell  |
+| password  | string  | Content Cell  |
+| email  | string  | Content Cell  |
+| phone_number  | string  | Content Cell  |
+| loggedIn  | boolean  | Content Cell  |
+| balance  | float  | Content Cell  |
+| flagged  | boolean  | Content Cell  |
+
+
+GET
+
+`/getUser`
+Usage: Get a user
+Parameters: `user_id`
+Returns: `User` Object
+
+`/getRating`
 
