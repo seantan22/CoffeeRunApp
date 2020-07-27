@@ -659,6 +659,11 @@ module.exports = {
             return [false, 'Cannot complete an order if no delivery person is assigned.'];
         }
 
+        if(order_record.status !== "Delivered"){
+            db.close();
+            return [false, 'Please update the order status to "Delivered".'];
+        }
+
         var user_record = await client.collection('User').findOne({_id: ObjectId(user_id)}).catch((error) => console.log(error));
 
         if(user_record == null){
@@ -729,6 +734,7 @@ module.exports = {
         
         return [true, 'Successfully completed transaction.'];
     },
+
     getDeliveryRating: async function(delivery_id){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);

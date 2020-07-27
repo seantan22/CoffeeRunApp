@@ -167,10 +167,6 @@ app.post('/createOrder', function (req, res) {
         res.send([false,"Please enter the cost."]);
         return;
     }
-    if (req.body.status == null || req.body.status == ""){
-        res.send([false,"Please enter the status."]);
-        return;
-    }
     
     var beverage = req.body.beverage;
     var size = req.body.size;
@@ -180,7 +176,7 @@ app.post('/createOrder', function (req, res) {
     var floor = req.body.floor;
     var segment = req.body.segment;
     var cost = req.body.cost;
-    var status = req.body.status;
+    var status = "Awaiting Runner";
     var user_id = req.body.user_id;
         
     post_methods.createOrder(res, beverage, size, details, restaurant, library, floor, segment, cost, status, user_id);
