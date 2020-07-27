@@ -13,22 +13,22 @@ Important considerations:
 
 | Key  | Value Type | Value Description |
 | ------------- | ------------- | ------------- |
-| _id  | string  | The user's id  |
-| username  | string  | The user's username  |
-| password  | string  | The user's password  |
-| email  | string  | The user's email  |
-| phone_number  | string  | The user's phone number  |
-| loggedIn  | boolean  | True, if the user is logged in; False, otherwise  |
-| balance  | float  | The amount (in $CAD) in the user's account  |
-| flagged  | boolean  | True, if the user's account has been flagged for suspicious activity  |
+| _id  | string  | The user's id.  |
+| username  | string  | The user's username.  |
+| password  | string  | The user's password.  |
+| email  | string  | The user's email.  |
+| phone_number  | string  | The user's phone number.  |
+| loggedIn  | boolean  | True, if the user is logged in; False, otherwise.  |
+| balance  | float  | The amount (in $CAD) in the user's account.  |
+| flagged  | boolean  | True, if the user's account has been flagged for suspicious activity; False, otherwise.  |
 
 
 ## GET
 
 `/getUser`
-Usage: Get a user
-Parameters: `user_id`
-Returns: `User` Object
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Get a user  | `user_id` | `User` Object  |
 
 `/getRating`
 
