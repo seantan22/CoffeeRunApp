@@ -9,21 +9,21 @@ Important considerations:
 
 # API Endpoints
 
-`User` Object
+### User Object
 
 | Key  | Value Type | Value Description |
 | ------------- | ------------- | ------------- |
-| _id  | string  | Content Cell  |
-| username  | string  | Content Cell  |
-| password  | string  | Content Cell  |
-| email  | string  | Content Cell  |
-| phone_number  | string  | Content Cell  |
-| loggedIn  | boolean  | Content Cell  |
-| balance  | float  | Content Cell  |
-| flagged  | boolean  | Content Cell  |
+| _id  | string  | The user's id  |
+| username  | string  | The user's username  |
+| password  | string  | The user's password  |
+| email  | string  | The user's email  |
+| phone_number  | string  | The user's phone number  |
+| loggedIn  | boolean  | True, if the user is logged in; False, otherwise  |
+| balance  | float  | The amount (in $CAD) in the user's account  |
+| flagged  | boolean  | True, if the user's account has been flagged for suspicious activity  |
 
 
-GET
+## GET
 
 `/getUser`
 Usage: Get a user
