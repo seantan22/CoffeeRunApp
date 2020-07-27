@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 const TMClient = require('textmagic-rest-client');
+const bcrypt = require('bcrypt');
 const cred = require('./cred');
 const dbName = 'CoffeeRun';
 const uri = "mongodb+srv://Dwarff19:" + cred.getPass() + "@coffeerun.y795l.azure.mongodb.net/" + dbName + "?retryWrites=true&w=majority";
