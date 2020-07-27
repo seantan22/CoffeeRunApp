@@ -18,6 +18,14 @@ app.use(bodyParser.json());
 
 // **************************** USER *************************
 
+app.post('/verify', function(req, res){
+    var verification = req.body.verification_number;
+    var username = req.body.username;
+    var password = req.body.password;
+    post_methods.verifyUser(res, username, password, verification);
+    return;
+})
+
 app.get('/', function(req, res){
     res.send('SUCCESS');
     return;

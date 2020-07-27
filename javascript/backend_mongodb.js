@@ -1,8 +1,19 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
+const TMClient = require('textmagic-rest-client');
 const cred = require('./cred');
 const dbName = 'CoffeeRun';
 const uri = "mongodb+srv://Dwarff19:" + cred.getPass() + "@coffeerun.y795l.azure.mongodb.net/" + dbName + "?retryWrites=true&w=majority";
+
+// Upon login for the first time, send SMS message.
+function sendSMS(phone_number, verification_code){
+    var c = new TMClient('alexgruenwald', 'fzRW0tCWGeQHpenejnz8dt5mBMcjab');
+    // Phone number format - no '-' allowed.
+    number = '+1' + phone_number.split('-').join('');
+    console.log(number);
+    c.Messages.send({text: 'CoffeeRun: Your verification number is: ' + verification_code, phones: number});
+    return [true, 'Verification code send.'];
+}
 
 // Gets the previous VIABLE balance
 function getPreviousValue(transaction_history, user_record){
@@ -91,8 +102,12 @@ async function loginWithCred(username, password){
         db.close();
         return [false, 'Already loggged in.'];
     }
+    if(!record.verified){
+        db.close();
+        return [false, 'Please verify your account: ' + record.phone_number];
+    }
 
-    let updatedInfo = {$set: {username: record.username, password: record.password, email: record.email, phone_number: record.phone_number, loggedIn: true}};
+    let updatedInfo = {$set: {loggedIn: true}};
     // Update
     var response = await client.collection("User").updateOne({password: password}, updatedInfo).catch((error) => console.log(error)); 
     db.close();
@@ -126,6 +141,24 @@ async function logoutWithCred(id){
 
 module.exports = {
 
+    verifyUser: async function(username, password, verification_number){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        var record = await client.collection("User").findOne({password: password});
+
+        if(verification_number != record.verification_number){
+            sendSMS(record.phone_number, record.verification_number);
+            return [false, 'Wrong verification code. It has been recent.'];
+        }
+
+        let personInfo = {$set: {verified: true}}; // Update
+        var response = await client.collection("User").updateOne({_id: ObjectId(record._id)}, personInfo).catch((error) => console.log(error)); 
+        db.close();
+        
+        login_response = loginWithCred(username, password);
+        return login_response;
+    },
+
     // ************************************** USER ***************************************
 
     getUser: async function(id){
@@ -158,12 +191,16 @@ module.exports = {
         var starting_balance = 0;
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
+
+        verification_code = Math.floor(100000 + Math.random() * 999999);
             
-        let personInfo = {username: usrname, password: psword, email: mail, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false};
+        let personInfo = {username: usrname, password: psword, email: mail, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
         var response = await client.collection("User").insertOne(personInfo);
+
+        sendSMS(number, verification_code);
         db.close();
 
-        return [true, 'Successfully added.'];      
+        return [true, 'Verification code sent to: ' + number + '. Please verify.'];      
     },
     updateUser: async function(id, username, password, email, number, balance){
 
@@ -180,6 +217,17 @@ module.exports = {
         if(!record.loggedIn){
             db.close();
             return [false, 'You have to be logged in to change credentials.'];
+        }
+
+        var number_of_orders = await client.collection("Open_Orders").countDocuments({creator: record.username}).catch((error) => console.log(error));
+        if(number_of_orders >= 1){
+            db.close();
+            return [false, 'You cannot update your account with a pending order.'];
+        }
+        var number_of_deliveries = await client.collection("Open_Orders").countDocuments({delivery_boy: record.username}).catch((error) => console.log(error));
+        if(number_of_deliveries >= 1){
+            db.close();
+            return [false, 'You cannot update your account while delivering.'];
         }
 
         // Check if new info is unique
@@ -232,9 +280,16 @@ module.exports = {
 
         var number_of_orders = await client.collection("Open_Orders").countDocuments({creator: record.username}).catch((error) => console.log(error));
         
-        if(number_of_orders > 1){
+        if(number_of_orders >= 1){
             db.close();
             return [false, 'You cannot delete your account with a pending order.'];
+        }
+
+        var number_of_deliveries = await client.collection("Open_Orders").countDocuments({delivery_boy: record.username}).catch((error) => console.log(error));
+        
+        if(number_of_deliveries >= 1){
+            db.close();
+            return [false, 'You cannot delete your account while delivering.'];
         }
 
         var response = await client.collection("User").deleteOne({_id: ObjectId(id)}).catch((error) => console.log(error)); 
@@ -393,6 +448,10 @@ module.exports = {
         if(record.creator != username){
             db.close();
             return [false, 'Only user:'+username+ ' can update their order.'];
+        }
+        if(record.delivery_boy != null){
+            db.close();
+            return [false, 'Cannot update order while delivery in progress.']
         }
 
         let orderInfo = {$set: {time: record.time, beverage: beverage, size: size, restaurant: restaurant, library: library, floor: floor, segment: segment, cost: cost, creator: record.creator, delivery_boy: record.delivery_boy}};

@@ -43,5 +43,10 @@ module.exports = {
         response = await db.completeOrder(rating, order_id, user_id, delivery_id);
         res.send(response);
         return response;
+    },
+    verifyUser: async function(res, username, password, verification){
+        response = await db.verifyUser(username, password, verification);
+        res.send(response);
+        return response;
     }
 };
