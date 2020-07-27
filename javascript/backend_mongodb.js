@@ -163,7 +163,7 @@ module.exports = {
         var response = await client.collection("User").insertOne(personInfo);
         db.close();
 
-        return [true, 'Successfuly added.'];      
+        return [true, 'Successfully added.'];      
     },
     updateUser: async function(id, username, password, email, number, balance){
 
@@ -223,7 +223,7 @@ module.exports = {
         
         if(record == null){
             db.close();
-            return [false, 'Incorrect credentials'];
+            return [false, 'Incorrect credentials.'];
         }
         if(!record.loggedIn){
             db.close();
@@ -234,7 +234,7 @@ module.exports = {
         
         if(number_of_orders > 1){
             db.close();
-            return 'You cannot delete your account with a pending order.'
+            return [false, 'You cannot delete your account with a pending order.'];
         }
 
         var response = await client.collection("User").deleteOne({_id: ObjectId(id)}).catch((error) => console.log(error)); 
@@ -708,10 +708,10 @@ module.exports = {
         var loggedIn = await loginWithCred(username, password);
         return loggedIn;
     },
-    logout: async function(password){
+    logout: async function(id){
         // Is user logged in
-        var loggedIn = await logoutWithCred(password);
-        return loggedIn;
+        var loggedOut = await logoutWithCred(id);
+        return loggedOut;
     },
     // Only admin privilege
     cleanFlagged: async function(user_id){
