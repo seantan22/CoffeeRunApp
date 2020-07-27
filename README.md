@@ -11,7 +11,7 @@ Important considerations:
 
 # API Endpoints
 
-### User Object
+## User Object
 
 | Key  | Value Type | Value Description |
 | ------------- | ------------- | ------------- |
@@ -24,9 +24,7 @@ Important considerations:
 | balance  | float  | The amount (in $CAD) in the user's account.  |
 | flagged  | boolean  | True, if the user's account has been flagged for suspicious activity; False, otherwise.  |
 
-## User Endpoints
-
-### GET
+## GET
 
 `/getUser`
 | Usage  | Parameters | Returns |
@@ -43,6 +41,7 @@ Important considerations:
 `/getUsers`
 **TODO**
 
+------------------------------------------------------------
 
 `/getRating`
 | Usage  | Parameters | Returns |
@@ -54,10 +53,18 @@ Important considerations:
 | No delivery user exists. |
 | No ratings for this user. |
 
-### POST
+------------------------------------------------------------
+
+## POST
 
 `/createUser`
+
+------------------------------------------------------------
+
 `/updateUser`
+
+------------------------------------------------------------
+
 `/login`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
@@ -70,6 +77,8 @@ Important considerations:
 | Incorrect username. |
 | Already loggged in. |
 
+------------------------------------------------------------
+
 `/logout`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
@@ -79,6 +88,8 @@ Important considerations:
 | ------------- |
 | Incorrect credentials. |
 | Already loggged out. |
+
+------------------------------------------------------------
 
 `/deleteUser`
 | Usage  | Parameters | Returns |
@@ -93,6 +104,7 @@ Important considerations:
 | You cannot delete your account with a pending order. |
 **TODO: What if you delete an account with a non-zero balance?** 
 
+------------------------------------------------------------
 
 
 
