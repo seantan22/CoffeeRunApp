@@ -7,6 +7,8 @@ Important considerations:
 - When using mongodb, ensure your cluster has Network Access set to ALL users.
 
 
+
+
 # API Endpoints
 
 ### User Object
@@ -22,21 +24,73 @@ Important considerations:
 | balance  | float  | The amount (in $CAD) in the user's account.  |
 | flagged  | boolean  | True, if the user's account has been flagged for suspicious activity; False, otherwise.  |
 
+## User Endpoints
 
-## GET
+### GET
 
 `/getUser`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
-| Get a user  | `user_id` | `User` Object  |
+| Get a user.  | `_id` | `User` Object  |
 
-| Error  | Message |
-| ------------- | ------------- |
-| Incorrect password  | Please input correct password. |
-| Not Logged In  | Have to be logged in to get user information. |
+| Errors  |
+| ------------- |
+| Please input correct password. |
+| Have to be logged in to get user information. |
+
+`/getUsers`
+**TODO**
+
 
 `/getRating`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
-| Get the overall delivery rating of a person  | `delivery_id` | int `score`  |
+| Get the overall delivery rating of a person.  | `delivery_id` | int `score`  |
+
+| Errors  |
+| ------------- |
+| No delivery user exists. |
+| No ratings for this user. |
+
+### POST
+
+`/createUser`
+`/updateUser`
+`/login`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Login to a user's account.  | `username`, `password` | string `_id`  |
+
+| Errors  |
+| ------------- |
+| Incorrect credentials. |
+| This account has been flagged. |
+| Incorrect username. |
+| Already loggged in. |
+
+`/logout`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Logout of a user's account.  | `_id` | string 'Successfully logged out.'  |
+
+| Errors  |
+| ------------- |
+| Incorrect credentials. |
+| Already loggged out. |
+
+`/deleteUser`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Delete a user's account.  | `_id` | string 'Successfully deleted.'  |
+
+| Errors  |
+| ------------- |
+| Incorrect credentials. |
+| You have to be logged in to delete your account. |
+| You have to be logged in to delete your account. |
+| You cannot delete your account with a pending order. |
+**TODO: What if you delete an account with a non-zero balance?** 
+
+
+
 
