@@ -38,6 +38,8 @@ Important considerations:
 | Please input correct password. |
 | Have to be logged in to get user information. |
 
+------------------------------------------------------------
+
 `/getUsers`
 **TODO**
 
