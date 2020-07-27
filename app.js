@@ -143,6 +143,10 @@ app.post('/createOrder', function (req, res) {
         res.send([false, "Please fill in the size."]);
         return;
     }
+    if (req.body.details == null || req.body.details == ""){
+        res.send([false, "Please fill in details or indicate N/A if none."]);
+        return;
+    }
     if (req.body.restaurant == null || req.body.restaurant == ""){
         res.send([false, "Please enter the restaurant."]);
         return;
@@ -166,6 +170,7 @@ app.post('/createOrder', function (req, res) {
     
     var beverage = req.body.beverage;
     var size = req.body.size;
+    var details = req.body.details;
     var restaurant = req.body.restaurant;
     var library = req.body.library;
     var floor = req.body.floor;
@@ -173,7 +178,7 @@ app.post('/createOrder', function (req, res) {
     var cost = req.body.cost;
     var user_id = req.body.user_id;
         
-    post_methods.createOrder(res, beverage, size, restaurant, library, floor, segment, cost, user_id);
+    post_methods.createOrder(res, beverage, size, details, restaurant, library, floor, segment, cost, user_id);
     return;
 })
 
@@ -184,6 +189,10 @@ app.post('/updateOrder', function(req, res){
     }
     if (req.body.size == null || req.body.size == ""){
         res.send([false, "Please fill in the size."]);
+        return;
+    }
+    if (req.body.details == null || req.body.details == ""){
+        res.send([false, "Please fill in details or indicate N/A if none."]);
         return;
     }
     if (req.body.restaurant == null || req.body.restaurant == ""){
@@ -209,6 +218,7 @@ app.post('/updateOrder', function(req, res){
 
     var beverage = req.body.beverage;
     var size = req.body.size;
+    var details = req.body.details;
     var restaurant = req.body.restaurant;
     var library = req.body.library;
     var floor = req.body.floor;
@@ -217,7 +227,7 @@ app.post('/updateOrder', function(req, res){
     var order_id = req.body.order_id;
     var username = req.body.username;
 
-    update_methods.updateOrder(res, order_id, username, beverage, size, restaurant, library, floor, segment, cost);
+    update_methods.updateOrder(res, order_id, username, beverage, size, details, restaurant, library, floor, segment, cost);
     return;
 })
 

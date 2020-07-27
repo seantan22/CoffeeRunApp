@@ -351,7 +351,14 @@ module.exports = {
 
         var final_balance = parseFloat(checkCorrupt[1]) + parseFloat(funds);
 
-        let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: user_record.loggedIn, balance: parseFloat(final_balance), flagged: user_record.flagged}};
+        let personInfo = {$set: {   username: user_record.username, 
+                                    password: user_record.password, 
+                                    email: user_record.email, 
+                                    phone_number: user_record.phone_number, 
+                                    loggedIn: user_record.loggedIn, 
+                                    balance: parseFloat(final_balance), 
+                                    flagged: user_record.flagged    }};
+
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
@@ -364,7 +371,7 @@ module.exports = {
 
     // ************************************** ORDER ***************************************
 
-    createOrder: async function(beverage, size, restaurant, library, floor, segment, cost, id){
+    createOrder: async function(beverage, size, details, restaurant, library, floor, segment, cost, id){
 
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -398,7 +405,7 @@ module.exports = {
 
         if(num_attached_delivery != 0){
             db.close();
-            return [false, 'You are already delivery orders. Please finish or cancel.'];
+            return [false, 'You are already delivering orders. Please finish or cancel.'];
         }
 
         var username = record.username;
@@ -409,14 +416,14 @@ module.exports = {
             return [false, 'You already have a pending order.'];
         }
 
-        let personInfo = {time: new Date().toJSON(), beverage: beverage, size: size, restaurant: restaurant, library: library, floor: floor, segment: segment, cost: cost, creator: record.username, delivery_boy: null};
+        let personInfo = {time: new Date().toJSON(), beverage: beverage, size: size, details: details, restaurant: restaurant, library: library, floor: floor, segment: segment, cost: cost, creator: record.username, delivery_boy: null};
         var response = await client.collection("Open_Orders").insertOne(personInfo);
 
         db.close();
 
         return [true, response.ops[0]._id];
     },
-    updateOrder: async function(id, username, beverage, size, restaurant, library, floor, segment, cost){
+    updateOrder: async function(id, username, beverage, size, details, restaurant, library, floor, segment, cost){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
@@ -436,7 +443,18 @@ module.exports = {
             return [false, 'Cannot update order while delivery in progress.']
         }
 
-        let orderInfo = {$set: {time: record.time, beverage: beverage, size: size, restaurant: restaurant, library: library, floor: floor, segment: segment, cost: cost, creator: record.creator, delivery_boy: record.delivery_boy}};
+        let orderInfo = {$set: {    time: record.time, 
+                                    beverage: beverage, 
+                                    size: size, 
+                                    details: details, 
+                                    restaurant: restaurant, 
+                                    library: library, 
+                                    floor: floor, 
+                                    segment: segment, 
+                                    cost: cost, 
+                                    creator: record.creator, 
+                                    delivery_boy: record.delivery_boy   }};
+
         var response = await client.collection("Open_Orders").updateOne({_id: ObjectId(id)}, orderInfo).catch((error) => console.log(error));
 
         db.close();
