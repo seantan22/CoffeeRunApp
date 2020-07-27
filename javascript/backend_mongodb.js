@@ -10,7 +10,7 @@ function sendSMS(phone_number, verification_code){
     var c = new TMClient('alexgruenwald', 'fzRW0tCWGeQHpenejnz8dt5mBMcjab');
     // Phone number format - no '-' allowed.
     number = '+1' + phone_number.split('-').join('');
-    c.Messages.send({text: 'Welcome to CoffeeRun! Your verification number is: ' + verification_code, phones: number});
+    c.Messages.send({text: 'Welcome to CoffeeRun! Your verification code is: ' + verification_code, phones: number});
     return [true, 'Verification code send.'];
 }
 
@@ -147,7 +147,7 @@ module.exports = {
 
         if(verification_number != record.verification_number){
             sendSMS(record.phone_number, record.verification_number);
-            return [false, 'Wrong verification code. It has been recent.'];
+            return [false, 'Incorrect verification code. It has been resent.'];
         }
 
         let personInfo = {$set: {verified: true}}; // Update

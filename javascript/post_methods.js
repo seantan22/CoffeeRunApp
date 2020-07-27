@@ -17,10 +17,6 @@ module.exports = {
             res.send([false, 'Username is already taken.']);
             return;
         }
-        if (await (db.checkIfUnique(2, password))){
-            res.send([false, 'Password is already taken.']);
-            return;
-        }
         if (await (db.checkIfUnique(3, email))){
             res.send([false, 'Email is already taken.']);
             return;

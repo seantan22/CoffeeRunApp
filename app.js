@@ -238,6 +238,17 @@ app.post('/updateOrder', function(req, res){
 })
 
 app.post('/attachDelivery', function(req, res){
+
+    if(req.body.order_id == null || req.body.order_id == "") {
+        res.send([false, "Please enter the order_id."]);
+        return;
+    }
+
+    if(req.body.delivery_id == null || req.body.delivery_id == "") {
+        res.send([false, "Please enter the delivery_id."])
+        return;
+    }
+
     var order_id = req.body.order_id;
     var delivery_id = req.body.delivery_id;
 
@@ -278,6 +289,19 @@ app.post('/deposit', function(req, res){
 })
 
 app.post('/completeOrder', function(req, res){
+
+    if(req.body.user_id == null || req.body.user_id == ""){
+        res.send([false, "Please enter user_id."]);
+        return;
+    }
+    if(req.body.delivery_id == null || req.body.delivery_id == ""){
+        res.send([false, "Please enter delivery_id."]);
+        return;
+    }
+    if(req.body.order_id == null || req.body.order_id == ""){
+        res.send([false, "Please enter order_id."]);
+        return;
+    }
 
     var user_id = req.body.user_id;
     var delivery_id = req.body.delivery_id;
