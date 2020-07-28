@@ -44,5 +44,10 @@ module.exports = {
         response = await db.verifyUser(username, password, verification);
         res.send(response);
         return response;
+    },
+    makeReview: async function(res, review, username){
+        response = await db.makeReview(username, review);
+        res.send(response);
+        return;
     }
 };

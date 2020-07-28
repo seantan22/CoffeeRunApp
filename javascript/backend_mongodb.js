@@ -84,7 +84,7 @@ async function loginWithCred(username, password){
     var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
     var client = db.db(dbName);
     
-    var record = await client.collection("User").findOne({ password: password }).catch((error) => console.log(error));
+    var record = await client.collection("User").findOne({ username: username }).catch((error) => console.log(error));
     
     if(record == null){
         db.close();
@@ -94,17 +94,17 @@ async function loginWithCred(username, password){
         db.close();
         return [false, 'This account has been flagged.'];
     }
-    if(username != record.username){
-        db.close();
-        return [false, 'Incorrect username.'];
-    }
     if(record.loggedIn){
         db.close();
         return [false, 'Already loggged in.'];
     }
-    if(!record.verified){
+    // if(!record.verified){
+    //     db.close();
+    //     return [false, 'Please verify your account: ' + record.phone_number];
+    // }
+    if(!(await bcrypt.compare(password, record.password))){
         db.close();
-        return [false, 'Please verify your account: ' + record.phone_number];
+        return [false, 'Password is incorrect.'];
     }
 
     let updatedInfo = {$set: {loggedIn: true}};
@@ -141,6 +141,15 @@ async function logoutWithCred(id){
 
 module.exports = {
 
+    makeReview: async function(username, review){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        let reviewInfo = {time: new Date().toJSON(), username: username, review: review};
+        var response = await client.collection("Reviews").insertOne(reviewInfo);
+        db.close();
+        return [true, 'Thank you for your review.'];
+
+    },
     verifyUser: async function(username, password, verification_number){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -187,17 +196,22 @@ module.exports = {
         db.close();
         return record;
     },
-    addUser: async function(usrname, psword, mail, number){
+    addUser: async function(username, password, mail, number){
         var starting_balance = 0;
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         verification_code = Math.floor(100000 + Math.random() * 999999);
             
-        let personInfo = {username: usrname, password: psword, email: mail, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
-        var response = await client.collection("User").insertOne(personInfo);
+        // Encrypt password.
+        var saltRounds = 9;
 
-        sendSMS(number, verification_code);
+        let hashPassword = await bcrypt.hash(password, await bcrypt.genSalt(saltRounds));
+
+        let personInfo = {username: username, password: hashPassword, email: mail, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
+        var response = await client.collection("User").insertOne(personInfo);
+            
+        //sendSMS(number, verification_code);
         db.close();
 
         return [true, 'Verification code sent to: ' + number + '. Please verify.'];      
@@ -313,7 +327,7 @@ module.exports = {
         
         var final_balance = parseFloat(checkCorrupt[1]) - parseFloat(funds);
 
-        let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: user_record.loggedIn, balance: parseFloat(final_balance), flagged: user_record.flagged}};
+        let personInfo = {$set: {balance: parseFloat(final_balance)}};
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
@@ -351,13 +365,7 @@ module.exports = {
 
         var final_balance = parseFloat(checkCorrupt[1]) + parseFloat(funds);
 
-        let personInfo = {$set: {   username: user_record.username, 
-                                    password: user_record.password, 
-                                    email: user_record.email, 
-                                    phone_number: user_record.phone_number, 
-                                    loggedIn: user_record.loggedIn, 
-                                    balance: parseFloat(final_balance), 
-                                    flagged: user_record.flagged    }};
+        let personInfo = {$set: {balance: parseFloat(final_balance)}};
 
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
@@ -454,8 +462,7 @@ module.exports = {
             return [false, 'Cannot update order while delivery in progress.']
         }
 
-        let orderInfo = {$set: {    time: record.time, 
-                                    beverage: beverage, 
+        let orderInfo = {$set: {    beverage: beverage, 
                                     size: size, 
                                     details: details, 
                                     restaurant: restaurant, 
@@ -464,7 +471,6 @@ module.exports = {
                                     segment: segment, 
                                     cost: cost, 
                                     status: status,
-                                    creator: record.creator, 
                                     delivery_boy: record.delivery_boy   }};
 
         var response = await client.collection("Open_Orders").updateOne({_id: ObjectId(id)}, orderInfo).catch((error) => console.log(error));
@@ -620,7 +626,7 @@ module.exports = {
         var num_current_orders = await client.collection("Open_Orders").countDocuments({creator: delivery_record.username}).catch((error) => console.log(error));
         if(num_current_orders != 0){
             db.close();
-            return [false, 'You have pending orders. Cancel before delivering.'];
+            return [false, 'Delivery user has a pending order. Cancel before delivering.'];
         }
 
         let orderInfo = {$set: {time: order_record.time, beverage: order_record.beverage, size: order_record.size, restaurant: order_record.restaurant, library: order_record.library, floor: order_record.floor, segment: order_record.segment, cost: order_record.cost, creator: order_record.creator, delivery_boy: delivery_record.username}};
@@ -746,10 +752,10 @@ module.exports = {
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
 
         // Update user information
-        let payerInformation = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: user_record.loggedIn, balance: newUserValue, flagged: user_record.flagged}};
+        let payerInformation = {$set: {balance: newUserValue}};
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, payerInformation).catch((error) => console.log(error)); 
         
-        let deliveryInformation = {$set: {username: delivery_record.username, password: delivery_record.password, email: delivery_record.email, phone_number: delivery_record.phone_number, loggedIn: delivery_record.loggedIn, balance: newDeliveryValue, flagged: delivery_record.flagged}};
+        let deliveryInformation = {$set: {balance: newDeliveryValue}};
         var response = await client.collection("User").updateOne({_id: ObjectId(delivery_id)}, deliveryInformation).catch((error) => console.log(error)); 
         
         let closedInfo = {time_closed: new Date().toJSON(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {cost: order_record.cost, transaction_id: transaction_history.ops[0]._id}, rating: delivery_rating};
@@ -843,7 +849,7 @@ module.exports = {
             previous_balance = getPreviousValue(transaction_history, user_record);
         }
 
-        let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: false, balance: previous_balance, flagged: false}};
+        let personInfo = {$set: {loggedIn: false, flagged: false}};
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
         db.close();
 
@@ -854,7 +860,7 @@ module.exports = {
 
 async function detachOrderFromDelivery(order_record, client){
     
-    let orderInfo = {$set: {time: order_record.time, beverage: order_record.beverage, size: order_record.size, restaurant: order_record.restaurant, library: order_record.library, floor: order_record.floor, segment: order_record.segment, cost: order_record.cost, creator: order_record.creator, delivery_boy: null}};
+    let orderInfo = {$set: {delivery_boy: null}};
     var response = await client.collection('Open_Orders').updateOne({_id: ObjectId(order_record._id)}, orderInfo).catch((error) => console.log(error));
     return [true, 'Detached successfully.'];
 }

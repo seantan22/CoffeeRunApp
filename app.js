@@ -31,7 +31,25 @@ app.get('/', function(req, res){
     return;
 })
 
+app.post('/makeReview', function(req, res){
+    var review = req.body.review;
+    var username = req.body.username;
+
+    if(review == "" || review == null){
+        return [false, "Please write a review."]
+    }
+    
+    post_methods.makeReview(res, review, username);
+    return;
+})
+
 app.get('/getUser', function(req, res){
+    var user_id = req.body.user_id;
+    get_methods.getUser(res, user_id);
+    return;
+})
+
+app.get('/getOrderByUser', function(req, res){
     var user_id = req.body.user_id;
     get_methods.getUser(res, user_id);
     return;
