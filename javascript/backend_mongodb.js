@@ -140,16 +140,28 @@ async function logoutWithCred(id){
 }
 
 module.exports = {
-
+    getOrdersByLibrary: async function(library){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        number_of_orders = await client.collection("Open_Orders").countDocuments({library: library});
+        db.close();
+        return [true, number_of_orders];
+    },
+    getNumberOfAllOpenOrders: async function(){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        number_of_orders = await client.collection("Open_Orders").countDocuments();
+        db.close();
+        return [true, number_of_orders];
+    },
     getCurrentRunners: async function(){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         
         // Get all unique runners.
-        array_of_unique_runners = client.collection("Open_Orders").distinct("delivery_boy");
-        console.log(array_of_unique_runners);
+        array_of_unique_runners = await client.collection("Open_Orders").distinct("delivery_boy");
         db.close();
-        return [true, 's'];
+        return [true, array_of_unique_runners.length];
     },
     makeReview: async function(username, review){
         var db = await MongoClient.connect(urclient.collection.distincti, { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -158,7 +170,6 @@ module.exports = {
         var response = await client.collection("Reviews").insertOne(reviewInfo);
         db.close();
         return [true, 'Thank you for your review.'];
-
     },
     verifyUser: async function(username, password, verification_number){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));

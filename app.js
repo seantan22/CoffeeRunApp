@@ -36,6 +36,21 @@ app.get('/getCurrentRunners', function(req, res){
     return;
 })
 
+app.get('/getNumberOfAllOpenOrders', function(req, res){
+    get_methods.getNumberOfAllOpenOrders(res);
+    return;
+})
+
+app.get('/getOrdersByLibrary', function(req, res){
+    var library = req.body.library;
+    if(library == "" || library == null){
+        return [false, "Please input a library."];
+    }
+
+    get_methods.getOrdersByLibrary(res, library);
+    return;
+})
+
 app.post('/makeReview', function(req, res){
     var review = req.body.review;
     var username = req.body.username;

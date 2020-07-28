@@ -35,5 +35,15 @@ module.exports = {
         response = await db.getCurrentRunners();
         res.send(response);
         return;
+    },
+    getNumberOfAllOpenOrders: async function(res){
+        response = await db.getNumberOfAllOpenOrders();
+        res.send(response);
+        return;
+    },
+    getOrdersByLibrary: async function(res, library){
+        response = await db.getOrdersByLibrary(library);
+        res.send(response);
+        return;
     }
 };
