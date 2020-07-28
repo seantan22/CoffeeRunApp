@@ -30,5 +30,10 @@ module.exports = {
         response = await db.getDeliveryRating(delivery_id);
         res.send(response);
         return;
+    },
+    getCurrentRunners: async function(res){
+        response = await db.getCurrentRunners();
+        res.send(response);
+        return;
     }
 };

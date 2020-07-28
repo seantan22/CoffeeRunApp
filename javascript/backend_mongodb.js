@@ -141,8 +141,18 @@ async function logoutWithCred(id){
 
 module.exports = {
 
-    makeReview: async function(username, review){
+    getCurrentRunners: async function(){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        
+        // Get all unique runners.
+        array_of_unique_runners = client.collection("Open_Orders").distinct("delivery_boy");
+        console.log(array_of_unique_runners);
+        db.close();
+        return [true, 's'];
+    },
+    makeReview: async function(username, review){
+        var db = await MongoClient.connect(urclient.collection.distincti, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         let reviewInfo = {time: new Date().toJSON(), username: username, review: review};
         var response = await client.collection("Reviews").insertOne(reviewInfo);
