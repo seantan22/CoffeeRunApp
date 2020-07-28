@@ -10,7 +10,7 @@
     "example",
     "heroku"
   ],
-  "author": "Alex Gruenwald",
+  "author": "Alex Gruenwald, Sean Tan",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",

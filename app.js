@@ -264,6 +264,36 @@ app.post('/detachDelivery', function(req, res){
     return;
 })
 
+app.post('/markInProgress', function(req, res){
+    
+    var order_id = req.body.order_id;
+    var delivery_id = req.body.delivery_id;
+    var status = "In Progress";
+
+    update_methods.updateStatus(res, order_id, delivery_id, status);
+    return;
+})
+
+app.post('/markPickedUp', function(req, res){
+    
+    var order_id = req.body.order_id;
+    var delivery_id = req.body.delivery_id;
+    var status = "Picked Up";
+
+    update_methods.updateStatus(res, order_id, delivery_id, status);
+    return;
+})
+
+app.post('/markDelivered', function(req, res){
+    
+    var order_id = req.body.order_id;
+    var delivery_id = req.body.delivery_id;
+    var status = "Delivered";
+
+    update_methods.updateStatus(res, order_id, delivery_id, status);
+    return;
+})
+
 app.delete('/deleteOrder', function(req, res){
     var order_id = req.body.order_id;
     var username = req.body.username;

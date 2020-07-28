@@ -438,7 +438,7 @@ module.exports = {
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
-        // Check if user exists.
+        // Check if order exists.
         var record = await client.collection("Open_Orders").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
         
         if(record == null){
@@ -473,11 +473,37 @@ module.exports = {
 
         return [true, 'Order successfully updated.'];
     },
+    updateOrderStatus: async function(order_id, delivery_id, status) {
+        var db = await MongoClient.connect(uri, {useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        // Check if order exists.
+        var order = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
+        var runner = await client.collection("User").findOne({ _id: ObjectId(delivery_id)}).catch((error) => console.log(error));
+
+        if(order == null) {
+            db.close();
+            return [false, 'Order does not exist.'];
+        }
+
+        if(order.delivery_boy != runner.username) {
+            db.close();
+            return [false, 'Only the runner can update the order status.'];
+        }
+
+        let statusInfo = {$set: { status: status }};
+        var response = await client.collection("Open_Orders").updateOne({_id: ObjectId(order_id)}, statusInfo).catch((error) => console.log(error));
+
+        db.close()
+
+        return [true, 'Order status successfully updated to: ' + status];
+
+    },
     deleteOrder: async function(id, username){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
-        // Check if user exists.
+        // Check if order exists.
         var record = await client.collection("Open_Orders").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
         
         if(record == null){

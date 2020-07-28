@@ -12,6 +12,11 @@ module.exports = {
         res.send(response);
         return;
     },
+    updateStatus: async function(res, order_id, delivery_id, status){
+        response = await db.updateOrderStatus(order_id, delivery_id, status);
+        res.send(response);
+        return;
+    },
     attachDel: async function(res, order_id, delivery_id){
         response = await db.attachOrder(order_id, delivery_id);
         res.send(response);
