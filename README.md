@@ -94,6 +94,17 @@ Important considerations:
 
 ------------------------------------------------------------
 
+### GET `/getNumberOfAllOpenOrders`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Get the status of the specified order.  | 'order_id' | String order_status |
+
+| Errors  |
+| ------------- |
+| Order does not exist. |
+
+------------------------------------------------------------
+
 ### GET `/getNumberCurrentRunners`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
