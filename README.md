@@ -197,7 +197,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-### POST `/deleteUser`
+### DELETE `/deleteUser`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Delete a user's account.  | `user_id` | string 'Successfully deleted.'  |
@@ -245,8 +245,196 @@ Important considerations:
 | You are already delivering orders. Please finish or cancel. |
 | You already have a pending order. |
 
+------------------------------------------------------------
+
+### POST `/updateOrder`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Update an Order.  | `order_id, username, beverage, status, size, details, restaurant, library, floor, segment, cost` | string 'Order successfully updated.'  |
+
+| Errors  |
+| ------------- |
+| Order does not exist. |
+| Please enter the status. |
+| Please fill in the beverage. |
+| Please fill in the size. |
+| Please fill in details or indicate N/A if none. |
+| Please enter the restaurant. |
+| Please enter the floor you are on. |
+| Please enter the segment you are in. |
+| Please enter the cost. |
+| Not enough funds. |
+| Only user:'+username+ ' can update their order. |
+| Cannot update order while delivery in progress. |
 
 ------------------------------------------------------------
+
+### POST `/attachDelivery`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Attach an order to a delivery user.  | `order_id, delivery_id` | string 'Delivery user on route to deliver ('+(1+num_attached_delivery)+'/3)'  |
+
+| Errors  |
+| ------------- |
+| Please enter the order_id. |
+| Please enter the delivery_id. |
+| Order does not exist. |
+| There is a delivery user already on route. |
+| Delivery user does not exist. |
+| Delivery account is flagged. |
+| Delivery user is not logged in. |
+| Last transaction was flagged. Please contact us. |
+| Your balance is incorrect and has been flagged. |
+| You cannot order and deliver the same item. |
+| Maximum orders for: ' + delivery_record.username + ' is 3. |
+| Delivery user has a pending order. Cancel before delivering. |
+
+------------------------------------------------------------
+
+### POST `/detachDelivery`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Detach an order from a delivery user.  | `order_id, delivery_id` | string 'Detached successfully.' |
+
+| Errors  |
+| ------------- |
+| Order does not exist. |
+| Delivery user does not exist. |
+| Delivery user must be logged in to cancel delivery. |
+| No assigned delivery users. |
+| Only the delivery user can cancel a delivery. |
+
+
+------------------------------------------------------------
+
+### POST `/markInProgress`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Update order state to "In Progress".  | `order_id, delivery_id` | string 'Order status successfully updated to: ' + status.' |
+
+| Errors  |
+| ------------- |
+| Order does not exist. |
+| Delivery user does not exist. |
+| Only the runner can update the order status. |
+
+------------------------------------------------------------
+
+### POST `/markPickedUp`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Update order state to "Picked Up".  | `order_id, delivery_id` | string 'Order status successfully updated to: ' + status.' |
+
+| Errors  |
+| ------------- |
+| Order does not exist. |
+| Delivery user does not exist. |
+| Only the runner can update the order status. |
+
+------------------------------------------------------------
+
+### POST `/markDelivered`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Update order state to "Delivered".  | `order_id, delivery_id` | string 'Order status successfully updated to: ' + status.' |
+
+| Errors  |
+| ------------- |
+| Order does not exist. |
+| Delivery user does not exist. |
+| Only the runner can update the order status. |
+
+------------------------------------------------------------
+
+### DELETE `/deleteOrder`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Delete order.  | `order_id, username` | string 'Successfully deleted order.' |
+
+| Errors  |
+| ------------- |
+| Order does not exist. |
+| Only user:'+username+ ' can delete their order. |
+| Cannot delete order as it is being delivered. |
+
+------------------------------------------------------------
+
+### POST `/withdraw`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Withdraw funds from an account and saves transaction.  | `user_id, fund` | string 'New balance: ' + parseFloat(final_balance)' |
+
+| Errors  |
+| ------------- |
+| User does not exist. |
+| User must be logged in to withdraw funds. |
+| Please withdraw between $0.00 and $50.00. |
+| You do not enough enough funds to withdraw: ' + funds |
+| User is flagged. |
+| Last transaction was flagged. Please contact us. |
+| Your balance is incorrect and has been flagged. |
+
+------------------------------------------------------------
+
+### POST `/deposit`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Deposit funds from an account and saves transaction.  | `user_id, fund` | string 'New balance: ' + parseFloat(final_balance)' |
+
+| Errors  |
+| ------------- |
+| User does not exist. |
+| User must be logged in to deposit funds. |
+| User is flagged. |
+| Please deposit between $0.00 and $50.00. |
+| Last transaction was flagged. Please contact us. |
+| Your balance is incorrect and has been flagged. |
+
+
+------------------------------------------------------------
+
+### POST `/completeOrder`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Complete the order, transfer payments, and save transaction.  | `user_id, delivery_id, order_id, rating` | string 'Successfully completed transaction.' |
+
+| Errors  |
+| ------------- |
+| Please enter user_id. |
+| Please enter delivery_id. |
+| Please enter order_id. |
+| Please give a rating between 0 and 5. |
+| Order does not exist. |
+| Cannot complete an order if no delivery person is assigned. |
+| Please update the order status to "Delivered". |
+| User does not exist. |
+| Orderer must be logged in to complete a transaction. |
+| User does not have enough funds. |
+| User did not create the order. |
+| User does not exist. |
+| Delivery user has to be logged in to complete order. |
+| Delivery user does not exist. |
+| Last transaction was flagged. Please contact us. |
+| Your balance is incorrect and has been flagged. |
+
+------------------------------------------------------------
+
+
+### POST `/clean`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Re activates a flagged users account, deleting previous transactions.  | `user_id` | string 'Account: ' + user_record.username + ' has been reactivated.' |
+
+| Errors  |
+| ------------- |
+| User does not exist. |
+| User not flagged. |
+
+
+------------------------------------------------------------
+
+
+
 
 
 
