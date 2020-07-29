@@ -323,6 +323,10 @@ module.exports = {
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id) }).catch((error) => console.log(error));
 
+        if(user_record == null){
+            db.close();
+            return [false, 'User does not exist.'];
+        }
         if(!user_record.loggedIn){
             db.close();
             return [false, 'User must be logged in to withdraw funds.'];
@@ -364,10 +368,9 @@ module.exports = {
         var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id) }).catch((error) => console.log(error));
 
         var previous_balance = 0.00;
-
-        if(funds <= 0.00 || funds > 50.00){
+        if(user_record == null){
             db.close();
-            return [false, 'Please deposit between $0.00 and $50.00.'];
+            return [false, 'User does not exist.'];
         }
         if(!user_record.loggedIn){
             db.close();
@@ -376,6 +379,10 @@ module.exports = {
         if(user_record.flagged){
             db.close();
             return [false, 'User is flagged.'];
+        }
+        if(funds <= 0.00 || funds > 50.00){
+            db.close();
+            return [false, 'Please deposit between $0.00 and $50.00.'];
         }
 
         checkCorrupt = await checkIfCorrupt('deposit', client, user_record, funds);
@@ -506,11 +513,17 @@ module.exports = {
 
         // Check if order exists.
         var order = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
-        var runner = await client.collection("User").findOne({ _id: ObjectId(delivery_id)}).catch((error) => console.log(error));
 
         if(order == null) {
             db.close();
             return [false, 'Order does not exist.'];
+        }
+
+        var runner = await client.collection("User").findOne({ _id: ObjectId(delivery_id)}).catch((error) => console.log(error));
+
+        if(runner == null) {
+            db.close();
+            return [false, 'Delivery user does not exist.'];
         }
 
         if(order.delivery_boy != runner.username) {
@@ -609,7 +622,7 @@ module.exports = {
         }
         if(order_record.delivery_boy != null){
             db.close();
-            return [false, 'Delivery user on route.'];
+            return [false, 'There is a delivery user already on route.'];
         }
         var delivery_record = await client.collection("User").findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
         if(delivery_record == null){

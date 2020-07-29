@@ -31,7 +31,7 @@ app.get('/', function(req, res){
     return;
 })
 
-app.get('/getCurrentRunners', function(req, res){
+app.get('/getNumberCurrentRunners', function(req, res){
     get_methods.getCurrentRunners(res);
     return;
 })
@@ -69,9 +69,14 @@ app.get('/getUser', function(req, res){
     return;
 })
 
+app.get('/getUsers', function(req, res){
+    get_methods.getUsers(res);
+    return;
+})
+
 app.get('/getOrderByUser', function(req, res){
     var user_id = req.body.user_id;
-    get_methods.getUser(res, user_id);
+    get_methods.getOrderForUser(res, user_id);
     return;
 })
 
@@ -155,12 +160,6 @@ app.delete('/deleteUser', function (req, res){
 
 // ****************************** ORDERS **************************
 
-app.get('/getOrderByUser', function(req, res){
-    var user_id = req.body.user_id;
-    get_methods.getOrderForUser(res, user_id);
-    return;
-})
-
 app.get('/getOrders', function(req, res){
     get_methods.getAllOrders(res);
     return;
@@ -198,7 +197,7 @@ app.post('/createOrder', function (req, res) {
         return;
     }
     if (req.body.segment == null || req.body.segment == ""){
-        res.send([false,"Please enter the floor you are on."]);
+        res.send([false,"Please enter the segment you are in."]);
         return;
     }
     if (req.body.cost == null || req.body.cost == "" || req.body.cost < 0){
@@ -247,7 +246,7 @@ app.post('/updateOrder', function(req, res){
         return;
     }
     if (req.body.segment == null || req.body.segment == ""){
-        res.send([false, "Please enter the floor you are on."]);
+        res.send([false, "Please enter the segment you are in."]);
         return;
     }
     if (req.body.cost == null || req.body.cost == "" || req.body.cost < 0){
