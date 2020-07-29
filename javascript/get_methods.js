@@ -45,5 +45,10 @@ module.exports = {
         response = await db.getOrdersByLibrary(library);
         res.send(response);
         return;
+    },
+    getStatusOfOrder: async function(res, order_id){
+        response = await db.getStatusOfOrder(order_id);
+        res.send(response);
+        return;
     }
 };

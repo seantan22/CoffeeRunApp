@@ -140,6 +140,17 @@ async function logoutWithCred(id){
 }
 
 module.exports = {
+    getStatusOfOrder: async function(order_id){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        var record = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
+        if(record == null){
+            db.close();
+            return [false, 'Order does not exist.'];
+        }
+        db.close();
+        return [true, record.status];
+    },
     getOrdersByLibrary: async function(library){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -757,7 +768,7 @@ module.exports = {
         }
         if(!delivery_record.loggedIn){
             db.close();
-            return [false, 'Delivery user has to bel logged in to complete order.'];
+            return [false, 'Delivery user has to be logged in to complete order.'];
         }
         if(order_record.delivery_boy != delivery_record.username){
             db.close();
