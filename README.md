@@ -94,7 +94,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-### GET `/getNumberOfAllOpenOrders`
+### GET `/getCurrentOrderStatus`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get the status of the specified order.  | 'order_id' | String order_status |
