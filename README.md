@@ -25,7 +25,27 @@ Important considerations:
 | flagged  | boolean  | True, if the user's account has been flagged for suspicious activity; False, otherwise.  |
 | verified | boolean | True, if user has verified account by typing in verification number, false otherwise |
 | verification_number | int32 | Number given randomly for verification |
+
 ------------------------------------------------------------
+
+## Order Object
+
+| Key  | Value Type | Value Description |
+| ------------- | ------------- | ------------- |
+| _id  | string  | The user's id.  |
+| time | Date | Time when order was created. |
+| beverage  | string  | The name of the beverage.  |
+| size  | string  | The size of the beverage.  |
+| details  | string  | Details associated to the order (ex. 1 milk).  |
+| restaurant  | string  | Location where to get the beverage from.  |
+| library  | string  | The library where to drop off the beverage.  |
+| floor  | string  | The floor in the library to drop off the beverage.  |
+| segment  | string  | The area on the floor where to find the creator.  |
+| cost | int32 | The cost of the beverage - including tip and tax. |
+| status | string | The status of the order in relation to where the delivery person is with the delivery. |
+| creator | string | User who created the order. |
+| delivery_boy | string | Runner who will deliver the order. |
+
 ------------------------------------------------------------
 
 ### GET `/getUser`
