@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  RunViewController.swift
 //  CoffeeRun
 //
 //  Created by Sean Tan on 7/31/20.
@@ -8,13 +8,12 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class RunViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
 
-
 }
-
