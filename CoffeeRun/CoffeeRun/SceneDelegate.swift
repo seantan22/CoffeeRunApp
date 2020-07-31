@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  CoffeeRun
 //
-//  Created by alexander on 07-29-2020.
+//  Created by alexander & sean on 07-29-2020.
 //  Copyright © 2020 CoffeeRun. All rights reserved.
 //
 
