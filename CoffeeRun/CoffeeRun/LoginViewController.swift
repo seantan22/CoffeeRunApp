@@ -14,6 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField  == emailTextField {
@@ -29,6 +30,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func loginUser(_ sender: UIButton) {
         let email = emailTextField.text!
         let password = passwordTextField.text!
+       
         login(email: email, password: password)
    }
     
@@ -38,8 +40,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self;
         passwordTextField.delegate = self;
     }
-    
-    
     
     func login(email: String, password: String) {
         

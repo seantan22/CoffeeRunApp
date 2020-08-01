@@ -68,12 +68,12 @@
 			children = (
 				66316CA724D4C49000B1A973 /* AppDelegate.swift */,
 				66316CA924D4C49000B1A973 /* SceneDelegate.swift */,
+				66316CC924D4EA7D00B1A973 /* LoginViewController.swift */,
 				66316CC324D4D2D300B1A973 /* HomeViewController.swift */,
 				66316CC524D4D2E200B1A973 /* OrderViewController.swift */,
 				66316CBF24D4D14700B1A973 /* RunViewController.swift */,
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
 				66316CAF24D4C49000B1A973 /* Main.storyboard */,
-				66316CC924D4EA7D00B1A973 /* LoginViewController.swift */,
 				66316CB224D4C49600B1A973 /* Assets.xcassets */,
 				66316CB424D4C49600B1A973 /* LaunchScreen.storyboard */,
 				66316CB724D4C49600B1A973 /* Info.plist */,
