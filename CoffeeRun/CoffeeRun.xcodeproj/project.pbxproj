@@ -16,6 +16,7 @@
 		66316CC224D4D15500B1A973 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC124D4D15500B1A973 /* ProfileViewController.swift */; };
 		66316CC424D4D2D300B1A973 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC324D4D2D300B1A973 /* HomeViewController.swift */; };
 		66316CC624D4D2E200B1A973 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC524D4D2E200B1A973 /* OrderViewController.swift */; };
+		66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC724D4E5E500B1A973 /* DesignableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		66316CC124D4D15500B1A973 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		66316CC324D4D2D300B1A973 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = ../HomeViewController.swift; sourceTree = "<group>"; };
 		66316CC524D4D2E200B1A973 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrderViewController.swift; path = ../OrderViewController.swift; sourceTree = "<group>"; };
+		66316CC724D4E5E500B1A973 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				66316CB224D4C49600B1A973 /* Assets.xcassets */,
 				66316CB424D4C49600B1A973 /* LaunchScreen.storyboard */,
 				66316CB724D4C49600B1A973 /* Info.plist */,
+				66316CC724D4E5E500B1A973 /* DesignableView.swift */,
 			);
 			path = CoffeeRun;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 				66316CC224D4D15500B1A973 /* ProfileViewController.swift in Sources */,
 				66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */,
 				66316CAA24D4C49000B1A973 /* SceneDelegate.swift in Sources */,
+				66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */,
 				66316CC024D4D14700B1A973 /* RunViewController.swift in Sources */,
 				66316CC624D4D2E200B1A973 /* OrderViewController.swift in Sources */,
 			);
