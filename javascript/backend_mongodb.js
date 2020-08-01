@@ -80,11 +80,11 @@ async function checkIfInputIsUnique(key, value){
     return existence;
 }
 
-async function loginWithCred(username, password){
+async function loginWithCred(email, password){
     var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
     var client = db.db(dbName);
     
-    var record = await client.collection("User").findOne({ username: username }).catch((error) => console.log(error));
+    var record = await client.collection("User").findOne({ email: email }).catch((error) => console.log(error));
     
     if(record == null){
         db.close();
@@ -182,7 +182,7 @@ module.exports = {
         db.close();
         return [true, 'Thank you for your review.'];
     },
-    verifyUser: async function(username, password, verification_number){
+    verifyUser: async function(email, password, verification_number){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var record = await client.collection("User").findOne({password: password});
@@ -196,7 +196,7 @@ module.exports = {
         var response = await client.collection("User").updateOne({_id: ObjectId(record._id)}, personInfo).catch((error) => console.log(error)); 
         db.close();
         
-        login_response = loginWithCred(username, password);
+        login_response = loginWithCred(email, password);
         return login_response;
     },
 
@@ -857,9 +857,9 @@ module.exports = {
             return checkIfInputIsUnique('phone_number', input);
         }
     },
-    login: async function(username, password){
+    login: async function(email, password){
         // Is user logged in
-        var loggedIn = await loginWithCred(username, password);
+        var loggedIn = await loginWithCred(email, password);
         return loggedIn;
     },
     logout: async function(id){

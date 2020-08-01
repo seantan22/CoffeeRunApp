@@ -1,8 +1,8 @@
 var db = require('./backend_mongodb');
 
 module.exports = {
-    login: async function(res, username, password){
-        var response = await db.login(username, password);
+    login: async function(res, email, password){
+        var response = await db.login(email, password);
         res.send(response);
         return;
     },

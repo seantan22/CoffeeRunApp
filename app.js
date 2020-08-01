@@ -143,10 +143,10 @@ app.post('/updateUser', function(req, res){
 
 app.post('/login', function (req, res) {
 
-    var username = req.body.username;
+    var email = req.body.email;
     var password = req.body.password;
 
-    post_methods.login(res, username, password);
+    post_methods.login(res, email, password);
     return;
 })
 
