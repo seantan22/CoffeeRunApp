@@ -391,6 +391,42 @@ app.post('/clean', function(req, res){
     update_methods.cleanFlagged(res, user_id);
     return;
 })
+
+// *************************************  GETTERS FOR BEVERAGES  ****************************************
+
+app.post('/getVendors', function(req, res){
+    post_methods.getVendors(res);
+    return;
+})
+
+app.post('/getBeverages', function(req, res){
+    var vendor = req.body.vendor;
+    post_methods.getBeveragesFromVendor(res, vendor);
+    return;
+})
+
+app.post('/getSize', function(req, res){
+    var vendor = req.body.vendor;
+    var beverage = req.body.beverage;
+    post_methods.getBeveragesOfBevAndVendor(res, vendor, beverage);
+    return;
+})
+
+app.post('/getPriceOfBeverage', function(req, res){
+    var vendor = req.body.vendor;
+    var beverage = req.body.beverage;
+    var size = req.body.size;
+
+    post_methods.getBeveragePrice(res, vendor, beverage, size);
+    return;
+})
+
+app.post('/getLibraryInformation', function(req, res){
+    post_methods.getLibraryInformation(res);
+    return;
+})
+
+
 var server = app.listen(process.env.PORT || 5000, function () {
     console.log('Server started...')
 })

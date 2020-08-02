@@ -3,7 +3,10 @@ const ObjectId = require('mongodb').ObjectId;
 const TMClient = require('textmagic-rest-client');
 const bcrypt = require('bcrypt');
 const cred = require('./cred');
+
 const dbName = 'CoffeeRun';
+const pName = 'Products';
+
 const uri = "mongodb+srv://Dwarff19:" + cred.getPass() + "@coffeerun.y795l.azure.mongodb.net/" + dbName + "?retryWrites=true&w=majority";
 
 // Upon login for the first time, send SMS message.
@@ -903,8 +906,44 @@ module.exports = {
         db.close();
 
         return JSON.stringify({result: true, errorMessage: 'Account: ' + user_record.username + ' has been reactivated.'});
-    }
+    },
 
+    // *********************************** GET BEVERAGES **************************************
+    getVendors: async function(){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(pName);
+        var arrayOfVendors = await client.collection("ProductInformation").distinct("vendor");
+
+        return JSON.stringify({result: true, errorMessage: arrayOfVendors});
+    },
+    getBeveragesFromVendor: async function(vendor){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(pName);
+        var arrayOfBeverages = await client.collection("ProductInformation").distinct("beverage", {vendor: vendor});
+
+        return JSON.stringify({result: true, errorMessage: arrayOfBeverages});
+    },
+    getBeveragesOfBevAndVendor: async function(vendor, beverage){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(pName);
+        var arrayOfSizes = await client.collection("ProductInformation").distinct('size', {vendor: vendor,  beverage: beverage});
+
+        return JSON.stringify({result: true, errorMessage: arrayOfSizes});
+    },
+    getBeveragePrice: async function(vendor, beverage, size){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(pName);
+        var Order_Information = await client.collection("ProductInformation").findOne({vendor: vendor, beverage: beverage, size: size});
+
+        return JSON.stringify({result: true, errorMessage: Order_Information.cost});
+    },
+    getLibraryInformation: async function(){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(pName);
+
+        var libraryInformation = await client.collection("LocationInformation").findOne();
+        return JSON.stringify({result: true, errorMessage: libraryInformation.Libraries});
+    }
 };
 
 async function detachOrderFromDelivery(order_record, client){
