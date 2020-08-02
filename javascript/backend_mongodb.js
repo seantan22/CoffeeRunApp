@@ -92,7 +92,6 @@ async function loginWithCred(email, password){
     if(record == null){
         db.close();
         return JSON.stringify({result: false, user_id: 'No account is associated with that email address.'});
-
     }
     if(record.flagged){
         db.close();
@@ -113,7 +112,7 @@ async function loginWithCred(email, password){
 
     let updatedInfo = {$set: {loggedIn: true}};
     // Update
-    var response = await client.collection("User").updateOne({password: password}, updatedInfo).catch((error) => console.log(error)); 
+    var response = await client.collection("User").updateOne({password: record.password}, updatedInfo).catch((error) => console.log(error)); 
     db.close();
 
     // Login returns this.
