@@ -98,7 +98,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
-        
+        print("TEST")
         task.resume()
     }
 
