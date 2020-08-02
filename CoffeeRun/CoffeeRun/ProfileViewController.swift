@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController {
         } else {
             return
         }
+        
     }
     
     //MARK: Response
@@ -73,7 +74,7 @@ class ProfileViewController: UIViewController {
         
          let task = session.uploadTask(with: request, from: dataLogout) { data, response, error in
              if let data = data {
-                 self.parse(json: data)
+                 self.parseLogoutResponse(json: data)
                  if self.response.result == true {
                     UserDefaults.standard.removeObject(forKey: "user_id")
                  }
@@ -83,7 +84,7 @@ class ProfileViewController: UIViewController {
          task.resume()
     }
     
-    func parse(json: Data) {
+    func parseLogoutResponse(json: Data) {
            do {
                 let jsonResponse = try JSONDecoder().decode(Response.self, from: json)
                 response.msg = jsonResponse.msg
@@ -93,4 +94,6 @@ class ProfileViewController: UIViewController {
            }
        }
     
+    
+
 }
