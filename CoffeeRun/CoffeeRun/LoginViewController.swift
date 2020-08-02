@@ -28,21 +28,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Actions
     @IBAction func loginUser(_ sender: UIButton) {
+
         let email = emailTextField.text!
         let password = passwordTextField.text!
-       
+
         login(email: email, password: password)
-        
-        if UserDefaults.standard.value(forKey: "user_id") != nil {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-                .changeRootViewController(tabBarController)
-        } else {
-            return
+
+        run(after: 800) {
+            if UserDefaults.standard.value(forKey: "user_id") != nil {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+                    .changeRootViewController(tabBarController)
+            } else {
+                return
+               }
         }
         
-   }
+    }
     
     //MARK: Response
     struct Response: Decodable {
@@ -107,8 +110,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let jsonResponse = try JSONDecoder().decode(Response.self, from: json)
             response.result = jsonResponse.result
             response.user_id = jsonResponse.user_id
+            print(response.user_id)
         } catch {
             print("Error: Struct and JSON response do not match.")
+        }
+    }
+    
+    // Wait X milliseconds before running function
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
         }
     }
     
