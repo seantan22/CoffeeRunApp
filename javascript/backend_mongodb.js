@@ -88,7 +88,7 @@ async function loginWithCred(email, password){
     
     if(record == null){
         db.close();
-        return [false, 'Incorrect credentials.'];
+        return [false, 'No account is associated with that email address.'];
     }
     if(record.flagged){
         db.close();
