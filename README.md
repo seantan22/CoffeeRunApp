@@ -450,7 +450,6 @@ Important considerations:
 
 ------------------------------------------------------------
 
-
 ### POST `/clean`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
@@ -464,6 +463,55 @@ Important considerations:
 
 ------------------------------------------------------------
 
+### POST `/getVendors`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Get list of vendors to display  | `None` | Array of vendors |
+
+| Errors  |
+| ------------- |
+
+------------------------------------------------------------
+
+### POST `/getBeverages`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Get list of beverages for a given vendor  | `vendor` | Array of distinct beverages |
+
+| Errors  |
+| ------------- |
+
+------------------------------------------------------------
+
+### POST `/getSize`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Get list of beverages for a given vendor and beverage  | `vendor, beverage` | Array of distinct sizes for the specific vendor |
+
+| Errors  |
+| ------------- |
+
+------------------------------------------------------------
+
+### POST `/getPriceOfBeverage`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Get the price of the specified beverage  | `vendor, beverage, size` | returns an double for the price of the beverage |
+
+| Errors  |
+| ------------- |
+
+------------------------------------------------------------
+
+### POST `/getLibraryInformation`
+| Usage  | Parameters | Returns |
+| ------------- | ------------- | ------------- |
+| Get all library information  | `None` | returns a JSON object of all the information of the libraries. Floors, segments, etc. |
+
+| Errors  |
+| ------------- |
+
+------------------------------------------------------------
 
 
 
