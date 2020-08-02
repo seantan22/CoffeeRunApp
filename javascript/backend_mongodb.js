@@ -99,7 +99,7 @@ async function loginWithCred(email, password){
     }
     if(record.loggedIn){
         db.close();
-        return JSON.stringify({result: false, user_id: 'Already loggged in.'});
+        return JSON.stringify({result: false, user_id: 'Already logged in.'});
     }
     // if(!record.verified){
     //     db.close();
@@ -132,7 +132,7 @@ async function logoutWithCred(id){
     }
     if(!record.loggedIn){
         db.close();
-        return JSON.stringify({result: false, msg: 'Already loggged out.'});
+        return JSON.stringify({result: false, msg: 'Already logged out.'});
     }
 
     let updatedInfo = {$set: {username: record.username, password: record.password, email: record.email, phone_number: record.phone_number, loggedIn: false}};
