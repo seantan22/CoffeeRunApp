@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  LoginViewController.swift (Root View Controller)
 //  CoffeeRun
 //
 //  Created by Sean Tan on 7/31/20.
@@ -32,7 +32,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let password = passwordTextField.text!
        
         login(email: email, password: password)
+        
+        if UserDefaults.standard.value(forKey: "user_id") != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+                .changeRootViewController(tabBarController)
+        } else {
+            return
+        }
+        
    }
+    
+    //MARK: Response
+    struct Response: Decodable {
+        var result: Bool
+        var user_id: String
+        init() {
+            self.result = false
+            self.user_id = String()
+        }
+    }
+    var response = Response()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +63,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self;
     }
     
+    // POST /login
     func login(email: String, password: String) {
         
         let session = URLSession.shared
@@ -68,12 +91,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
        
         let task = session.uploadTask(with: request, from: dataLogin) { data, response, error in
-            if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                print(dataString)
+            if let data = data {
+                self.parse(json: data)
+                if self.response.result == true {
+                    UserDefaults.standard.set(self.response.user_id, forKey: "user_id")
+                }
             }
         }
         
         task.resume()
     }
 
+    func parse(json: Data) {
+        do {
+            let jsonResponse = try JSONDecoder().decode(Response.self, from: json)
+            response.result = jsonResponse.result
+            response.user_id = jsonResponse.user_id
+        } catch {
+            print("Error: Struct and JSON response do not match.")
+        }
+    }
+    
 }
