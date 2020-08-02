@@ -128,11 +128,11 @@ async function logoutWithCred(id){
     
     if(record == null){
         db.close();
-        return JSON.stringify({result: false, errorMessage: 'Incorrect credentials.'});
+        return JSON.stringify({result: false, msg: 'Incorrect credentials.'});
     }
     if(!record.loggedIn){
         db.close();
-        return JSON.stringify({result: false, errorMessage: 'Already loggged out.'});
+        return JSON.stringify({result: false, msg: 'Already loggged out.'});
     }
 
     let updatedInfo = {$set: {username: record.username, password: record.password, email: record.email, phone_number: record.phone_number, loggedIn: false}};
@@ -140,7 +140,7 @@ async function logoutWithCred(id){
     var response = await client.collection("User").updateOne({_id: ObjectId(id)}, updatedInfo).catch((error) => console.log(error)); 
     db.close();
 
-    return JSON.stringify({result: true, errorMessage: 'Successfully logged out.'});
+    return JSON.stringify({result: true, msg: 'Successfully logged out.'});
 }
 
 module.exports = {
