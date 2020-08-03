@@ -19,6 +19,7 @@
 		66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC724D4E5E500B1A973 /* DesignableView.swift */; };
 		66316CCA24D4EA7D00B1A973 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC924D4EA7D00B1A973 /* LoginViewController.swift */; };
 		66316CCC24D7820800B1A973 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CCB24D7820800B1A973 /* EditProfileViewController.swift */; };
+		66316CCE24D8CE3D00B1A973 /* AddFundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		66316CC724D4E5E500B1A973 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		66316CC924D4EA7D00B1A973 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		66316CCB24D7820800B1A973 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFundsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
 				66316CCB24D7820800B1A973 /* EditProfileViewController.swift */,
 				66316CAF24D4C49000B1A973 /* Main.storyboard */,
+				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
 				66316CB224D4C49600B1A973 /* Assets.xcassets */,
 				66316CB424D4C49600B1A973 /* LaunchScreen.storyboard */,
 				66316CB724D4C49600B1A973 /* Info.plist */,
@@ -165,6 +168,7 @@
 				66316CC024D4D14700B1A973 /* RunViewController.swift in Sources */,
 				66316CC624D4D2E200B1A973 /* OrderViewController.swift in Sources */,
 				66316CCC24D7820800B1A973 /* EditProfileViewController.swift in Sources */,
+				66316CCE24D8CE3D00B1A973 /* AddFundsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

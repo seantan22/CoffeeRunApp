@@ -215,7 +215,7 @@ module.exports = {
         
         if(record == null){
             db.close();
-            return JSON.stringify({result: false, errorMessage: 'Please input correct password.'});
+            return JSON.stringify({result: false, errorMessage: 'User ID does not exist.'});
         }
 
         if(!record.loggedIn){
