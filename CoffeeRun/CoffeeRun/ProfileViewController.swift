@@ -11,14 +11,15 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     //MARK: Actions
-    @IBAction func logoutUser(_ sender: UIButton) {
-        
+    
+    @IBAction func logoutUser(_ sender: UIBarButtonItem) {
+    
         logout(user_id: UserDefaults.standard.string(forKey: "user_id")!)
-        
+
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
-        
+
         // Transition to Login Screen
         if UserDefaults.standard.value(forKey: "user_id") == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -28,7 +29,6 @@ class ProfileViewController: UIViewController {
         } else {
             return
         }
-        
     }
     
     //MARK: Response
@@ -44,7 +44,9 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
+    
     
     // POST /logout
     func logout(user_id: String) {
