@@ -37,7 +37,7 @@ app.get('/getNumberCurrentRunners', function(req, res){
 })
 
 app.get('/getCurrentOrderStatus', function(req, res){
-    var order_id = req.body.order_id;
+    var order_id = req.headers['order_id'];
     get_methods.getStatusOfOrder(res, order_id);
     return;
 })
@@ -48,7 +48,7 @@ app.get('/getNumberOfAllOpenOrders', function(req, res){
 })
 
 app.get('/getOrdersByLibrary', function(req, res){
-    var library = req.body.library;
+    var library = req.headers['library'];
     if(library == "" || library == null){
         return JSON.stringify({result: false, errorMessage: "Please input a library."});
     }
@@ -70,7 +70,7 @@ app.post('/makeReview', function(req, res){
 })
 
 app.get('/getUser', function(req, res){
-    var user_id = req.body.user_id;
+    var user_id = req.headers['user_id'];
     get_methods.getUser(res, user_id);
     return;
 })
@@ -81,13 +81,13 @@ app.get('/getUsers', function(req, res){
 })
 
 app.get('/getOrderByUser', function(req, res){
-    var user_id = req.body.user_id;
+    var user_id = req.headers['user_id'];
     get_methods.getOrderForUser(res, user_id);
     return;
 })
 
 app.get('/getRating', function(req, res){
-    var delivery_id = req.body.delivery_id;
+    var delivery_id = req.headers['delivery_id'];
     get_methods.getRatingForDelivery(res, delivery_id);
     return;
 
@@ -172,7 +172,7 @@ app.get('/getOrders', function(req, res){
 })
 
 app.get('/getOrderDelivery', function(req, res){
-    var user_id = req.body.user_id;
+    var user_id = req.headers['user_id'];
     get_methods.getOrderForDelivery(res, user_id);
     return;
 })
