@@ -16,6 +16,33 @@ app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 app.use(bodyParser.json());
 
+// ************************** MESSAGING ***************************
+
+app.post('/sendMessage', function(req, res){
+    var message = req.body.message;
+    var sender = req.body.sender;
+    var receiver = req.body.receiver;
+
+    post_methods.sendMessage(res, message, sender, receiver);
+    return;
+})
+
+app.get('/getMessages', function(req, res){
+    var sender = req.headers['sender'];
+    var receiver = req.headers['receiver'];
+
+    get_methods.getMessages(res, sender, receiver);
+    return;
+})
+
+app.delete('/deleteMessages', function(req, res){
+    var sender = req.body.sender;
+    var receiver = req.body.receiver;
+
+    delete_methods.deleteMessages(res, sender, receiver);
+    return;
+})
+
 // **************************** USER *************************
 
 app.post('/verify', function(req, res){

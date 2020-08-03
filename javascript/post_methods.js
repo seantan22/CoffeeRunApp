@@ -1,4 +1,5 @@
 var db = require('./backend_mongodb');
+var esql = require('./backend_elephantSQL');
 
 module.exports = {
     login: async function(res, email, password){
@@ -72,6 +73,14 @@ module.exports = {
     },
     getLibraryInformation: async function(res){
         response = await db.getLibraryInformation();
+        res.send(response);
+        return;
+    },
+
+    // ********* MESSAGING ***********
+
+    sendMessage: async function(res, message, sender, receiver){
+        response = await esql.sendMessage(message, sender, receiver);
         res.send(response);
         return;
     }

@@ -1,4 +1,5 @@
 var db = require('./backend_mongodb');
+var esql = require('./backend_elephantSQL');
 
 module.exports = {
     getUser: async function(res, id){
@@ -48,6 +49,11 @@ module.exports = {
     },
     getStatusOfOrder: async function(res, order_id){
         response = await db.getStatusOfOrder(order_id);
+        res.send(response);
+        return;
+    },
+    getMessages: async function(res, sender, receiver){
+        response = await esql.getMessage(sender, receiver);
         res.send(response);
         return;
     }
