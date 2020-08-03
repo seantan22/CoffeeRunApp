@@ -34,7 +34,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
         login(email: email, password: password)
 
-        run(after: 800) {
+        run(after: 1000) {
             if UserDefaults.standard.value(forKey: "user_id") != nil {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
