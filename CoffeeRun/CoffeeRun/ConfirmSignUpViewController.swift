@@ -10,6 +10,8 @@ import UIKit
 
 class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
     
+    var result: Bool = false
+    
     //MARK: Properties
     @IBOutlet weak var d1TextField: UITextField!
     @IBOutlet weak var d2TextField: UITextField!
@@ -25,9 +27,18 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
 
         let code = codeArray.joined()
         
-        print(code)
+        verify(user_id: UserDefaults.standard.string(forKey: "user_id")!, code: code)
         
-//        verify(user_id: UserDefaults.standard.string(forKey: "user_id")!, code: code)
+        run(after: 1000) {
+            if self.result == true {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+                    .changeRootViewController(tabBarController)
+            } else {
+                print("Error: Invalid verification code.")
+            }
+        }
         
     }
     
@@ -86,10 +97,10 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
     //MARK: Response
     struct Response: Decodable {
         var result: Bool
-        var user_id: String
+        var errorMessage: String
         init() {
             self.result = false
-            self.user_id = String()
+            self.errorMessage = String()
         }
     }
     var response = Response()
@@ -126,15 +137,21 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
                 do {
                     let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
                     self.response.result = jsonResponse.result
-                    self.response.user_id = jsonResponse.user_id
-                    print(self.response.user_id)
+                    self.response.errorMessage = jsonResponse.errorMessage
+                    self.result = self.response.result
                 } catch {
                     print("Error: Struct and JSON response do not match.")
                 }
             }
         }
-        print("TEST")
         task.resume()
     }
 
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
+    }
+    
 }

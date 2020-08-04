@@ -42,7 +42,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     .changeRootViewController(tabBarController)
             } else {
                 return
-               }
+            }
         }
         
     }
@@ -100,7 +100,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
                     self.response.result = jsonResponse.result
                     self.response.user_id = jsonResponse.user_id
-                    print(self.response.user_id)
                 } catch {
                     print("Error: Struct and JSON response do not match.")
                 }
@@ -109,7 +108,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
-        print("TEST")
         task.resume()
     }
     

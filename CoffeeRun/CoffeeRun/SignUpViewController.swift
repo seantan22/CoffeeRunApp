@@ -57,7 +57,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Actions
-
     @IBAction func signupUser(_ sender: UIButton) {
         let email = emailTextField.text!
         let phone = phoneTextField.text!
@@ -66,18 +65,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let confirmPassword = confirmPasswordTextField.text!
         
         if password == confirmPassword {
-//            signup(username: username, password: password, email: email, phone: phone) {(result: Response) in
-//                if result.result == true {
+            signup(username: username, password: password, email: email, phone: phone) {(result: Response) in
+                if result.result == true {
                     DispatchQueue.main.async {
+                        
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let confirmSignUpController = storyboard.instantiateViewController(withIdentifier: "ConfirmSignUpController")
                         self.navigationController?.pushViewController(confirmSignUpController, animated: true)
                         print("SIGN UP SUCCESSFUL")
                     }
-//                } else {
-//                    print("Error: Sign Up Unsuccessful")
-//                }
-//            }
+                } else {
+                    print("Error: Sign Up Unsuccessful")
+                }
+            }
             
         } else {
             print("Error: Passwords do not match.")
@@ -111,7 +111,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: "https://coffeerunapp.herokuapp.com/createUser") else {
+        guard let url = URL(string: "http://localhost:5000/createUser") else {
             print("Error: Cannot create URL")
             return
         }
@@ -145,6 +145,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     print(response.errorMessage)
                 } catch {
                     print("Error: Struct and JSON response do not match.")
+                }
+                if response.result == true {
+                    UserDefaults.standard.set(response.errorMessage, forKey: "user_id")
                 }
                 completion(response)
             }
