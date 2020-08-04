@@ -26,7 +26,6 @@ app.post('/sendMessage', function(req, res){
     post_methods.sendMessage(res, message, sender, receiver);
     return;
 })
-
 app.get('/getMessages', function(req, res){
     var sender = req.headers['sender'];
     var receiver = req.headers['receiver'];
@@ -47,9 +46,8 @@ app.delete('/deleteMessages', function(req, res){
 
 app.post('/verify', function(req, res){
     var verification = req.body.verification_number;
-    var username = req.body.username;
-    var password = req.body.password;
-    post_methods.verifyUser(res, username, password, verification);
+    var id = req.body.user_id
+    post_methods.verifyUser(res, id, verification);
     return;
 })
 

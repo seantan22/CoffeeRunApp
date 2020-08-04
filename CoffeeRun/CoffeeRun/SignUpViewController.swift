@@ -111,7 +111,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: "http:/localhost:5000/createUser") else {
+        guard let url = URL(string: "https://coffeerunapp.herokuapp.com/createUser") else {
             print("Error: Cannot create URL")
             return
         }

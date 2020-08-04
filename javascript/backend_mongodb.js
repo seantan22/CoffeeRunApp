@@ -3,6 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 const TMClient = require('textmagic-rest-client');
 const bcrypt = require('bcrypt');
 const cred = require('./cred');
+const { ObjectID } = require('mongodb');
 
 const dbName = 'CoffeeRun';
 const pName = 'Products';
@@ -186,24 +187,27 @@ module.exports = {
         db.close();
         return JSON.stringify({result: true, errorMessage: 'Thank you for your review.'});
     },
-    verifyUser: async function(email, password, verification_number){
+    verifyUser: async function(id, verification_number){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        var record = await client.collection("User").findOne({password: password});
+        var record = await client.collection("User").findOne({_id: ObjectId(id)});
 
+        if(record.verified){
+            db.close();
+            return JSON.stringify({result: false, errorMessage: 'Account already verified.'});
+        }
         if(verification_number != record.verification_number){
-            sendSMS(record.phone_number, record.verification_number);
+            //sendSMS(record.phone_number, record.verification_number);
+            db.close();
             return JSON.stringify({result: false, errorMessage: 'Incorrect verification code. It has been resent.'});
         }
 
-        let personInfo = {$set: {verified: true}}; // Update
+        let personInfo = {$set: {verified: true, loggedIn: true}}; // Update
         var response = await client.collection("User").updateOne({_id: ObjectId(record._id)}, personInfo).catch((error) => console.log(error)); 
         db.close();
-        
-        login_response = loginWithCred(email, password);
 
         // Login already returns JSON format
-        return login_response;
+        return JSON.stringify({result: true, errorMessage: 'Sueccessfully verified.'});
     },
 
     // ************************************** USER ***************************************
@@ -248,11 +252,11 @@ module.exports = {
 
         let personInfo = {username: username, password: hashPassword, email: mail, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
         var response = await client.collection("User").insertOne(personInfo);
-            
+        
         //sendSMS(number, verification_code);
         db.close();
 
-        return JSON.stringify({result: true, errorMessage: 'Verification code sent to: ' + number + '. Please verify.'});      
+        return JSON.stringify({result: true, errorMessage: response.ops[0]._id});      
     },
     updateUser: async function(id, username, password, balance){
 

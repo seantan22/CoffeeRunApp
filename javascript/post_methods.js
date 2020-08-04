@@ -41,8 +41,8 @@ module.exports = {
         res.send(response);
         return response;
     },
-    verifyUser: async function(res, username, password, verification){
-        response = await db.verifyUser(username, password, verification);
+    verifyUser: async function(res, id, verification){
+        response = await db.verifyUser(id, verification);
         res.send(response);
         return response;
     },
