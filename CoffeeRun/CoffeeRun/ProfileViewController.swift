@@ -46,7 +46,6 @@ class ProfileViewController: UIViewController {
             self.balance = 0.0
         }
     }
-    var userProfileResponse = UserProfileResponse()
     
     struct LogoutResponse: Decodable {
         var result: Bool
