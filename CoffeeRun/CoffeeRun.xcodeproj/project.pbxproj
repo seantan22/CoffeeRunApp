@@ -20,6 +20,8 @@
 		66316CCA24D4EA7D00B1A973 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC924D4EA7D00B1A973 /* LoginViewController.swift */; };
 		66316CCC24D7820800B1A973 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CCB24D7820800B1A973 /* EditProfileViewController.swift */; };
 		66316CCE24D8CE3D00B1A973 /* AddFundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */; };
+		66923CD824D8E2FE002E731A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66923CD724D8E2FE002E731A /* SignUpViewController.swift */; };
+		66923CDA24D8EB5A002E731A /* ConfirmSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		66316CC924D4EA7D00B1A973 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		66316CCB24D7820800B1A973 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFundsViewController.swift; sourceTree = "<group>"; };
+		66923CD724D8E2FE002E731A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
 				66316CCB24D7820800B1A973 /* EditProfileViewController.swift */,
 				66316CAF24D4C49000B1A973 /* Main.storyboard */,
+				66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */,
+				66923CD724D8E2FE002E731A /* SignUpViewController.swift */,
 				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
 				66316CB224D4C49600B1A973 /* Assets.xcassets */,
 				66316CB424D4C49600B1A973 /* LaunchScreen.storyboard */,
@@ -159,6 +165,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66923CD824D8E2FE002E731A /* SignUpViewController.swift in Sources */,
+				66923CDA24D8EB5A002E731A /* ConfirmSignUpViewController.swift in Sources */,
 				66316CC424D4D2D300B1A973 /* HomeViewController.swift in Sources */,
 				66316CC224D4D15500B1A973 /* ProfileViewController.swift in Sources */,
 				66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */,
