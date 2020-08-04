@@ -164,7 +164,7 @@ Important considerations:
 ### POST `/createUser`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
-| Create a new user account.  | `username`, `password`, `email`, `phone_numb` | string 'Successfuly added.'  |
+| Create a new user account.  | `username`, `password`, `email`, `phone_numb` | string 'User id for database'  |
 
 | Errors  |
 | ------------- |
@@ -193,7 +193,7 @@ Important considerations:
 ### POST `/verify`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
-| Verify users account.  | `username`, `password`, verification_number | Successfully logged in |
+| Verify users account.  | `user_id`, verification_number | Successfully verified |
 
 | Errors  |
 | ------------- |
