@@ -61,6 +61,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated: true);
         
         emailTextField.delegate = self;
         passwordTextField.delegate = self;
@@ -95,7 +96,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
        
         let task = session.uploadTask(with: request, from: dataLogin) { data, response, error in
             if let data = data {
-                self.parse(json: data)
+                do {
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                    self.response.result = jsonResponse.result
+                    self.response.user_id = jsonResponse.user_id
+                    print(self.response.user_id)
+                } catch {
+                    print("Error: Struct and JSON response do not match.")
+                }
                 if self.response.result == true {
                     UserDefaults.standard.set(self.response.user_id, forKey: "user_id")
                 }
@@ -103,17 +111,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         print("TEST")
         task.resume()
-    }
-
-    func parse(json: Data) {
-        do {
-            let jsonResponse = try JSONDecoder().decode(Response.self, from: json)
-            response.result = jsonResponse.result
-            response.user_id = jsonResponse.user_id
-            print(response.user_id)
-        } catch {
-            print("Error: Struct and JSON response do not match.")
-        }
     }
     
     // Wait X milliseconds before running function
