@@ -57,8 +57,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Actions
+
     @IBAction func signupUser(_ sender: UIButton) {
-        
         let email = emailTextField.text!
         let phone = phoneTextField.text!
         let username = usernameTextField.text!
@@ -66,18 +66,18 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let confirmPassword = confirmPasswordTextField.text!
         
         if password == confirmPassword {
-            signup(username: username, password: password, email: email, phone: phone) {(result: Response) in
-                if result.result == true {
+//            signup(username: username, password: password, email: email, phone: phone) {(result: Response) in
+//                if result.result == true {
                     DispatchQueue.main.async {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let confirmSignUpController = storyboard.instantiateViewController(withIdentifier: "ConfirmSignUpController")
                         self.navigationController?.pushViewController(confirmSignUpController, animated: true)
                         print("SIGN UP SUCCESSFUL")
                     }
-                } else {
-                    print("Error: Sign Up Unsuccessful")
-                }
-            }
+//                } else {
+//                    print("Error: Sign Up Unsuccessful")
+//                }
+//            }
             
         } else {
             print("Error: Passwords do not match.")
