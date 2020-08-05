@@ -117,7 +117,7 @@ async function loginWithCred(email, password){
     db.close();
 
     // Login returns this.
-    return JSON.stringify({result: true, user_id: record._id});
+    return JSON.stringify({result: true, user_id: record._id, username: record.username, emaiL: record.email, balance: record.balance});
 }
 
 async function logoutWithCred(id){
