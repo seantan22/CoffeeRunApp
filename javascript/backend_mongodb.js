@@ -920,12 +920,13 @@ module.exports = {
 
         return JSON.stringify({result: true, errorMessage: arrayOfVendors});
     },
-    getBeveragesFromVendor: async function(vendor){
+    getBeveragesInfoFromVendor: async function(vendor){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
         var arrayOfBeverages = await client.collection("ProductInformation").distinct("beverage", {vendor: vendor});
+        var arrayOfSizes = await client.collection("ProductInformation").distinct("size", {vendor: vendor});
 
-        return JSON.stringify({result: true, errorMessage: arrayOfBeverages});
+        return JSON.stringify({result: true, errorMessage: [arrayOfBeverages, arrayOfSizes]});
     },
     getBeveragesOfBevAndVendor: async function(vendor, beverage){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));

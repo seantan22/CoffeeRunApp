@@ -424,9 +424,9 @@ app.get('/getVendors', function(req, res){
     return;
 })
 
-app.get('/getBeverages', function(req, res){
+app.get('/getBeverageInfo', function(req, res){
     var vendor = req.headers['vendor'];
-    post_methods.getBeveragesFromVendor(res, vendor);
+    post_methods.getBeveragesInfoFromVendor(res, vendor);
     return;
 })
 

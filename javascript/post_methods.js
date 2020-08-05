@@ -56,8 +56,8 @@ module.exports = {
         res.send(response);
         return;
     },
-    getBeveragesFromVendor: async function(res, vendor){
-        response = await db.getBeveragesFromVendor(vendor);
+    getBeveragesInfoFromVendor: async function(res, vendor){
+        response = await db.getBeveragesInfoFromVendor(vendor);
         res.send(response);
         return;
     },
