@@ -923,10 +923,11 @@ module.exports = {
     getBeveragesInfoFromVendor: async function(vendor){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
-        var arrayOfBeverages = await client.collection("ProductInformation").distinct("beverage", {vendor: vendor});
-        var arrayOfSizes = await client.collection("ProductInformation").distinct("size", {vendor: vendor});
 
-        return JSON.stringify({result: true, response: [arrayOfBeverages, arrayOfSizes]});
+        // Master stores all information about beverages
+        var response = await client.collection("ProductInformation").findOne({vendor: 'master'});
+
+        return JSON.stringify({result: true, response: [response.information[vendor].beverages, response.information[vendor].size]});
     },
     getBeveragesOfBevAndVendor: async function(vendor, beverage){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -940,6 +941,10 @@ module.exports = {
         var client = db.db(pName);
         var Order_Information = await client.collection("ProductInformation").findOne({vendor: vendor, beverage: beverage, size: size});
 
+        if(Order_Information == null){
+            db.close();
+            return JSON.stringify({result: false, response: ['That order does not exist.']});
+        }
         return JSON.stringify({result: true, response: Order_Information.cost});
     },
     getLibraryInformation: async function(){

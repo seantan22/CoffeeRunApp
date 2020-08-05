@@ -430,12 +430,12 @@ app.get('/getBeverageInfo', function(req, res){
     return;
 })
 
-app.get('/getSize', function(req, res){
-    var vendor = req.headers['vendor'];
-    var beverage = req.headers['beverage'];
-    post_methods.getBeveragesOfBevAndVendor(res, vendor, beverage);
-    return;
-})
+// app.get('/getSize', function(req, res){
+//     var vendor = req.headers['vendor'];
+//     var beverage = req.headers['beverage'];
+//     post_methods.getBeveragesOfBevAndVendor(res, vendor, beverage);
+//     return;
+// })
 
 app.get('/getPriceOfBeverage', function(req, res){
     var vendor = req.headers['vendor'];
