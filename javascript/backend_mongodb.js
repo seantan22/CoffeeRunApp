@@ -92,15 +92,15 @@ async function loginWithCred(email, password){
     
     if(record == null){
         db.close();
-        return JSON.stringify({result: false, user_id: 'No account is associated with that email address.'});
+        return JSON.stringify({result: false, user_id: 'No account is associated with that email address.', username: "", email: "", balance: ""});
     }
     if(record.flagged){
         db.close();
-        return JSON.stringify({result: false, user_id: 'This account has been flagged.'});
+        return JSON.stringify({result: false, user_id: 'This account has been flagged.', username: "", email: "", balance: ""});
     }
     if(record.loggedIn){
         db.close();
-        return JSON.stringify({result: false, user_id: 'Already logged in.'});
+        return JSON.stringify({result: false, user_id: 'Already logged in.', username: "", email: "", balance: ""});
     }
     // if(!record.verified){
     //     db.close();
@@ -108,7 +108,7 @@ async function loginWithCred(email, password){
     // }
     if(!(await bcrypt.compare(password, record.password))){
         db.close();
-        return JSON.stringify({result: false, user_id: 'Password is incorrect.'});
+        return JSON.stringify({result: false, user_id: 'Password is incorrect.', username: "", email: "", balance: ""});
     }
 
     let updatedInfo = {$set: {loggedIn: true}};
