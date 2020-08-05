@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */; };
 		660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */; };
+		66304E1324DB0C1000E557E9 /* SeatLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */; };
+		66304E1524DB0E4B00E557E9 /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */; };
 		66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CA724D4C49000B1A973 /* AppDelegate.swift */; };
 		66316CAA24D4C49000B1A973 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CA924D4C49000B1A973 /* SceneDelegate.swift */; };
 		66316CB124D4C49000B1A973 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66316CAF24D4C49000B1A973 /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderVendorViewController.swift; sourceTree = "<group>"; };
 		660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderBeverageViewController.swift; sourceTree = "<group>"; };
+		66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatLocationViewController.swift; sourceTree = "<group>"; };
+		66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
 		66316CA424D4C49000B1A973 /* CoffeeRun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeRun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66316CA724D4C49000B1A973 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66316CA924D4C49000B1A973 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,15 +85,17 @@
 				66316CA724D4C49000B1A973 /* AppDelegate.swift */,
 				66316CA924D4C49000B1A973 /* SceneDelegate.swift */,
 				66316CC924D4EA7D00B1A973 /* LoginViewController.swift */,
+				66923CD724D8E2FE002E731A /* SignUpViewController.swift */,
+				66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */,
 				66316CC324D4D2D300B1A973 /* HomeViewController.swift */,
 				66316CC524D4D2E200B1A973 /* OrderViewController.swift */,
 				660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */,
 				660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */,
+				66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */,
+				66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */,
 				66316CBF24D4D14700B1A973 /* RunViewController.swift */,
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
 				66316CCB24D7820800B1A973 /* EditProfileViewController.swift */,
-				66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */,
-				66923CD724D8E2FE002E731A /* SignUpViewController.swift */,
 				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
 				66316CAF24D4C49000B1A973 /* Main.storyboard */,
 				66316CB224D4C49600B1A973 /* Assets.xcassets */,
@@ -179,11 +185,13 @@
 				660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */,
 				660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */,
 				66316CAA24D4C49000B1A973 /* SceneDelegate.swift in Sources */,
+				66304E1524DB0E4B00E557E9 /* OrderSummaryViewController.swift in Sources */,
 				66316CCA24D4EA7D00B1A973 /* LoginViewController.swift in Sources */,
 				66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */,
 				66316CC024D4D14700B1A973 /* RunViewController.swift in Sources */,
 				66316CC624D4D2E200B1A973 /* OrderViewController.swift in Sources */,
 				66316CCC24D7820800B1A973 /* EditProfileViewController.swift in Sources */,
+				66304E1324DB0C1000E557E9 /* SeatLocationViewController.swift in Sources */,
 				66316CCE24D8CE3D00B1A973 /* AddFundsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
