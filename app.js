@@ -419,34 +419,34 @@ app.post('/clean', function(req, res){
 
 // *************************************  GETTERS FOR BEVERAGES  ****************************************
 
-app.post('/getVendors', function(req, res){
+app.get('/getVendors', function(req, res){
     post_methods.getVendors(res);
     return;
 })
 
-app.post('/getBeverages', function(req, res){
-    var vendor = req.body.vendor;
+app.get('/getBeverages', function(req, res){
+    var vendor = req.headers['vendor'];
     post_methods.getBeveragesFromVendor(res, vendor);
     return;
 })
 
-app.post('/getSize', function(req, res){
-    var vendor = req.body.vendor;
-    var beverage = req.body.beverage;
+app.get('/getSize', function(req, res){
+    var vendor = req.headers['vendor'];
+    var beverage = req.headers['beverage'];
     post_methods.getBeveragesOfBevAndVendor(res, vendor, beverage);
     return;
 })
 
-app.post('/getPriceOfBeverage', function(req, res){
-    var vendor = req.body.vendor;
-    var beverage = req.body.beverage;
-    var size = req.body.size;
+app.get('/getPriceOfBeverage', function(req, res){
+    var vendor = req.headers['vendor'];
+    var beverage = req.headers['beverage'];
+    var size = req.headers['size'];
 
     post_methods.getBeveragePrice(res, vendor, beverage, size);
     return;
 })
 
-app.post('/getLibraryInformation', function(req, res){
+app.get('/getLibraryInformation', function(req, res){
     post_methods.getLibraryInformation(res);
     return;
 })
