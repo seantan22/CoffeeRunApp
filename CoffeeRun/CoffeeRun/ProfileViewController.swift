@@ -41,10 +41,10 @@ class ProfileViewController: UIViewController {
     
     struct LogoutResponse: Decodable {
         var result: Bool
-        var msg: String
+        var response: Array<String>
         init() {
             self.result = false
-            self.msg = String()
+            self.response = Array()
         }
     }
     var logoutResponse = LogoutResponse()
@@ -88,8 +88,8 @@ class ProfileViewController: UIViewController {
             if let data = data {
                  do {
                     let jsonResponse = try JSONDecoder().decode(LogoutResponse.self, from: data)
-                    self.logoutResponse.msg = jsonResponse.msg
-                    print(self.logoutResponse.msg)
+                    self.logoutResponse.response = jsonResponse.response
+                    print(self.logoutResponse.response)
                  } catch {
                      print("Error: Struct and JSON response do not match.")
                  }

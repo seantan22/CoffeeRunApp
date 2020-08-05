@@ -87,10 +87,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     //MARK: Response
     struct Response: Decodable {
        var result: Bool
-       var errorMessage: String
+       var response: String
        init() {
            self.result = false
-           self.errorMessage = String()
+           self.response = String()
        }
     }
     
@@ -141,13 +141,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 do {
                     let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
                     response.result = jsonResponse.result
-                    response.errorMessage = jsonResponse.errorMessage
-                    print(response.errorMessage)
+                    response.response = jsonResponse.response
+                    print(response.response)
                 } catch {
                     print("Error: Struct and JSON response do not match.")
                 }
                 if response.result == true {
-                    UserDefaults.standard.set(response.errorMessage, forKey: "user_id")
+                    UserDefaults.standard.set(response.response, forKey: "user_id")
                 }
                 completion(response)
             }

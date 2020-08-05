@@ -34,11 +34,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
         login(email: email, password: password) {(result: Response) in
             if result.result == true {
-                    ProfileViewController.username = result.user_id[1]
-                    ProfileViewController.email = result.user_id[2]
-                    ProfileViewController.balance = result.user_id[3]
+                    ProfileViewController.username = result.response[1]
+                    ProfileViewController.email = result.response[2]
+                    ProfileViewController.balance = result.response[3]
             } else {
-                print(result.user_id[0])
+                print(result.response[0])
             }
         }
 
@@ -58,10 +58,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     //MARK: Response
     struct Response: Decodable {
         var result: Bool
-        var user_id: Array<String>
+        var response: Array<String>
         init() {
             self.result = false
-            self.user_id = Array()
+            self.response = Array()
         }
     }
     
@@ -103,18 +103,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
        
         let task = session.uploadTask(with: request, from: dataLogin) { data, response, error in
             if let data = data {
-                var response = Response()
+                var loginResponse = Response()
                 do {
                     let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
-                    response.result = jsonResponse.result
-                    response.user_id = jsonResponse.user_id
+                    loginResponse.result = jsonResponse.result
+                    loginResponse.response = jsonResponse.response
                 } catch {
                     print(error)
                 }
-                if response.result == true {
-                    UserDefaults.standard.set(response.user_id[0], forKey: "user_id")
+                if loginResponse.result == true {
+                    UserDefaults.standard.set(loginResponse.response[0], forKey: "user_id")
                 }
-                completion(response)
+                completion(loginResponse)
             }
         }
         task.resume()
