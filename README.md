@@ -473,10 +473,10 @@ Important considerations:
 
 ------------------------------------------------------------
 
-### GET `/getBeverages`
+### GET `/getBeverageInfo`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
-| Get list of beverages for a given vendor  | `vendor` | Array of distinct beverages |
+| Get list of beverages for a given vendor and the allocated sizes  | `vendor` | Array of cell 1: distinct beverages, cell 2: distinct sizes|
 
 | Errors  |
 | ------------- |
