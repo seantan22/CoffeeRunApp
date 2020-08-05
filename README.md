@@ -463,7 +463,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-### POST `/getVendors`
+### GET `/getVendors`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get list of vendors to display  | `None` | Array of vendors |
@@ -473,7 +473,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-### POST `/getBeverages`
+### GET `/getBeverages`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get list of beverages for a given vendor  | `vendor` | Array of distinct beverages |
@@ -483,7 +483,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-### POST `/getSize`
+### GET `/getSize`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get list of beverages for a given vendor and beverage  | `vendor, beverage` | Array of distinct sizes for the specific vendor |
@@ -493,7 +493,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-### POST `/getPriceOfBeverage`
+### GET `/getPriceOfBeverage`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get the price of the specified beverage  | `vendor, beverage, size` | returns an double for the price of the beverage |
@@ -503,7 +503,7 @@ Important considerations:
 
 ------------------------------------------------------------
 
-### POST `/getLibraryInformation`
+### GET `/getLibraryInformation`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
 | Get all library information  | `None` | returns a JSON object of all the information of the libraries. Floors, segments, etc. |
