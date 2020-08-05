@@ -15,15 +15,15 @@ module.exports = {
     createUser: async function (res, username, password, email, phoneNum){
 
         if (await (db.checkIfUnique(1, username))){
-            res.send(JSON.stringify({result: false, errorMessage: 'Username is already taken.'}));
+            res.send(JSON.stringify({result: false, response: ['Username is already taken.']}));
             return;
         }
         if (await (db.checkIfUnique(3, email))){
-            res.send(JSON.stringify({result: false, errorMessage: 'Email is already taken.'}));
+            res.send(JSON.stringify({result: false, response: ['Email is already taken.']}));
             return;
         }
         if (await (db.checkIfUnique(4, phoneNum))){
-            res.send(JSON.stringify({result: false, errorMessage: 'Phone number is already taken.'}));
+            res.send(JSON.stringify({result: false, response: ['Phone number is already taken.']}));
             return;
         }
         

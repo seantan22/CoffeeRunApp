@@ -75,7 +75,7 @@ app.get('/getNumberOfAllOpenOrders', function(req, res){
 app.get('/getOrdersByLibrary', function(req, res){
     var library = req.headers['library'];
     if(library == "" || library == null){
-        return JSON.stringify({result: false, errorMessage: "Please input a library."});
+        return JSON.stringify({result: false, response: ["Please input a library."]});
     }
 
     get_methods.getOrdersByLibrary(res, library);
@@ -87,7 +87,7 @@ app.post('/makeReview', function(req, res){
     var username = req.body.username;
 
     if(review == "" || review == null){
-        return JSON.stringify({result: false, errorMessage: "Please write a review."});
+        return JSON.stringify({result: false, response: ["Please write a review."]});
     }
 
     post_methods.makeReview(res, review, username);
@@ -120,19 +120,19 @@ app.get('/getRating', function(req, res){
 
 app.post('/createUser', function (req, res) {
     if (req.body.username == null || req.body.username == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please fill in the username."}));
+        res.send(JSON.stringify({result: false, response: ["Please fill in the username."]}));
         return;
     }
     if (cred_checker.passwordStrength(req.body.password) || req.body.password == null || req.body.password == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter an appropriate password."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate password."]}));
         return;
     }
     if (cred_checker.emailStrength(req.body.email) || req.body.email == null || req.body.email == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter an appropriate email."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate email."]}));
         return;
     }
     if (cred_checker.phoneStrength(req.body.phone_number) || req.body.phone_number == null || req.body.phone_number == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter an appropriate phone number."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate phone number."]}));
         return;
     }
     
@@ -149,11 +149,11 @@ app.post('/createUser', function (req, res) {
 app.post('/updateUser', function(req, res){
 
     if (req.body.username == null || req.body.username == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please fill in the username."}));
+        res.send(JSON.stringify({result: false, response: ["Please fill in the username."]}));
         return;
     }
     if (cred_checker.passwordStrength(req.body.password) || req.body.password == null || req.body.password == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter an appropriate password."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate password."]}));
         return;
     }
 
@@ -204,35 +204,35 @@ app.get('/getOrderDelivery', function(req, res){
 
 app.post('/createOrder', function (req, res) {
     if (req.body.beverage == null || req.body.beverage == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please fill in the beverage."}));
+        res.send(JSON.stringify({result: false, response: ["Please fill in the beverage."]}));
         return;
     }
     if (req.body.size == null || req.body.size == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please fill in the size."}));
+        res.send(JSON.stringify({result: false, response: ["Please fill in the size."]}));
         return;
     }
     if (req.body.details == null || req.body.details == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please fill in details or indicate N/A if none."}));
+        res.send(JSON.stringify({result: false, response: ["Please fill in details or indicate N/A if none."]}));
         return;
     }
     if (req.body.restaurant == null || req.body.restaurant == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the restaurant."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the restaurant."]}));
         return;
     }
     if (req.body.library == null || req.body.library == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the library you are in."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the library you are in."]}));
         return;
     }
     if (req.body.floor == null || req.body.floor == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the floor you are on."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the floor you are on."]}));
         return;
     }
     if (req.body.segment == null || req.body.segment == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the segment you are in."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the segment you are in."]}));
         return;
     }
     if (req.body.cost == null || req.body.cost == "" || req.body.cost < 0){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the cost."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the cost."]}));
         return;
     }
     
@@ -253,39 +253,39 @@ app.post('/createOrder', function (req, res) {
 
 app.post('/updateOrder', function(req, res){
     if (req.body.beverage == null || req.body.beverage == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please fill in the beverage."}));
+        res.send(JSON.stringify({result: false, response: ["Please fill in the beverage."]}));
         return;
     }
     if (req.body.size == null || req.body.size == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please fill in the size."}));
+        res.send(JSON.stringify({result: false, response: ["Please fill in the size."]}));
         return;
     }
     if (req.body.details == null || req.body.details == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please fill in details or indicate N/A if none."}));
+        res.send(JSON.stringify({result: false, response: ["Please fill in details or indicate N/A if none."]}));
         return;
     }
     if (req.body.restaurant == null || req.body.restaurant == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the restaurant."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the restaurant."]}));
         return;
     }
     if (req.body.library == null || req.body.library == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the library you are in."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the library you are in."]}));
         return;
     }
     if (req.body.floor == null || req.body.floor == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the floor you are on."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the floor you are on."]}));
         return;
     }
     if (req.body.segment == null || req.body.segment == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the segment you are in."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the segment you are in."]}));
         return;
     }
     if (req.body.cost == null || req.body.cost == "" || req.body.cost < 0){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the cost."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the cost."]}));
         return;
     }
     if (req.body.status == null || req.body.status == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the status."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the status."]}));
         return;
     }
 
@@ -308,12 +308,12 @@ app.post('/updateOrder', function(req, res){
 app.post('/attachDelivery', function(req, res){
 
     if(req.body.order_id == null || req.body.order_id == "") {
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the order_id."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter the order_id."]}));
         return;
     }
 
     if(req.body.delivery_id == null || req.body.delivery_id == "") {
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter the delivery_id."}))
+        res.send(JSON.stringify({result: false, response: ["Please enter the delivery_id."]}))
         return;
     }
 
@@ -389,15 +389,15 @@ app.post('/deposit', function(req, res){
 app.post('/completeOrder', function(req, res){
 
     if(req.body.user_id == null || req.body.user_id == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter user_id."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter user_id."]}));
         return;
     }
     if(req.body.delivery_id == null || req.body.delivery_id == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter delivery_id."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter delivery_id."]}));
         return;
     }
     if(req.body.order_id == null || req.body.order_id == ""){
-        res.send(JSON.stringify({result: false, errorMessage: "Please enter order_id."}));
+        res.send(JSON.stringify({result: false, response: ["Please enter order_id."]}));
         return;
     }
 
