@@ -10,6 +10,10 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    static var username: String = String()
+    static var email: String = String()
+    static var balance: String = String()
+    
     //MARK: Properties
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -35,18 +39,6 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    //MARK: Response Structs
-    struct UserProfileResponse: Decodable {
-        var username: String
-        var email: String
-        var balance: Double
-        init() {
-            self.username = String()
-            self.email = String()
-            self.balance = 0.0
-        }
-    }
-    
     struct LogoutResponse: Decodable {
         var result: Bool
         var msg: String
@@ -59,55 +51,12 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.usernameLabel.text = ProfileViewController.username
+        self.emailLabel.text = ProfileViewController.email
+        self.balanceLabel.text = "$ " + ProfileViewController.balance
 
-        self.getUserProfile(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: UserProfileResponse) in
-            DispatchQueue.main.async {
-                self.usernameLabel.text = result.username
-                self.balanceLabel.text = "$" + String(result.balance)
-                self.emailLabel.text = result.email
-            }
-        }
     }
-    
-    
-    // GET /getUser
-    func getUserProfile(user_id: String, completion: @escaping(UserProfileResponse) -> ()) {
-        
-        let session = URLSession.shared
-
-        guard let url = URL(string: "http:/localhost:5000/getUser") else {
-         print("Error: Cannot create URL")
-         return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(user_id, forHTTPHeaderField: "user_id")
-        
-        let task = session.dataTask(with: request) { data, response, error in
-            
-            var userProfileResponse: UserProfileResponse = UserProfileResponse()
-            
-            if let data = data {
-                do {
-                    let jsonResponse = try JSONDecoder().decode(UserProfileResponse.self, from: data)
-                        userProfileResponse.username = jsonResponse.username
-                        userProfileResponse.balance = jsonResponse.balance
-                        userProfileResponse.email = jsonResponse.email
-    
-                } catch {
-                    print("Error: Struct and JSON response do not match.")
-                }
-                completion(userProfileResponse)
-            }
-        }
-
-        task.resume()
-        
-    }
-    
-
     
     // POST /logout
     func logout(user_id: String) {

@@ -32,7 +32,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let email = emailTextField.text!
         let password = passwordTextField.text!
 
-        login(email: email, password: password)
+        login(email: email, password: password) {(result: Response) in
+            if result.result == true {
+                    ProfileViewController.username = result.user_id[1]
+                    ProfileViewController.email = result.user_id[2]
+                    ProfileViewController.balance = result.user_id[3]
+            }
+        }
 
         run(after: 1000) {
             if UserDefaults.standard.value(forKey: "user_id") != nil {
@@ -50,13 +56,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     //MARK: Response
     struct Response: Decodable {
         var result: Bool
-        var user_id: String
+        var user_id: Array<String>
         init() {
             self.result = false
-            self.user_id = String()
+            self.user_id = Array()
         }
     }
-    var response = Response()
     
     
     override func viewDidLoad() {
@@ -68,7 +73,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // POST /login
-    func login(email: String, password: String) {
+    func login(email: String, password: String, completion: @escaping(Response) -> ()) {
         
         let session = URLSession.shared
         
@@ -96,16 +101,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
        
         let task = session.uploadTask(with: request, from: dataLogin) { data, response, error in
             if let data = data {
+                var response = Response()
                 do {
                     let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
-                    self.response.result = jsonResponse.result
-                    self.response.user_id = jsonResponse.user_id
+                    response.result = jsonResponse.result
+                    response.user_id = jsonResponse.user_id
                 } catch {
-                    print("Error: Struct and JSON response do not match.")
+                    print(error)
                 }
-                if self.response.result == true {
-                    UserDefaults.standard.set(self.response.user_id, forKey: "user_id")
+                if response.result == true {
+                    UserDefaults.standard.set(response.user_id[0], forKey: "user_id")
                 }
+                completion(response)
             }
         }
         task.resume()
