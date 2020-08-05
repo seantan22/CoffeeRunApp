@@ -92,15 +92,15 @@ async function loginWithCred(email, password){
     
     if(record == null){
         db.close();
-        return JSON.stringify({result: false, user_id: ['No account is associated with that email address.']});
+        return JSON.stringify({result: false, response: ['No account is associated with that email address.']});
     }
     if(record.flagged){
         db.close();
-        return JSON.stringify({result: false, user_id: ['This account has been flagged.']});
+        return JSON.stringify({result: false, response: ['This account has been flagged.']});
     }
     if(record.loggedIn){
         db.close();
-        return JSON.stringify({result: false, user_id: ['Already logged in.']});
+        return JSON.stringify({result: false, response: ['Already logged in.']});
     }
     // if(!record.verified){
     //     db.close();
@@ -108,7 +108,7 @@ async function loginWithCred(email, password){
     // }
     if(!(await bcrypt.compare(password, record.password))){
         db.close();
-        return JSON.stringify({result: false, user_id: ['Password is incorrect.']});
+        return JSON.stringify({result: false, response: ['Password is incorrect.']});
     }
 
     let updatedInfo = {$set: {loggedIn: true}};
@@ -118,7 +118,7 @@ async function loginWithCred(email, password){
     db.close();
 
     // Login returns this.
-    return JSON.stringify({result: true, user_id: [record._id, record.username, record.email, record.balance.toString()]});
+    return JSON.stringify({result: true, response: [record._id, record.username, record.email, record.balance.toString()]});
 }
 
 async function logoutWithCred(id){
@@ -130,11 +130,11 @@ async function logoutWithCred(id){
     
     if(record == null){
         db.close();
-        return JSON.stringify({result: false, msg: ['Incorrect credentials.']});
+        return JSON.stringify({result: false, response: ['Incorrect credentials.']});
     }
     if(!record.loggedIn){
         db.close();
-        return JSON.stringify({result: false, msg: ['Already logged out.']});
+        return JSON.stringify({result: false, response: ['Already logged out.']});
     }
 
     let updatedInfo = {$set: {username: record.username, password: record.password, email: record.email, phone_number: record.phone_number, loggedIn: false}};
@@ -142,7 +142,7 @@ async function logoutWithCred(id){
     var response = await client.collection("User").updateOne({_id: ObjectId(id)}, updatedInfo).catch((error) => console.log(error)); 
     db.close();
 
-    return JSON.stringify({result: true, msg: ['Successfully logged out.']});
+    return JSON.stringify({result: true, response: ['Successfully logged out.']});
 }
 
 module.exports = {
