@@ -114,10 +114,11 @@ async function loginWithCred(email, password){
     let updatedInfo = {$set: {loggedIn: true}};
     // Update
     var response = await client.collection("User").updateOne({password: record.password}, updatedInfo).catch((error) => console.log(error)); 
+    
     db.close();
 
     // Login returns this.
-    return JSON.stringify({result: true, user_id: [record._id, record.username, record.email, record.balance]});
+    return JSON.stringify({result: true, user_id: [record._id, record.username, record.email, record.balance.toString()]});
 }
 
 async function logoutWithCred(id){
