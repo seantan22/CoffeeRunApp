@@ -54,7 +54,7 @@ class ProfileViewController: UIViewController {
         
         self.usernameLabel.text = ProfileViewController.username
         self.emailLabel.text = ProfileViewController.email
-        self.balanceLabel.text = "$ " + ProfileViewController.balance
+        self.balanceLabel.text = "$" + ProfileViewController.balance
 
     }
     

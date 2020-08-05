@@ -37,6 +37,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     ProfileViewController.username = result.user_id[1]
                     ProfileViewController.email = result.user_id[2]
                     ProfileViewController.balance = result.user_id[3]
+            } else {
+                print(result.user_id[0])
             }
         }
 
