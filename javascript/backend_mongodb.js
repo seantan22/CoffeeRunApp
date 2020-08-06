@@ -92,7 +92,7 @@ async function loginWithCred(email, password){
     
     if(record == null){
         db.close();
-        return JSON.stringify({result: false, response: ['No account is associated with that email address.']});
+        return JSON.stringify({result: false, response: ['Account does not exist.']});
     }
     if(record.flagged){
         db.close();

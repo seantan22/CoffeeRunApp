@@ -11,6 +11,7 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Properties
+    @IBOutlet weak var errorMsgLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -28,23 +29,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Actions
     @IBAction func loginUser(_ sender: UIButton) {
+        
+        errorMsgLabel.text = ""
 
         let email = emailTextField.text!
         let password = passwordTextField.text!
 
-        login(email: email, password: password)
-
-        run(after: 1000) {
-            if UserDefaults.standard.value(forKey: "user_id") != nil {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-                    .changeRootViewController(tabBarController)
+        login(email: email, password: password) {(result: Response) in
+            
+            if result.result == true {
+                self.run(after: 1000) {
+                    if UserDefaults.standard.value(forKey: "user_id") != nil {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+                            .changeRootViewController(tabBarController)
+                    } else {
+                        return
+                    }
+                }
             } else {
-                return
+                DispatchQueue.main.async {
+                    self.errorMsgLabel.text = result.response[0]
+                }
             }
         }
-        
+
     }
     
     override func viewDidLoad() {
@@ -66,7 +76,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
       }
     
     // POST /login
-    func login(email: String, password: String) {
+    func login(email: String, password: String, completion: @escaping(Response) -> ()) {
         
         let session = URLSession.shared
         
@@ -105,6 +115,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 if loginResponse.result == true {
                     UserDefaults.standard.set(loginResponse.response[0], forKey: "user_id")
                 }
+                completion(loginResponse)
             }
         }
         task.resume()
