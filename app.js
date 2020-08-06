@@ -160,9 +160,8 @@ app.post('/updateUser', function(req, res){
     var user_id = req.body.user_id;
     var username = req.body.username;
     var password = req.body.password;
-    var balance = req.body.balance;
 
-    update_methods.updateUser(res, user_id, username, password, balance);
+    update_methods.updateUser(res, user_id, username, password);
     return;
 })
 

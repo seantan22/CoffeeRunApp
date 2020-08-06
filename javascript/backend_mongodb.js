@@ -259,7 +259,7 @@ module.exports = {
 
         return JSON.stringify({result: true, response: [response.ops[0]._id]});      
     },
-    updateUser: async function(id, username, password, balance){
+    updateUser: async function(id, username, password){
         var hasUpdated = false;
 
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -307,7 +307,7 @@ module.exports = {
         var saltRounds = 8;
         let newHashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(saltRounds));
 
-        let personInfo = {$set: {username: username, password: newHashedPassword, balance: balance}};
+        let personInfo = {$set: {username: username, password: newHashedPassword}};
         var response = await client.collection("User").updateOne({_id: ObjectId(id)}, personInfo).catch((error) => console.log(error)); 
         db.close();
     
