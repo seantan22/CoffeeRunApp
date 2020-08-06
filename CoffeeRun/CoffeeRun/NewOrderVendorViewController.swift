@@ -12,7 +12,7 @@ class NewOrderVendorViewController: UIViewController {
     
     //MARK: Actions
     @IBAction func selectTimHortons(_ sender: UIButton) {
-        let selectedVendor = "Tim Hortons"
+        let selectedVendor = "Tim_Hortons"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
             if result.result == true {
                 DispatchQueue.main.async {
@@ -28,7 +28,7 @@ class NewOrderVendorViewController: UIViewController {
     }
     
     @IBAction func selectPM(_ sender: UIButton) {
-       let selectedVendor = "Premiere Moisson"
+       let selectedVendor = "Premiere_Moisson"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
             if result.result == true {
                 DispatchQueue.main.async {
@@ -44,7 +44,7 @@ class NewOrderVendorViewController: UIViewController {
     }
     
     @IBAction func selectSecondCup(_ sender: UIButton) {
-        let selectedVendor = "Second Cup"
+        let selectedVendor = "Second_Cup"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
             if result.result == true {
                 DispatchQueue.main.async {
