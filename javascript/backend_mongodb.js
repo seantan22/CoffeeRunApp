@@ -118,7 +118,7 @@ async function loginWithCred(email, password){
     db.close();
 
     // Login returns this.
-    return JSON.stringify({result: true, response: [record._id, record.username, record.email, record.balance.toString()]});
+    return JSON.stringify({result: true, response: [record._id]});
 }
 
 async function logoutWithCred(id){
@@ -230,7 +230,7 @@ module.exports = {
         
         db.close();
 
-        return record; 
+        return ({result: true, response: [record.username, record.email, record.balance.toString()]}); 
     },
     getUsers: async function(){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));

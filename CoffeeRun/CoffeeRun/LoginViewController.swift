@@ -32,15 +32,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let email = emailTextField.text!
         let password = passwordTextField.text!
 
-        login(email: email, password: password) {(result: Response) in
-            if result.result == true {
-                    ProfileViewController.username = result.response[1]
-                    ProfileViewController.email = result.response[2]
-                    ProfileViewController.balance = result.response[3]
-            } else {
-                print(result.response[0])
-            }
-        }
+        login(email: email, password: password)
 
         run(after: 1000) {
             if UserDefaults.standard.value(forKey: "user_id") != nil {
@@ -75,7 +67,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // POST /login
-    func login(email: String, password: String, completion: @escaping(Response) -> ()) {
+    func login(email: String, password: String) {
         
         let session = URLSession.shared
         
@@ -114,7 +106,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 if loginResponse.result == true {
                     UserDefaults.standard.set(loginResponse.response[0], forKey: "user_id")
                 }
-                completion(loginResponse)
             }
         }
         task.resume()

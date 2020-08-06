@@ -68,7 +68,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             signup(username: username, password: password, email: email, phone: phone) {(result: Response) in
                 if result.result == true {
                     DispatchQueue.main.async {
-                        
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let confirmSignUpController = storyboard.instantiateViewController(withIdentifier: "ConfirmSignUpController")
                         self.navigationController?.pushViewController(confirmSignUpController, animated: true)
@@ -144,7 +143,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     response.response = jsonResponse.response
                     print(response.response)
                 } catch {
-                    print("Error: Struct and JSON response do not match.")
+                    print(error)
                 }
                 if response.result == true {
                     UserDefaults.standard.set(response.response, forKey: "user_id")
@@ -155,6 +154,4 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         task.resume()
     }
     
-
-
 }
