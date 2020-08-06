@@ -257,7 +257,7 @@ module.exports = {
         //sendSMS(number, verification_code);
         db.close();
 
-        return JSON.stringify({result: true, response: response.ops[0]._id});      
+        return JSON.stringify({result: true, response: [response.ops[0]._id]});      
     },
     updateUser: async function(id, username, password, balance){
 
@@ -490,7 +490,7 @@ module.exports = {
 
         db.close();
 
-        return JSON.stringify({result: true, response: response.ops[0]._id});
+        return JSON.stringify({result: true, response: [response.ops[0]._id]});
     },
     updateOrder: async function(id, username, beverage, size, details, restaurant, library, floor, segment, cost, status){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));

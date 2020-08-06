@@ -47,17 +47,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    //MARK: Response
-    struct Response: Decodable {
-        var result: Bool
-        var response: Array<String>
-        init() {
-            self.result = false
-            self.response = Array()
-        }
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true);
@@ -65,6 +54,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self;
         passwordTextField.delegate = self;
     }
+    
+    //MARK: Response
+      struct Response: Decodable {
+          var result: Bool
+          var response: Array<String>
+          init() {
+              self.result = false
+              self.response = Array()
+          }
+      }
     
     // POST /login
     func login(email: String, password: String) {
