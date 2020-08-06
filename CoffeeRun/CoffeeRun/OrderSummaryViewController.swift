@@ -17,7 +17,7 @@ class OrderSummaryViewController: UIViewController {
     static var library: String = String()
     static var floor: String = String()
     static var zone: String = String()
-    static var cost: String = String()
+    static var subtotal: String = String()
     
     //MARK: Properties
     @IBOutlet weak var vendorLabel: UILabel!
@@ -29,6 +29,32 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var zoneLabel: UILabel!
     @IBOutlet weak var subtotalLabel: UILabel!
     
+    //MARK: Actions
+    @IBAction func clickPlaceOrder(_ sender: UIBarButtonItem) {
+        
+        print("Attempting to place order...")
+        
+        createOrder(restaurant: OrderSummaryViewController.vendor,
+                    beverage: OrderSummaryViewController.beverage,
+                    size: OrderSummaryViewController.size,
+                    details: OrderSummaryViewController.details,
+                    library: OrderSummaryViewController.library,
+                    floor: OrderSummaryViewController.floor,
+                    segment: OrderSummaryViewController.zone,
+                    cost: OrderSummaryViewController.subtotal,
+                    user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: Response) in
+                        
+            if result.result == true {
+                print("Order created successfully.")
+                self.run(after: 1000) {
+                    self.performSegue(withIdentifier: "toOrderPlacedSegue", sender: nil)
+                }
+            }
+        }
+        
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +62,96 @@ class OrderSummaryViewController: UIViewController {
         vendorLabel.text = OrderSummaryViewController.vendor.replacingOccurrences(of: "_", with: " ")
         sizeLabel.text = OrderSummaryViewController.size
         beverageLabel.text = OrderSummaryViewController.beverage
-        detailsLabel.text = OrderSummaryViewController.details
+        if OrderSummaryViewController.details == "None" {
+            detailsLabel.text = ""
+        } else {
+            detailsLabel.text = OrderSummaryViewController.details
+        }
         libraryLabel.text = OrderSummaryViewController.library
-        floorLabel.text = OrderSummaryViewController.floor
-        zoneLabel.text = OrderSummaryViewController.zone
-        subtotalLabel.text = "$" + OrderSummaryViewController.cost
+        floorLabel.text = "Floor " + OrderSummaryViewController.floor
+        zoneLabel.text = "Zone " + OrderSummaryViewController.zone
+        subtotalLabel.text = "$" + OrderSummaryViewController.subtotal
         
+    }
+    
+    //MARK: Response
+      struct Response: Decodable {
+          var result: Bool
+          var response: Array<String>
+          init() {
+              self.result = false
+              self.response = Array()
+          }
+      }
+    
+    // POST /createOrder
+    func createOrder(restaurant: String,
+                     beverage: String,
+                     size: String,
+                     details: String,
+                     library: String,
+                     floor: String,
+                     segment: String,
+                     cost: String,
+                     user_id: String,
+                     completion: @escaping(Response) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: "http:/localhost:5000/createOrder") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonLogin = [
+            "restaurant": restaurant,
+            "beverage": beverage,
+            "size": size,
+            "details": details,
+            "library": library,
+            "floor": floor,
+            "segment": segment,
+            "cost": cost,
+            "user_id": user_id
+        ]
+        
+        let dataLogin: Data
+        do {
+            dataLogin = try JSONSerialization.data(withJSONObject: jsonLogin, options: [] )
+        } catch {
+            print("Error: Unable to convert JSON to Data object")
+            return
+        }
+       
+        let task = session.uploadTask(with: request, from: dataLogin) { data, response, error in
+            if let data = data {
+                var createOrderResponse = Response()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                    createOrderResponse.result = jsonResponse.result
+                    createOrderResponse.response = jsonResponse.response
+                    print(createOrderResponse.response)
+                } catch {
+                    print(error)
+                }
+                if createOrderResponse.result == true {
+                    UserDefaults.standard.set(createOrderResponse.response[0], forKey: "order_id")
+                }
+                completion(createOrderResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
     }
 
 }

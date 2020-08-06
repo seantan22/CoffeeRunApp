@@ -20,7 +20,10 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
     
     
     //MARK: Actions
-    @IBAction func toSeatLocation(_ sender: Any) {
+   
+    @IBAction func toSeatLocation(_ sender: UIBarButtonItem) {
+        
+        sender.isEnabled = false
         
         let selectedSize = NewOrderBeverageViewController.sizes[sizePicker.selectedRow(inComponent: 0)]
         OrderSummaryViewController.size = selectedSize
@@ -28,7 +31,12 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
         let selectedBeverage = NewOrderBeverageViewController.beverages[beveragePicker.selectedRow(inComponent: 0)]
         OrderSummaryViewController.beverage = selectedBeverage
         
-        OrderSummaryViewController.details = detailsTextField.text!
+        if detailsTextField.text! == "" {
+            OrderSummaryViewController.details = "None"
+        } else {
+            OrderSummaryViewController.details = detailsTextField.text!
+        }
+        
         
         self.getLibraryInfo() {(result: Response) in
             if result.result == true {
@@ -46,20 +54,21 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
             }
         }
         
-        self.getBevPrice(vendor: OrderSummaryViewController.vendor, beverage: OrderSummaryViewController.beverage, size: OrderSummaryViewController.size) {(result: BevPriceResponse) in
+        self.getBeverageSubtotal(vendor: OrderSummaryViewController.vendor, beverage: OrderSummaryViewController.beverage, size: OrderSummaryViewController.size) {(result: BevPriceResponse) in
             if result.result == true {
                 DispatchQueue.main.async {
-                    OrderSummaryViewController.cost = result.response[0]
+                    OrderSummaryViewController.subtotal = result.response[0]
                 }
                 self.run(after: 1000) {
                     self.performSegue(withIdentifier: "toSeatLocationSegue", sender: nil)
+                    sender.isEnabled = true
                 }
             } else {
-              print("Error: You can't get this beverage in that size.")
+                print("Error: You can't get this beverage in that size.")
             }
         }
-    }
     
+    }
     
     //MARK: PickerViewDelegate
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -159,7 +168,7 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
     }
     
     // GET /getPriceOfBeverage
-    func getBevPrice(vendor: String, beverage: String, size: String, completion: @escaping(BevPriceResponse) -> ()) {
+    func getBeverageSubtotal(vendor: String, beverage: String, size: String, completion: @escaping(BevPriceResponse) -> ()) {
            
         let session = URLSession.shared
 
