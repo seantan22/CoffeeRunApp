@@ -20,6 +20,7 @@ class OrderSummaryViewController: UIViewController {
     static var subtotal: String = String()
     
     //MARK: Properties
+    @IBOutlet weak var errorMsgLabel: UILabel!
     @IBOutlet weak var vendorLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var beverageLabel: UILabel!
@@ -32,7 +33,7 @@ class OrderSummaryViewController: UIViewController {
     //MARK: Actions
     @IBAction func clickPlaceOrder(_ sender: UIBarButtonItem) {
         
-        print("Attempting to place order...")
+        self.errorMsgLabel.text = "Placing order..."
         
         createOrder(restaurant: OrderSummaryViewController.vendor,
                     beverage: OrderSummaryViewController.beverage,
@@ -45,15 +46,15 @@ class OrderSummaryViewController: UIViewController {
                     user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: Response) in
                         
             if result.result == true {
-                print("Order created successfully.")
                 self.run(after: 1000) {
                     self.performSegue(withIdentifier: "toOrderPlacedSegue", sender: nil)
                 }
+            } else {
+                DispatchQueue.main.async {
+                     self.errorMsgLabel.text = result.response[0]
+                }
             }
         }
-        
-        
-        
     }
     
     override func viewDidLoad() {
@@ -134,7 +135,6 @@ class OrderSummaryViewController: UIViewController {
                     let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
                     createOrderResponse.result = jsonResponse.result
                     createOrderResponse.response = jsonResponse.response
-                    print(createOrderResponse.response)
                 } catch {
                     print(error)
                 }
