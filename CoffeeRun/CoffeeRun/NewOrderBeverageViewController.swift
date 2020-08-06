@@ -51,11 +51,12 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
                 DispatchQueue.main.async {
                     OrderSummaryViewController.cost = result.response[0]
                 }
+                self.run(after: 1000) {
+                    self.performSegue(withIdentifier: "toSeatLocationSegue", sender: nil)
+                }
+            } else {
+              print("Error: You can't get this beverage in that size.")
             }
-        }
-        
-        run(after: 1000) {
-            self.performSegue(withIdentifier: "toSeatLocationSegue", sender: nil)
         }
     }
     
@@ -184,9 +185,6 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
                } catch {
                    print(error)
                }
-                if bevPriceResponse.result == false {
-                    print("Error: You can't get this beverage in that size.")
-                }
                completion(bevPriceResponse)
             }
         }

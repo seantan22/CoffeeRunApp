@@ -10,8 +10,18 @@ import UIKit
 
 class NewOrderVendorViewController: UIViewController {
     
+    //MARK: Properties
+    @IBOutlet weak var timHortonsBtn: UIButton!
+    @IBOutlet weak var pmBtn: UIButton!
+    @IBOutlet weak var secondCupBtn: UIButton!
+    @IBOutlet weak var starbucksBtn: UIButton!
+    
     //MARK: Actions
     @IBAction func selectTimHortons(_ sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+        pmBtn.isUserInteractionEnabled = false
+        secondCupBtn.isUserInteractionEnabled = false
+        starbucksBtn.isUserInteractionEnabled = false
         let selectedVendor = "Tim_Hortons"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
             if result.result == true {
@@ -24,10 +34,18 @@ class NewOrderVendorViewController: UIViewController {
         OrderSummaryViewController.vendor = selectedVendor
         run(after: 1000) {
             self.performSegue(withIdentifier: "toBevSegue", sender: nil)
+            sender.isUserInteractionEnabled = true
+            self.pmBtn.isUserInteractionEnabled = true
+            self.secondCupBtn.isUserInteractionEnabled = true
+            self.starbucksBtn.isUserInteractionEnabled = true
         }
     }
     
     @IBAction func selectPM(_ sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+        timHortonsBtn.isUserInteractionEnabled = false
+        secondCupBtn.isUserInteractionEnabled = false
+        starbucksBtn.isUserInteractionEnabled = false
        let selectedVendor = "Premiere_Moisson"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
             if result.result == true {
@@ -40,10 +58,18 @@ class NewOrderVendorViewController: UIViewController {
         OrderSummaryViewController.vendor = selectedVendor
         run(after: 1000) {
             self.performSegue(withIdentifier: "toBevSegue", sender: nil)
+            sender.isUserInteractionEnabled = true
+            self.timHortonsBtn.isUserInteractionEnabled = true
+            self.secondCupBtn.isUserInteractionEnabled = true
+            self.starbucksBtn.isUserInteractionEnabled = true
         }
     }
     
     @IBAction func selectSecondCup(_ sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+        timHortonsBtn.isUserInteractionEnabled = false
+        pmBtn.isUserInteractionEnabled = false
+        starbucksBtn.isUserInteractionEnabled = false
         let selectedVendor = "Second_Cup"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
             if result.result == true {
@@ -56,10 +82,18 @@ class NewOrderVendorViewController: UIViewController {
         OrderSummaryViewController.vendor = selectedVendor
         run(after: 1000) {
             self.performSegue(withIdentifier: "toBevSegue", sender: nil)
+            sender.isUserInteractionEnabled = true
+            self.timHortonsBtn.isUserInteractionEnabled = true
+            self.pmBtn.isUserInteractionEnabled = true
+            self.starbucksBtn.isUserInteractionEnabled = true
         }
     }
     
     @IBAction func selectStarbucks(_ sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+        timHortonsBtn.isUserInteractionEnabled = false
+        pmBtn.isUserInteractionEnabled = false
+        secondCupBtn.isUserInteractionEnabled = false
         let selectedVendor = "Starbucks"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
             if result.result == true {
@@ -72,6 +106,10 @@ class NewOrderVendorViewController: UIViewController {
         OrderSummaryViewController.vendor = selectedVendor
         run(after: 1000) {
             self.performSegue(withIdentifier: "toBevSegue", sender: nil)
+            sender.isUserInteractionEnabled = true
+            self.timHortonsBtn.isUserInteractionEnabled = true
+            self.pmBtn.isUserInteractionEnabled = true
+            self.secondCupBtn.isUserInteractionEnabled = true
         }
     }
     

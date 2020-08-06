@@ -45,7 +45,7 @@
             </objects>
             <point key="canvasLocation" x="2547.826086956522" y="-808.69565217391312"/>
         </scene>
-        <!--Choose a Cafe-->
+        <!--Beverage-->
         <scene sceneID="S0Q-df-fYJ">
             <objects>
                 <viewController id="s4Z-n1-ia7" customClass="NewOrderVendorViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,7 +54,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="41" translatesAutoresizingMaskIntoConstraints="NO" id="33i-nO-k8h">
-                                <rect key="frame" x="47.666666666666657" y="247.66666666666663" width="319" height="241"/>
+                                <rect key="frame" x="47.666666666666657" y="127.66666666666669" width="319" height="241"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="56" translatesAutoresizingMaskIntoConstraints="NO" id="efR-N8-xz5">
                                         <rect key="frame" x="0.0" y="0.0" width="319" height="100"/>
@@ -87,7 +87,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="71" translatesAutoresizingMaskIntoConstraints="NO" id="K6K-W5-pPp">
-                                        <rect key="frame" x="14" y="141.00000000000003" width="291" height="100"/>
+                                        <rect key="frame" x="14" y="141" width="291" height="100"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDb-ac-XZb">
                                                 <rect key="frame" x="0.0" y="20" width="120" height="60"/>
@@ -121,13 +121,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="33i-nO-k8h" firstAttribute="centerY" secondItem="cv6-VW-iwk" secondAttribute="centerY" id="Awj-8n-vw1"/>
+                            <constraint firstItem="33i-nO-k8h" firstAttribute="centerY" secondItem="cv6-VW-iwk" secondAttribute="centerY" constant="-120" id="Awj-8n-vw1"/>
                             <constraint firstItem="33i-nO-k8h" firstAttribute="centerX" secondItem="cv6-VW-iwk" secondAttribute="centerX" id="EUK-71-obg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rbB-Ul-vrZ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Choose a Cafe" id="K38-Zs-m4t"/>
+                    <navigationItem key="navigationItem" title="Beverage" id="K38-Zs-m4t"/>
                     <connections>
+                        <outlet property="pmBtn" destination="NCe-Up-SnQ" id="moa-e8-vv3"/>
+                        <outlet property="secondCupBtn" destination="mDb-ac-XZb" id="X1e-tT-3SH"/>
+                        <outlet property="starbucksBtn" destination="8B0-1F-NEn" id="2b8-ii-Tvv"/>
+                        <outlet property="timHortonsBtn" destination="ciI-Se-j9S" id="mcb-QQ-aPE"/>
                         <segue destination="IL0-qi-4VV" kind="show" identifier="toBevSegue" id="BK3-MJ-cuQ"/>
                     </connections>
                 </viewController>
