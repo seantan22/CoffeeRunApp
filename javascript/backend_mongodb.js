@@ -244,7 +244,7 @@ module.exports = {
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
-        verification_code = Math.floor(100000 + Math.random() * 999999);
+        verification_code = Math.floor(100000 + Math.random() * 899999);
             
         // Encrypt password.
         var saltRounds = 9;
@@ -259,7 +259,8 @@ module.exports = {
 
         return JSON.stringify({result: true, response: [response.ops[0]._id]});      
     },
-    updateUser: async function(id, username, password, balance){
+    updateUser: async function(id, username, password){
+        var hasUpdated = false;
 
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -293,9 +294,20 @@ module.exports = {
                 db.close();
                 return JSON.stringify({result: false, response: ['New username is already taken.']});
             }
+            hasUpdated = true;
         }
 
-        let personInfo = {$set: {username: username, password: password, loggedIn: record.loggedIn, balance: balance, flagged: record.flagged}};
+        if(await bcrypt.compare(password, record.password)){
+            if(!hasUpdated){
+                db.close();
+                return JSON.stringify({result: false, response: ['No change in user profile has been found.']});
+            }
+        }
+
+        var saltRounds = 8;
+        let newHashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(saltRounds));
+
+        let personInfo = {$set: {username: username, password: newHashedPassword}};
         var response = await client.collection("User").updateOne({_id: ObjectId(id)}, personInfo).catch((error) => console.log(error)); 
         db.close();
     

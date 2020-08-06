@@ -178,15 +178,17 @@ Important considerations:
 ### POST `/updateUser`
 | Usage  | Parameters | Returns |
 | ------------- | ------------- | ------------- |
-| Update a user's account.  | `id`, `username`, `password`, `email`, `phone_numb`, `balance` | string 'Successfully updated credentials.' |
+| Update a user's account.  | `id`, `username`, `password` | string 'Successfully updated credentials.' |
 
 | Errors  |
 | ------------- |
 | Incorrect credentials. |
 | You have to be logged in to change credentials. |
+| You cannot update your account with a pending order. |
+| You cannot update your account while delivering. |
 | New username is already taken. |
-| New email is already taken. |
-| New phone number is already taken. |
+| No change in user profile has been found. |
+
 
 ------------------------------------------------------------
 
