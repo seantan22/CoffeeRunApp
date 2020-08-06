@@ -945,14 +945,14 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['That order does not exist.']});
         }
-        return JSON.stringify({result: true, response: Order_Information.cost});
+        return JSON.stringify({result: true, response: [Order_Information.cost]});
     },
     getLibraryInformation: async function(){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
 
         var libraryInformation = await client.collection("LocationInformation").findOne();
-        return JSON.stringify({result: true, response: libraryInformation.Libraries});
+        return JSON.stringify({result: true, response: [libraryInformation.Libraries]});
     }
 };
 
