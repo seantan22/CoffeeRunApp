@@ -11,6 +11,8 @@ import UIKit
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     //MARK: Properties
+    
+    @IBOutlet weak var errorMsgLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -58,6 +60,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Actions
     @IBAction func signupUser(_ sender: UIButton) {
+        errorMsgLabel.text = ""
         let email = emailTextField.text!
         let phone = phoneTextField.text!
         let username = usernameTextField.text!
@@ -68,28 +71,28 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             signup(username: username, password: password, email: email, phone: phone) {(result: Response) in
                 if result.result == true {
                     DispatchQueue.main.async {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let confirmSignUpController = storyboard.instantiateViewController(withIdentifier: "ConfirmSignUpController")
-                        self.navigationController?.pushViewController(confirmSignUpController, animated: true)
+                        self.performSegue(withIdentifier: "toConfirmSignUpSegue", sender: nil)
                         print("SIGN UP SUCCESSFUL")
                     }
                 } else {
-                    print("Error: Sign Up Unsuccessful")
+                    DispatchQueue.main.async {
+                        self.errorMsgLabel.text = result.response[0]
+                    }
                 }
             }
             
         } else {
-            print("Error: Passwords do not match.")
+            errorMsgLabel.text = "Passwords do not match."
         }
     }
     
     //MARK: Response
     struct Response: Decodable {
        var result: Bool
-       var response: String
+       var response: Array<String>
        init() {
            self.result = false
-           self.response = String()
+           self.response = Array()
        }
     }
     
@@ -101,7 +104,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         usernameTextField.delegate = self;
         passwordTextField.delegate = self;
         confirmPasswordTextField.delegate = self;
-
+        
     }
     
     // POST /createUser
@@ -141,7 +144,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
                     response.result = jsonResponse.result
                     response.response = jsonResponse.response
-                    print(response.response)
                 } catch {
                     print(error)
                 }
