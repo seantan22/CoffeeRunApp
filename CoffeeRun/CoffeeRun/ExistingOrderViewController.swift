@@ -41,9 +41,9 @@ class ExistingOrderViewController: UIViewController {
                 self.statusLabel.text = result.response[0]
                 
                 if self.statusLabel.text == "Awaiting Runner" {
-                    self.statusLabel.backgroundColor = UIColor.blue
+                    self.statusLabel.backgroundColor = UIColor(red: 38/255, green: 136/255, blue: 227/255, alpha: 1)
                 } else if self.statusLabel.text == "In Progress" || self.statusLabel.text == "Picked Up" {
-                    self.statusLabel.backgroundColor = UIColor.yellow
+                    self.statusLabel.backgroundColor = UIColor(red: 244/255, green: 211/255, blue: 94/255, alpha: 1)
                 } else if self.statusLabel.text == "Delivered" {
                     self.performSegue(withIdentifier: "toDeliveredSegue", sender: nil)
                 }
