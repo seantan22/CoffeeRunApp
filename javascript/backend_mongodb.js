@@ -611,7 +611,7 @@ module.exports = {
         
         if(user_record == null){
             db.close();
-            return JSON.stringify({result: false, response: ['User does not exist.']});
+            return JSON.stringify({result: false, response: [{_id: 'User does not exist.'}]});
         }
 
         var username = user_record.username;
@@ -620,7 +620,7 @@ module.exports = {
 
         if(order_records.length == 0){
             db.close();
-            return JSON.stringify({result: false, response: [{errorMessage: 'No current orders.'}]});
+            return JSON.stringify({result: false, response: [{_id: 'No current orders.'}]});
         }
 
         console.log(order_records);
