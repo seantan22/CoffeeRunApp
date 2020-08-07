@@ -72,7 +72,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 if result.result == true {
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "toConfirmSignUpSegue", sender: nil)
-                        print("SIGN UP SUCCESSFUL")
                     }
                 } else {
                     DispatchQueue.main.async {
@@ -80,7 +79,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
             }
-            
         } else {
             errorMsgLabel.text = "Passwords do not match."
         }
@@ -148,12 +146,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     print(error)
                 }
                 if response.result == true {
-                    UserDefaults.standard.set(response.response, forKey: "user_id")
+                    UserDefaults.standard.set(response.response[0], forKey: "user_id")
                 }
                 completion(response)
             }
         }
         task.resume()
     }
-    
 }
