@@ -2,6 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 const TMClient = require('textmagic-rest-client');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 const cred = require('./cred');
 const { ObjectID } = require('mongodb');
 
@@ -258,7 +259,7 @@ module.exports = {
         let personInfo = {username: username, password: hashPassword, email: mail, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
         var response = await client.collection("User").insertOne(personInfo);
         
-        //sendSMS(number, verification_code);
+        sendEmail(mail, verification_code);
         db.close();
 
         return JSON.stringify({result: true, response: [response.ops[0]._id]});      
@@ -1003,4 +1004,23 @@ async function detachOrderFromDelivery(order_record, client){
     let orderInfo = {$set: {status: "Awaiting Runner", delivery_boy: ""}};
     var response = await client.collection('Open_Orders').updateOne({_id: ObjectId(order_record._id)}, orderInfo).catch((error) => console.log(error));
     return JSON.stringify({result: true, response: ['Detached successfully.']});
+}
+
+function sendEmail(address, verification_code){
+    var logistics = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'mcgillcoffeerun',
+            pass: 'CoffeeRun19!'
+        }
+     });
+
+    var mailInfo = {
+        from: 'McgillCoffeeRun@gmail.com',
+        to: address,
+        subject: 'CoffeeRun: Verification Code',
+        text: 'Thank you for joining the CoffeeRun Family. Your verification code is ' + verification_code
+    };
+
+    logistics.sendMail(mailInfo);
 }

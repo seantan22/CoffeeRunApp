@@ -1,6 +1,6 @@
 module.exports = {
     emailStrength: function (email){
-        var reg =/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+        var reg =/^([a-zA-Z0-9_\-\.]+)@mail\.mcgill\.ca$/
         return !reg.test(email);
     },    
     passwordStrength: function (password){

@@ -20,6 +20,7 @@
     "express": "^4.17.1",
     "import": "0.0.6",
     "mongodb": "^3.5.9",
+    "nodemailer": "^6.4.11",
     "pg": "^8.3.0",
     "textmagic-rest-client": "^1.0.10"
   },
