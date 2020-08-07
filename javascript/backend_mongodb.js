@@ -620,8 +620,10 @@ module.exports = {
 
         if(order_records.length == 0){
             db.close();
-            return JSON.stringify({result: false, response: ['No current orders.']});
+            return JSON.stringify({result: false, response: [{errorMessage: 'No current orders.'}]});
         }
+
+        console.log(order_records);
 
         db.close();
         return JSON.stringify({result: true, response: order_records});
