@@ -709,7 +709,7 @@ module.exports = {
             return JSON.stringify({result: false, response: ['Delivery user has a pending order. Cancel before delivering.']});
         }
 
-        let orderInfo = {$set: {time: order_record.time, beverage: order_record.beverage, size: order_record.size, restaurant: order_record.restaurant, library: order_record.library, floor: order_record.floor, segment: order_record.segment, cost: order_record.cost, creator: order_record.creator, delivery_boy: delivery_record.username}};
+        let orderInfo = {$set: {time: order_record.time, beverage: order_record.beverage, size: order_record.size, restaurant: order_record.restaurant, library: order_record.library, floor: order_record.floor, segment: order_record.segment, cost: order_record.cost, status: 'In Progress', creator: order_record.creator, delivery_boy: delivery_record.username}};
         var response = await client.collection("Open_Orders").updateOne({_id: ObjectId(order_id)}, orderInfo).catch((error) => console.log(error));
 
         db.close();
@@ -996,7 +996,7 @@ module.exports = {
 
 async function detachOrderFromDelivery(order_record, client){
     
-    let orderInfo = {$set: {delivery_boy: null}};
+    let orderInfo = {$set: {status: "Awaiting Runner", delivery_boy: null}};
     var response = await client.collection('Open_Orders').updateOne({_id: ObjectId(order_record._id)}, orderInfo).catch((error) => console.log(error));
     return JSON.stringify({result: true, response: ['Detached successfully.']});
 }
