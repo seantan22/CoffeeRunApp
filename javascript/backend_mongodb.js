@@ -737,13 +737,17 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['Delivery user must be logged in to cancel delivery.']});
         }
-        if(order_record.delivery_boy == null){
+        if(order_record.delivery_boy == ""){
             db.close();
             return JSON.stringify({result: false, response: ['No assigned delivery users.']});
         }
         if(delivery_order.username != order_record.delivery_boy){
             db.close();
             return JSON.stringify({result: false, response: ['Only the delivery user can cancel a delivery.']});
+        }
+        if(order_record.status != 'In Progress'){
+            db.close();
+            return JSON.stringify({result: false, response: 'Cannot detach if order has been picked up'})
         }
         
         response = await detachOrderFromDelivery(order_record, client);
