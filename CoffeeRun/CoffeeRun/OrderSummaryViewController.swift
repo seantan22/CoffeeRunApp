@@ -45,7 +45,7 @@ class OrderSummaryViewController: UIViewController {
                     cost: OrderSummaryViewController.subtotal,
                     user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: Response) in
                         
-            if result.result == true {
+            if result.result {
                 self.run(after: 1000) {
                     self.performSegue(withIdentifier: "toOrderPlacedSegue", sender: nil)
                 }
@@ -138,7 +138,7 @@ class OrderSummaryViewController: UIViewController {
                 } catch {
                     print(error)
                 }
-                if createOrderResponse.result == true {
+                if createOrderResponse.result {
                     UserDefaults.standard.set(createOrderResponse.response[0], forKey: "order_id")
                 }
                 completion(createOrderResponse)

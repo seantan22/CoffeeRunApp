@@ -39,7 +39,7 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
         
         
         self.getLibraryInfo() {(result: Response) in
-            if result.result == true {
+            if result.result {
                 DispatchQueue.main.async {
                     
                     SeatLocationViewController.allLibraryInfo = result.response
@@ -55,7 +55,7 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
         }
         
         self.getBeverageSubtotal(vendor: OrderSummaryViewController.vendor, beverage: OrderSummaryViewController.beverage, size: OrderSummaryViewController.size) {(result: BevPriceResponse) in
-            if result.result == true {
+            if result.result {
                 DispatchQueue.main.async {
                     OrderSummaryViewController.subtotal = result.response[0]
                 }

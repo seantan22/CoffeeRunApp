@@ -24,7 +24,7 @@ class NewOrderVendorViewController: UIViewController {
         starbucksBtn.isUserInteractionEnabled = false
         let selectedVendor = "Tim_Hortons"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
-            if result.result == true {
+            if result.result {
                 DispatchQueue.main.async {
                     NewOrderBeverageViewController.beverages = result.response[0]
                     NewOrderBeverageViewController.sizes = result.response[1]
@@ -48,7 +48,7 @@ class NewOrderVendorViewController: UIViewController {
         starbucksBtn.isUserInteractionEnabled = false
        let selectedVendor = "Premiere_Moisson"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
-            if result.result == true {
+            if result.result {
                 DispatchQueue.main.async {
                    NewOrderBeverageViewController.beverages = result.response[0]
                    NewOrderBeverageViewController.sizes = result.response[1]
@@ -72,7 +72,7 @@ class NewOrderVendorViewController: UIViewController {
         starbucksBtn.isUserInteractionEnabled = false
         let selectedVendor = "Second_Cup"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
-            if result.result == true {
+            if result.result {
                 DispatchQueue.main.async {
                    NewOrderBeverageViewController.beverages = result.response[0]
                    NewOrderBeverageViewController.sizes = result.response[1]
@@ -96,7 +96,7 @@ class NewOrderVendorViewController: UIViewController {
         secondCupBtn.isUserInteractionEnabled = false
         let selectedVendor = "Starbucks"
         self.getBeverageInfo(vendor: selectedVendor) {(result: Response) in
-            if result.result == true {
+            if result.result {
                 DispatchQueue.main.async {
                    NewOrderBeverageViewController.beverages = result.response[0]
                    NewOrderBeverageViewController.sizes = result.response[1]

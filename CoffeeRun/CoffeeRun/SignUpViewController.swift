@@ -69,7 +69,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         if password == confirmPassword {
             signup(username: username, password: password, email: email, phone: phone) {(result: Response) in
-                if result.result == true {
+                if result.result {
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "toConfirmSignUpSegue", sender: nil)
                     }
@@ -145,7 +145,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 } catch {
                     print(error)
                 }
-                if response.result == true {
+                if response.result {
                     UserDefaults.standard.set(response.response[0], forKey: "user_id")
                 }
                 completion(response)

@@ -93,7 +93,7 @@ class ProfileViewController: UIViewController {
                  } catch {
                      print("Error: Struct and JSON response do not match.")
                  }
-                 if self.logoutResponse.result == true {
+                 if self.logoutResponse.result {
                     UserDefaults.standard.removeObject(forKey: "user_id")
                  }
             }

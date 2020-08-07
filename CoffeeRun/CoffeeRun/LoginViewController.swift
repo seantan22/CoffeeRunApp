@@ -37,7 +37,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
         login(email: email, password: password) {(result: Response) in
             
-            if result.result == true {
+            if result.result {
                 self.run(after: 1000) {
                     if UserDefaults.standard.value(forKey: "user_id") != nil {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -112,7 +112,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 } catch {
                     print(error)
                 }
-                if loginResponse.result == true {
+                if loginResponse.result {
                     UserDefaults.standard.set(loginResponse.response[0], forKey: "user_id")
                 }
                 completion(loginResponse)

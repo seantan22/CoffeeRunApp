@@ -9,11 +9,19 @@
 import UIKit
 
 class OrderPlacedViewController: UIViewController {
-
+    
+    //MARK: Actions
+    @IBAction func donePlacingOrder(_ sender: UIBarButtonItem) {
+        ExistingOrderViewController.orderStatus = "Awaiting Runner"
+        self.performSegue(withIdentifier: "toOrderStatusSegue", sender: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.setHidesBackButton(true, animated: true)
+        
+        OrderExistenceViewController.doesOrderExist = true
     }
 
 }

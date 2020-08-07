@@ -30,7 +30,7 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
         verify(user_id: UserDefaults.standard.string(forKey: "user_id")!, code: code)
         
         run(after: 1000) {
-            if self.result == true {
+            if self.result {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
                 (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?

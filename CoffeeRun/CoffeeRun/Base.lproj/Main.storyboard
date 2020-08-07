@@ -43,7 +43,88 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2547.826086956522" y="-808.69565217391312"/>
+            <point key="canvasLocation" x="3442" y="-809"/>
+        </scene>
+        <!--Order Existence View Controller-->
+        <scene sceneID="uXF-eb-I5M">
+            <objects>
+                <viewController id="Nr8-K7-cRY" customClass="OrderExistenceViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Odn-eO-Q2B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ABv-Fy-VpM"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="c38-m5-5tD"/>
+                    <connections>
+                        <segue destination="8rJ-Kc-sve" kind="show" identifier="toNewOrderSegue" animates="NO" id="EJL-lY-IAd"/>
+                        <segue destination="Cqb-v8-Jds" kind="show" identifier="toExistingOrderSegue" animates="NO" id="HNp-XA-NIh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xsm-UA-Gep" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2548" y="-810"/>
+        </scene>
+        <!--Current Order-->
+        <scene sceneID="QCh-MQ-Y2K">
+            <objects>
+                <viewController id="Cqb-v8-Jds" customClass="ExistingOrderViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="icT-qm-exs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-0X-ths">
+                                <rect key="frame" x="60" y="156" width="294" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="j5l-0X-ths" firstAttribute="leading" secondItem="gHx-6c-JJb" secondAttribute="leading" constant="60" id="08d-po-U3B"/>
+                            <constraint firstItem="gHx-6c-JJb" firstAttribute="trailing" secondItem="j5l-0X-ths" secondAttribute="trailing" constant="60" id="Uul-8C-HAf"/>
+                            <constraint firstItem="j5l-0X-ths" firstAttribute="centerY" secondItem="icT-qm-exs" secondAttribute="centerY" constant="-200" id="YrZ-ju-XM3"/>
+                            <constraint firstItem="j5l-0X-ths" firstAttribute="centerX" secondItem="icT-qm-exs" secondAttribute="centerX" id="abO-tV-ksk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gHx-6c-JJb"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Current Order" id="Tt5-TF-Rzn">
+                        <barButtonItem key="rightBarButtonItem" title="Details" id="X3n-5z-5J5">
+                            <connections>
+                                <segue destination="JV4-qE-Ytm" kind="show" id="Bgf-Tm-ejf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="statusLabel" destination="j5l-0X-ths" id="VRf-vy-ILp"/>
+                        <segue destination="yPM-Pa-1PQ" kind="show" identifier="toDeliveredSegue" id="oV1-70-zeH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dGE-IB-Oa5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3441" y="1"/>
+        </scene>
+        <!--Receipt-->
+        <scene sceneID="w2c-bt-IAZ">
+            <objects>
+                <viewController id="JV4-qE-Ytm" customClass="ReceiptExistingOrderViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ugk-zb-3yy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Fp7-Ak-Gp0"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Receipt" id="fR6-EM-GAZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tnQ-uT-yEk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4357" y="1"/>
         </scene>
         <!--Beverage-->
         <scene sceneID="S0Q-df-fYJ">
@@ -137,7 +218,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CG4-SV-bQQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3453.6231884057975" y="-809.51086956521749"/>
+            <point key="canvasLocation" x="4348" y="-810"/>
         </scene>
         <!--Choose a Beverage-->
         <scene sceneID="mOJ-Xp-1Le">
@@ -209,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gml-WM-Fhu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4318.840579710145" y="-809.51086956521749"/>
+            <point key="canvasLocation" x="5213" y="-810"/>
         </scene>
         <!--Seat Location-->
         <scene sceneID="kbN-Qx-jj6">
@@ -263,7 +344,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ocg-cq-FOi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5166.666666666667" y="-809.51086956521749"/>
+            <point key="canvasLocation" x="6061" y="-810"/>
         </scene>
         <!--Order Summary-->
         <scene sceneID="pya-yn-kMI">
@@ -490,12 +571,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83c-hb-mfh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6008.6956521739139" y="-810.32608695652175"/>
+            <point key="canvasLocation" x="6903" y="-810"/>
         </scene>
         <!--Cheers!-->
         <scene sceneID="JdV-NH-IDk">
             <objects>
-                <viewController id="II7-cQ-ju4" sceneMemberID="viewController">
+                <viewController id="II7-cQ-ju4" customClass="OrderPlacedViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tAe-mK-rWv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -512,12 +593,17 @@
                         <viewLayoutGuide key="safeArea" id="zep-sO-BaY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Cheers!" id="Gyd-Ma-gt2">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="jaZ-hC-PR1"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="jaZ-hC-PR1">
+                            <connections>
+                                <action selector="donePlacingOrder:" destination="II7-cQ-ju4" id="JX4-7m-BbS"/>
+                                <segue destination="Cqb-v8-Jds" kind="show" identifier="toOrderStatusSegue" id="cN6-kn-I7r"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cUE-ir-jqt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6915.9420289855079" y="-809.51086956521749"/>
+            <point key="canvasLocation" x="7810" y="-810"/>
         </scene>
         <!--Run-->
         <scene sceneID="hao-dP-O5E">
@@ -536,6 +622,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kM0-gh-WZ0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2362" y="1008"/>
+        </scene>
+        <!--Delivered!-->
+        <scene sceneID="jSv-j4-oMi">
+            <objects>
+                <viewController id="yPM-Pa-1PQ" customClass="DeliveredViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hYT-Io-hS7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="wbh-GK-Y9f"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Delivered!" id="il3-WD-g7Z"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WWt-ps-rJ5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3441" y="770"/>
         </scene>
         <!--Profile-->
         <scene sceneID="3D3-t8-fgn">
@@ -1131,6 +1233,7 @@
         <!--Order-->
         <scene sceneID="vMb-XK-qhn">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ifM-Y7-Gyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oDT-0m-zen" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Order" image="cart.fill" catalog="system" selectedImage="cart.fill" id="cPa-gy-q4n"/>
                     <toolbarItems/>
@@ -1146,10 +1249,9 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="XuB-ho-Zd0"/>
+                        <segue destination="Nr8-K7-cRY" kind="relationship" relationship="rootViewController" id="H9z-EL-2Zm"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ifM-Y7-Gyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1640.5797101449277" y="-808.69565217391312"/>
         </scene>
@@ -1178,6 +1280,9 @@
             <point key="canvasLocation" x="1455" y="1008"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="cN6-kn-I7r"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.8941258192" green="0.39218041300000001" blue="0.39212569590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
