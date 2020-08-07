@@ -193,6 +193,10 @@ module.exports = {
         var client = db.db(dbName);
         var record = await client.collection("User").findOne({_id: ObjectId(id)});
 
+        if(record == null){
+            db.close();
+            return JSON.stringify({result: false, response: ['User does not exist.']});
+        }
         if(record.verified){
             db.close();
             return JSON.stringify({result: false, response: ['Account already verified.']});
@@ -497,7 +501,7 @@ module.exports = {
                             cost: cost, 
                             status: status,
                             creator: record.username, 
-                            delivery_boy: null  };
+                            delivery_boy: ""};
         var response = await client.collection("Open_Orders").insertOne(personInfo);
 
         db.close();
@@ -613,6 +617,12 @@ module.exports = {
         var username = user_record.username;
 
         var order_records = await client.collection("Open_Orders").find({creator: username}).toArray();
+
+        if(order_records.length == 0){
+            db.close();
+            return JSON.stringify({result: false, response: ['No current orders.']});
+        }
+
         db.close();
         return JSON.stringify({result: true, response: order_records});
     },
