@@ -15,10 +15,13 @@ class OrderExistenceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if OrderExistenceViewController.doesOrderExist {
-            self.performSegue(withIdentifier: "toExistingOrderSegue", sender: nil)
-        } else {
-            self.performSegue(withIdentifier: "toNewOrderSegue", sender: nil)
-        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+          if OrderExistenceViewController.doesOrderExist {
+                  self.performSegue(withIdentifier: "toExistingOrderSegue", sender: nil)
+              } else {
+                  self.performSegue(withIdentifier: "toNewOrderSegue", sender: nil)
+              }
     }
 }
