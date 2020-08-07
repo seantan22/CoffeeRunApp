@@ -666,7 +666,7 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['Order does not exist.']});
         }
-        if(order_record.delivery_boy != null){
+        if(order_record.delivery_boy != ""){
             db.close();
             return JSON.stringify({result: false, response: ['There is a delivery user already on route.']});
         }
@@ -996,7 +996,7 @@ module.exports = {
 
 async function detachOrderFromDelivery(order_record, client){
     
-    let orderInfo = {$set: {status: "Awaiting Runner", delivery_boy: null}};
+    let orderInfo = {$set: {status: "Awaiting Runner", delivery_boy: ""}};
     var response = await client.collection('Open_Orders').updateOne({_id: ObjectId(order_record._id)}, orderInfo).catch((error) => console.log(error));
     return JSON.stringify({result: true, response: ['Detached successfully.']});
 }
