@@ -169,7 +169,7 @@ module.exports = {
         var client = db.db(dbName);
         number_of_orders = await client.collection("Open_Orders").countDocuments();
         db.close();
-        return JSON.stringify({result: true, response: number_of_orders});
+        return JSON.stringify({result: true, response: number_of_orders.toString()});
     },
     getCurrentRunners: async function(){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
