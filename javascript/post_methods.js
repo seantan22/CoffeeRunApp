@@ -51,31 +51,6 @@ module.exports = {
         res.send(response);
         return;
     },
-    getVendors: async function(res){
-        response = await db.getVendors();
-        res.send(response);
-        return;
-    },
-    getBeveragesInfoFromVendor: async function(res, vendor){
-        response = await db.getBeveragesInfoFromVendor(vendor);
-        res.send(response);
-        return;
-    },
-    getBeveragesOfBevAndVendor: async function(res, vendor, beverage){
-        response = await db.getBeveragesOfBevAndVendor(vendor, beverage);
-        res.send(response);
-        return;
-    },
-    getBeveragePrice: async function(res, vendor, beverage, size){
-        response = await db.getBeveragePrice(vendor, beverage, size);
-        res.send(response);
-        return;
-    },
-    getLibraryInformation: async function(res){
-        response = await db.getLibraryInformation();
-        res.send(response);
-        return;
-    },
 
     // ********* MESSAGING ***********
 

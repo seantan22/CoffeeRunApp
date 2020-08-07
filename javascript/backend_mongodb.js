@@ -935,6 +935,20 @@ module.exports = {
 
         return JSON.stringify({result: true, response: ['Account: ' + user_record.username + ' has been reactivated.']});
     },
+    getOrderStatus: async function(order_id){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var statusValue = await client.collection("Open_Orders").distinct("status", {_id: ObjectId(order_id)});
+        
+        if(statusValue == null || statusValue.length == 0){
+            db.close();
+            return JSON.stringify({result: false, response: ['Order does not exist.']});
+        }
+
+        db.close();
+        return JSON.stringify({result: true, response: [statusValue[0]]});
+    },
 
     // *********************************** GET BEVERAGES **************************************
     getVendors: async function(){

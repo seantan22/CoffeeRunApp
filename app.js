@@ -419,13 +419,13 @@ app.post('/clean', function(req, res){
 // *************************************  GETTERS FOR BEVERAGES  ****************************************
 
 app.get('/getVendors', function(req, res){
-    post_methods.getVendors(res);
+    get_methods.getVendors(res);
     return;
 })
 
 app.get('/getBeverageInfo', function(req, res){
     var vendor = req.headers['vendor'];
-    post_methods.getBeveragesInfoFromVendor(res, vendor);
+    get_methods.getBeveragesInfoFromVendor(res, vendor);
     return;
 })
 
@@ -441,12 +441,19 @@ app.get('/getPriceOfBeverage', function(req, res){
     var beverage = req.headers['beverage'];
     var size = req.headers['size'];
 
-    post_methods.getBeveragePrice(res, vendor, beverage, size);
+    get_methods.getBeveragePrice(res, vendor, beverage, size);
     return;
 })
 
 app.get('/getLibraryInformation', function(req, res){
-    post_methods.getLibraryInformation(res);
+    get_methods.getLibraryInformation(res);
+    return;
+})
+
+app.get('/getOrderStatus', function(req, res){
+    var order_id = req.headers['order_id'];
+
+    get_methods.getOrderStatus(res, order_id);
     return;
 })
 
