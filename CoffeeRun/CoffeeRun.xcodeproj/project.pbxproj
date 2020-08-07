@@ -17,7 +17,7 @@
 		66316CB124D4C49000B1A973 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66316CAF24D4C49000B1A973 /* Main.storyboard */; };
 		66316CB324D4C49600B1A973 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66316CB224D4C49600B1A973 /* Assets.xcassets */; };
 		66316CB624D4C49600B1A973 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66316CB424D4C49600B1A973 /* LaunchScreen.storyboard */; };
-		66316CC024D4D14700B1A973 /* RunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CBF24D4D14700B1A973 /* RunViewController.swift */; };
+		66316CC024D4D14700B1A973 /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CBF24D4D14700B1A973 /* NewTripViewController.swift */; };
 		66316CC224D4D15500B1A973 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC124D4D15500B1A973 /* ProfileViewController.swift */; };
 		66316CC424D4D2D300B1A973 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC324D4D2D300B1A973 /* HomeViewController.swift */; };
 		66316CC624D4D2E200B1A973 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC524D4D2E200B1A973 /* OrderViewController.swift */; };
@@ -31,6 +31,8 @@
 		66BC776224DCE3FE00778FBB /* ExistingOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC776124DCE3FE00778FBB /* ExistingOrderViewController.swift */; };
 		66BC776424DCF45800778FBB /* ReceiptExistingOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC776324DCF45800778FBB /* ReceiptExistingOrderViewController.swift */; };
 		66BC776624DD0A2500778FBB /* DeliveredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC776524DD0A2500778FBB /* DeliveredViewController.swift */; };
+		66BC777024DDC7EB00778FBB /* TripExistenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC776F24DDC7EA00778FBB /* TripExistenceViewController.swift */; };
+		66BC777224DDC8AF00778FBB /* ExistingTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +48,7 @@
 		66316CB224D4C49600B1A973 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66316CB524D4C49600B1A973 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		66316CB724D4C49600B1A973 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		66316CBF24D4D14700B1A973 /* RunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunViewController.swift; sourceTree = "<group>"; };
+		66316CBF24D4D14700B1A973 /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
 		66316CC124D4D15500B1A973 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		66316CC324D4D2D300B1A973 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = ../HomeViewController.swift; sourceTree = "<group>"; };
 		66316CC524D4D2E200B1A973 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrderViewController.swift; path = ../OrderViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,8 @@
 		66BC776124DCE3FE00778FBB /* ExistingOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingOrderViewController.swift; sourceTree = "<group>"; };
 		66BC776324DCF45800778FBB /* ReceiptExistingOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptExistingOrderViewController.swift; sourceTree = "<group>"; };
 		66BC776524DD0A2500778FBB /* DeliveredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveredViewController.swift; sourceTree = "<group>"; };
+		66BC776F24DDC7EA00778FBB /* TripExistenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripExistenceViewController.swift; sourceTree = "<group>"; };
+		66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingTripViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +112,9 @@
 				66BC776124DCE3FE00778FBB /* ExistingOrderViewController.swift */,
 				66BC776524DD0A2500778FBB /* DeliveredViewController.swift */,
 				66BC776324DCF45800778FBB /* ReceiptExistingOrderViewController.swift */,
-				66316CBF24D4D14700B1A973 /* RunViewController.swift */,
+				66BC776F24DDC7EA00778FBB /* TripExistenceViewController.swift */,
+				66316CBF24D4D14700B1A973 /* NewTripViewController.swift */,
+				66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */,
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
 				66316CCB24D7820800B1A973 /* EditProfileViewController.swift */,
 				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
@@ -194,11 +200,13 @@
 			files = (
 				66923CD824D8E2FE002E731A /* SignUpViewController.swift in Sources */,
 				66BC776624DD0A2500778FBB /* DeliveredViewController.swift in Sources */,
+				66BC777024DDC7EB00778FBB /* TripExistenceViewController.swift in Sources */,
 				66BC776424DCF45800778FBB /* ReceiptExistingOrderViewController.swift in Sources */,
 				66923CDA24D8EB5A002E731A /* ConfirmSignUpViewController.swift in Sources */,
 				66BC776024DCE30400778FBB /* OrderExistenceViewController.swift in Sources */,
 				66316CC424D4D2D300B1A973 /* HomeViewController.swift in Sources */,
 				66316CC224D4D15500B1A973 /* ProfileViewController.swift in Sources */,
+				66BC777224DDC8AF00778FBB /* ExistingTripViewController.swift in Sources */,
 				66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */,
 				660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */,
 				660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */,
@@ -207,7 +215,7 @@
 				66316CCA24D4EA7D00B1A973 /* LoginViewController.swift in Sources */,
 				66BC776224DCE3FE00778FBB /* ExistingOrderViewController.swift in Sources */,
 				66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */,
-				66316CC024D4D14700B1A973 /* RunViewController.swift in Sources */,
+				66316CC024D4D14700B1A973 /* NewTripViewController.swift in Sources */,
 				66316CC624D4D2E200B1A973 /* OrderViewController.swift in Sources */,
 				66316CCC24D7820800B1A973 /* EditProfileViewController.swift in Sources */,
 				66304E1724DC7D9300E557E9 /* OrderPlacedViewController.swift in Sources */,
