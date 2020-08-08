@@ -370,6 +370,15 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['User must be logged in to withdraw funds.']});
         }
+        
+        //Cannot withdraw if you have an order.
+        var order_record = await client.collection("Open_Orders").findOne({creator: user_record.username}).catch((error) => console.log(error));
+
+        if(order_record != null){
+            db.close();
+            return JSON.stringify({result: false, response: ['Cannot withdraw funds when you have a pending order.']});
+        }
+
         if(funds <= 0.00 || funds > 50.00){
             db.close();
             return JSON.stringify({result: false, response: ['Please withdraw between $0.00 and $50.00.']});
@@ -593,7 +602,7 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['Only user:'+username+ ' can delete their order.']});
         }
-        if(record.delivery_boy != null){
+        if(record.delivery_boy != ""){
             db.close();
             return JSON.stringify({result: false, response: ['Cannot delete order as it is being delivered.']});
         }

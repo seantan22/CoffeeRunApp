@@ -44,6 +44,10 @@ app.delete('/deleteMessages', function(req, res){
 
 // **************************** USER *************************
 
+app.post('/forgotPassword', function(req, res){
+    
+})
+
 app.post('/verify', function(req, res){
     var verification = req.body.verification_number;
     var id = req.body.user_id
