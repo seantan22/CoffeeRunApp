@@ -648,7 +648,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kM0-gh-WZ0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3664" y="2530"/>
+            <point key="canvasLocation" x="4571.0144927536239" y="2529.6195652173915"/>
         </scene>
         <!--Trip Existence View Controller-->
         <scene sceneID="HMX-x5-HOT">
@@ -657,6 +657,15 @@
                     <view key="view" contentMode="scaleToFill" id="v80-bL-phY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Checking for orders..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieP-30-hY7">
+                                <rect key="frame" x="124" y="358" width="166" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="fQ5-7W-S9y"/>
                     </view>
@@ -669,7 +678,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s1h-vB-BMR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2771" y="2530"/>
+            <point key="canvasLocation" x="3676.811594202899" y="2529.6195652173915"/>
         </scene>
         <!--Current Trip-->
         <scene sceneID="NgY-M8-wy4">
@@ -685,7 +694,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rpk-66-mep" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2771" y="3325"/>
+            <point key="canvasLocation" x="3664" y="3390"/>
         </scene>
         <!--Delivered!-->
         <scene sceneID="jSv-j4-oMi">
@@ -1218,10 +1227,10 @@
             </objects>
             <point key="canvasLocation" x="-149" y="773"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="49e-Tb-3d3" customClass="TabBarViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="UAT-cF-Bbv"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -1231,7 +1240,7 @@
                     <connections>
                         <segue destination="yRw-Pf-BFS" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="oDT-0m-zen" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="uHf-Ep-nfg" kind="relationship" relationship="viewControllers" id="2TH-we-gsK"/>
+                        <segue destination="mEk-EG-Muo" kind="relationship" relationship="viewControllers" id="KMY-Vx-Url"/>
                         <segue destination="ckG-ec-toH" kind="relationship" relationship="viewControllers" id="73a-5F-Z8F"/>
                     </connections>
                 </tabBarController>
@@ -1330,30 +1339,6 @@
             </objects>
             <point key="canvasLocation" x="1865" y="-1690"/>
         </scene>
-        <!--Pickup-->
-        <scene sceneID="5NL-gj-BKX">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uHf-Ep-nfg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Pickup" image="hare.fill" catalog="system" selectedImage="hare.fill" id="cyo-d0-lOT"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="xc0-a4-1EF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textShadowColor" red="0.8941258192" green="0.39218041300000001" blue="0.39212569590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <offsetWrapper key="textShadowOffset" horizontal="-1" vertical="0.0"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="pTn-FP-6uj" kind="relationship" relationship="rootViewController" id="ald-Gs-nCG"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EDA-YV-kIu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1864" y="2530"/>
-        </scene>
         <!--Trip Deny View Controller-->
         <scene sceneID="Mhe-kL-SWt">
             <objects>
@@ -1382,7 +1367,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HxE-g8-xCL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2769.5652173913045" y="1785.326086956522"/>
+            <point key="canvasLocation" x="3664" y="1811"/>
+        </scene>
+        <!--Pickup-->
+        <scene sceneID="lhz-SA-8mI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mEk-EG-Muo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pickup" id="efe-3T-mLv"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Lb1-Kx-OLL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pTn-FP-6uj" kind="relationship" relationship="rootViewController" id="xSV-cc-fFf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ifq-GR-WcD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2769.5652173913045" y="2529.6195652173915"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1392,7 +1396,6 @@
     <resources>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="cr-draft-logo" width="447" height="157"/>
-        <image name="hare.fill" catalog="system" width="128" height="91"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="premiere_moison" width="282" height="272"/>

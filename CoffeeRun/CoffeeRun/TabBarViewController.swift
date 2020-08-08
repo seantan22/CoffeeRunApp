@@ -1,5 +1,5 @@
 //
-//  TripDenyViewController.swift
+//  TabBarPickupViewController.swift
 //  CoffeeRun
 //
 //  Created by Sean Tan on 8/8/20.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class TripDenyViewController: UIViewController {
-    
+class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.setHidesBackButton(true, animated: true)
+      
     }
     
 
