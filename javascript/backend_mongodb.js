@@ -89,7 +89,7 @@ async function loginWithCred(email, password){
     var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
     var client = db.db(dbName);
     
-    var record = await client.collection("User").findOne({ email: email }).catch((error) => console.log(error));
+    var record = await client.collection("User").findOne({ email: email.toLowerCase() }).catch((error) => console.log(error));
     
     if(record == null){
         db.close();
@@ -256,7 +256,10 @@ module.exports = {
 
         let hashPassword = await bcrypt.hash(password, await bcrypt.genSalt(saltRounds));
 
-        let personInfo = {username: username, password: hashPassword, email: mail, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
+        var email = mail.toLowerCase();
+        console.log(email);
+
+        let personInfo = {username: username, password: hashPassword, email: email, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
         var response = await client.collection("User").insertOne(personInfo);
         
         sendEmail(mail, verification_code);
