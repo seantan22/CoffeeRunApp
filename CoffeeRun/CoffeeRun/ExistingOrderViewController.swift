@@ -69,7 +69,7 @@ class ExistingOrderViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: deployedURL + "getOrderStatus") else {
+        guard let url = URL(string: testURL + "getOrderStatus") else {
             print("Error: Cannot create URL")
             return
         }

@@ -102,7 +102,7 @@ class OrderSummaryViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: deployedURL + "createOrder") else {
+        guard let url = URL(string: testURL + "createOrder") else {
             print("Error: Cannot create URL")
             return
         }

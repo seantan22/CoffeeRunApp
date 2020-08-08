@@ -135,7 +135,7 @@ class NewOrderVendorViewController: UIViewController {
            
         let session = URLSession.shared
 
-        guard let url = URL(string: deployedURL + "getBeverageInfo") else {
+        guard let url = URL(string: testURL + "getBeverageInfo") else {
             print("Error: Cannot create URL")
             return
         }

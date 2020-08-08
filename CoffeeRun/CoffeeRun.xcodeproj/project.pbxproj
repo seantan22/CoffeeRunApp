@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11B32D3624DF3D1400D71812 /* PickupNavigationControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B32D3524DF3D1400D71812 /* PickupNavigationControllerViewController.swift */; };
 		660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */; };
 		660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */; };
 		66304E1324DB0C1000E557E9 /* SeatLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11B32D3524DF3D1400D71812 /* PickupNavigationControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupNavigationControllerViewController.swift; sourceTree = "<group>"; };
 		660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderVendorViewController.swift; sourceTree = "<group>"; };
 		660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderBeverageViewController.swift; sourceTree = "<group>"; };
 		66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatLocationViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				66316CCB24D7820800B1A973 /* EditProfileViewController.swift */,
 				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
 				66316CAF24D4C49000B1A973 /* Main.storyboard */,
+				11B32D3524DF3D1400D71812 /* PickupNavigationControllerViewController.swift */,
 				66EE439224DF058500E51634 /* TabBarViewController.swift */,
 				66316CB224D4C49600B1A973 /* Assets.xcassets */,
 				66316CB424D4C49600B1A973 /* LaunchScreen.storyboard */,
@@ -204,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11B32D3624DF3D1400D71812 /* PickupNavigationControllerViewController.swift in Sources */,
 				66923CD824D8E2FE002E731A /* SignUpViewController.swift in Sources */,
 				66BC776624DD0A2500778FBB /* DeliveredViewController.swift in Sources */,
 				66BC777024DDC7EB00778FBB /* TripExistenceViewController.swift in Sources */,

@@ -145,7 +145,7 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
            
         let session = URLSession.shared
 
-        guard let url = URL(string: deployedURL + "getLibraryInformation") else {
+        guard let url = URL(string: testURL + "getLibraryInformation") else {
             print("Error: Cannot create URL")
             return
         }
@@ -175,7 +175,7 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
            
         let session = URLSession.shared
 
-        guard let url = URL(string: deployedURL + "getPriceOfBeverage") else {
+        guard let url = URL(string: testURL + "getPriceOfBeverage") else {
             print("Error: Cannot create URL")
             return
         }

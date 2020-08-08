@@ -12,8 +12,25 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override var selectedViewController: UIViewController? {
+        didSet {
+            tabChangedTo(selectedIndex: selectedIndex)
+        }
+    }
+    
+    override var selectedIndex: Int {
+        didSet {
+            tabChangedTo(selectedIndex: selectedIndex)
+        }
+    }
 
-      
+    func tabChangedTo(selectedIndex: Int) {
+        if(selectedIndex == 2){
+            // Reset the stack
+            // PickupNavigationControllerViewController?.setViewControllers(animated: false)
+        }
     }
     
 
