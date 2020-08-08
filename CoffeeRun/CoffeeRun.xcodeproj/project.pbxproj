@@ -33,6 +33,7 @@
 		66BC776624DD0A2500778FBB /* DeliveredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC776524DD0A2500778FBB /* DeliveredViewController.swift */; };
 		66BC777024DDC7EB00778FBB /* TripExistenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC776F24DDC7EA00778FBB /* TripExistenceViewController.swift */; };
 		66BC777224DDC8AF00778FBB /* ExistingTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */; };
+		66BC777424DEF15400778FBB /* TripDenyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC777324DEF15400778FBB /* TripDenyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		66BC776524DD0A2500778FBB /* DeliveredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveredViewController.swift; sourceTree = "<group>"; };
 		66BC776F24DDC7EA00778FBB /* TripExistenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripExistenceViewController.swift; sourceTree = "<group>"; };
 		66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingTripViewController.swift; sourceTree = "<group>"; };
+		66BC777324DEF15400778FBB /* TripDenyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDenyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				66BC776F24DDC7EA00778FBB /* TripExistenceViewController.swift */,
 				66316CBF24D4D14700B1A973 /* NewTripViewController.swift */,
 				66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */,
+				66BC777324DEF15400778FBB /* TripDenyViewController.swift */,
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
 				66316CCB24D7820800B1A973 /* EditProfileViewController.swift */,
 				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
@@ -211,6 +214,7 @@
 				660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */,
 				660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */,
 				66316CAA24D4C49000B1A973 /* SceneDelegate.swift in Sources */,
+				66BC777424DEF15400778FBB /* TripDenyViewController.swift in Sources */,
 				66304E1524DB0E4B00E557E9 /* OrderSummaryViewController.swift in Sources */,
 				66316CCA24D4EA7D00B1A973 /* LoginViewController.swift in Sources */,
 				66BC776224DCE3FE00778FBB /* ExistingOrderViewController.swift in Sources */,

@@ -22,6 +22,7 @@ class OrderPlacedViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         OrderExistenceViewController.doesOrderExist = true
+        
     }
 
 }

@@ -664,6 +664,7 @@
                     <connections>
                         <segue destination="eoa-e5-mdF" kind="show" identifier="toNewTripSegue" animates="NO" id="gpG-Zc-Ys9"/>
                         <segue destination="27j-DM-e7k" kind="show" identifier="toExistingTripSegue" animates="NO" id="tHs-MB-lUa"/>
+                        <segue destination="4td-jT-jnN" kind="show" identifier="toTripDenySegue" animates="NO" id="feY-VK-wef"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s1h-vB-BMR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1307,7 +1308,6 @@
         <!--Order-->
         <scene sceneID="vMb-XK-qhn">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ifM-Y7-Gyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oDT-0m-zen" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Order" image="cart.fill" catalog="system" selectedImage="cart.fill" id="cPa-gy-q4n"/>
                     <toolbarItems/>
@@ -1326,6 +1326,7 @@
                         <segue destination="Nr8-K7-cRY" kind="relationship" relationship="rootViewController" id="H9z-EL-2Zm"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ifM-Y7-Gyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1865" y="-1690"/>
         </scene>
@@ -1352,6 +1353,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EDA-YV-kIu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1864" y="2530"/>
+        </scene>
+        <!--Trip Deny View Controller-->
+        <scene sceneID="Mhe-kL-SWt">
+            <objects>
+                <viewController id="4td-jT-jnN" customClass="TripDenyViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Swv-jL-WOY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Whoops! You can't make any pickups while you have an existing order." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7K7-Pm-S90">
+                                <rect key="frame" x="101" y="337.66666666666669" width="212" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7K7-Pm-S90" firstAttribute="centerX" secondItem="Swv-jL-WOY" secondAttribute="centerX" id="IOv-TT-E6Y"/>
+                            <constraint firstItem="AmF-4y-Mg7" firstAttribute="trailing" secondItem="7K7-Pm-S90" secondAttribute="trailing" constant="101" id="c7a-LG-KrJ"/>
+                            <constraint firstItem="7K7-Pm-S90" firstAttribute="centerY" secondItem="Swv-jL-WOY" secondAttribute="centerY" id="fUM-7a-tXk"/>
+                            <constraint firstItem="7K7-Pm-S90" firstAttribute="leading" secondItem="AmF-4y-Mg7" secondAttribute="leading" constant="101" id="gBO-3p-Ihy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AmF-4y-Mg7"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AcX-SS-oAA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HxE-g8-xCL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2769.5652173913045" y="1785.326086956522"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

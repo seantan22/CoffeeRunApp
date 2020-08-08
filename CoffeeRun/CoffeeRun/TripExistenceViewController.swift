@@ -18,16 +18,22 @@ class TripExistenceViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-          if TripExistenceViewController.doesTripExist {
-                  self.performSegue(withIdentifier: "toExistingTripSegue", sender: nil)
-              } else {
-            
+        
+        
+        if OrderExistenceViewController.doesOrderExist {
+            self.performSegue(withIdentifier: "toTripDenySegue", sender: nil)
+        } else {
+            if TripExistenceViewController.doesTripExist {
+              self.performSegue(withIdentifier: "toExistingTripSegue", sender: nil)
+            } else {
                 getNumberOfOpenOrders() {(result: OpenOrdersResponse) in
                     NewTripViewController.numOpenOrders = result.response
                 }
-                    
-                  self.performSegue(withIdentifier: "toNewTripSegue", sender: nil)
-              }
+                run(after: 1000) {
+                    self.performSegue(withIdentifier: "toNewTripSegue", sender: nil)
+                }
+            }
+        }
     }
     
     
@@ -71,6 +77,11 @@ class TripExistenceViewController: UIViewController {
         task.resume()
     }
     
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
+    }
     
-
 }
