@@ -147,6 +147,18 @@ async function logoutWithCred(id){
 }
 
 module.exports = {
+    forgetPassword: async function(email){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
+        
+        if(user_record != null && !user_record.loggedIn){
+            sendForgetPasswordEmail(email);
+        }
+
+        db.close();
+        return JSON.stringify({result: true, response: 'An email has been sent to your account.'});
+    },
     getStatusOfOrder: async function(order_id){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -1032,6 +1044,25 @@ function sendEmail(address, verification_code){
         to: address,
         subject: 'CoffeeRun: Verification Code',
         text: 'Thank you for joining the CoffeeRun Family. Your verification code is ' + verification_code
+    };
+
+    logistics.sendMail(mailInfo);
+}
+
+function sendForgetPasswordEmail(address){
+    var logistics = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'mcgillcoffeerun',
+            pass: 'CoffeeRun19!'
+        }
+     });
+
+    var mailInfo = {
+        from: 'McgillCoffeeRun@gmail.com',
+        to: address,
+        subject: 'CoffeeRun: Forget Password',
+        text: "This account's password has been forgotten. If this was not you, please contact us at +1 289 242 5560 immediately. To reset the password for account " + email + " please click on the link."
     };
 
     logistics.sendMail(mailInfo);

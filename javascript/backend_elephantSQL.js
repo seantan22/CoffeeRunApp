@@ -53,6 +53,10 @@ module.exports = {
         var response = await client.query(query).catch((error) => console.log(error));      
         client.end();
 
+        if(response.rows.length == 0){
+            return JSON.stringify({result: true, response: [{message: "Start of your conversation"}]});
+        }
+
         return JSON.stringify({result: true, response: response.rows});
     },
     deleteMessages: async function(sender, receiver){
