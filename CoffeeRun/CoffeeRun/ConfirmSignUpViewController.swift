@@ -113,7 +113,7 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "verify") else {
+        guard let url = URL(string: deployedURL + "verify") else {
             print("Error: Cannot create URL")
             return
         }

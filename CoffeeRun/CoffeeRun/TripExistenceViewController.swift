@@ -70,7 +70,7 @@ class TripExistenceViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getNumberOfAllOpenOrders") else {
+        guard let url = URL(string: deployedURL + "getNumberOfAllOpenOrders") else {
             print("Error: Cannot create URL")
             return
         }
@@ -100,7 +100,7 @@ class TripExistenceViewController: UIViewController {
         
         let session = URLSession.shared
          
-         guard let url = URL(string: testURL + "getOrderByUser") else {
+         guard let url = URL(string: deployedURL + "getOrderByUser") else {
              print("Error: Cannot create URL")
              return
          }

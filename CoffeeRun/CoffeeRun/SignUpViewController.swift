@@ -114,7 +114,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "createUser") else {
+        guard let url = URL(string: deployedURL + "createUser") else {
             print("Error: Cannot create URL")
             return
         }
