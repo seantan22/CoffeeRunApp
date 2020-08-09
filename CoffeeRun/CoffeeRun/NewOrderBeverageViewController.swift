@@ -10,7 +10,7 @@ import UIKit
 
 class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    var testURL = "http:/localhost:5000/"
+    var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
     static var sizes: Array<String> = Array()

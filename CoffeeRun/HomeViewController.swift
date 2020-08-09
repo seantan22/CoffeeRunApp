@@ -8,9 +8,9 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UITabBarControllerDelegate {
     
-    var testURL = "http:/localhost:5000/"
+    var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
     //MARK: OrderExistenceResponse
@@ -36,6 +36,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+         tabBarController?.delegate = self
+        
         checkIfOrderExist(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: OrderExistenceResponse) in
             
             OrderExistenceViewController.doesOrderExist = result.result
@@ -56,6 +58,13 @@ class HomeViewController: UIViewController {
             }
         }
     
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController == tabBarController.viewControllers?[2] {
+            let pickupVC = tabBarController.viewControllers?[2] as! UINavigationController
+            pickupVC.popToRootViewController(animated: false)
+        }
     }
     
     // GET /getUser

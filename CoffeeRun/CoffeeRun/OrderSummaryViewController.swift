@@ -10,7 +10,7 @@ import UIKit
 
 class OrderSummaryViewController: UIViewController {
 
-    var testURL = "http:/localhost:5000/"
+    var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
     static var vendor: String = String()
