@@ -55,7 +55,7 @@ module.exports = {
         response = await db.forgetPassword(email);
         res.send(response);
         return;
-    }
+    },
 
     // ********* MESSAGING ***********
 
