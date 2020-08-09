@@ -10,6 +10,9 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    var testURL = "http:/localhost:5000/"
+    var deployedURL = "https://coffeerunapp.herokuapp.com/"
+    
     //MARK: OrderExistenceResponse
     struct OrderExistenceResponse: Decodable {
         var result: Bool
@@ -60,7 +63,7 @@ class HomeViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: "http:/localhost:5000/getUser") else {
+        guard let url = URL(string: testURL + "getUser") else {
             print("Error: Cannot create URL")
             return
         }
@@ -91,7 +94,7 @@ class HomeViewController: UIViewController {
         
         let session = URLSession.shared
          
-         guard let url = URL(string: "http:/localhost:5000/getOrderByUser") else {
+         guard let url = URL(string: testURL + "getOrderByUser") else {
              print("Error: Cannot create URL")
              return
          }

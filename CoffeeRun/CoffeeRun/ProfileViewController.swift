@@ -10,6 +10,9 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    var testURL = "http:/localhost:5000/"
+    var deployedURL = "https://coffeerunapp.herokuapp.com/"
+    
     static var username: String = String()
     static var email: String = String()
     static var balance: String = String()
@@ -63,7 +66,7 @@ class ProfileViewController: UIViewController {
         
         let session = URLSession.shared
 
-        guard let url = URL(string: "http:/localhost:5000/logout") else {
+        guard let url = URL(string: testURL + "logout") else {
          print("Error: Cannot create URL")
          return
         }

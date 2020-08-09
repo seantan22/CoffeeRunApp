@@ -10,6 +10,9 @@ import UIKit
 
 class NewOrderVendorViewController: UIViewController {
     
+    var testURL = "http:/localhost:5000/"
+    var deployedURL = "https://coffeerunapp.herokuapp.com/"
+    
     //MARK: Properties
     @IBOutlet weak var timHortonsBtn: UIButton!
     @IBOutlet weak var pmBtn: UIButton!
@@ -132,7 +135,7 @@ class NewOrderVendorViewController: UIViewController {
            
         let session = URLSession.shared
 
-        guard let url = URL(string: "http:/localhost:5000/getBeverageInfo") else {
+        guard let url = URL(string: testURL + "getBeverageInfo") else {
             print("Error: Cannot create URL")
             return
         }
