@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController {
         
         let session = URLSession.shared
 
-        guard let url = URL(string: testURL + "logout") else {
+        guard let url = URL(string: deployedURL + "logout") else {
          print("Error: Cannot create URL")
          return
         }
