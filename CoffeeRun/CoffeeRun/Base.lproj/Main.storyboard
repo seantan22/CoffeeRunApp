@@ -1269,7 +1269,7 @@
         <!--Profile-->
         <scene sceneID="TRa-ld-K4c">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ckG-ec-toH" customClass="PickupNavigationControllerViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ckG-ec-toH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="person.fill" catalog="system" selectedImage="person.fill" springLoaded="YES" id="lYc-1Q-8kg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ikO-jS-Trd">
