@@ -151,10 +151,11 @@ module.exports = {
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
-
-        if(user_record != null && !user_record.loggedIn){
-            sendForgetPasswordEmail(email);
-        }
+        sendForgetPasswordEmail(email);
+        
+        // if(user_record != null && !user_record.loggedIn){
+        //     sendForgetPasswordEmail(email);
+        // }
 
         db.close();
         return JSON.stringify({result: true, response: 'An email has been sent to your account.'});
@@ -1062,7 +1063,7 @@ function sendForgetPasswordEmail(address){
         from: 'McgillCoffeeRun@gmail.com',
         to: address,
         subject: 'CoffeeRun: Forget Password',
-        text: "This account's password has been forgotten. If this was not you, please contact us at +1 289 242 5560 immediately. To reset the password for account " + address + " please click on the link."
+        html: "<b>Password Reset</b><br><br><p>This account's password has been forgotten. If this was not you, please contact us at +1 289 242 5560 immediately. To reset the password for account " + address + " please enter a new password and click enter.</p><br><input type='text' placeholder='New password...' name='password'><br><br><input type='submit' value='Enter'></input>"
     };
 
     logistics.sendMail(mailInfo);
