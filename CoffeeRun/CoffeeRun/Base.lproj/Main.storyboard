@@ -650,7 +650,7 @@
             </objects>
             <point key="canvasLocation" x="4571.0144927536239" y="2529.6195652173915"/>
         </scene>
-        <!--Trip Existence View Controller-->
+        <!--Pickup-->
         <scene sceneID="HMX-x5-HOT">
             <objects>
                 <viewController id="pTn-FP-6uj" customClass="TripExistenceViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
@@ -669,7 +669,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="fQ5-7W-S9y"/>
                     </view>
-                    <navigationItem key="navigationItem" id="BiM-aM-Xnx"/>
+                    <navigationItem key="navigationItem" title="Pickup" id="BiM-aM-Xnx"/>
                     <connections>
                         <segue destination="eoa-e5-mdF" kind="show" identifier="toNewTripSegue" animates="NO" id="gpG-Zc-Ys9"/>
                         <segue destination="27j-DM-e7k" kind="show" identifier="toExistingTripSegue" animates="NO" id="tHs-MB-lUa"/>
@@ -1227,10 +1227,10 @@
             </objects>
             <point key="canvasLocation" x="-149" y="773"/>
         </scene>
-        <!--Tab Bar View Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" id="49e-Tb-3d3" customClass="TabBarViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="49e-Tb-3d3" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="UAT-cF-Bbv"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -1375,8 +1375,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mEk-EG-Muo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Pickup" id="efe-3T-mLv"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Lb1-Kx-OLL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Lb1-Kx-OLL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
