@@ -9,11 +9,11 @@
 import UIKit
 
 class TripDenyViewController: UIViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.setHidesBackButton(true, animated: true)
+         self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
 
