@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ForgotPasswordViewController: UITabBarController {
-    
+class ForgotPasswordViewController: UIViewController {
+
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
 
@@ -17,20 +17,16 @@ class ForgotPasswordViewController: UITabBarController {
     @IBOutlet weak var emailTextField: UITextField!
     
     //MARK: Actions
-    @IBAction func clickSendEmail(_ sender: UIButton) {
+    @IBAction func sendResetPasswordEmail(_ sender: UIButton) {
         
         let email = emailTextField.text!
-    
-        forgotPassword(email: email) {(result: Response) in
-            
-            if result.result {
-                
-            } else {
-               
-            }
-        }
+        
+        forgotPassword(email: email)
         
     }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +45,11 @@ class ForgotPasswordViewController: UITabBarController {
     }
     
     // POST /forgotPassword
-    func forgotPassword(email: String, completion: @escaping(Response) -> ()) {
+    func forgotPassword(email: String) {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "login") else {
+        guard let url = URL(string: testURL + "forgetPassword") else {
             print("Error: Cannot create URL")
             return
         }
@@ -84,10 +80,10 @@ class ForgotPasswordViewController: UITabBarController {
                 } catch {
                     print(error)
                 }
-                completion(forgotPasswordResponse)
             }
         }
         task.resume()
     }
+    
 
 }

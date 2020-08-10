@@ -72,7 +72,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: deployedURL + "getUser") else {
+        guard let url = URL(string: testURL + "getUser") else {
             print("Error: Cannot create URL")
             return
         }
@@ -103,7 +103,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         let session = URLSession.shared
          
-         guard let url = URL(string: deployedURL + "getOrderByUser") else {
+         guard let url = URL(string: testURL + "getOrderByUser") else {
              print("Error: Cannot create URL")
              return
          }
