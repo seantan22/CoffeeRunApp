@@ -59,6 +59,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                     ExistingOrderViewController.username = result.response[0]
                     ProfileViewController.email = result.response[1]
                     ProfileViewController.balance = result.response[2]
+                AddFundsViewController.balance = result.response[2]
             } else {
                 print(result.response[0])
             }

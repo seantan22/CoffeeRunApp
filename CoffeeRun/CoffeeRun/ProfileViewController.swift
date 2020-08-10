@@ -42,6 +42,10 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func unwindToProfile(segue: UIStoryboardSegue) {
+
+    }
+    
     struct LogoutResponse: Decodable {
         var result: Bool
         var response: Array<String>
@@ -55,10 +59,12 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.usernameLabel.text = ProfileViewController.username
         self.emailLabel.text = ProfileViewController.email
         self.balanceLabel.text = "$" + ProfileViewController.balance
-
     }
     
     // POST /logout

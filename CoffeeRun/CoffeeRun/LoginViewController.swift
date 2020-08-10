@@ -81,7 +81,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: deployedURL + "login") else {
+        guard let url = URL(string: testURL + "login") else {
             print("Error: Cannot create URL")
             return
         }
