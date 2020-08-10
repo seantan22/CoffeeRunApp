@@ -24,6 +24,8 @@ class AddFundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        balanceTextField.becomeFirstResponder()
+        
         self.balanceLabel.text = "$" + AddFundsViewController.balance
         
         let toolBar = UIToolbar()
@@ -61,7 +63,7 @@ class AddFundsViewController: UIViewController {
                             let alert = UIAlertController(title: "Deposit Successful!", message: "New Balance: $" + result.response[0], preferredStyle: .alert)
 
                             alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
-                                self.performSegue(withIdentifier: "unwindToProfileVC", sender: self)
+                                self.performSegue(withIdentifier: "depositToProfileSegue", sender: self)
                             }))
                             self.present(alert, animated: true)
                         }
