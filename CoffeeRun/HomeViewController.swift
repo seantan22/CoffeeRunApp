@@ -13,6 +13,11 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    // Prevents double click on tab bar
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        return viewController != tabBarController.selectedViewController;
+    }
+    
     //MARK: OrderExistenceResponse
     struct OrderExistenceResponse: Decodable {
         var result: Bool

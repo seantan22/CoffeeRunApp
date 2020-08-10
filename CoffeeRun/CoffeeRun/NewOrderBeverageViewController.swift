@@ -68,9 +68,11 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
                 }
             } else {
                 print("Error: You can't get this beverage in that size.")
+                self.run(after: 500) {
+                    sender.isEnabled = true
+                }
             }
         }
-    
     }
     
     //MARK: PickerViewDelegate

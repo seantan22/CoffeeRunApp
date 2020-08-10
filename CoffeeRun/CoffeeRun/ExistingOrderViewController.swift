@@ -27,7 +27,7 @@ class ExistingOrderViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             
-            print(ExistingOrderViewController.username)
+            self.performSegue(withIdentifier: "afterDeletingOrderSegue", sender: nil)
             
             self.deleteOrder(username: ExistingOrderViewController.username, order_id: UserDefaults.standard.string(forKey: "order_id")!)
                 
