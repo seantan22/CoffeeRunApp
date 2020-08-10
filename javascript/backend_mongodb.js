@@ -439,7 +439,7 @@ module.exports = {
         }
         if(funds > user_record.balance){
             db.close();
-            return JSON.stringify({result: false, response: [']You do not enough enough funds to withdraw: ' + funds]});
+            return JSON.stringify({result: false, response: ['You do not enough enough funds to withdraw: ' + funds]});
         }
         if(user_record.flagged){
             db.close();
@@ -462,7 +462,7 @@ module.exports = {
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
-        return JSON.stringify({result: true, response: ['New balance: ' + parseFloat(final_balance)]});
+        return JSON.stringify({result: true, response: ['' + parseFloat(final_balance)]});
     },
     deposit: async function(user_id, funds){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -504,7 +504,7 @@ module.exports = {
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
-        return JSON.stringify({result: true, response: ['New balance: ' + parseFloat(final_balance)]});
+        return JSON.stringify({result: true, response: ['' + parseFloat(final_balance)]});
     },
 
     // ************************************** ORDER ***************************************
