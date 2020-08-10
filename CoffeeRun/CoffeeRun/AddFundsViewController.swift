@@ -13,8 +13,6 @@ class AddFundsViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
-    static var balance: String = String()
-
     //MARK: Properties
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var balanceTextField: UITextField!
@@ -26,7 +24,7 @@ class AddFundsViewController: UIViewController {
         
         balanceTextField.becomeFirstResponder()
         
-        self.balanceLabel.text = "$" + AddFundsViewController.balance
+        self.balanceLabel.text = "$" + ProfileViewController.balance
         
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -55,10 +53,9 @@ class AddFundsViewController: UIViewController {
                             
                     if result.result {
                         ProfileViewController.balance = result.response[0]
-                        AddFundsViewController.balance = result.response[0]
                        
                         DispatchQueue.main.async {
-                            self.balanceLabel.text = "$" + AddFundsViewController.balance
+                            self.balanceLabel.text = "$" + ProfileViewController.balance
                             
                             let alert = UIAlertController(title: "Deposit Successful!", message: "New Balance: $" + result.response[0], preferredStyle: .alert)
 

@@ -12,8 +12,6 @@ class WithdrawFundsViewController: UIViewController {
     
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
-    static var balance: String = String()
 
     //MARK: Properties
     @IBOutlet weak var balanceLabel: UILabel!
@@ -25,7 +23,7 @@ class WithdrawFundsViewController: UIViewController {
 
         balanceTextField.becomeFirstResponder()
         
-        self.balanceLabel.text = "$" + WithdrawFundsViewController.balance
+        self.balanceLabel.text = "$" + ProfileViewController.balance
         
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -53,10 +51,9 @@ class WithdrawFundsViewController: UIViewController {
                             
                     if result.result {
                         ProfileViewController.balance = result.response[0]
-                        WithdrawFundsViewController.balance = result.response[0]
                        
                         DispatchQueue.main.async {
-                            self.balanceLabel.text = "$" + WithdrawFundsViewController.balance
+                            self.balanceLabel.text = "$" + ProfileViewController.balance
                             
                             let alert = UIAlertController(title: "Withdrawal Successful!", message: "New Balance: $" + result.response[0], preferredStyle: .alert)
 
