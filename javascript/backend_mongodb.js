@@ -32,6 +32,8 @@ function getPreviousValue(transaction_history, user_record){
             } else {
                 previous_balance = transaction_history[0].payee_balance.new_balance;
             }
+        } else if(transaction_history[0].type == 'new_account'){
+            return previous_balance;
         } else {
             // If this was not first deposit, then update funds
             previous_balance = transaction_history[0].balance.new_balance;
@@ -250,8 +252,13 @@ module.exports = {
             return JSON.stringify({result: false, response: ['Incorrect verification code. It has been resent.']});
         }
 
-        let personInfo = {$set: {verified: true, loggedIn: true}}; // Update
+        // Get balance of user if existed before
+        var transaction_history = await client.collection("Transaction").find({$or: [{username: record.username}, {payer_name: record.username}, {payee_name: record.username}]}).sort({$natural: -1}).limit(1).toArray();
+        var previous_value = getPreviousValue(transaction_history, record)
+
+        let personInfo = {$set: {balance: previous_value, verified: true, loggedIn: true}}; // Update
         var response = await client.collection("User").updateOne({_id: ObjectId(record._id)}, personInfo).catch((error) => console.log(error)); 
+        
         db.close();
 
         // Login already returns JSON format
@@ -393,6 +400,8 @@ module.exports = {
             return JSON.stringify({result: false, response: ['You cannot delete your account while delivering.']});
         }
 
+        // delete all transactions
+        //var transactions_deleted = await client.collection("Transaction").deleteMany({$or: [{username: record.username}, {payer_name: record.username}, {payee_name: record.username}]}).catch((error) => console.log(error)); 
         var response = await client.collection("User").deleteOne({_id: ObjectId(id)}).catch((error) => console.log(error)); 
         db.close();
 
