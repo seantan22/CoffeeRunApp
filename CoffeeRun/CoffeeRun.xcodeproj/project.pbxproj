@@ -27,6 +27,7 @@
 		66316CCE24D8CE3D00B1A973 /* AddFundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */; };
 		66923CD824D8E2FE002E731A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66923CD724D8E2FE002E731A /* SignUpViewController.swift */; };
 		66923CDA24D8EB5A002E731A /* ConfirmSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */; };
+		66B1BA1224E0AAE900581254 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1BA1124E0AAE900581254 /* ForgotPasswordViewController.swift */; };
 		66BC776024DCE30400778FBB /* OrderExistenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC775F24DCE30400778FBB /* OrderExistenceViewController.swift */; };
 		66BC776224DCE3FE00778FBB /* ExistingOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC776124DCE3FE00778FBB /* ExistingOrderViewController.swift */; };
 		66BC776424DCF45800778FBB /* ReceiptExistingOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC776324DCF45800778FBB /* ReceiptExistingOrderViewController.swift */; };
@@ -59,6 +60,7 @@
 		66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFundsViewController.swift; sourceTree = "<group>"; };
 		66923CD724D8E2FE002E731A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSignUpViewController.swift; sourceTree = "<group>"; };
+		66B1BA1124E0AAE900581254 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		66BC775F24DCE30400778FBB /* OrderExistenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderExistenceViewController.swift; sourceTree = "<group>"; };
 		66BC776124DCE3FE00778FBB /* ExistingOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingOrderViewController.swift; sourceTree = "<group>"; };
 		66BC776324DCF45800778FBB /* ReceiptExistingOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptExistingOrderViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				66316CA724D4C49000B1A973 /* AppDelegate.swift */,
 				66316CA924D4C49000B1A973 /* SceneDelegate.swift */,
 				66316CC924D4EA7D00B1A973 /* LoginViewController.swift */,
+				66B1BA1124E0AAE900581254 /* ForgotPasswordViewController.swift */,
 				66923CD724D8E2FE002E731A /* SignUpViewController.swift */,
 				66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */,
 				66316CC324D4D2D300B1A973 /* HomeViewController.swift */,
@@ -212,6 +215,7 @@
 				66BC777224DDC8AF00778FBB /* ExistingTripViewController.swift in Sources */,
 				66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */,
 				660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */,
+				66B1BA1224E0AAE900581254 /* ForgotPasswordViewController.swift in Sources */,
 				660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */,
 				66316CAA24D4C49000B1A973 /* SceneDelegate.swift in Sources */,
 				66BC777424DEF15400778FBB /* TripDenyViewController.swift in Sources */,
