@@ -151,14 +151,43 @@ module.exports = {
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
-        sendForgetPasswordEmail(email);
         
-        // if(user_record != null && !user_record.loggedIn){
-        //     sendForgetPasswordEmail(email);
-        // }
+        if(user_record != null && !user_record.loggedIn){
+             // Create an instance with an id of the password
+            let passwordResetInstance = {active: true, email: email, time: new Date().toJSON()};
+            var response = await client.collection("Reset_Records").insertOne(passwordResetInstance).catch((error) => console.log(error)); 
+            id_of_reset = response.insertedId;
+
+            sendForgetPasswordEmail(email, id_of_reset);
+        }
 
         db.close();
         return JSON.stringify({result: true, response: 'An email has been sent to your account.'});
+    },
+    updatePasswordFromReset: async function(email, new_password, id){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        var reset_record = await client.collection("Reset_Records").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
+
+        if(reset_record == null){
+            return JSON.stringify({result: false, response: ["Reset hasn't been called."]});;
+        }
+        if(!reset_record.active){
+            return JSON.stringify({result: false, response: ["Reset has already been made."]})
+        }
+        if(reset_record.email != email){
+            return JSON.stringify({result: false, response: ["Wrong email."]});;
+        }
+
+        let hashPassword = await bcrypt.hash(new_password, await bcrypt.genSalt(8));
+
+        let personInfo = {$set: {password: hashPassword}};
+        var responseUser = await client.collection("User").updateOne({email: email}, personInfo).catch((error) => console.log(error)); 
+        let resetInfo = {$set: {active: false}};
+        var responseReset = await client.collection("Reset_Records").updateOne({_id: ObjectId(id)}, resetInfo).catch((error) => console.log(error)); 
+        db.close();     
+
+        return JSON.stringify({result: true, response: ["Successfully updated."]});;
     },
     getStatusOfOrder: async function(order_id){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -1050,7 +1079,7 @@ function sendEmail(address, verification_code){
     logistics.sendMail(mailInfo);
 }
 
-function sendForgetPasswordEmail(address){
+function sendForgetPasswordEmail(address, id){
     var logistics = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -1063,7 +1092,7 @@ function sendForgetPasswordEmail(address){
         from: 'McgillCoffeeRun@gmail.com',
         to: address,
         subject: 'CoffeeRun: Forget Password',
-        html: "<b>Password Reset</b><br><br><p>This account's password has been forgotten. If this was not you, please contact us at +1 289 242 5560 immediately. To reset the password for account " + address + " please enter a new password and click enter.</p><br><input type='text' placeholder='New password...' name='password'><br><br><input type='submit' value='Enter'></input>"
+        html: "<!DOCTYPE html><html><head><script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script></head><body><b>Password Reset</b><br><br><p>This account's password has been forgotten. If this was not you, please contact us at +1 289 242 5560 immediately. To reset the password for account " + address + " please enter a new password and click enter.</p><br><form method='POST' style='text-align: center; width: 50%; margin-left: auto; margin-right: auto'><input style='width:80%' type='text' placeholder='New password...' name='password' id='newpass'><br><input id='submitform' style='width:80' type='submit' value='Enter'></input></form><script>$(document).ready(function(){$('#submitform').click(function(e){$.ajax({dataType : 'json', contentType: 'application/json; charset=utf-8', url : 'http://localhost:5000/updateForgottenPassword', type: 'POST', data : JSON.stringify({email: " + address + ", password: document.getElementById('newpass').value, id: " + id + "}), success : function(result) {alert(result.response[0]);},}); e.preventDefault();});});</script></body></html>"//"<b>Password Reset</b><br><br><p>This account's password has been forgotten. If this was not you, please contact us at +1 289 242 5560 immediately. To reset the password for account " + address + " please enter a new password and click enter.</p><br><input type='text' placeholder='New password...' name='password'><br><br><input type='submit' value='Enter'></input>"
     };
 
     logistics.sendMail(mailInfo);

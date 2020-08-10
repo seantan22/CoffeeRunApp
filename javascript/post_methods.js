@@ -2,6 +2,11 @@ var db = require('./backend_mongodb');
 var esql = require('./backend_elephantSQL');
 
 module.exports = {
+    updatePasswordFromReset: async function(res, email, new_password, id){
+        var response = await db.updatePasswordFromReset(email, new_password, id);
+        res.send(response);
+        return;
+    },
     login: async function(res, email, password){
         var response = await db.login(email, password);
         res.send(response);

@@ -50,6 +50,17 @@ app.post('/forgetPassword', function(req, res){
     return;
 })
 
+app.post('/updateForgottenPassword', cors({origin: 'https://outlook.office.com/'}), function(req, res){
+    
+    console.log('SUCCESS');
+
+    var email = req.body.email;
+    var new_password = req.body.password;
+    var id = req.body.id;
+
+    post_methods.updatePasswordFromReset(res, email, new_password, id);
+})
+
 app.post('/verify', function(req, res){
     var verification = req.body.verification_number;
     var id = req.body.user_id
