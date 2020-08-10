@@ -51,6 +51,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         loadProfile(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: ProfileResponse) in
             if result.result {
                     ProfileViewController.username = result.response[0]
+                    ExistingOrderViewController.username = result.response[0]
                     ProfileViewController.email = result.response[1]
                     ProfileViewController.balance = result.response[2]
             } else {

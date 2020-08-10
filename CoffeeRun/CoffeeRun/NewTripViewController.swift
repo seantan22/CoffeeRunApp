@@ -64,9 +64,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         orders = populateArray()
     }
     
-    
-    /** ORDERS ARRAY SETUP **/
-    
     //TODO: get orders, iterate through with for loop
     func populateArray() -> [Order] {
         

@@ -85,10 +85,32 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1v-D6-ic3">
+                                <rect key="frame" x="157" y="220" width="100" height="25"/>
+                                <color key="backgroundColor" red="0.8941258192" green="0.39218041300000001" blue="0.39212569590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="9Iz-eC-fqK"/>
+                                    <constraint firstAttribute="width" constant="100" id="iXQ-Ac-hge"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Cancel Order">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cancelOrderButton:" destination="Cqb-v8-Jds" eventType="touchUpInside" id="CyF-bV-9Q5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="j5l-0X-ths" firstAttribute="leading" secondItem="gHx-6c-JJb" secondAttribute="leading" constant="60" id="08d-po-U3B"/>
+                            <constraint firstItem="O1v-D6-ic3" firstAttribute="centerX" secondItem="icT-qm-exs" secondAttribute="centerX" id="55m-eN-ZP2"/>
+                            <constraint firstItem="O1v-D6-ic3" firstAttribute="top" secondItem="j5l-0X-ths" secondAttribute="bottom" constant="40" id="IMk-9t-Ryh"/>
                             <constraint firstItem="gHx-6c-JJb" firstAttribute="trailing" secondItem="j5l-0X-ths" secondAttribute="trailing" constant="60" id="Uul-8C-HAf"/>
                             <constraint firstItem="j5l-0X-ths" firstAttribute="centerY" secondItem="icT-qm-exs" secondAttribute="centerY" constant="-200" id="YrZ-ju-XM3"/>
                             <constraint firstItem="j5l-0X-ths" firstAttribute="centerX" secondItem="icT-qm-exs" secondAttribute="centerX" id="abO-tV-ksk"/>
@@ -105,6 +127,7 @@
                     <connections>
                         <outlet property="statusLabel" destination="j5l-0X-ths" id="VRf-vy-ILp"/>
                         <segue destination="yPM-Pa-1PQ" kind="show" identifier="toDeliveredSegue" id="oV1-70-zeH"/>
+                        <segue destination="8rJ-Kc-sve" kind="show" identifier="afterDeletingOrderSegue" id="Wwv-C7-2xc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dGE-IB-Oa5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1543,6 +1566,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="HNp-XA-NIh"/>
+        <segue reference="Wwv-C7-2xc"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.8941258192" green="0.39218041300000001" blue="0.39212569590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>

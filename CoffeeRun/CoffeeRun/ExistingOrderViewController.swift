@@ -13,12 +13,32 @@ class ExistingOrderViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    static var username: String = String()
     static var orderStatus: String = String()
+    var statusTimer: Timer?
     
     //MARK: Properties
     @IBOutlet weak var statusLabel: UILabel!
     
-    var statusTimer: Timer?
+    //MARK: Actions
+    @IBAction func cancelOrderButton(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: "Are you sure?", message: "This drink won't sip itself.", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            
+            print(ExistingOrderViewController.username)
+            
+            self.deleteOrder(username: ExistingOrderViewController.username, order_id: UserDefaults.standard.string(forKey: "order_id")!)
+                
+            }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +58,7 @@ class ExistingOrderViewController: UIViewController {
     }
     
     @objc func callGetStatus() {
-        getStatus(order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: StatusResponse) in
+        getStatus(order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: Response) in
             DispatchQueue.main.async {
                 
                 self.statusLabel.text = result.response[0]
@@ -49,13 +69,15 @@ class ExistingOrderViewController: UIViewController {
                     self.statusLabel.backgroundColor = UIColor(red: 244/255, green: 211/255, blue: 94/255, alpha: 1)
                 } else if self.statusLabel.text == "Delivered" {
                     self.performSegue(withIdentifier: "toDeliveredSegue", sender: nil)
+                } else if self.statusLabel.text == "Order does not exist." {
+                    self.performSegue(withIdentifier: "afterDeletingOrderSegue", sender: nil)
                 }
             }
         }
     }
     
     //MARK: StatusResponse
-    struct StatusResponse: Decodable {
+    struct Response: Decodable {
         var result: Bool
         var response: Array<String>
         init() {
@@ -65,7 +87,7 @@ class ExistingOrderViewController: UIViewController {
     }
     
     // GET /getOrderStatus
-    func getStatus(order_id: String, completion: @escaping(StatusResponse) -> ()) {
+    func getStatus(order_id: String, completion: @escaping(Response) -> ()) {
         
         let session = URLSession.shared
         
@@ -81,9 +103,9 @@ class ExistingOrderViewController: UIViewController {
        
         let task = session.dataTask(with: request) { data, response, error in
             if let data = data {
-                var statusResponse = StatusResponse()
+                var statusResponse = Response()
                 do {
-                    let jsonResponse = try JSONDecoder().decode(StatusResponse.self, from: data)
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
                     statusResponse.result = jsonResponse.result
                     statusResponse.response = jsonResponse.response
                 } catch {
@@ -94,5 +116,57 @@ class ExistingOrderViewController: UIViewController {
         }
         task.resume()
     }
+    
+    // POST /deleteOrder
+    func deleteOrder(username: String, order_id: String) {
+           
+           let session = URLSession.shared
 
+           guard let url = URL(string: testURL + "deleteOrder") else {
+            print("Error: Cannot create URL")
+            return
+           }
+
+           var request = URLRequest(url: url)
+           request.httpMethod = "DELETE"
+           request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+           let jsonLogout = [
+            "username": username,
+            "order_id": order_id
+           ]
+
+           let dataLogout: Data
+           do {
+            dataLogout = try JSONSerialization.data(withJSONObject: jsonLogout, options: [] )
+           } catch {
+            print("Error: Unable to convert JSON to Data object")
+            return
+           }
+
+           let task = session.uploadTask(with: request, from: dataLogout) { data, response, error in
+               if let data = data {
+                    var deleteOrderResponse = Response()
+                    do {
+                        let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                        deleteOrderResponse.response = jsonResponse.response
+                        print(deleteOrderResponse.response)
+                    } catch {
+                        print("Error: Struct and JSON response do not match.")
+                    }
+                    if deleteOrderResponse.result {
+                       UserDefaults.standard.removeObject(forKey: "order_id")
+                    }
+               }
+           }
+
+           task.resume()
+       }
+
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
+    }
 }
