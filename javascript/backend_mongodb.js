@@ -736,7 +736,7 @@ module.exports = {
                     }
                 } else {
                     if (Math.round(seconds / 3600) == 1){
-                        time_since = Math.round(seconds / 3600) + " hour ago";
+                        time_since = Math.round(seconds / 3600) + " hou 1r ago";
                     } else {
                         time_since = Math.round(seconds / 3600) + " hours ago";
                     }

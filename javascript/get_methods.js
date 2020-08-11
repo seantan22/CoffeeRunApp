@@ -86,5 +86,22 @@ module.exports = {
         response = await db.getOrderStatus(order_id);
         res.send(response);
         return;
+    },
+
+    // ********************* FOLLOWERS *******************
+    getAllFollowerRequests: async function(res, user){
+        response = await esql.getAllFollowerRequests(user);
+        res.send(response);
+        return;
+    },
+    getAllFollowerPending: async function(res, user){
+        response = await esql.getAllFollowerPending(user);
+        res.send(response);
+        return;
+    },
+    getAllFriends: async function(res, user){
+        response = await esql.getAllFriends(user);
+        res.send(response);
+        return;
     }
 };

@@ -68,5 +68,17 @@ module.exports = {
         response = await esql.sendMessage(message, sender, receiver);
         res.send(response);
         return;
+    },
+
+    // *********** FOLLOW ************
+    followUser: async function(res, sender, receiver){
+        response = await esql.followUser(sender, receiver);
+        res.send(response);
+        return;
+    },
+    acceptUserFollowRequest: async function(res, acceptor, sender){
+        response = await esql.acceptUserFollowRequest(acceptor, sender);
+        res.send(response);
+        return;
     }
 };

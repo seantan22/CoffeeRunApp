@@ -16,6 +16,51 @@ app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 app.use(bodyParser.json());
 
+// ************************* FOLLOWER/ING **************************
+app.post('/sendFollowRequest', function(req, res){
+    var sender = req.body.sender;
+    // The person you are clicking to follow
+    var receiver = req.body.receiver;
+    
+    post_methods.followUser(res, sender, receiver);
+    return;
+})
+
+app.post('/acceptFollowRequest', function(req, res){
+    var acceptor = req.body.acceptor;
+    var sender = req.body.sender;
+    post_methods.acceptUserFollowRequest(res, acceptor, sender);
+    return;
+})
+
+// Requests that people have sent you
+app.get('/getAllFollowerRequests', function(req, res){
+    var user = req.headers['user'];
+    get_methods.getAllFollowerRequests(res, user);
+    return;
+})
+
+// Requests that you have sent others
+app.get('/getPendingRequests', function(req, res){
+    var user = req.headers['user'];
+    get_methods.getAllFollowerPending(res, user);
+    return;
+})
+
+app.get('/getAllFriends', function(req, res){
+    var user = req.headers['user'];
+    get_methods.getAllFriends(res, user);
+    return;
+})
+
+app.delete('/deleteFriendship', function(req, res){
+    var deleter = req.body.sender;
+    var victim = req.body.receiver;
+
+    delete_methods.deleteFriendship(res, deleter, victim);
+    return;
+})
+
 // ************************** MESSAGING ***************************
 
 app.post('/sendMessage', function(req, res){

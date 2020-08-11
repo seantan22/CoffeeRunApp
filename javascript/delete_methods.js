@@ -16,5 +16,10 @@ module.exports = {
         response = await esql.deleteMessages(sender, receiver);
         res.send(response);
         return;
+    },
+    deleteFriendship: async function(res, deleter, victim){
+        response = await esql.deleteFriendship(deleter, victim);
+        res.send(response);
+        return;
     }
 };
