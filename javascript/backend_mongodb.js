@@ -63,7 +63,7 @@ async function checkIfCorrupt(type, client, user_record, funds){
         let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: false, balance: user_record.balance, flagged: true}};
         var response = await client.collection("User").updateOne({_id: ObjectId(user_record._id)}, personInfo).catch((error) => console.log(error)); 
         
-        var transaction = await client.collection("Transaction").insertOne({flagged: true, type: type, time_created: new Date().toJSON(), transaction_value: funds, username: user_record.username, balance: {expected_balance: previous_balance, corrupt_balance: user_record.balance}});
+        var transaction = await client.collection("Transaction").insertOne({flagged: true, type: type, time_created: new Date(), transaction_value: funds, username: user_record.username, balance: {expected_balance: previous_balance, corrupt_balance: user_record.balance}});
 
         return JSON.stringify({result: false, response: ['Your balance is incorrect and has been flagged.']});
     }
@@ -156,7 +156,7 @@ module.exports = {
         
         if(user_record != null && !user_record.loggedIn){
              // Create an instance with an id of the password
-            let passwordResetInstance = {active: true, email: email, time: new Date().toJSON()};
+            let passwordResetInstance = {active: true, email: email, time: new Date()};
             var response = await client.collection("Reset_Records").insertOne(passwordResetInstance).catch((error) => console.log(error)); 
             id_of_reset = response.insertedId;
 
@@ -228,7 +228,7 @@ module.exports = {
     makeReview: async function(username, review){
         var db = await MongoClient.connect(urclient.collection.distincti, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        let reviewInfo = {time: new Date().toJSON(), username: username, review: review};
+        let reviewInfo = {time: new Date(), username: username, review: review};
         var response = await client.collection("Reviews").insertOne(reviewInfo);
         db.close();
         return JSON.stringify({result: true, response: ['Thank you for your review.']});
@@ -458,7 +458,7 @@ module.exports = {
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
-        let transactionInfo = {flagged: false, type: 'withdraw', time_created: new Date().toJSON(), amount_drawn: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
+        let transactionInfo = {flagged: false, type: 'withdraw', time_created: new Date(), amount_drawn: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
@@ -499,7 +499,7 @@ module.exports = {
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
-        let transactionInfo = {flagged: false, type: 'deposit', time_created: new Date().toJSON(), amount_deposited: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
+        let transactionInfo = {flagged: false, type: 'deposit', time_created: new Date(), amount_deposited: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
@@ -553,7 +553,7 @@ module.exports = {
             return JSON.stringify({result: false, response: ['You already have a pending order.']});
         }
 
-        let personInfo = {  time: new Date().toJSON(), 
+        let personInfo = {  time: new Date(), 
                             beverage: beverage, 
                             size: size, 
                             details: details, 
@@ -686,8 +686,6 @@ module.exports = {
             return JSON.stringify({result: false, response: [{_id: 'No current orders.'}]});
         }
 
-        console.log(order_records);
-
         db.close();
         return JSON.stringify({result: true, response: order_records});
     },
@@ -706,6 +704,7 @@ module.exports = {
         var username = delivery_record.username;
 
         var order_records = await client.collection("Open_Orders").find({delivery_boy: username}).toArray();
+                
         db.close();
         
         return JSON.stringify({result: true, response: order_records});
@@ -715,6 +714,29 @@ module.exports = {
         var client = db.db(dbName);
         var order_records = await client.collection("Open_Orders").find({delivery_boy: ""}).toArray();
         db.close();
+
+        var time_since;
+
+        if(order_records.length != 0){
+            for (var i = 0; i < order_records.length; i++){
+                var previous_time = order_records[i].time;
+                var current_time = new Date();
+
+                var seconds = (current_time.getTime() - previous_time.getTime())/1000;
+                
+                if(seconds < 30){
+                    time_since = "Just now";
+                } else if (seconds < 60){
+                    time_since = "< 1 minutes";
+                } else if (seconds < 3600){
+                    time_since = Math.round(seconds / 60) + " minutes";
+                } else {
+                    time_since = Math.round(seconds / 3600) + " minutes";
+                }
+
+                order_records[i].time = time_since;
+            }
+        }
         
         return JSON.stringify({result: true, response: order_records});
     },
@@ -895,7 +917,7 @@ module.exports = {
         var newDeliveryValue = parseFloat(checkCorruptDelivery[1]) + parseFloat(order_record.cost) 
 
         // Create transaction - balance for user
-        let transactionInfo = {type: 'payment', time_created: new Date().toJSON(), transaction_value: order_record.cost, payer_name: user_record.username, payer_balance: {new_balance: newUserValue, previous_balance: user_record.balance}, payee_name: delivery_record.username, payee_balance: {new_balance: newDeliveryValue, previous_balance: delivery_record.balance}};
+        let transactionInfo = {type: 'payment', time_created: new Date(), transaction_value: order_record.cost, payer_name: user_record.username, payer_balance: {new_balance: newUserValue, previous_balance: user_record.balance}, payee_name: delivery_record.username, payee_balance: {new_balance: newDeliveryValue, previous_balance: delivery_record.balance}};
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
 
         // Update user information
@@ -905,7 +927,7 @@ module.exports = {
         let deliveryInformation = {$set: {balance: newDeliveryValue}};
         var response = await client.collection("User").updateOne({_id: ObjectId(delivery_id)}, deliveryInformation).catch((error) => console.log(error)); 
         
-        let closedInfo = {time_closed: new Date().toJSON(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {cost: order_record.cost, transaction_id: transaction_history.ops[0]._id}, rating: delivery_rating};
+        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {cost: order_record.cost, transaction_id: transaction_history.ops[0]._id}, rating: delivery_rating};
         var closed_order = await client.collection("Closed_Orders").insertOne(closedInfo);
 
         // Delete open order
