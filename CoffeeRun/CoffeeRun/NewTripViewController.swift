@@ -19,13 +19,24 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var tempOrders: [Order] = []
     
-    let myRefreshControl = UIRefreshControl()
-    
     var index: Int = 0
+    
+    var selectedOrders: Array<Order> = Array()
+    
+    //MARK: Actions
+    @IBAction func clickSelectButton(_ sender: UIBarButtonItem) {
+        
+        ConfirmSelectionViewController.selectedOrders = self.selectedOrders
+        
+        self.performSegue(withIdentifier: "toConfirmSelectionSegue", sender: self)
+        
+    }
+    
     
     /** OVERALL PAGE VIEW **/
     
     static var numOpenOrders: String = String()
+    static var prevOrderCount: String = "0"
 
     //MARK: Properties
     @IBOutlet weak var availableOrdersLabel: UILabel!
@@ -36,19 +47,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        myRefreshControl.addTarget(self, action: #selector(NewTripViewController.handleRefresh), for: .valueChanged)
-        tableView.refreshControl = myRefreshControl
-
-    }
     
-    @objc func handleRefresh() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
-            self.tableView.reloadData()
-            self.myRefreshControl.endRefreshing()
-        }
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         self.availableOrdersLabel.text = NewTripViewController.numOpenOrders
@@ -66,7 +66,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     //TODO: get orders, iterate through with for loop
     func populateArray() -> [Order] {
-        
         getOrders() {(result: Response) in
             if result.result {
                 NewTripViewController.numOpenOrders = String(result.response.count)
@@ -92,7 +91,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 print("Error: Unable to retrieve order(s).")
             }
         }
-        
         self.tableView.reloadData()
         return tempOrders
     }
@@ -124,15 +122,60 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
        // Cell Content
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let order = self.orders[index]
-               let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItem", for: indexPath) as! PickupOrdersTableViewCell
+            if index < orders.count {
+                let order = self.orders[index]
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItem", for: indexPath) as! PickupOrdersTableViewCell
                 cell.setOrder(order: order)
                 index += 1
-        print(index)
-               return cell
+                return cell
+            }
+        return UITableViewCell()
        }
     
+    // Cell Selection
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+                UIView.animate(withDuration: 0.3, animations: {
+                    if cell.contentView.backgroundColor == UIColor.green {
+                        cell.contentView.backgroundColor = UIColor.white
+                        let selectedOrder = self.orders[indexPath.section]
+                        if self.checkIfSelected(array: self.selectedOrders, order: selectedOrder) {
+                            self.selectedOrders.remove(at: self.getOrderIndex(array: self.selectedOrders, order: selectedOrder))
+                        }
+                    } else {
+                         if self.selectedOrders.count < 3 {
+                            cell.contentView.backgroundColor = UIColor.green
+                            let selectedOrder = self.orders[indexPath.section]
+                            if !self.checkIfSelected(array: self.selectedOrders, order: selectedOrder) {
+                                self.selectedOrders = self.selectedOrders + [selectedOrder]
+                            }
+                        } else {
+                            print("You can only select 3 orders max.")
+                        }
+                    }
+                })
+        }
+    }
     
+    func checkIfSelected(array: Array<Order>, order: Order) -> Bool {
+        for specificOrder in array {
+            if specificOrder.creator == order.creator {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func getOrderIndex(array: Array<Order>, order: Order) -> Int {
+        var counter: Int = 0
+        for specificOrder in array {
+            if specificOrder.creator == order.creator {
+                return counter
+            }
+            counter += 1
+        }
+        return 0
+    }
     
     /** API REQUESTS **/
     

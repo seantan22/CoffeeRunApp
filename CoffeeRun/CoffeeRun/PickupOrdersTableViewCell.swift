@@ -37,7 +37,7 @@ class PickupOrdersTableViewCell: UITableViewCell {
         vendorLabel.text = order.restaurant
         itemLabel.text = order.size + " " + order.beverage
         detailsLabel.text = order.details
-        createdAtLabel.text = order.time
+        createdAtLabel.text = "Placed " + order.time
         libraryLabel.text = order.library + " " + order.floor + order.zone
     }
 

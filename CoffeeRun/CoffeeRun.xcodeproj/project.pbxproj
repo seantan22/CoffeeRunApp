@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */; };
 		660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */; };
+		661D334424E24F83004BEE5B /* ConfirmSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */; };
 		66304E1324DB0C1000E557E9 /* SeatLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */; };
 		66304E1524DB0E4B00E557E9 /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */; };
 		66304E1724DC7D9300E557E9 /* OrderPlacedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1624DC7D9300E557E9 /* OrderPlacedViewController.swift */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderVendorViewController.swift; sourceTree = "<group>"; };
 		660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderBeverageViewController.swift; sourceTree = "<group>"; };
+		661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSelectionViewController.swift; sourceTree = "<group>"; };
 		66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatLocationViewController.swift; sourceTree = "<group>"; };
 		66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
 		66304E1624DC7D9300E557E9 /* OrderPlacedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPlacedViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				66316CBF24D4D14700B1A973 /* NewTripViewController.swift */,
 				66ADC82024E0C6BB00D0BEA7 /* PickupOrdersTableViewCell.swift */,
 				66ADC82624E0DB3400D0BEA7 /* Order.swift */,
+				661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */,
 				66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */,
 				66BC777324DEF15400778FBB /* TripDenyViewController.swift */,
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
@@ -231,6 +234,7 @@
 				66BC777424DEF15400778FBB /* TripDenyViewController.swift in Sources */,
 				66304E1524DB0E4B00E557E9 /* OrderSummaryViewController.swift in Sources */,
 				66ADC82124E0C6BB00D0BEA7 /* PickupOrdersTableViewCell.swift in Sources */,
+				661D334424E24F83004BEE5B /* ConfirmSelectionViewController.swift in Sources */,
 				66316CCA24D4EA7D00B1A973 /* LoginViewController.swift in Sources */,
 				66BC776224DCE3FE00778FBB /* ExistingOrderViewController.swift in Sources */,
 				66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */,
