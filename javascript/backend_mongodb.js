@@ -532,7 +532,7 @@ module.exports = {
             return checkCorruptUser;
         }
 
-        if(record.balance < cost){
+        if(parseFloat(record.balance) < cost){
             db.close();
             return JSON.stringify({result: false, response: ['Not enough funds.']});
         }
