@@ -735,7 +735,11 @@ module.exports = {
                         time_since = Math.round(seconds / 60) + " minutes ago";
                     }
                 } else {
-                    time_since = Math.round(seconds / 3600) + " hours ago";
+                    if (Math.round(seconds / 3600) == 1){
+                        time_since = Math.round(seconds / 3600) + " hour ago";
+                    } else {
+                        time_since = Math.round(seconds / 3600) + " hours ago";
+                    }
                 }
 
                 order_records[i].time = time_since;
