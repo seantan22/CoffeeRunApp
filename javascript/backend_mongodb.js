@@ -410,7 +410,6 @@ module.exports = {
     },
 
     // WITHDRAW AND DEPOSIT USES CUSTOMER LEDGER
-
     withdraw: async function(user_id, funds){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -453,23 +452,23 @@ module.exports = {
         }
         
         var final_balance = parseFloat(checkCorrupt[1]) - parseFloat(funds);
+        var rounded_balance = parseFloat(final_balance).toFixed(2);
 
-        let personInfo = {$set: {balance: parseFloat(final_balance)}};
+        let personInfo = {$set: {balance: rounded_balance}};
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
-        let transactionInfo = {flagged: false, type: 'withdraw', time_created: new Date().toJSON(), amount_drawn: funds, username: user_record.username, balance: {new_balance: final_balance, previous_balance: user_record.balance}};
+        let transactionInfo = {flagged: false, type: 'withdraw', time_created: new Date().toJSON(), amount_drawn: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
-        return JSON.stringify({result: true, response: ['' + parseFloat(final_balance)]});
+        return JSON.stringify({result: true, response: ['' + parseFloat(rounded_balance)]});
     },
     deposit: async function(user_id, funds){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id) }).catch((error) => console.log(error));
 
-        var previous_balance = 0.00;
         if(user_record == null){
             db.close();
             return JSON.stringify({result: false, response: ['User does not exist.']});
@@ -494,17 +493,17 @@ module.exports = {
         }
 
         var final_balance = parseFloat(checkCorrupt[1]) + parseFloat(funds);
+        var rounded_balance = parseFloat(final_balance).toFixed(2);
 
-        let personInfo = {$set: {balance: parseFloat(final_balance)}};
-
+        let personInfo = {$set: {balance: rounded_balance}};
         var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
-        let transactionInfo = {flagged: false, type: 'deposit', time_created: new Date().toJSON(), amount_deposited: funds, username: user_record.username, balance: {new_balance: final_balance, previous_balance: user_record.balance}};
+        let transactionInfo = {flagged: false, type: 'deposit', time_created: new Date().toJSON(), amount_deposited: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
-        return JSON.stringify({result: true, response: ['' + parseFloat(final_balance)]});
+        return JSON.stringify({result: true, response: ['' + parseFloat(rounded_balance)]});
     },
 
     // ************************************** ORDER ***************************************
