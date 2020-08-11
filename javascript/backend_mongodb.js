@@ -725,13 +725,13 @@ module.exports = {
                 var seconds = (current_time.getTime() - previous_time.getTime())/1000;
                 
                 if(seconds < 30){
-                    time_since = "Just now";
+                    time_since = "just now";
                 } else if (seconds < 60){
-                    time_since = "< 1 minutes";
+                    time_since = "< 1 minute ago";
                 } else if (seconds < 3600){
-                    time_since = Math.round(seconds / 60) + " minutes";
+                    time_since = Math.round(seconds / 60) + " minutes ago";
                 } else {
-                    time_since = Math.round(seconds / 3600) + " minutes";
+                    time_since = Math.round(seconds / 3600) + " hours ago";
                 }
 
                 order_records[i].time = time_since;
