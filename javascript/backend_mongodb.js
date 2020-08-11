@@ -727,9 +727,13 @@ module.exports = {
                 if(seconds < 30){
                     time_since = "just now";
                 } else if (seconds < 60){
-                    time_since = "< 1 minute ago";
+                    time_since = "<1 minute ago";
                 } else if (seconds < 3600){
-                    time_since = Math.round(seconds / 60) + " minutes ago";
+                    if (Math.round(seconds / 60) == 1){
+                        time_since = Math.round(seconds / 60) + " minute ago";
+                    } else {
+                        time_since = Math.round(seconds / 60) + " minutes ago";
+                    }
                 } else {
                     time_since = Math.round(seconds / 3600) + " hours ago";
                 }
