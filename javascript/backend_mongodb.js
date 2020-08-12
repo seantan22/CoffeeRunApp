@@ -289,11 +289,43 @@ module.exports = {
         return ({result: true, response: [record.username, record.email, record.balance.toString()]}); 
     },
     getUsers: async function(){
+
+        var username_array = [];
+        var username = "";
+        var slice_1 = [];
+        var slice_2 = [];
+        var added = false;
+
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        var record = await client.collection("User").find().toArray();
+        var record_response = await client.collection("User").find().toArray();
         db.close();
-        return JSON.stringify({result: true, response: record}); 
+
+        // Organize return array.
+        for (var i = 0; i < record_response.length; i++) {
+            username = record_response[i]['username'];
+            added = false;
+
+            if (username_array.length == 0){
+                username_array.push(username);
+            } else {
+                
+                for (var inner = 0; inner < username_array.length; inner ++){
+                    if(username < username_array[inner]){
+                        slice_1 = username_array.slice(0, inner);
+                        slice_2 = username_array.slice(inner, username_array.length);
+                        username_array = slice_1 + [username] + slice_2;
+                        added = true;
+                        break;
+                    }
+                }
+                if(!added){
+                    username_array.push(username);
+                }
+            }
+        }
+
+        return JSON.stringify({result: true, response: username_array}); 
     },
     addUser: async function(username, password, mail, number){
         var starting_balance = 0;
