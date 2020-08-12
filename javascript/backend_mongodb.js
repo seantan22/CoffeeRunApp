@@ -304,11 +304,10 @@ module.exports = {
         // Organize return array.
         for (var i = 0; i < record_response.length; i++) {
             username = record_response[i]['username'];
-            
+
             if(username == current_user){
                 continue;
             }
-
             added = false;
 
             if (username_array.length == 0){
@@ -317,15 +316,21 @@ module.exports = {
                 
                 for (var inner = 0; inner < username_array.length; inner ++){
                     if(username < username_array[inner]){
-                        slice_1 = username_array.slice(0, inner);
-                        slice_2 = username_array.slice(inner, username_array.length);
-                        username_array = slice_1 + [username] + slice_2;
+                        if(inner == 0){
+                            slice_1 = username_array;
+                            username_array = [username].concat(slice_1);
+                        } else {
+                            slice_1 = username_array.slice(0, inner);
+                            slice_2 = username_array.slice(inner, username_array.length);
+                            username_array = slice_1 + [username] + slice_2;
+                        }
                         added = true;
                         break;
                     }
                 }
                 if(!added){
-                    username_array.push(username);
+                    slice_1 = username_array;
+                    username_array = slice_1.concat([username]);
                 }
             }
         }
@@ -345,7 +350,6 @@ module.exports = {
         let hashPassword = await bcrypt.hash(password, await bcrypt.genSalt(saltRounds));
 
         var email = mail.toLowerCase();
-        console.log(email);
 
         let personInfo = {username: username.toLowerCase(), password: hashPassword, email: email, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
         var response = await client.collection("User").insertOne(personInfo);
