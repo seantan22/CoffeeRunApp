@@ -777,9 +777,10 @@ module.exports = {
 
         var order_records = await client.collection("Open_Orders").find({delivery_boy: username}).toArray();
                 
+        var return_record = getTimeSince(order_records);
         db.close();
         
-        return JSON.stringify({result: true, response: order_records});
+        return JSON.stringify({result: true, response: return_record});
     },
     getAllOpenOrders: async function(){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -787,38 +788,8 @@ module.exports = {
         var order_records = await client.collection("Open_Orders").find({delivery_boy: ""}).toArray();
         db.close();
 
-        var time_since;
-
-        if(order_records.length != 0){
-            for (var i = 0; i < order_records.length; i++){
-                var previous_time = order_records[i].time;
-                var current_time = new Date();
-
-                var seconds = (current_time.getTime() - previous_time.getTime())/1000;
-                
-                if(seconds < 30){
-                    time_since = "just now";
-                } else if (seconds < 60){
-                    time_since = "<1 minute ago";
-                } else if (seconds < 3600){
-                    if (Math.round(seconds / 60) == 1){
-                        time_since = Math.round(seconds / 60) + " minute ago";
-                    } else {
-                        time_since = Math.round(seconds / 60) + " minutes ago";
-                    }
-                } else {
-                    if (Math.round(seconds / 3600) == 1){
-                        time_since = Math.round(seconds / 3600) + " hou 1r ago";
-                    } else {
-                        time_since = Math.round(seconds / 3600) + " hours ago";
-                    }
-                }
-
-                order_records[i].time = time_since;
-            }
-        }
-        
-        return JSON.stringify({result: true, response: order_records});
+        var return_record = getTimeSince(order_records);
+        return JSON.stringify({result: true, response: return_record});
     },
     attachOrder: async function(order_id, delivery_id){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -1206,4 +1177,39 @@ function sendForgetPasswordEmail(address, id){
     };
 
     logistics.sendMail(mailInfo);
+}
+
+function getTimeSince(order_records){
+
+    var time_since;
+
+    if(order_records.length != 0){
+        for (var i = 0; i < order_records.length; i++){
+            var previous_time = order_records[i].time;
+            var current_time = new Date();
+
+            var seconds = (current_time.getTime() - previous_time.getTime())/1000;
+            
+            if(seconds < 30){
+                time_since = "just now";
+            } else if (seconds < 60){
+                time_since = "<1 minute ago";
+            } else if (seconds < 3600){
+                if (Math.round(seconds / 60) == 1){
+                    time_since = Math.round(seconds / 60) + " minute ago";
+                } else {
+                    time_since = Math.round(seconds / 60) + " minutes ago";
+                }
+            } else {
+                if (Math.round(seconds / 3600) == 1){
+                    time_since = Math.round(seconds / 3600) + " hou 1r ago";
+                } else {
+                    time_since = Math.round(seconds / 3600) + " hours ago";
+                }
+            }
+
+            order_records[i].time = time_since;
+        }
+    }
+    return order_records;
 }
