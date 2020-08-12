@@ -10,11 +10,22 @@ const cors = require('cors');
 const Client = require('pg');
 
 const app = express()
-const port = 8080
 
 app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 app.use(bodyParser.json());
+
+
+// *************************** IMAGE ***************************
+
+app.post('/postPicture', function(req, res){
+    var username = req.body.username;
+
+    // Hexadecimal format
+    var image = req.body.picture;
+    post_methods.uploadPicture(res, username, image);
+    return;
+})
 
 // ************************* FOLLOWER/ING **************************
 app.post('/sendFollowRequest', function(req, res){
@@ -491,13 +502,6 @@ app.get('/getBeverageInfo', function(req, res){
     get_methods.getBeveragesInfoFromVendor(res, vendor);
     return;
 })
-
-// app.get('/getSize', function(req, res){
-//     var vendor = req.headers['vendor'];
-//     var beverage = req.headers['beverage'];
-//     post_methods.getBeveragesOfBevAndVendor(res, vendor, beverage);
-//     return;
-// })
 
 app.get('/getPriceOfBeverage', function(req, res){
     var vendor = req.headers['vendor'];

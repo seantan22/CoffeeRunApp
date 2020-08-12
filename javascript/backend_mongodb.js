@@ -61,9 +61,9 @@ async function checkIfCorrupt(type, client, user_record, funds){
     if(user_record.balance != previous_balance){
         // Automatic logout and flagging of account
         let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: false, balance: user_record.balance, flagged: true}};
-        var response = await client.collection("User").updateOne({_id: ObjectId(user_record._id)}, personInfo).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({_id: ObjectId(user_record._id)}, personInfo).catch((error) => console.log(error)); 
         
-        var transaction = await client.collection("Transaction").insertOne({flagged: true, type: type, time_created: new Date(), transaction_value: funds, username: user_record.username, balance: {expected_balance: previous_balance, corrupt_balance: user_record.balance}});
+        await client.collection("Transaction").insertOne({flagged: true, type: type, time_created: new Date(), transaction_value: funds, username: user_record.username, balance: {expected_balance: previous_balance, corrupt_balance: user_record.balance}});
 
         return JSON.stringify({result: false, response: ['Your balance is incorrect and has been flagged.']});
     }
@@ -144,7 +144,7 @@ async function logoutWithCred(id){
 
     let updatedInfo = {$set: {username: record.username, password: record.password, email: record.email, phone_number: record.phone_number, loggedIn: false}};
     // Update
-    var response = await client.collection("User").updateOne({_id: ObjectId(id)}, updatedInfo).catch((error) => console.log(error)); 
+    await client.collection("User").updateOne({_id: ObjectId(id)}, updatedInfo).catch((error) => console.log(error)); 
     db.close();
 
     return JSON.stringify({result: true, response: ['Successfully logged out.']});
@@ -186,9 +186,9 @@ module.exports = {
         let hashPassword = await bcrypt.hash(new_password, await bcrypt.genSalt(8));
 
         let personInfo = {$set: {password: hashPassword}};
-        var responseUser = await client.collection("User").updateOne({email: email}, personInfo).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({email: email}, personInfo).catch((error) => console.log(error)); 
         let resetInfo = {$set: {active: false}};
-        var responseReset = await client.collection("Reset_Records").updateOne({_id: ObjectId(id)}, resetInfo).catch((error) => console.log(error)); 
+        await client.collection("Reset_Records").updateOne({_id: ObjectId(id)}, resetInfo).catch((error) => console.log(error)); 
         db.close();     
 
         return JSON.stringify({result: true, response: ["Successfully updated."]});;
@@ -231,7 +231,7 @@ module.exports = {
         var db = await MongoClient.connect(urclient.collection.distincti, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         let reviewInfo = {time: new Date(), username: username, review: review};
-        var response = await client.collection("Reviews").insertOne(reviewInfo);
+        await client.collection("Reviews").insertOne(reviewInfo);
         db.close();
         return JSON.stringify({result: true, response: ['Thank you for your review.']});
     },
@@ -259,7 +259,7 @@ module.exports = {
         var previous_value = getPreviousValue(transaction_history, record)
 
         let personInfo = {$set: {balance: previous_value, verified: true, loggedIn: true}}; // Update
-        var response = await client.collection("User").updateOne({_id: ObjectId(record._id)}, personInfo).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({_id: ObjectId(record._id)}, personInfo).catch((error) => console.log(error)); 
         
         db.close();
 
@@ -408,7 +408,7 @@ module.exports = {
         let newHashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(saltRounds));
 
         let personInfo = {$set: {username: username, password: newHashedPassword}};
-        var response = await client.collection("User").updateOne({_id: ObjectId(id)}, personInfo).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({_id: ObjectId(id)}, personInfo).catch((error) => console.log(error)); 
         db.close();
     
         return JSON.stringify({result: true, response: ['Successfully updated credentials.']});
@@ -443,9 +443,7 @@ module.exports = {
             return JSON.stringify({result: false, response: ['You cannot delete your account while delivering.']});
         }
 
-        // delete all transactions
-        //var transactions_deleted = await client.collection("Transaction").deleteMany({$or: [{username: record.username}, {payer_name: record.username}, {payee_name: record.username}]}).catch((error) => console.log(error)); 
-        var response = await client.collection("User").deleteOne({_id: ObjectId(id)}).catch((error) => console.log(error)); 
+        await client.collection("User").deleteOne({_id: ObjectId(id)}).catch((error) => console.log(error)); 
         db.close();
 
         return JSON.stringify({result: true, response: ['Successfully deleted.']});
@@ -498,11 +496,11 @@ module.exports = {
         var rounded_balance = parseFloat(final_balance).toFixed(2);
 
         let personInfo = {$set: {balance: rounded_balance}};
-        var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
         let transactionInfo = {flagged: false, type: 'withdraw', time_created: new Date(), amount_drawn: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
-        var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
+        await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
         return JSON.stringify({result: true, response: ['' + parseFloat(rounded_balance)]});
@@ -539,11 +537,11 @@ module.exports = {
         var rounded_balance = parseFloat(final_balance).toFixed(2);
 
         let personInfo = {$set: {balance: rounded_balance}};
-        var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
         let transactionInfo = {flagged: false, type: 'deposit', time_created: new Date(), amount_deposited: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
-        var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
+        await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
         return JSON.stringify({result: true, response: ['' + parseFloat(rounded_balance)]});
@@ -645,7 +643,7 @@ module.exports = {
                                     status: status,
                                     delivery_boy: record.delivery_boy   }};
 
-        var response = await client.collection("Open_Orders").updateOne({_id: ObjectId(id)}, orderInfo).catch((error) => console.log(error));
+        await client.collection("Open_Orders").updateOne({_id: ObjectId(id)}, orderInfo).catch((error) => console.log(error));
 
         db.close();
 
@@ -676,7 +674,7 @@ module.exports = {
         }
 
         let statusInfo = {$set: { status: status }};
-        var response = await client.collection("Open_Orders").updateOne({_id: ObjectId(order_id)}, statusInfo).catch((error) => console.log(error));
+        await client.collection("Open_Orders").updateOne({_id: ObjectId(order_id)}, statusInfo).catch((error) => console.log(error));
 
         db.close()
 
@@ -703,7 +701,7 @@ module.exports = {
             return JSON.stringify({result: false, response: ['Cannot delete order as it is being delivered.']});
         }
 
-        var response = await client.collection("Open_Orders").deleteOne({_id: ObjectId(id)}).catch((error) => console.log(error)); 
+        await client.collection("Open_Orders").deleteOne({_id: ObjectId(id)}).catch((error) => console.log(error)); 
         db.close();
 
         return JSON.stringify({result: true, response: ['Successfully deleted order.']});
@@ -846,7 +844,7 @@ module.exports = {
         }
 
         let orderInfo = {$set: {time: order_record.time, beverage: order_record.beverage, size: order_record.size, restaurant: order_record.restaurant, library: order_record.library, floor: order_record.floor, segment: order_record.segment, cost: order_record.cost, status: 'In Progress', creator: order_record.creator, delivery_boy: delivery_record.username}};
-        var response = await client.collection("Open_Orders").updateOne({_id: ObjectId(order_id)}, orderInfo).catch((error) => console.log(error));
+        await client.collection("Open_Orders").updateOne({_id: ObjectId(order_id)}, orderInfo).catch((error) => console.log(error));
 
         db.close();
 
@@ -973,16 +971,16 @@ module.exports = {
 
         // Update user information
         let payerInformation = {$set: {balance: newUserValue}};
-        var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, payerInformation).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({_id: ObjectId(user_id)}, payerInformation).catch((error) => console.log(error)); 
         
         let deliveryInformation = {$set: {balance: newDeliveryValue}};
-        var response = await client.collection("User").updateOne({_id: ObjectId(delivery_id)}, deliveryInformation).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({_id: ObjectId(delivery_id)}, deliveryInformation).catch((error) => console.log(error)); 
         
         let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {cost: order_record.cost, transaction_id: transaction_history.ops[0]._id}, rating: delivery_rating};
-        var closed_order = await client.collection("Closed_Orders").insertOne(closedInfo);
+        await client.collection("Closed_Orders").insertOne(closedInfo);
 
         // Delete open order
-        var o_response = await client.collection("Open_Orders").deleteOne({_id: ObjectId(order_id)}).catch((error) => console.log(error)); 
+        await client.collection("Open_Orders").deleteOne({_id: ObjectId(order_id)}).catch((error) => console.log(error)); 
         db.close(); 
         
         return JSON.stringify({result: true, response: ['Successfully completed transaction.']});
@@ -1058,7 +1056,7 @@ module.exports = {
         }
 
         // Delete flagged transaction.
-        var flagged_hist = await client.collection("Transaction").deleteOne({$or: [{username: user_record.username}, {payer_name: user_record.username}, {payee_name: user_record.username}], flagged: true});
+        await client.collection("Transaction").deleteOne({$or: [{username: user_record.username}, {payer_name: user_record.username}, {payee_name: user_record.username}], flagged: true});
         
         // Get last updated, clean transaction.
         var transaction_history = await client.collection("Transaction").find({$or: [{username: user_record.username}, {payer_name: user_record.username}, {payee_name: user_record.username}]}).sort({$natural: -1}).limit(1).toArray();    
@@ -1070,7 +1068,7 @@ module.exports = {
         }
 
         let personInfo = {$set: {loggedIn: false, flagged: false}};
-        var response = await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
         db.close();
 
         return JSON.stringify({result: true, response: ['Account: ' + user_record.username + ' has been reactivated.']});
@@ -1137,7 +1135,7 @@ module.exports = {
 async function detachOrderFromDelivery(order_record, client){
     
     let orderInfo = {$set: {status: "Awaiting Runner", delivery_boy: ""}};
-    var response = await client.collection('Open_Orders').updateOne({_id: ObjectId(order_record._id)}, orderInfo).catch((error) => console.log(error));
+    await client.collection('Open_Orders').updateOne({_id: ObjectId(order_record._id)}, orderInfo).catch((error) => console.log(error));
     return JSON.stringify({result: true, response: ['Detached successfully.']});
 }
 

@@ -1,5 +1,6 @@
 var db = require('./backend_mongodb');
 var esql = require('./backend_elephantSQL');
+var gdrive = require('./backend_googDrive');
 
 module.exports = {
     updatePasswordFromReset: async function(res, email, new_password, id){
@@ -78,6 +79,13 @@ module.exports = {
     },
     acceptUserFollowRequest: async function(res, acceptor, sender){
         response = await esql.acceptUserFollowRequest(acceptor, sender);
+        res.send(response);
+        return;
+    },
+
+    // ************************* PICTURE ****************************
+    uploadPicture: async function(res, username, image){
+        response = await gdrive.uploadPicture(username, image);
         res.send(response);
         return;
     }
