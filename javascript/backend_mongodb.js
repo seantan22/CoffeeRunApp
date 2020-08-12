@@ -114,9 +114,11 @@ async function loginWithCred(email, password){
         return JSON.stringify({result: false, response: ['Password is incorrect.']});
     }
 
-    let updatedInfo = {$set: {loggedIn: true}};
-    // Update
-    var response = await client.collection("User").updateOne({password: record.password}, updatedInfo).catch((error) => console.log(error)); 
+    if(record.verified){
+        let updatedInfo = {$set: {loggedIn: true}};
+        // Update
+        var response = await client.collection("User").updateOne({password: record.password}, updatedInfo).catch((error) => console.log(error)); 
+    }
     
     db.close();
 
