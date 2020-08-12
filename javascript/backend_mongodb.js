@@ -288,7 +288,7 @@ module.exports = {
 
         return ({result: true, response: [record.username, record.email, record.balance.toString()]}); 
     },
-    getUsers: async function(){
+    getUsers: async function(current_user){
 
         var username_array = [];
         var username = "";
@@ -304,6 +304,11 @@ module.exports = {
         // Organize return array.
         for (var i = 0; i < record_response.length; i++) {
             username = record_response[i]['username'];
+            
+            if(username == current_user){
+                continue;
+            }
+
             added = false;
 
             if (username_array.length == 0){

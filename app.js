@@ -163,7 +163,8 @@ app.get('/getUser', function(req, res){
 })
 
 app.get('/getUsers', function(req, res){
-    get_methods.getUsers(res);
+    var usernmae = req.headers['username'];
+    get_methods.getUsers(res, usernmae);
     return;
 })
 

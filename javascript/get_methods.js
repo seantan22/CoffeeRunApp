@@ -7,8 +7,8 @@ module.exports = {
         res.send(response);
         return;
     },
-    getUsers: async function(res){
-        response = await db.getUsers();
+    getUsers: async function(res, username){
+        response = await db.getUsers(username);
         res.send(response);
         return;
     },
