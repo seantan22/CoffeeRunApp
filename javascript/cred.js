@@ -18,13 +18,13 @@ module.exports = {
             }
         };
     },
-    getToken: function(){
+    
+    getTokenGet: function(){
         return {
-            "access_token":"ya29.a0AfH6SMDm259pNOqyHUKqqAaao8-u6sfBqpgCx0gW5Rgii_UKC7zWgrStlMGGmiN0FhJOGDtiDa_zLqhXiOgk6zrZJ3caCIQTZGQLHkC7cFE3Ig8BttliVDv7wUG2bFAyqfydC9RyqpocOJ4zRitdXjjIB6ajUT20eJ4",
-            "refresh_token":"1//0f5VpsTNg-rQgCgYIARAAGA8SNwF-L9IruLqUI2bTZi8WWytV-XT-qgL2_rkRJLDR5D3uQjlGcnGf8AbOEvPQQYxMTFFFAQoVpVE",
+            "access_token":"ya29.a0AfH6SMC0RuIJAxpKALR3i6H1T3vU6h39GEiLMxCMx5NkLkLuBm7aysbEEq926IGHLmdB2b5mLzX7rguMJt8BtkljUdyG2-JHJ1snWrjKUcaQU9ILBIOQLClIiNhRU3-Ww0a9X9oLTS3HH396KAd88oSuUbFxaHx6m_k",
+            "refresh_token":"1//0fRcb0sL_66I6CgYIARAAGA8SNwF-L9IrASd25Ai9wje-UBUS4r-scM7HG1x6uWIWSowDL6eXzvcGsDlVQcs8U41UXPnhMUOL84s",
             "scope":"https://www.googleapis.com/auth/drive.file",
             "token_type":"Bearer",
-            "expiry_date":1597260595879
-        }
+            "expiry_date":1597270240736}
     }
 }

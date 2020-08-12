@@ -10,6 +10,7 @@ const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 module.exports = {
 
     uploadPicture: async function(username, image){
+           
         credentialInformation = cred.getGD();
         auth = authorize(credentialInformation);
         
@@ -21,7 +22,7 @@ module.exports = {
 
         var media = {
             mimeType: 'image/jpg',
-            body: image
+            body: "image"
         };
 
         drive.files.create({
@@ -30,14 +31,36 @@ module.exports = {
             fields: 'id'
         }, function (err, file) {
             if (err) {
-              console.error(err);
+                console.error(err);
             } else {
-              console.log('File Id: ', file.id);
+                console.log('File Id: ', file.id);
+            }
+        });
+    },
+
+    getPicture: async function(username){
+        credentialInformation = cred.getGD();
+        auth = authorize(credentialInformation);
+
+        const drive = google.drive({version: 'v3', auth});
+    
+        // find file.
+        drive.files.list({
+            useDomainAdminAccess: true,
+        }, function (err, res) {
+            if (err) {
+                // Handle error
+                console.error(err);
+            } else {
+                console.log(res['data']['files']);
+                
+                // res.items.forEach(function (file) {
+                //     console.log('Found file:', file.title, file.id);
+                // });
             }
         });
     }
 }
-
 
 function authorize(credentials) {
     const {client_secret, client_id, redirect_uris} = credentials.installed;
@@ -52,7 +75,8 @@ function authorize(credentials) {
 
 
 function getAccessToken(oAuth2Client) {
-    return cred.getToken();
+    //getAccessTokenActual(oAuth2Client);
+    return cred.getTokenGet();
 }
 
 function getAccessTokenActual(oAuth2Client) {

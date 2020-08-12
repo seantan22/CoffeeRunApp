@@ -1,5 +1,6 @@
 var db = require('./backend_mongodb');
 var esql = require('./backend_elephantSQL');
+var googleD = require('./backend_googDrive');
 
 module.exports = {
     getUser: async function(res, id){
@@ -101,6 +102,13 @@ module.exports = {
     },
     getAllFriends: async function(res, user){
         response = await esql.getAllFriends(user);
+        res.send(response);
+        return;
+    },
+
+    // *********************** IMAGES **********************
+    getPicture: async function(res, username){
+        response = await googleD.getPicture(username);
         res.send(response);
         return;
     }

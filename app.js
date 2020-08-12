@@ -18,12 +18,18 @@ app.use(bodyParser.json());
 
 // *************************** IMAGE ***************************
 
-app.post('/postPicture', function(req, res){
+app.post('/postImage', function(req, res){
     var username = req.body.username;
 
     // Hexadecimal format
     var image = req.body.picture;
     post_methods.uploadPicture(res, username, image);
+    return;
+})
+
+app.get('/getImage', function(req, res){
+    var username = req.headers['username'];
+    get_methods.getPicture(res, username);
     return;
 })
 
@@ -523,7 +529,6 @@ app.get('/getOrderStatus', function(req, res){
     get_methods.getOrderStatus(res, order_id);
     return;
 })
-
 
 var server = app.listen(process.env.PORT || 5000, function () {
     console.log('Server started...')
