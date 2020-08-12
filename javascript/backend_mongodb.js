@@ -347,7 +347,7 @@ module.exports = {
         var email = mail.toLowerCase();
         console.log(email);
 
-        let personInfo = {username: username, password: hashPassword, email: email, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
+        let personInfo = {username: username.toLowerCase(), password: hashPassword, email: email, phone_number: number, loggedIn: false, balance: starting_balance, flagged: false, verified: false, verification_number: verification_code};
         var response = await client.collection("User").insertOne(personInfo);
         
         sendEmail(mail, verification_code);
