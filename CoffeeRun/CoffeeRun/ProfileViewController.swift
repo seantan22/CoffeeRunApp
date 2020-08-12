@@ -16,11 +16,13 @@ class ProfileViewController: UIViewController {
     static var username: String = String()
     static var email: String = String()
     static var balance: String = String()
+    static var numOfFriends: String = String()
     
     //MARK: Properties
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var friendsLabel: UILabel!
     
     //MARK: Actions
     @IBAction func logoutUser(_ sender: UIBarButtonItem) {
@@ -65,6 +67,7 @@ class ProfileViewController: UIViewController {
         self.usernameLabel.text = ProfileViewController.username
         self.emailLabel.text = ProfileViewController.email
         self.balanceLabel.text = "$" + ProfileViewController.balance
+        self.friendsLabel.text = ProfileViewController.numOfFriends + " Friends"
     }
     
     // POST /logout

@@ -149,7 +149,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     print(error)
                 }
                 if response.result {
-                    UserDefaults.standard.set(response.response[0], forKey: "user_id")
+                    DispatchQueue.main.async {
+                        ConfirmSignUpViewController.user_id = response.response[0]
+                        ConfirmSignUpViewController.username = self.usernameTextField.text!
+                    }
                 }
                 completion(response)
             }

@@ -19,6 +19,7 @@ class Order {
     var floor: String
     var zone: String
     var creator: String
+    var cost: String
     
     init(restaurant: String,
     size: String,
@@ -28,7 +29,8 @@ class Order {
     library: String,
     floor: String,
     zone: String,
-    creator: String) {
+    creator: String,
+    cost: String) {
         self.restaurant = restaurant
         self.size = size
         self.beverage = beverage
@@ -38,6 +40,7 @@ class Order {
         self.floor = floor
         self.zone = zone
         self.creator = creator
+        self.cost = cost
     }
     
 }

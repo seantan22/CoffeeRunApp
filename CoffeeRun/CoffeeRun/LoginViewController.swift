@@ -40,16 +40,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         login(email: email, password: password) {(result: Response) in
             
             if result.result {
-                self.run(after: 1000) {
-                    if UserDefaults.standard.value(forKey: "user_id") != nil {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-                            .changeRootViewController(tabBarController)
-                    } else {
-                        return
+                if result.response[2] == "true" {
+                    self.run(after: 1000) {
+                        if UserDefaults.standard.value(forKey: "user_id") != nil {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+                            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+                                .changeRootViewController(tabBarController)
+                        } else {
+                            return
+                        }
+                    }
+                } else {
+                    ConfirmSignUpViewController.user_id = result.response[0]
+                    ConfirmSignUpViewController.username = result.response[1]
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "loginToVerifySegue", sender: self)
                     }
                 }
+                
             } else {
                 DispatchQueue.main.async {
                     self.errorMsgLabel.text = result.response[0]
@@ -113,8 +122,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 } catch {
                     print(error)
                 }
-                if loginResponse.result {
+                if loginResponse.result && loginResponse.response[2] == "true" {
                     UserDefaults.standard.set(loginResponse.response[0], forKey: "user_id")
+                    UserDefaults.standard.set(loginResponse.response[1], forKey: "username")
                 }
                 completion(loginResponse)
             }

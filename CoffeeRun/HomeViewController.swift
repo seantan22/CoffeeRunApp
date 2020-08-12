@@ -28,8 +28,8 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         }
     }
     
-    //MARK: ProfileResponse
-    struct ProfileResponse: Decodable {
+    //MARK: ArrayOfStringsResponse
+    struct ArrayOfStringsResponse: Decodable {
         var result: Bool
         var response: Array<String>
         init() {
@@ -37,6 +37,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
             self.response = Array()
         }
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
             
         }
         
-        loadProfile(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: ProfileResponse) in
+        loadProfile(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: ArrayOfStringsResponse) in
             if result.result {
                     ProfileViewController.username = result.response[0]
                     ExistingOrderViewController.username = result.response[0]
@@ -66,6 +67,21 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.getFriends(username: UserDefaults.standard.string(forKey: "username")!) {(result: ArrayOfStringsResponse) in
+            if result.result {
+                ProfileViewController.numOfFriends = String(result.response.count)
+            }
+        }
+        
+        self.getAllUsersExceptSelf(username: UserDefaults.standard.string(forKey: "username")!) {(result: ArrayOfStringsResponse) in
+            if result.result {
+                FindUsersViewController.users = result.response
+                FindUsersViewController.subUsers = result.response
+            }
+        }
+    }
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController == tabBarController.viewControllers?[2] {
             let pickupVC = tabBarController.viewControllers?[2] as! UINavigationController
@@ -74,7 +90,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     }
     
     // GET /getUser
-    func loadProfile(user_id: String, completion: @escaping(ProfileResponse) -> ()) {
+    func loadProfile(user_id: String, completion: @escaping(ArrayOfStringsResponse) -> ()) {
         
         let session = URLSession.shared
         
@@ -90,9 +106,9 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
        
         let task = session.dataTask(with: request) { data, response, error in
             if let data = data {
-                var profileResponse = ProfileResponse()
+                var profileResponse = ArrayOfStringsResponse()
                 do {
-                    let jsonResponse = try JSONDecoder().decode(ProfileResponse.self, from: data)
+                    let jsonResponse = try JSONDecoder().decode(ArrayOfStringsResponse.self, from: data)
                     profileResponse.result = jsonResponse.result
                     profileResponse.response = jsonResponse.response
                 } catch {
@@ -139,5 +155,73 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     }
     
     
+    // GET /getAllFriends
+    func getFriends(username: String, completion: @escaping(ArrayOfStringsResponse) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "getAllFriends") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(username, forHTTPHeaderField: "user")
+       
+        let task = session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                var friendsResponse = ArrayOfStringsResponse()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(ArrayOfStringsResponse.self, from: data)
+                    friendsResponse.result = jsonResponse.result
+                    friendsResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(friendsResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    // GET /getUsers
+    func getAllUsersExceptSelf(username: String, completion: @escaping(ArrayOfStringsResponse) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "getUsers") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(username, forHTTPHeaderField: "username")
+       
+        let task = session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                var usersResponse = ArrayOfStringsResponse()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(ArrayOfStringsResponse.self, from: data)
+                    usersResponse.result = jsonResponse.result
+                    usersResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(usersResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
+    }
     
 }

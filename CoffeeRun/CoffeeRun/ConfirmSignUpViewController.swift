@@ -15,6 +15,9 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
     
     var result: Bool = false
     
+    static var user_id: String = String()
+    static var username: String = String()
+    
     //MARK: Properties
     @IBOutlet weak var d1TextField: UITextField!
     @IBOutlet weak var d2TextField: UITextField!
@@ -30,10 +33,14 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
 
         let code = codeArray.joined()
         
-        verify(user_id: UserDefaults.standard.string(forKey: "user_id")!, code: code)
+        verify(user_id: ConfirmSignUpViewController.user_id, code: code)
         
         run(after: 1000) {
             if self.result {
+                
+                UserDefaults.standard.set(ConfirmSignUpViewController.user_id, forKey: "user_id")
+                UserDefaults.standard.set(ConfirmSignUpViewController.username, forKey: "username")
+                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
                 (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?

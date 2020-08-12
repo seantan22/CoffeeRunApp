@@ -23,12 +23,21 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var selectedOrders: Array<Order> = Array()
     
+    @IBOutlet weak var tableView: UITableView!
+    
     //MARK: Actions
     @IBAction func clickSelectButton(_ sender: UIBarButtonItem) {
         
-        ConfirmSelectionViewController.selectedOrders = self.selectedOrders
+        if self.selectedOrders.count > 0 {
+            
+            ConfirmSelectionViewController.selectedOrders = self.selectedOrders
+            
+            self.performSegue(withIdentifier: "toConfirmSelectionSegue", sender: self)
+        } else {
+            print("Please select an order.")
+        }
         
-        self.performSegue(withIdentifier: "toConfirmSelectionSegue", sender: self)
+        
         
     }
     
@@ -83,7 +92,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                                            library: orderIndex["library"]!,
                                            floor: orderIndex["floor"]!,
                                            zone: orderIndex["segment"]!,
-                                           creator: orderIndex["creator"]!)
+                                           creator: orderIndex["creator"]!,
+                                           cost: orderIndex["cost"]!)
                     self.tempOrders.append(order)
                 }
    
@@ -98,7 +108,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     /** TABLE VIEW **/
     
-        @IBOutlet weak var tableView: UITableView!
+        
        
        // Number of Cells in Table
        func numberOfSections(in tableView: UITableView) -> Int {
