@@ -158,7 +158,21 @@ module.exports = {
         response = await client.query(deleteQuery).catch((error) => console.log(error));      
         client.end();
         return JSON.stringify({result: true, response: ['Friendship has been deleted.']});
-    }
+    },
+
+
+    // For internal use.
+    getAllRecordsForUser: async function(user){
+        var client = new pg.Client(credentials);
+        await client.connect();
+
+        var getQuery = "select sender, receiver, confirmation from " + fol_table + " where (sender = '" + user + "' OR receiver = '" + user + "')";       
+        response = await client.query(getQuery).catch((error) => console.log(error));      
+        client.end();
+
+        var returnArray = response.rows;
+        return returnArray;
+    },
 
 };
 

@@ -6,6 +6,8 @@ const nodemailer = require('nodemailer');
 const cred = require('./cred');
 const { ObjectID } = require('mongodb');
 
+const esql = require('./backend_elephantSQL');
+
 const dbName = 'CoffeeRun';
 const pName = 'Products';
 
@@ -301,16 +303,45 @@ module.exports = {
         var record_response = await client.collection("User").find().toArray();
         db.close();
 
+        // Get all requests and pending for display of users
+        var followRequestArray = await esql.getAllRecordsForUser(current_user);
+        var dictionary = {};
+        var result = "";
+
+        // Process through info and store in dictionary for easy search.
+        for (var i = 0; i < followRequestArray.length; i++){
+            record = followRequestArray[i];
+
+            if(record['sender'] == current_user){
+                dictionary[record['receiver']] = record['confirmation'].toString();
+            } else {
+                dictionary[record['sender']] = record['confirmation'].toString();
+            }
+        }
+
         // Organize return array.
         for (var i = 0; i < record_response.length; i++) {
             username = record_response[i]['username'];
 
+            // Check if friendship has been made.
+            // True -> friends
+            // False -> pending
+            // undefined -> nothing
+            if(dictionary[username] == "true"){
+                result = 'friends';
+            } else if (dictionary[username] == "false"){
+                result = 'pending';
+            } else {
+                result = 'nothing';
+            }
+
             if(username == current_user){
                 continue;
             }
+
             added = false;
             if (username_array.length == 0){
-                username_array.push(username);
+                username_array.push([username, result]);
             } else {
                 
                 for (var inner = 0; inner < username_array.length; inner ++){
@@ -318,11 +349,11 @@ module.exports = {
                     if(username < username_array[inner]){
                         if(inner == 0){
                             slice_1 = username_array;
-                            username_array = [username].concat(slice_1);
+                            username_array = [[username, result]].concat(slice_1);
                         } else {
                             slice_1 = username_array.slice(0, inner);
                             slice_2 = username_array.slice(inner, username_array.length);
-                            username_array = slice_1.concat([username].concat(slice_2));
+                            username_array = slice_1.concat([[username, result]].concat(slice_2));
                         }
                         added = true;
                         break;
@@ -330,7 +361,7 @@ module.exports = {
                 }
                 if(!added){
                     slice_1 = username_array;
-                    username_array = slice_1.concat([username]);
+                    username_array = slice_1.concat([[username, result]]);
                 }
             }
         }
