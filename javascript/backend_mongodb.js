@@ -309,12 +309,12 @@ module.exports = {
                 continue;
             }
             added = false;
-
             if (username_array.length == 0){
                 username_array.push(username);
             } else {
                 
                 for (var inner = 0; inner < username_array.length; inner ++){
+
                     if(username < username_array[inner]){
                         if(inner == 0){
                             slice_1 = username_array;
@@ -322,7 +322,7 @@ module.exports = {
                         } else {
                             slice_1 = username_array.slice(0, inner);
                             slice_2 = username_array.slice(inner, username_array.length);
-                            username_array = slice_1 + [username] + slice_2;
+                            username_array = slice_1.concat([username].concat(slice_2));
                         }
                         added = true;
                         break;
