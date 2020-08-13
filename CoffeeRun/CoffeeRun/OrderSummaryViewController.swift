@@ -50,10 +50,14 @@ class OrderSummaryViewController: UIViewController {
                         
             if result.result {
                 
+                OrderExistenceViewController.doesOrderExist = true
+                
+                ExistingOrderViewController.orderStatus = "Awaiting Runner"
+                
                 DeliveredViewController.subtotal = OrderSummaryViewController.subtotal
                 
                 self.run(after: 1000) {
-                    self.performSegue(withIdentifier: "toOrderPlacedSegue", sender: nil)
+                    self.performSegue(withIdentifier: "toCurrentOrderSegue", sender: nil)
                 }
             } else {
                 DispatchQueue.main.async {

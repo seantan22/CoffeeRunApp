@@ -13,6 +13,9 @@ class NewOrderVendorViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    @IBAction func unwindToOrderExistence(segue: UIStoryboardSegue) {
+    }
+    
     //MARK: Properties
     @IBOutlet weak var timHortonsBtn: UIButton!
     @IBOutlet weak var pmBtn: UIButton!
@@ -119,6 +122,8 @@ class NewOrderVendorViewController: UIViewController {
     
    override func viewDidLoad() {
         super.viewDidLoad()
+    
+        self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
     struct Response: Decodable {
