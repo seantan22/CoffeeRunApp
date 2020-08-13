@@ -166,6 +166,10 @@ module.exports = {
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
         
+        if(user_record != null){
+            return JSON.stringify({result: false, response: ['User does not exist.']});
+        }
+
         if(user_record.loggedIn){
             return JSON.stringify({result: false, response: ['You can only reset your password when logged out.']});
         }
@@ -177,18 +181,17 @@ module.exports = {
             return JSON.stringify({result: false, response: ['You already have a pending reset.']});
         }
 
-        if(user_record != null){
-             // Create an instance with an id of the password
-            let passwordResetInstance = {active: true, email: email, time: new Date()};
-            await client.collection("Reset_Records").insertOne(passwordResetInstance).catch((error) => console.log(error)); 
+        // Create an instance with an id of the password
+        let passwordResetInstance = {active: true, email: email, time: new Date()};
+        await client.collection("Reset_Records").insertOne(passwordResetInstance).catch((error) => console.log(error)); 
 
-            new_pass = await sendForgetPasswordEmail(email, user_record._id);
-            let hashPassword = await bcrypt.hash(new_pass, await bcrypt.genSalt(5));
+        new_pass = await sendForgetPasswordEmail(email, user_record._id);
+        let hashPassword = await bcrypt.hash(new_pass, await bcrypt.genSalt(5));
 
-            // Update the password in the database.
-            updateInfo = {$set: {password: hashPassword}}
-            await client.collection("User").updateOne({_id: user_record._id}, updateInfo).catch((error) => console.log(error)); 
-        }
+        // Update the password in the database.
+        updateInfo = {$set: {password: hashPassword}}
+        await client.collection("User").updateOne({_id: user_record._id}, updateInfo).catch((error) => console.log(error)); 
+    
 
         db.close();
         return JSON.stringify({result: true, response: ['An email has been sent to your account.']});

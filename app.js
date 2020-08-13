@@ -115,7 +115,7 @@ app.delete('/deleteMessages', function(req, res){
 
 app.post('/forgetPassword', function(req, res){
     var email = req.body.email;
-    post_methods.forgetPassword(res, email);
+    post_methods.forgetPassword(res, email.toLowerCase());
     return;
 })
 
