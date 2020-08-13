@@ -7,6 +7,7 @@ const cred = require('./cred');
 const { ObjectID } = require('mongodb');
 
 const esql = require('./backend_elephantSQL');
+const { truncate } = require('fs');
 
 const dbName = 'CoffeeRun';
 const pName = 'Products';
@@ -113,10 +114,10 @@ async function loginWithCred(email, password){
     // }
 
     // Check if in reset state
-    var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase() }).catch((error) => console.log(error));
+    var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase(), active: true }).catch((error) => console.log(error));
     // Reset state
     if(reset_record != null){
-        JSON.stringify({result: true, response: ['reset_password']});
+        JSON.stringify({result: true, response: [record._id, record.username, record.verified.toString(), 'reset']});
     }
 
     if(!(await bcrypt.compare(password, record.password))){
@@ -1243,7 +1244,7 @@ async function sendForgetPasswordEmail(address, id){
         from: 'McgillCoffeeRun@gmail.com',
         to: address,
         subject: 'CoffeeRun: Forget Password',
-        html: "<html><body><b>Password Reset</b><br><br><p>This account's password has been reset. To choose a new password, please log back into CoffeeRun login using the temporary password:</p><br><b style='text-align:center'>" + new_pass + "</b></p><br><p>If you did not send the reset request, ignore this email.</p>"
+        html: "<html><body><b>Password Reset</b><br><br><p>This account's password has been reset. To choose a new password, please log back into CoffeeRun using the temporary password:</p><br><b style='text-align:center'>" + new_pass + "</b></p><br><p>If you did not send the reset request, ignore this email.</p>"
     };
 
     logistics.sendMail(mailInfo);
