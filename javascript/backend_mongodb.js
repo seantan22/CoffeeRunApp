@@ -1202,7 +1202,7 @@ function getTimeSince(order_records){
                 }
             } else {
                 if (Math.round(seconds / 3600) == 1){
-                    time_since = Math.round(seconds / 3600) + " hou 1r ago";
+                    time_since = Math.round(seconds / 3600) + " hour ago";
                 } else {
                     time_since = Math.round(seconds / 3600) + " hours ago";
                 }
