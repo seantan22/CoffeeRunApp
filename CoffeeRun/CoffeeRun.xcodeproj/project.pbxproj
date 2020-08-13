@@ -42,6 +42,7 @@
 		66F09C0724E381C300389304 /* FindUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F09C0624E381C200389304 /* FindUsersViewController.swift */; };
 		66F09C0924E383B300389304 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F09C0824E383B300389304 /* UserTableViewCell.swift */; };
 		66F09C0B24E383F600389304 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F09C0A24E383F600389304 /* User.swift */; };
+		66F09C0D24E44FF300389304 /* OrderToPickupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F09C0C24E44FF300389304 /* OrderToPickupTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		66F09C0624E381C200389304 /* FindUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsersViewController.swift; sourceTree = "<group>"; };
 		66F09C0824E383B300389304 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		66F09C0A24E383F600389304 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		66F09C0C24E44FF300389304 /* OrderToPickupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderToPickupTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */,
 				661D334724E35199004BEE5B /* SelectedOrderTableViewCell.swift */,
 				66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */,
+				66F09C0C24E44FF300389304 /* OrderToPickupTableViewCell.swift */,
 				66BC777324DEF15400778FBB /* TripDenyViewController.swift */,
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
 				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
@@ -251,6 +254,7 @@
 				66BC776224DCE3FE00778FBB /* ExistingOrderViewController.swift in Sources */,
 				66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */,
 				66316CC024D4D14700B1A973 /* NewTripViewController.swift in Sources */,
+				66F09C0D24E44FF300389304 /* OrderToPickupTableViewCell.swift in Sources */,
 				66316CC624D4D2E200B1A973 /* OrderViewController.swift in Sources */,
 				66ADC83024E20DDA00D0BEA7 /* WithdrawFundsViewController.swift in Sources */,
 				66304E1724DC7D9300E557E9 /* OrderPlacedViewController.swift in Sources */,

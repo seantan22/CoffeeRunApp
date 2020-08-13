@@ -20,23 +20,61 @@ class TripExistenceViewController: UIViewController {
         
     }
     
+    @IBAction func unwindToTripExistence(segue: UIStoryboardSegue) {
+
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         
-        checkIfOrderExist(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: OrderExistenceResponse) in
+        checkIfOrderExists(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: ExistenceResponse) in
         
             OrderExistenceViewController.doesOrderExist = result.result
+            
             DispatchQueue.main.async {
                 if OrderExistenceViewController.doesOrderExist {
                     self.performSegue(withIdentifier: "toTripDenySegue", sender: nil)
                 } else {
-                    if TripExistenceViewController.doesTripExist {
-                      self.performSegue(withIdentifier: "toExistingTripSegue", sender: nil)
-                    } else {
-                        self.getNumberOfOpenOrders() {(result: OpenOrdersResponse) in
-                            NewTripViewController.numOpenOrders = result.response
+                    
+                    TripExistenceViewController.doesTripExist = false
+                    
+                    self.checkIfTripExists(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: ExistenceResponse) in
+                           
+                        if result.response.count != 0 {
+                            print(result.response)
+                            TripExistenceViewController.doesTripExist = result.result
+                            ExistingTripViewController.ordersToPickup = []
+                            for orderIndex in result.response {
+                                    let order = Order(  id: orderIndex["_id"]!,
+                                                        restaurant: orderIndex["restaurant"]!,
+                                                        size: orderIndex["size"]!,
+                                                        beverage: orderIndex["beverage"]!,
+                                                        details: orderIndex["details"]!,
+                                                        time: orderIndex["time"]!,
+                                                        library: orderIndex["library"]!,
+                                                        floor: orderIndex["floor"]!,
+                                                        zone: orderIndex["segment"]!,
+                                                        creator: orderIndex["creator"]!,
+                                                        cost: orderIndex["cost"]!,
+                                                        status: orderIndex["status"]!)
+                                
+                                ExistingTripViewController.ordersToPickup.append(order)
+                            }
+                    
                         }
-                        self.run(after: 1000) {
-                            self.performSegue(withIdentifier: "toNewTripSegue", sender: nil)
+                    
+                        DispatchQueue.main.async {
+                            if TripExistenceViewController.doesTripExist {
+                                self.run(after: 1000) {
+                                    self.performSegue(withIdentifier: "toExistingTripSegue", sender: nil)
+                                }
+                            } else {
+                                self.getNumberOfOpenOrders() {(result: OpenOrdersResponse) in
+                                    NewTripViewController.numOpenOrders = result.response
+                                }
+                                self.run(after: 1000) {
+                                    self.performSegue(withIdentifier: "toNewTripSegue", sender: nil)
+                                }
+                            }
                         }
                     }
                 }
@@ -55,8 +93,8 @@ class TripExistenceViewController: UIViewController {
         }
     }
     
-    //MARK: OrderExistenceResponse
-    struct OrderExistenceResponse: Decodable {
+    //MARK: ExistenceResponse
+    struct ExistenceResponse: Decodable {
         var result: Bool
         var response: Array<[String: String]>
         init() {
@@ -64,6 +102,7 @@ class TripExistenceViewController: UIViewController {
             self.response = Array()
         }
     }
+    
     
     // GET /getNumberOfAllOpenOrders
     func getNumberOfOpenOrders(completion: @escaping(OpenOrdersResponse) -> ()) {
@@ -96,7 +135,7 @@ class TripExistenceViewController: UIViewController {
     }
     
     // GET /getOrderByUser
-    func checkIfOrderExist(user_id: String, completion: @escaping(OrderExistenceResponse) -> ()) {
+    func checkIfOrderExists(user_id: String, completion: @escaping(ExistenceResponse) -> ()) {
         
         let session = URLSession.shared
          
@@ -112,9 +151,9 @@ class TripExistenceViewController: UIViewController {
         
          let task = session.dataTask(with: request) { data, response, error in
              if let data = data {
-                 var orderExistenceResponse = OrderExistenceResponse()
+                 var orderExistenceResponse = ExistenceResponse()
                  do {
-                     let jsonResponse = try JSONDecoder().decode(OrderExistenceResponse.self, from: data)
+                     let jsonResponse = try JSONDecoder().decode(ExistenceResponse.self, from: data)
                      orderExistenceResponse.result = jsonResponse.result
                      orderExistenceResponse.response = jsonResponse.response
                  } catch {
@@ -124,6 +163,37 @@ class TripExistenceViewController: UIViewController {
                     UserDefaults.standard.set(orderExistenceResponse.response[0]["_id"]!, forKey: "order_id")
                 }
                  completion(orderExistenceResponse)
+             }
+         }
+         task.resume()
+    }
+    
+    // GET /getOrderDelivery
+    func checkIfTripExists(user_id: String, completion: @escaping(ExistenceResponse) -> ()) {
+        
+        let session = URLSession.shared
+         
+         guard let url = URL(string: testURL + "getOrderDelivery") else {
+             print("Error: Cannot create URL")
+             return
+         }
+         
+         var request = URLRequest(url: url)
+         request.httpMethod = "GET"
+         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+         request.setValue(user_id, forHTTPHeaderField: "user_id")
+        
+         let task = session.dataTask(with: request) { data, response, error in
+             if let data = data {
+                 var tripExistenceResponse = ExistenceResponse()
+                 do {
+                     let jsonResponse = try JSONDecoder().decode(ExistenceResponse.self, from: data)
+                     tripExistenceResponse.result = jsonResponse.result
+                     tripExistenceResponse.response = jsonResponse.response
+                 } catch {
+                     print(error)
+                 }
+                 completion(tripExistenceResponse)
              }
          }
          task.resume()

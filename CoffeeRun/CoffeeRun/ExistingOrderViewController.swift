@@ -19,6 +19,8 @@ class ExistingOrderViewController: UIViewController {
     
     //MARK: Properties
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
+    
     
     //MARK: Actions
     @IBAction func cancelOrderButton(_ sender: UIButton) {
@@ -45,6 +47,9 @@ class ExistingOrderViewController: UIViewController {
 
         self.navigationItem.setHidesBackButton(true, animated: true)
         
+        cancelButton.isUserInteractionEnabled = true
+        cancelButton.isHidden = false
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,8 +63,17 @@ class ExistingOrderViewController: UIViewController {
     }
     
     @objc func callGetStatus() {
+        
         getStatus(order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: Response) in
             DispatchQueue.main.async {
+                
+                if result.response[0] != "Awaiting Runner" {
+                            self.cancelButton.isUserInteractionEnabled = false
+                            self.cancelButton.isHidden = true
+                       } else {
+                            self.cancelButton.isUserInteractionEnabled = true
+                            self.cancelButton.isHidden = false
+                       }
                 
                 self.statusLabel.text = result.response[0]
                 

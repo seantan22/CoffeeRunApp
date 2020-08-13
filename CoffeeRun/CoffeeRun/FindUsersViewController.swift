@@ -13,8 +13,8 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
-    static var users: Array<String> = Array()
-    static var subUsers: Array<String> = Array()
+    static var users: Array<Array<String>> = Array(Array())
+    static var subUsers: Array<Array<String>> = Array(Array())
     
     var index: Int = 0
     
@@ -39,7 +39,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
             FindUsersViewController.subUsers = FindUsersViewController.users
         }
         for user in FindUsersViewController.users {
-            if user.contains(lowercaseSearchText) {
+            if user[0].contains(lowercaseSearchText) {
                 FindUsersViewController.subUsers.append(user)
             }
         }
@@ -61,9 +61,19 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         if index < FindUsersViewController.subUsers.count {
          let user = FindUsersViewController.subUsers[index]
          let cell = tableView.dequeueReusableCell(withIdentifier: "UserItem", for: indexPath) as! UserTableViewCell
-             cell.setUser(user: user)
-                index += 1
-             return cell
+             cell.setUser(user: user[0])
+            
+            let state = user[1]
+            if state == "friends" {
+                cell.layer.borderColor = UIColor.systemGreen.cgColor
+            } else if state == "pending" {
+                cell.layer.borderColor = UIColor.systemYellow.cgColor
+            } else {
+                cell.layer.borderColor = UIColor.black.cgColor
+            }
+            
+            index += 1
+            return cell
         }
         return UITableViewCell()
     }
@@ -71,27 +81,55 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
     // Swipe Cell
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let title = NSLocalizedString("Add Friend", comment: "Add")
+        let user = FindUsersViewController.subUsers[indexPath.row]
+        
+        let state = user[1]
+        
+        var title: String = String()
+        
+       if state == "friends" {
+            title = NSLocalizedString("Unfriend", comment: "Unfriend")
+        } else if state == "pending" {
+            title = NSLocalizedString("Pending...", comment: "Pending...")
+        } else {
+            title = NSLocalizedString("Add Friend", comment: "Add")
+        }
 
         let action = UIContextualAction(style: .normal, title: title,
           handler: { (action, view, completionHandler) in
             
-            self.sendFriendRequest(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.row]) {(result: Response) in
-                                    
-                if result.result {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Request Sent!", message: "to: " + FindUsersViewController.subUsers[indexPath.row], preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Done", style: .default))
-                        self.present(alert, animated: true)
-                    }
-                }
-                print(result.response[0])
+            if state == "friends" {
+              self.unfriend(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.row][0]) {(result: Response) in
+                  if result.result {
+                      DispatchQueue.main.async {
+                          let alert = UIAlertController(title: "Friend Removed!", message: FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
+                          alert.addAction(UIAlertAction(title: "Done", style: .default))
+                          self.present(alert, animated: true)
+                            FindUsersViewController.subUsers[indexPath.row][1] = "nothing"
+                      }
+                  }
+              }
+            } else if state == "pending" {
+              print("PENDING")
+            } else {
+               self.sendFriendRequest(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.row][0]) {(result: Response) in
+                   if result.result {
+                       DispatchQueue.main.async {
+                           let alert = UIAlertController(title: "Request Sent!", message: "to: " + FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
+                           alert.addAction(UIAlertAction(title: "Done", style: .default))
+                           self.present(alert, animated: true)
+                            FindUsersViewController.subUsers[indexPath.row][1] = "pending"
+                       }
+                   }
+               }
             }
-            
-            
-        completionHandler(true)
+            self.run(after: 1000) {
+                self.index = 0
+                tableView.reloadData()
+            }
+            completionHandler(true)
     })
-        action.backgroundColor = UIColor.systemGreen
+        action.backgroundColor = UIColor.black
         let configuration = UISwipeActionsConfiguration(actions: [action])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
@@ -157,5 +195,54 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         task.resume()
     }
     
+    // DELETE /deleteFriendship
+    func unfriend(sender: String, receiver: String, completion: @escaping(Response) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "deleteFriendship") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonRequest = [
+            "sender": sender,
+            "receiver": receiver
+        ]
+        
+        let dataLogin: Data
+        do {
+            dataLogin = try JSONSerialization.data(withJSONObject: jsonRequest, options: [] )
+        } catch {
+            print("Error: Unable to convert JSON to Data object")
+            return
+        }
+       
+        let task = session.uploadTask(with: request, from: dataLogin) { data, response, error in
+            if let data = data {
+                var friendResponse = Response()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                    friendResponse.result = jsonResponse.result
+                    friendResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(friendResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
+    }
 
 }

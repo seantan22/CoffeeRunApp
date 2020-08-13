@@ -38,6 +38,16 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         }
     }
     
+    //MARK: AOAOResponse
+    struct AOAOStringsResponse: Decodable {
+        var result: Bool
+        var response: Array<Array<String>>
+        init() {
+            self.result = false
+            self.response = Array(Array())
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,13 +78,13 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.getFriends(username: UserDefaults.standard.string(forKey: "username")!) {(result: ArrayOfStringsResponse) in
+        self.getFriends(username: UserDefaults.standard.string(forKey: "username")!) {(result: AOAOStringsResponse) in
             if result.result {
                 ProfileViewController.numOfFriends = String(result.response.count)
             }
         }
         
-        self.getAllUsersExceptSelf(username: UserDefaults.standard.string(forKey: "username")!) {(result: ArrayOfStringsResponse) in
+        self.getAllUsersExceptSelf(username: UserDefaults.standard.string(forKey: "username")!) {(result: AOAOStringsResponse) in
             if result.result {
                 FindUsersViewController.users = result.response
                 FindUsersViewController.subUsers = result.response
@@ -156,7 +166,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     
     
     // GET /getAllFriends
-    func getFriends(username: String, completion: @escaping(ArrayOfStringsResponse) -> ()) {
+    func getFriends(username: String, completion: @escaping(AOAOStringsResponse) -> ()) {
         
         let session = URLSession.shared
         
@@ -172,9 +182,9 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
        
         let task = session.dataTask(with: request) { data, response, error in
             if let data = data {
-                var friendsResponse = ArrayOfStringsResponse()
+                var friendsResponse = AOAOStringsResponse()
                 do {
-                    let jsonResponse = try JSONDecoder().decode(ArrayOfStringsResponse.self, from: data)
+                    let jsonResponse = try JSONDecoder().decode(AOAOStringsResponse.self, from: data)
                     friendsResponse.result = jsonResponse.result
                     friendsResponse.response = jsonResponse.response
                 } catch {
@@ -187,7 +197,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     }
     
     // GET /getUsers
-    func getAllUsersExceptSelf(username: String, completion: @escaping(ArrayOfStringsResponse) -> ()) {
+    func getAllUsersExceptSelf(username: String, completion: @escaping(AOAOStringsResponse) -> ()) {
         
         let session = URLSession.shared
         
@@ -203,9 +213,9 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
        
         let task = session.dataTask(with: request) { data, response, error in
             if let data = data {
-                var usersResponse = ArrayOfStringsResponse()
+                var usersResponse = AOAOStringsResponse()
                 do {
-                    let jsonResponse = try JSONDecoder().decode(ArrayOfStringsResponse.self, from: data)
+                    let jsonResponse = try JSONDecoder().decode(AOAOStringsResponse.self, from: data)
                     usersResponse.result = jsonResponse.result
                     usersResponse.response = jsonResponse.response
                 } catch {

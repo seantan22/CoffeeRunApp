@@ -19,7 +19,28 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
     
     //MARK: Properties
     @IBOutlet weak var selectedOrdersLabel: UILabel!
+    @IBOutlet weak var totalCostLabel: UILabel!
     @IBOutlet weak var estProfitLabel: UILabel!
+    
+    //MARK: Actions
+    @IBAction func startTripButton(_ sender: UIBarButtonItem) {
+        
+        TripExistenceViewController.doesTripExist = true
+        
+        for order in ConfirmSelectionViewController.selectedOrders {
+            attachDeliveryPersonToOrder(user_id: UserDefaults.standard.string(forKey: "user_id")!, order_id: order.id) {(result: Response) in
+                if result.result {
+                    print(result.response[0])
+                }
+            }
+        }
+        
+        run(after: 1000) {
+            self.performSegue(withIdentifier: "confirmTripToCurrentTripSegue", sender: self)
+        }
+
+    }
+    
     
     
     override func viewDidLoad() {
@@ -28,12 +49,7 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
         tableView.delegate = self
         tableView.dataSource = self
         
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-               ])
-        
-        selectedOrdersLabel.text = "You've selected " + String(ConfirmSelectionViewController.selectedOrders.count) + " orders."
+        selectedOrdersLabel.text = "You've selected " + String(ConfirmSelectionViewController.selectedOrders.count) + " orders:"
         
         var totalCost: Double = 0.0
         
@@ -41,7 +57,9 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
             totalCost += Double(order.cost)!
         }
         
-        estProfitLabel.text = "Your estimated profit is $" + String(round(totalCost * 0.15 * 100) / 100) + "."
+        totalCostLabel.text = "Total Order Cost: $" + String(round(totalCost * 100) / 100)
+        
+        estProfitLabel.text = "Your Estimated Profit is $" + String(round(totalCost * 0.15 * 100) / 100) + "."
 
     }
     
@@ -73,7 +91,66 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
             return cell
    }
     
+    struct Response: Decodable {
+      var result: Bool
+      var response: Array<String>
+      init() {
+          self.result = false
+          self.response = Array()
+      }
+    }
+    
+    // POST /attachDelivery
+    func attachDeliveryPersonToOrder(user_id: String, order_id: String, completion: @escaping(Response) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "attachDelivery") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonLogin = [
+            "delivery_id": user_id,
+            "order_id": order_id
+        ]
+        
+        let dataLogin: Data
+        do {
+            dataLogin = try JSONSerialization.data(withJSONObject: jsonLogin, options: [] )
+        } catch {
+            print("Error: Unable to convert JSON to Data object")
+            return
+        }
+       
+        let task = session.uploadTask(with: request, from: dataLogin) { data, response, error in
+            if let data = data {
+                var attachResponse = Response()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                    attachResponse.result = jsonResponse.result
+                    attachResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(attachResponse)
+            }
+        }
+        task.resume()
+    }
     
     
+    
+    
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
+    }
 
 }

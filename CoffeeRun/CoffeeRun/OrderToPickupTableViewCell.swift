@@ -1,15 +1,15 @@
 //
-//  SelectedOrderTableViewCell.swift
+//  OrderToPickupTableViewCell.swift
 //  CoffeeRun
 //
-//  Created by Sean Tan on 8/11/20.
+//  Created by Sean Tan on 8/12/20.
 //  Copyright © 2020 CoffeeRun. All rights reserved.
 //
 
 import UIKit
 
-class SelectedOrderTableViewCell: UITableViewCell {
-    
+class OrderToPickupTableViewCell: UITableViewCell {
+
     //MARK: Properties
     @IBOutlet weak var vendorLabel: UILabel!
     @IBOutlet weak var itemLabel: UILabel!
@@ -20,10 +20,9 @@ class SelectedOrderTableViewCell: UITableViewCell {
     @IBOutlet weak var creatorLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 0.5
         self.layer.cornerRadius = 10.0
@@ -33,6 +32,7 @@ class SelectedOrderTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    
     func setOrder(order: Order) {
         vendorLabel.text = order.restaurant.replacingOccurrences(of: "_", with: " ")
         itemLabel.text = order.size + " " + order.beverage
@@ -43,5 +43,4 @@ class SelectedOrderTableViewCell: UITableViewCell {
         creatorLabel.text = "by " + order.creator
         locationLabel.text = order.library + " " + order.floor + order.zone
     }
-    
 }

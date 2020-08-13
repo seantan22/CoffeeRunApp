@@ -10,6 +10,7 @@ import Foundation
 
 class Order {
     
+    var id: String
     var restaurant: String
     var size: String
     var beverage: String
@@ -20,27 +21,32 @@ class Order {
     var zone: String
     var creator: String
     var cost: String
+    var status: String
     
-    init(restaurant: String,
-    size: String,
-    beverage: String,
-    details: String,
-    time: String,
-    library: String,
-    floor: String,
-    zone: String,
-    creator: String,
-    cost: String) {
-        self.restaurant = restaurant
-        self.size = size
-        self.beverage = beverage
-        self.details = details
-        self.time = time
-        self.library = library
-        self.floor = floor
-        self.zone = zone
-        self.creator = creator
-        self.cost = cost
+    init(id: String,
+        restaurant: String,
+        size: String,
+        beverage: String,
+        details: String,
+        time: String,
+        library: String,
+        floor: String,
+        zone: String,
+        creator: String,
+        cost: String,
+        status: String) {
+            self.id = id
+            self.restaurant = restaurant
+            self.size = size
+            self.beverage = beverage
+            self.details = details
+            self.time = time
+            self.library = library
+            self.floor = floor
+            self.zone = zone
+            self.creator = creator
+            self.cost = cost
+            self.status = status
     }
     
 }

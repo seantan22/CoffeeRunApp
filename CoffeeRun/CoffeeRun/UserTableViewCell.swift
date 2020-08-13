@@ -19,7 +19,6 @@ class UserTableViewCell: UITableViewCell {
         
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 0
-        self.layer.cornerRadius = 10.0
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -15,13 +15,13 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var ordersTimer: Timer?
     
-    var orders: [Order] = []
+    var orders: [Order] = Array()
     
-    var tempOrders: [Order] = []
+    var tempOrders: [Order] = Array()
     
     var index: Int = 0
     
-    var selectedOrders: Array<Order> = Array()
+    var selectedOrders: [Order] = Array()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -84,16 +84,18 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.index = 0
                 self.tempOrders = []
                 for orderIndex in result.response {
-                   let order = Order(restaurant: orderIndex["restaurant"]!,
-                                           size: orderIndex["size"]!,
-                                           beverage: orderIndex["beverage"]!,
-                                           details: orderIndex["details"]!,
-                                           time: orderIndex["time"]!,
-                                           library: orderIndex["library"]!,
-                                           floor: orderIndex["floor"]!,
-                                           zone: orderIndex["segment"]!,
-                                           creator: orderIndex["creator"]!,
-                                           cost: orderIndex["cost"]!)
+                        let order = Order(  id: orderIndex["_id"]!,
+                                            restaurant: orderIndex["restaurant"]!,
+                                            size: orderIndex["size"]!,
+                                            beverage: orderIndex["beverage"]!,
+                                            details: orderIndex["details"]!,
+                                            time: orderIndex["time"]!,
+                                            library: orderIndex["library"]!,
+                                            floor: orderIndex["floor"]!,
+                                            zone: orderIndex["segment"]!,
+                                            creator: orderIndex["creator"]!,
+                                            cost: orderIndex["cost"]!,
+                                            status: orderIndex["status"]!)
                     self.tempOrders.append(order)
                 }
    
