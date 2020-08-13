@@ -57,9 +57,9 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
             totalCost += Double(order.cost)!
         }
         
-        totalCostLabel.text = "Total Order Cost: $" + String(round(totalCost * 100) / 100)
+        totalCostLabel.text = String(format: "Total Order Cost: $%.02f", round(totalCost * 100) / 100)
         
-        estProfitLabel.text = "Your Estimated Profit is $" + String(round(totalCost * 0.15 * 100) / 100) + "."
+        estProfitLabel.text = String(format: "Your Estimated Profit is $%.02f", round(totalCost * 0.15 * 100) / 100) + "."
 
     }
     

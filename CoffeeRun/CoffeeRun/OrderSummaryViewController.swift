@@ -49,6 +49,9 @@ class OrderSummaryViewController: UIViewController {
                     user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: Response) in
                         
             if result.result {
+                
+                DeliveredViewController.subtotal = OrderSummaryViewController.subtotal
+                
                 self.run(after: 1000) {
                     self.performSegue(withIdentifier: "toOrderPlacedSegue", sender: nil)
                 }

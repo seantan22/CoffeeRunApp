@@ -60,6 +60,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
             
             if result.result {
                 ExistingOrderViewController.orderStatus = result.response[0]["status"]!
+                DeliveredViewController.subtotal = result.response[0]["cost"]!
             }
             
         }

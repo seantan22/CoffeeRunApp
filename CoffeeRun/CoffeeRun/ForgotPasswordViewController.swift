@@ -23,6 +23,8 @@ class ForgotPasswordViewController: UIViewController {
         
         forgotPassword(email: email)
         
+        
+        
     }
     
     
