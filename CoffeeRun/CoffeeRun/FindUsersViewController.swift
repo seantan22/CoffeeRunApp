@@ -69,7 +69,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
             } else if state == "pending" {
                 cell.layer.borderColor = UIColor.systemYellow.cgColor
             } else {
-                cell.layer.borderColor = UIColor.black.cgColor
+                cell.layer.borderColor = UIColor.white.cgColor
             }
             
             index += 1
@@ -102,7 +102,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
               self.unfriend(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.row][0]) {(result: Response) in
                   if result.result {
                       DispatchQueue.main.async {
-                          let alert = UIAlertController(title: "Friend Removed!", message: FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
+                          let alert = UIAlertController(title: "Friend Removed", message: FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
                           alert.addAction(UIAlertAction(title: "Done", style: .default))
                           self.present(alert, animated: true)
                             FindUsersViewController.subUsers[indexPath.row][1] = "nothing"
@@ -115,7 +115,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
                self.sendFriendRequest(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.row][0]) {(result: Response) in
                    if result.result {
                        DispatchQueue.main.async {
-                           let alert = UIAlertController(title: "Request Sent!", message: "to: " + FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Request Sent!", message: "", preferredStyle: .alert)
                            alert.addAction(UIAlertAction(title: "Done", style: .default))
                            self.present(alert, animated: true)
                             FindUsersViewController.subUsers[indexPath.row][1] = "pending"

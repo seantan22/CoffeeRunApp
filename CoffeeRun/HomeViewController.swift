@@ -79,7 +79,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.getFriends(username: UserDefaults.standard.string(forKey: "username")!) {(result: AOAOStringsResponse) in
+        self.getFriends(username: UserDefaults.standard.string(forKey: "username")!) {(result: ArrayOfStringsResponse) in
             if result.result {
                 ProfileViewController.numOfFriends = String(result.response.count)
             }
@@ -91,6 +91,13 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                 FindUsersViewController.subUsers = result.response
             }
         }
+        
+        self.getFriendRequests(username: UserDefaults.standard.string(forKey: "username")!) {(result: ArrayOfStringsResponse) in
+            if result.result {
+                FriendRequestsViewController.friendRequests = result.response
+            }
+        }
+        
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
@@ -167,7 +174,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     
     
     // GET /getAllFriends
-    func getFriends(username: String, completion: @escaping(AOAOStringsResponse) -> ()) {
+    func getFriends(username: String, completion: @escaping(ArrayOfStringsResponse) -> ()) {
         
         let session = URLSession.shared
         
@@ -183,9 +190,9 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
        
         let task = session.dataTask(with: request) { data, response, error in
             if let data = data {
-                var friendsResponse = AOAOStringsResponse()
+                var friendsResponse = ArrayOfStringsResponse()
                 do {
-                    let jsonResponse = try JSONDecoder().decode(AOAOStringsResponse.self, from: data)
+                    let jsonResponse = try JSONDecoder().decode(ArrayOfStringsResponse.self, from: data)
                     friendsResponse.result = jsonResponse.result
                     friendsResponse.response = jsonResponse.response
                 } catch {
@@ -223,6 +230,37 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                     print(error)
                 }
                 completion(usersResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    // GET /getAllFollowerRequests
+    func getFriendRequests(username: String, completion: @escaping(ArrayOfStringsResponse) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "getAllFollowerRequests") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(username, forHTTPHeaderField: "user")
+       
+        let task = session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                var friendRequestResponse = ArrayOfStringsResponse()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(ArrayOfStringsResponse.self, from: data)
+                    friendRequestResponse.result = jsonResponse.result
+                    friendRequestResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(friendRequestResponse)
             }
         }
         task.resume()
