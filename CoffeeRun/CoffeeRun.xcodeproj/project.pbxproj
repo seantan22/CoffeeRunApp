@@ -38,6 +38,8 @@
 		66BC777224DDC8AF00778FBB /* ExistingTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */; };
 		66BC777424DEF15400778FBB /* TripDenyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC777324DEF15400778FBB /* TripDenyViewController.swift */; };
 		66C11AAE24E5C629007B709A /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C11AAD24E5C629007B709A /* FriendRequestTableViewCell.swift */; };
+		66C11AB024E5DCDD007B709A /* OrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C11AAF24E5DCDD007B709A /* OrderHistoryViewController.swift */; };
+		66C11AB224E5DCF8007B709A /* PickupHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C11AB124E5DCF8007B709A /* PickupHistoryViewController.swift */; };
 		66C3533D24E5BD6900ABD9BA /* FriendRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3533C24E5BD6900ABD9BA /* FriendRequestsViewController.swift */; };
 		66F09C0724E381C300389304 /* FindUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F09C0624E381C200389304 /* FindUsersViewController.swift */; };
 		66F09C0924E383B300389304 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F09C0824E383B300389304 /* UserTableViewCell.swift */; };
@@ -79,6 +81,8 @@
 		66BC777124DDC8AF00778FBB /* ExistingTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingTripViewController.swift; sourceTree = "<group>"; };
 		66BC777324DEF15400778FBB /* TripDenyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDenyViewController.swift; sourceTree = "<group>"; };
 		66C11AAD24E5C629007B709A /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
+		66C11AAF24E5DCDD007B709A /* OrderHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewController.swift; sourceTree = "<group>"; };
+		66C11AB124E5DCF8007B709A /* PickupHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupHistoryViewController.swift; sourceTree = "<group>"; };
 		66C3533C24E5BD6900ABD9BA /* FriendRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsViewController.swift; sourceTree = "<group>"; };
 		66F09C0624E381C200389304 /* FindUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsersViewController.swift; sourceTree = "<group>"; };
 		66F09C0824E383B300389304 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 				66F09C0C24E44FF300389304 /* OrderToPickupTableViewCell.swift */,
 				66BC777324DEF15400778FBB /* TripDenyViewController.swift */,
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
+				66C11AAF24E5DCDD007B709A /* OrderHistoryViewController.swift */,
+				66C11AB124E5DCF8007B709A /* PickupHistoryViewController.swift */,
 				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
 				66ADC82F24E20DDA00D0BEA7 /* WithdrawFundsViewController.swift */,
 				66316CAF24D4C49000B1A973 /* Main.storyboard */,
@@ -252,6 +258,8 @@
 				66ADC82124E0C6BB00D0BEA7 /* PickupOrdersTableViewCell.swift in Sources */,
 				66F09C0924E383B300389304 /* UserTableViewCell.swift in Sources */,
 				661D334424E24F83004BEE5B /* ConfirmSelectionViewController.swift in Sources */,
+				66C11AB024E5DCDD007B709A /* OrderHistoryViewController.swift in Sources */,
+				66C11AB224E5DCF8007B709A /* PickupHistoryViewController.swift in Sources */,
 				66316CCA24D4EA7D00B1A973 /* LoginViewController.swift in Sources */,
 				66BC776224DCE3FE00778FBB /* ExistingOrderViewController.swift in Sources */,
 				66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */,
