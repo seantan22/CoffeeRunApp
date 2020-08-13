@@ -111,6 +111,14 @@ async function loginWithCred(email, password){
     //     db.close();
     //     return JSON.stringify({result: false, response: 'Please verify your account: ' + record.phone_number});
     // }
+
+    // Check if in reset state
+    var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase() }).catch((error) => console.log(error));
+    // Reset state
+    if(reset_record != null){
+        JSON.stringify({result: true, response: ['reset_password']});
+    }
+
     if(!(await bcrypt.compare(password, record.password))){
         db.close();
         return JSON.stringify({result: false, response: ['Password is incorrect.']});
@@ -158,22 +166,37 @@ module.exports = {
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
         
-        if(user_record != null && !user_record.loggedIn){
+        if(user_record.loggedIn){
+            return JSON.stringify({result: false, response: ['You can only reset your password when logged out.']});
+        }
+
+        // Check if reset has already been sent.
+        var reset_record = await client.collection("Reset_Records").findOne({email: email}).catch((error) => console.log(error));
+
+        if(reset_record != null) {
+            return JSON.stringify({result: false, response: ['You already have a pending reset.']});
+        }
+
+        if(user_record != null){
              // Create an instance with an id of the password
             let passwordResetInstance = {active: true, email: email, time: new Date()};
-            var response = await client.collection("Reset_Records").insertOne(passwordResetInstance).catch((error) => console.log(error)); 
-            id_of_reset = response.insertedId;
+            await client.collection("Reset_Records").insertOne(passwordResetInstance).catch((error) => console.log(error)); 
 
-            sendForgetPasswordEmail(email, id_of_reset);
+            new_pass = await sendForgetPasswordEmail(email, user_record._id);
+            let hashPassword = await bcrypt.hash(new_pass, await bcrypt.genSalt(5));
+
+            // Update the password in the database.
+            updateInfo = {$set: {password: hashPassword}}
+            await client.collection("User").updateOne({_id: user_record._id}, updateInfo).catch((error) => console.log(error)); 
         }
 
         db.close();
-        return JSON.stringify({result: true, response: 'An email has been sent to your account.'});
+        return JSON.stringify({result: true, response: ['An email has been sent to your account.']});
     },
-    updatePasswordFromReset: async function(email, new_password, id){
+    updatePasswordFromReset: async function(email, new_password){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        var reset_record = await client.collection("Reset_Records").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
+        var reset_record = await client.collection("Reset_Records").findOne({email: ObjectId(email)}).catch((error) => console.log(error));
 
         if(reset_record == null){
             return JSON.stringify({result: false, response: ["Reset hasn't been called."]});;
@@ -181,14 +204,14 @@ module.exports = {
         if(!reset_record.active){
             return JSON.stringify({result: false, response: ["Reset has already been made."]})
         }
-        if(reset_record.email != email){
-            return JSON.stringify({result: false, response: ["Wrong email."]});;
-        }
-
+    
         let hashPassword = await bcrypt.hash(new_password, await bcrypt.genSalt(8));
 
-        let personInfo = {$set: {password: hashPassword}};
+        let personInfo = {$set: {password: hashPassword, loggedIn: true}};
         await client.collection("User").updateOne({email: email}, personInfo).catch((error) => console.log(error)); 
+       
+        // Log user in when they update password
+
         let resetInfo = {$set: {active: false}};
         await client.collection("Reset_Records").updateOne({_id: ObjectId(id)}, resetInfo).catch((error) => console.log(error)); 
         db.close();     
@@ -761,6 +784,27 @@ module.exports = {
         db.close();
         return JSON.stringify({result: true, response: order_records});
     },
+    getClosedOrders: async function(id){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        // Check if user exists.
+        var record = await client.collection("User").findOne({_id: ObjectId(id)}).catch((error) => console.log(error));
+        
+        if(record == null){
+            db.close();
+            return JSON.stringify({result: false, response: ['User does not exist.']});
+        }
+        var username = record.username;
+
+        var order_records = await client.collection("Closed_Orders").find({payer: username}).toArray();
+        var deliver_records = await client.collection("Closed_Orders").find({payee: username}).toArray();
+      
+        db.close();
+        
+        return JSON.stringify({result: true, response: [order_records, deliver_records]});
+   
+    },
     getOrdersForDelivery: async function(id){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -1131,6 +1175,24 @@ module.exports = {
 
         var libraryInformation = await client.collection("LocationInformation").findOne();
         return JSON.stringify({result: true, response: [libraryInformation.Libraries]});
+    },
+    getFriendOrders: async function(username){
+        var friend_list = JSON.parse(await esql.getAllFriends(username))['response'];
+        var order_list = [];
+        var record;
+
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        for (var i = 0; i < friend_list.length; i++){
+            record = await client.collection("Open_Orders").findOne({creator: friend_list[i]});
+            
+            if(record != null){
+                order_list += [record];
+            }
+        }      
+
+        return JSON.stringify({result: true, response: order_list});
     }
 };
 
@@ -1160,7 +1222,12 @@ function sendEmail(address, verification_code){
     logistics.sendMail(mailInfo);
 }
 
-function sendForgetPasswordEmail(address, id){
+async function sendForgetPasswordEmail(address, id){
+
+    // Create a new password unique to the id.
+    var tempPass = await bcrypt.hash(id.toString(), await bcrypt.genSalt(5));
+    var new_pass = tempPass.substring(6, 16);
+
     var logistics = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -1173,10 +1240,12 @@ function sendForgetPasswordEmail(address, id){
         from: 'McgillCoffeeRun@gmail.com',
         to: address,
         subject: 'CoffeeRun: Forget Password',
-        html: "<!DOCTYPE html><html><head><script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script></head><body><b>Password Reset</b><br><br><p>This account's password has been forgotten. If this was not you, please contact us at +1 289 242 5560 immediately. To reset the password for account " + address + " please enter a new password and click enter.</p><br><form method='POST' style='text-align: center; width: 50%; margin-left: auto; margin-right: auto'><input style='width:80%' type='text' placeholder='New password...' name='password' id='newpass'><br><input id='submitform' style='width:80' type='submit' value='Enter'></input></form><script>$(document).ready(function(){$('#submitform').click(function(e){$.ajax({dataType : 'json', contentType: 'application/json; charset=utf-8', url : 'http://localhost:5000/updateForgottenPassword', type: 'POST', data : JSON.stringify({email: " + address + ", password: document.getElementById('newpass').value, id: " + id + "}), success : function(result) {alert(result.response[0]);},}); e.preventDefault();});});</script></body></html>"//"<b>Password Reset</b><br><br><p>This account's password has been forgotten. If this was not you, please contact us at +1 289 242 5560 immediately. To reset the password for account " + address + " please enter a new password and click enter.</p><br><input type='text' placeholder='New password...' name='password'><br><br><input type='submit' value='Enter'></input>"
+        html: "<html><body><b>Password Reset</b><br><br><p>This account's password has been reset. To choose a new password, please log back into CoffeeRun login using the temporary password:</p><br><b style='text-align:center'>" + new_pass + "</b></p><br><p>If you did not send the reset request, ignore this email.</p>"
     };
 
     logistics.sendMail(mailInfo);
+    
+    return new_pass;
 }
 
 function getTimeSince(order_records){

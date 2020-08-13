@@ -88,6 +88,16 @@ module.exports = {
         res.send(response);
         return;
     },
+    getClosedOrders: async function(res, user_id){
+        response = await db.getClosedOrders(user_id);
+        res.send(response);
+        return;
+    },
+    getFriendOrders: async function(res, username){
+        response = await db.getFriendOrders(username);
+        res.send(response);
+        return;
+    },
 
     // ********************* FOLLOWERS *******************
     getAllFollowerRequests: async function(res, user){

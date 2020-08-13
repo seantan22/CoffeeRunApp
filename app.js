@@ -50,6 +50,13 @@ app.post('/acceptFollowRequest', function(req, res){
     return;
 })
 
+app.post('/denyFollowRequest', function(req, res){
+    var denier = req.body.denier;
+    var sender = req.body.sender;
+    delete_methods.denyUserFollowRequest(res, denier, sender);
+    return;
+})
+
 // Requests that people have sent you
 app.get('/getAllFollowerRequests', function(req, res){
     var user = req.headers['user'];
@@ -112,15 +119,18 @@ app.post('/forgetPassword', function(req, res){
     return;
 })
 
-app.post('/updateForgottenPassword', cors({origin: 'https://outlook.office.com/'}), function(req, res){
+app.post('/updateForgottenPassword', function(req, res){
     
-    console.log('SUCCESS');
-
     var email = req.body.email;
-    var new_password = req.body.password;
-    var id = req.body.id;
 
-    post_methods.updatePasswordFromReset(res, email, new_password, id);
+    var new_password = req.body.password;
+
+    if (cred_checker.passwordStrength(req.body.new_password) || req.body.new_password == null || req.body.new_password == ""){
+        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate password."]}));
+        return;
+    }
+
+    post_methods.updatePasswordFromReset(res, email, new_password);
 })
 
 app.post('/verify', function(req, res){
@@ -188,6 +198,18 @@ app.get('/getUsers', function(req, res){
 app.get('/getOrderByUser', function(req, res){
     var user_id = req.headers['user_id'];
     get_methods.getOrderForUser(res, user_id);
+    return;
+})
+
+app.get('/getClosedOrdersByUser', function(req, res){
+    var user_id = req.headers['user_id'];
+    get_methods.getClosedOrders(res, user_id);
+    return;
+})
+
+app.get('/getAllFriendOrders', function(req, res){
+    var username = req.headers['username'];
+    get_methods.getFriendOrders(res, username);
     return;
 })
 

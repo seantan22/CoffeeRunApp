@@ -21,5 +21,10 @@ module.exports = {
         response = await esql.deleteFriendship(deleter, victim);
         res.send(response);
         return;
+    },
+    denyUserFollowRequest: async function(res, denier, sender){
+        response = await esql.deleteFriendship(denier, sender);
+        res.send(response);
+        return;
     }
 };

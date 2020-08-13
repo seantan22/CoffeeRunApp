@@ -159,7 +159,7 @@ module.exports = {
         client.end();
         return JSON.stringify({result: true, response: ['Friendship has been deleted.']});
     },
-
+  
 
     // For internal use.
     getAllRecordsForUser: async function(user){

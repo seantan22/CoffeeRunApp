@@ -3,8 +3,8 @@ var esql = require('./backend_elephantSQL');
 var gdrive = require('./backend_googDrive');
 
 module.exports = {
-    updatePasswordFromReset: async function(res, email, new_password, id){
-        var response = await db.updatePasswordFromReset(email, new_password, id);
+    updatePasswordFromReset: async function(res, email, new_password){
+        var response = await db.updatePasswordFromReset(email, new_password);
         res.send(response);
         return;
     },
