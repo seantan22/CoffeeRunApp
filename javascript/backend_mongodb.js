@@ -1138,7 +1138,7 @@ async function detachOrderFromDelivery(order_record, client){
     
     let orderInfo = {$set: {status: "Awaiting Runner", delivery_boy: ""}};
     await client.collection('Open_Orders').updateOne({_id: ObjectId(order_record._id)}, orderInfo).catch((error) => console.log(error));
-    return JSON.stringify({result: true, response: ['Detached successfully.']});
+    return ['Detached successfully.'];
 }
 
 function sendEmail(address, verification_code){
