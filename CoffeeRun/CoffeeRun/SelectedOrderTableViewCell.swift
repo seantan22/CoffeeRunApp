@@ -25,8 +25,8 @@ class SelectedOrderTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 0.5
-        self.layer.cornerRadius = 10.0
+        self.layer.borderWidth = 1.0
+        self.layer.cornerRadius = 0.0
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

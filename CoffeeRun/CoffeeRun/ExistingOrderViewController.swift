@@ -29,10 +29,11 @@ class ExistingOrderViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             
-            self.performSegue(withIdentifier: "afterDeletingOrderSegue", sender: nil)
-            
             self.deleteOrder(username: ExistingOrderViewController.username, order_id: UserDefaults.standard.string(forKey: "order_id")!)
-                
+            self.run(after: 1000) {
+                self.performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: nil)
+            }
+             
             }))
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
@@ -84,7 +85,7 @@ class ExistingOrderViewController: UIViewController {
                 } else if self.statusLabel.text == "Delivered" {
                     self.performSegue(withIdentifier: "toDeliveredSegue", sender: nil)
                 } else if self.statusLabel.text == "Order does not exist." {
-                    self.performSegue(withIdentifier: "afterDeletingOrderSegue", sender: nil)
+                    self.performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: nil)
                 }
             }
         }
