@@ -166,7 +166,7 @@ module.exports = {
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
         
-        if(user_record != null){
+        if(user_record == null){
             return JSON.stringify({result: false, response: ['User does not exist.']});
         }
 
