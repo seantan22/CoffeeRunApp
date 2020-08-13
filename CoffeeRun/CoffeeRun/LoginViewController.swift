@@ -18,6 +18,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
+    }
+    
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField  == emailTextField {

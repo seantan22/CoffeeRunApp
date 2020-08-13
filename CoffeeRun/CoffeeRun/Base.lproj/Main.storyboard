@@ -51,16 +51,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evC-Hc-3Ua">
-                                                    <rect key="frame" x="20" y="15" width="334" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evC-Hc-3Ua">
+                                                    <rect key="frame" x="147" y="14.666666666666664" width="80" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="evC-Hc-3Ua" firstAttribute="centerX" secondItem="XdX-fH-0LB" secondAttribute="centerX" id="j5l-7i-ztg"/>
-                                                <constraint firstItem="evC-Hc-3Ua" firstAttribute="centerY" secondItem="XdX-fH-0LB" secondAttribute="centerY" id="oYr-Ee-9Zn"/>
+                                                <constraint firstItem="evC-Hc-3Ua" firstAttribute="centerX" secondItem="XdX-fH-0LB" secondAttribute="centerX" id="GHB-qS-6CI"/>
+                                                <constraint firstItem="evC-Hc-3Ua" firstAttribute="centerY" secondItem="XdX-fH-0LB" secondAttribute="centerY" id="Y8I-1i-hhp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1902,11 +1902,135 @@
                     <navigationItem key="navigationItem" title="Reset Password" largeTitleDisplayMode="always" id="RtB-AX-cEg"/>
                     <connections>
                         <outlet property="emailTextField" destination="tTh-h9-ucL" id="flx-nZ-T8y"/>
+                        <segue destination="nH6-qy-tXp" kind="unwind" identifier="resetToLoginSegue" unwindAction="unwindToLoginWithSegue:" id="ngq-iA-9Xz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oIu-yd-tHR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="nH6-qy-tXp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1089" y="-819"/>
+        </scene>
+        <!--Reset Password-->
+        <scene sceneID="rYu-Qg-JxG">
+            <objects>
+                <viewController id="UX2-Iv-YPs" customClass="ResetPasswordViewController" customModule="CoffeeRun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g4p-EX-iXt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="9Hs-Ci-bcF">
+                                <rect key="frame" x="20" y="203" width="374" height="130"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VJb-8r-vIR" customClass="DesignableView" customModule="CoffeeRun" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zz7-Sb-d3c">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                                <color key="tintColor" red="0.89461129900000003" green="0.39211624859999999" blue="0.39050027729999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="bcR-L7-n3u"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="zz7-Sb-d3c" firstAttribute="top" secondItem="VJb-8r-vIR" secondAttribute="top" id="1S3-A4-59x"/>
+                                            <constraint firstAttribute="trailing" secondItem="zz7-Sb-d3c" secondAttribute="trailing" id="bry-84-4ZW"/>
+                                            <constraint firstAttribute="bottom" secondItem="zz7-Sb-d3c" secondAttribute="bottom" id="o0P-I7-Xn0"/>
+                                            <constraint firstItem="zz7-Sb-d3c" firstAttribute="leading" secondItem="VJb-8r-vIR" secondAttribute="leading" id="uNc-pu-HiV"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                <real key="value" value="0.10000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
+                                                <real key="value" value="-3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S83-vr-vcr" customClass="DesignableView" customModule="CoffeeRun" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="80" width="374" height="50"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FaD-96-KAa">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                                <color key="tintColor" red="0.89461129900000003" green="0.39211624859999999" blue="0.39050027729999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="FaD-96-KAa" firstAttribute="leading" secondItem="S83-vr-vcr" secondAttribute="leading" id="Pk6-je-vIo"/>
+                                            <constraint firstAttribute="trailing" secondItem="FaD-96-KAa" secondAttribute="trailing" id="QdE-b6-071"/>
+                                            <constraint firstItem="FaD-96-KAa" firstAttribute="top" secondItem="S83-vr-vcr" secondAttribute="top" id="iEr-iC-Ke7"/>
+                                            <constraint firstAttribute="bottom" secondItem="FaD-96-KAa" secondAttribute="bottom" id="jN4-Ey-ZzI"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                <real key="value" value="0.10000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
+                                                <real key="value" value="-3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFd-rh-39d">
+                                <rect key="frame" x="20" y="433" width="374" height="50"/>
+                                <color key="backgroundColor" red="0.89461129900000003" green="0.39211624859999999" blue="0.39050027729999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="xi0-JM-NLP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Reset Password">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginUser:" destination="nFN-VH-En4" eventType="touchUpInside" id="Eem-W6-cts"/>
+                                    <action selector="resetPasswordButton:" destination="UX2-Iv-YPs" eventType="touchUpInside" id="yJJ-sE-biw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9Hs-Ci-bcF" firstAttribute="leading" secondItem="ByN-wF-Zee" secondAttribute="leading" constant="20" id="P62-IF-cxW"/>
+                            <constraint firstItem="ByN-wF-Zee" firstAttribute="trailing" secondItem="jFd-rh-39d" secondAttribute="trailing" constant="20" id="QkD-Qo-vQY"/>
+                            <constraint firstItem="jFd-rh-39d" firstAttribute="leading" secondItem="ByN-wF-Zee" secondAttribute="leading" constant="20" id="WHf-7e-4ve"/>
+                            <constraint firstItem="9Hs-Ci-bcF" firstAttribute="centerY" secondItem="g4p-EX-iXt" secondAttribute="centerY" constant="-100" id="ZzA-Hx-Vwk"/>
+                            <constraint firstItem="ByN-wF-Zee" firstAttribute="trailing" secondItem="9Hs-Ci-bcF" secondAttribute="trailing" constant="20" id="oHE-SB-Agw"/>
+                            <constraint firstItem="jFd-rh-39d" firstAttribute="top" secondItem="9Hs-Ci-bcF" secondAttribute="bottom" constant="100" id="rfi-Gr-jEv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ByN-wF-Zee"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Reset Password" largeTitleDisplayMode="always" id="H7d-AK-vYP"/>
+                    <connections>
+                        <outlet property="confirmPasswordTextField" destination="FaD-96-KAa" id="0Ea-uv-Nvq"/>
+                        <outlet property="newPasswordTextField" destination="zz7-Sb-d3c" id="FEj-43-tkB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l9Y-eb-dr5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-245" y="-825"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="PPJ-hE-bc5">
@@ -2087,6 +2211,7 @@
                         <outlet property="errorMsgLabel" destination="cgb-eB-gI0" id="anL-wR-2kc"/>
                         <outlet property="passwordTextField" destination="Arm-Ie-hUy" id="tkR-FG-Kj5"/>
                         <segue destination="EMX-ir-RU4" kind="show" identifier="loginToVerifySegue" id="wRC-7u-HUK"/>
+                        <segue destination="UX2-Iv-YPs" kind="show" identifier="loginToResetPasswordSegue" id="Iec-tc-EEI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uJw-BU-ITv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

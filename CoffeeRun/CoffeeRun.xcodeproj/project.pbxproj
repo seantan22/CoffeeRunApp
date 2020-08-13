@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6600E55E24E5B5FC0084C1B8 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6600E55D24E5B5FC0084C1B8 /* ResetPasswordViewController.swift */; };
 		660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */; };
 		660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */; };
 		661D334424E24F83004BEE5B /* ConfirmSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6600E55D24E5B5FC0084C1B8 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderVendorViewController.swift; sourceTree = "<group>"; };
 		660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderBeverageViewController.swift; sourceTree = "<group>"; };
 		661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSelectionViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				66F09C0A24E383F600389304 /* User.swift */,
 				66316CC924D4EA7D00B1A973 /* LoginViewController.swift */,
 				66ADC81C24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift */,
+				6600E55D24E5B5FC0084C1B8 /* ResetPasswordViewController.swift */,
 				66923CD724D8E2FE002E731A /* SignUpViewController.swift */,
 				66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */,
 				66316CC324D4D2D300B1A973 /* HomeViewController.swift */,
@@ -247,6 +250,7 @@
 				66316CAA24D4C49000B1A973 /* SceneDelegate.swift in Sources */,
 				66BC777424DEF15400778FBB /* TripDenyViewController.swift in Sources */,
 				66304E1524DB0E4B00E557E9 /* OrderSummaryViewController.swift in Sources */,
+				6600E55E24E5B5FC0084C1B8 /* ResetPasswordViewController.swift in Sources */,
 				66ADC82124E0C6BB00D0BEA7 /* PickupOrdersTableViewCell.swift in Sources */,
 				66F09C0924E383B300389304 /* UserTableViewCell.swift in Sources */,
 				661D334424E24F83004BEE5B /* ConfirmSelectionViewController.swift in Sources */,

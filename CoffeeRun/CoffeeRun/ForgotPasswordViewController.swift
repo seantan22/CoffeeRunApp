@@ -21,10 +21,22 @@ class ForgotPasswordViewController: UIViewController {
         
         let email = emailTextField.text!
         
-        forgotPassword(email: email)
-        
-        
-        
+        if email != "" {
+            forgotPassword(email: email)
+            
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Sent!", message: "A temporary password was sent to your email."
+                    , preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
+                    self.performSegue(withIdentifier: "resetToLoginSegue", sender: self)
+                }))
+                self.present(alert, animated: true)
+            }
+        } else {
+            print("Enter your email address.")
+        }
+    
     }
     
     

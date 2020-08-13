@@ -45,7 +45,6 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func unwindToProfile(segue: UIStoryboardSegue) {
-
     }
     
     struct LogoutResponse: Decodable {
