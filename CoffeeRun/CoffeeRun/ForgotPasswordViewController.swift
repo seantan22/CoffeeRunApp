@@ -22,7 +22,10 @@ class ForgotPasswordViewController: UIViewController {
         let email = emailTextField.text!
         
         if email != "" {
-            forgotPassword(email: email)
+            forgotPassword(email: email) {(result: Response) in
+                
+                print(result.response)
+            }
             
             DispatchQueue.main.async {
                 let alert = UIAlertController(title: "Sent!", message: "A temporary password was sent to your email."
@@ -59,7 +62,7 @@ class ForgotPasswordViewController: UIViewController {
     }
     
     // POST /forgotPassword
-    func forgotPassword(email: String) {
+    func forgotPassword(email: String, completion: @escaping(Response) -> ()) {
         
         let session = URLSession.shared
         
@@ -94,6 +97,7 @@ class ForgotPasswordViewController: UIViewController {
                 } catch {
                     print(error)
                 }
+                completion(forgotPasswordResponse)
             }
         }
         task.resume()

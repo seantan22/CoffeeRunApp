@@ -10,13 +10,13 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
+    var testURL = "http://localhost:5000/"
+    var deployedURL = "https://coffeerunapp.herokuapp.com/"
+    
     //MARK: Properties
     @IBOutlet weak var errorMsgLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
     @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
     }
@@ -43,25 +43,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         login(email: email, password: password) {(result: Response) in
             
             if result.result {
-                if result.response[2] == "true" {
+                print(result.response)
+                if result.response.count == 4 {
+                    ResetPasswordViewController.email = email
                     self.run(after: 1000) {
-                        if UserDefaults.standard.value(forKey: "user_id") != nil {
-                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-                            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
-                                .changeRootViewController(tabBarController)
-                        } else {
-                            return
-                        }
+                        self.performSegue(withIdentifier: "loginToResetPasswordSegue", sender: self)
                     }
                 } else {
-                    ConfirmSignUpViewController.user_id = result.response[0]
-                    ConfirmSignUpViewController.username = result.response[1]
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "loginToVerifySegue", sender: self)
+                    if result.response[2] == "true" {
+                        self.run(after: 1000) {
+                            if UserDefaults.standard.value(forKey: "user_id") != nil {
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+                                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+                                    .changeRootViewController(tabBarController)
+                            } else {
+                                return
+                            }
+                        }
+                    } else {
+                        ConfirmSignUpViewController.user_id = result.response[0]
+                        ConfirmSignUpViewController.username = result.response[1]
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "loginToVerifySegue", sender: self)
+                        }
                     }
                 }
-                
             } else {
                 DispatchQueue.main.async {
                     self.errorMsgLabel.text = result.response[0]
@@ -125,7 +132,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 } catch {
                     print(error)
                 }
-                if loginResponse.result && loginResponse.response[2] == "true" {
+                if loginResponse.result && loginResponse.response[2] == "true" && loginResponse.response.count < 4 {
                     UserDefaults.standard.set(loginResponse.response[0], forKey: "user_id")
                     UserDefaults.standard.set(loginResponse.response[1], forKey: "username")
                 }
