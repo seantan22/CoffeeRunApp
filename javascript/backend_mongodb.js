@@ -1006,7 +1006,7 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['User did not create the order.']});
         }
-        var delivery_record = await client.collection('User').findOne({delivery_username: delivery_username}).catch((error) => console.log(error));
+        var delivery_record = await client.collection('User').findOne({username: delivery_username}).catch((error) => console.log(error));
 
         if(delivery_record == null){
             db.close();
@@ -1018,7 +1018,7 @@ module.exports = {
         }
         if(order_record.delivery_boy != delivery_username){
             db.close();
-            return JSON.stringify({result: false, response: ['Delivery user does not exist.']});
+            return JSON.stringify({result: false, response: ['Delivery user is not assigned to that order.']});
         }
 
         // Check if transaction is correct
