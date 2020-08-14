@@ -1262,13 +1262,19 @@ module.exports = {
             return JSON.stringify({result: false, response: ['You have not made any profit.']});
         }
 
+        var user_information = await client.collection("User").findOne({username: username});
+        
+        if(user_information == null){
+            return JSON.stringify({result: false, response: ['User does not exist.']});
+        }
+
         for (var i = 0; i < closed_order_info.length; i++){
 
             sum += Math.round(closed_order_info[i]['transaction']['delivery_fee'] * 100) / 100;
 
         }
 
-        return JSON.stringify({result: true, response: [sum.toString()]});
+        return JSON.stringify({result: true, response: [sum.toString(), user_information.balance.toString()]});
     },
 };
 
