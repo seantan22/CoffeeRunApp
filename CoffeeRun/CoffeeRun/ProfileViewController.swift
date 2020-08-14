@@ -13,6 +13,9 @@ class ProfileViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    @IBAction func unwindToProfile(segue: UIStoryboardSegue) {
+    }
+    
     static var username: String = String()
     static var email: String = String()
     static var balance: String = String()
@@ -44,9 +47,6 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    @IBAction func unwindToProfile(segue: UIStoryboardSegue) {
-    }
-    
     struct LogoutResponse: Decodable {
         var result: Bool
         var response: Array<String>
@@ -63,9 +63,13 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        let balance: Double = Double(ProfileViewController.balance)!
+        
+        
         self.usernameLabel.text = ProfileViewController.username
         self.emailLabel.text = ProfileViewController.email
-        self.balanceLabel.text = "$" + ProfileViewController.balance
+        self.balanceLabel.text = String(format: "$%.02f", balance)
         self.friendsLabel.text = ProfileViewController.numOfFriends + " Friends"
     }
     

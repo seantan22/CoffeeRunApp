@@ -18,12 +18,14 @@ class WithdrawFundsViewController: UIViewController {
     @IBOutlet weak var balanceTextField: UITextField!
     @IBOutlet weak var slideToWithdrawButton: UIButton!
     
+    let balance: Double = Double(ProfileViewController.balance)!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         balanceTextField.becomeFirstResponder()
         
-        self.balanceLabel.text = "$" + ProfileViewController.balance
+        self.balanceLabel.text = String(format: "$%.02f", balance)
         
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -53,9 +55,9 @@ class WithdrawFundsViewController: UIViewController {
                         ProfileViewController.balance = result.response[0]
                        
                         DispatchQueue.main.async {
-                            self.balanceLabel.text = "$" + ProfileViewController.balance
+                            self.balanceLabel.text = String(format: "$%.02f", self.balance)
                             
-                            let alert = UIAlertController(title: "Withdrawal Successful!", message: "New Balance: $" + result.response[0], preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Withdrawal Successful!", message: "", preferredStyle: .alert)
 
                             alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
                                 self.performSegue(withIdentifier: "withdrawToProfileSegue", sender: self)
