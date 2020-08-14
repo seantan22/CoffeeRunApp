@@ -1006,6 +1006,7 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['User did not create the order.']});
         }
+
         var delivery_record = await client.collection('User').findOne({username: delivery_username}).catch((error) => console.log(error));
 
         if(delivery_record == null){
@@ -1036,7 +1037,7 @@ module.exports = {
         }
 
         // Get db tax
-        var tax_rates = await client.collection('User').findOne({Title: 'rates'}).catch((error) => console.log(error));
+        var tax_rates = await client.collection('Rates').findOne({Title: 'rates'}).catch((error) => console.log(error));
         var GSTtaxP = tax_rates.GST;
         var QSTtaxP = tax_rates.QST;
         var TotalTax = parseFloat(GSTtaxP) + parseFloat(QSTtaxP);
@@ -1063,9 +1064,9 @@ module.exports = {
         await client.collection("User").updateOne({_id: ObjectId(user_id)}, payerInformation).catch((error) => console.log(error)); 
         
         let deliveryInformation = {$set: {balance: newDeliveryValue}};
-        await client.collection("User").updateOne({_id: ObjectId(delivery_id)}, deliveryInformation).catch((error) => console.log(error)); 
+        await client.collection("User").updateOne({username: delivery_username}, deliveryInformation).catch((error) => console.log(error)); 
         
-        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: cost, tax: taxed_charge, tip: tip_charge, delivery_fee: delivery_charge, transaction_id: transaction_history.ops[0]._id}, rating: delivery_rating};
+        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: cost, tax: taxed_charge, tip: tip_charge, delivery_fee: delivery_charge, transaction_id: transaction_history.ops[0]._id}, rating: rating};
         await client.collection("Closed_Orders").insertOne(closedInfo);
 
         // Delete open order

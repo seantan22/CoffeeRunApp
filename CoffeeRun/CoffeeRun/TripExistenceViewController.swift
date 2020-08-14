@@ -55,7 +55,8 @@ class TripExistenceViewController: UIViewController {
                                                         zone: orderIndex["segment"]!,
                                                         creator: orderIndex["creator"]!,
                                                         cost: orderIndex["cost"]!,
-                                                        status: orderIndex["status"]!)
+                                                        status: orderIndex["status"]!,
+                                                        delivery_boy: orderIndex["delivery_boy"]!)
                                 
                                 ExistingTripViewController.ordersToPickup.append(order)
                             }

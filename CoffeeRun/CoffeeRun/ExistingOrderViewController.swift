@@ -69,12 +69,13 @@ class ExistingOrderViewController: UIViewController {
             DispatchQueue.main.async {
                 
                 if result.response[0] != "Awaiting Runner" {
-                            self.cancelButton.isUserInteractionEnabled = false
-                            self.cancelButton.isHidden = true
-                       } else {
-                            self.cancelButton.isUserInteractionEnabled = true
-                            self.cancelButton.isHidden = false
-                       }
+                    self.cancelButton.isUserInteractionEnabled = false
+                    self.cancelButton.isHidden = true
+                    DeliveredViewController.delivererUsername = result.response[1]
+                } else {
+                    self.cancelButton.isUserInteractionEnabled = true
+                    self.cancelButton.isHidden = false
+                }
                 
                 self.statusLabel.text = result.response[0]
                 

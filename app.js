@@ -502,7 +502,7 @@ app.post('/completeOrder', function(req, res){
     }
 
     var user_id = req.body.user_id;
-    var delivery_username = req.body.deliver_username;
+    var delivery_username = req.body.delivery_username;
     var order_id = req.body.order_id;
     var rating = req.body.rating;
     var cost = req.body.cost;

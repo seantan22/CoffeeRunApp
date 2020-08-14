@@ -13,14 +13,22 @@ class OrderSummaryViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    //MARK: Rates
+    static var taxRate: String = String()
+    static var deliveryFeeRate: String = String()
+    
     static var vendor: String = String()
     static var beverage: String = String()
     static var size: String = String()
     static var details: String = String()
+    
     static var library: String = String()
     static var floor: String = String()
     static var zone: String = String()
+    
     static var subtotal: String = String()
+    static var taxAmount: String = String()
+    static var deliveryFee: String = String()
     
     //MARK: Properties
     @IBOutlet weak var errorMsgLabel: UILabel!
@@ -28,10 +36,16 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var beverageLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
+    
     @IBOutlet weak var libraryLabel: UILabel!
     @IBOutlet weak var floorLabel: UILabel!
     @IBOutlet weak var zoneLabel: UILabel!
+    
     @IBOutlet weak var subtotalLabel: UILabel!
+    @IBOutlet weak var taxAmountLabel: UILabel!
+    @IBOutlet weak var deliveryFeeLabel: UILabel!
+    @IBOutlet weak var totalAmountLabel: UILabel!
+    
     
     //MARK: Actions
     @IBAction func clickPlaceOrder(_ sender: UIBarButtonItem) {

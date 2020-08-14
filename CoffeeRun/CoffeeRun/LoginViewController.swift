@@ -43,7 +43,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         login(email: email, password: password) {(result: Response) in
             
             if result.result {
-                print(result.response)
                 if result.response.count == 4 {
                     ResetPasswordViewController.email = email
                     self.run(after: 1000) {

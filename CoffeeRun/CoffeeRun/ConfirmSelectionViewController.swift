@@ -41,8 +41,6 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
 
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

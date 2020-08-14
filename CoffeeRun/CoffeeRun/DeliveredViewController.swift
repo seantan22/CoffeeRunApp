@@ -10,9 +10,14 @@ import UIKit
 
 class DeliveredViewController: UIViewController {
     
+    var testURL = "http://localhost:5000/"
+    var deployedURL = "https://coffeerunapp.herokuapp.com/"
+    
     var rating: Double = 5
-    var tipPercentage: Double = 0.15
+    var tipPercentage: Double = 0.10
     static var subtotal: String = String()
+    
+    static var delivererUsername: String = String()
     
     //MARK: Properties
     @IBOutlet weak var firstStar: UIButton!
@@ -20,12 +25,41 @@ class DeliveredViewController: UIViewController {
     @IBOutlet weak var thirdStar: UIButton!
     @IBOutlet weak var fourthStar: UIButton!
     @IBOutlet weak var fifthStar: UIButton!
-    @IBOutlet weak var tipFifteenBtn: UIButton!
-    @IBOutlet weak var tipTwentyBtn: UIButton!
-    @IBOutlet weak var tipTwentyFiveBtn: UIButton!
+    @IBOutlet weak var tipABtn: UIButton!
+    @IBOutlet weak var tipBBtn: UIButton!
+    @IBOutlet weak var tipCBtn: UIButton!
     @IBOutlet weak var subtotalLabel: UILabel!
     @IBOutlet weak var tipAmountLabel: UILabel!
     @IBOutlet weak var totalAmountLabel: UILabel!
+    
+    @IBAction func clickCompleteOrder(_ sender: UIBarButtonItem) {
+        
+        print(DeliveredViewController.delivererUsername)
+        
+        completeOrder(  user_id: UserDefaults.standard.string(forKey: "user_id")!,
+                        order_id: UserDefaults.standard.string(forKey: "order_id")!,
+                        delivery_username: DeliveredViewController.delivererUsername,
+                        rating: String(rating),
+                        cost: DeliveredViewController.subtotal,
+                        tip: String(tipPercentage)) {(result: Response) in
+            
+                if result.result {
+                    print("Success! Order completed.")
+                    
+                    OrderExistenceViewController.doesOrderExist = false
+                    UserDefaults.standard.removeObject(forKey: "order_id")
+                    
+                } else {
+                    print(result.response)
+                }
+        }
+        
+        run(after: 1000) {
+            self.performSegue(withIdentifier: "completeOrderToNewOrderSegue", sender: self)
+        }
+        
+    }
+    
     
     //MARK: Actions
     @IBAction func toggleRating(_ sender: UIButton) {
@@ -79,41 +113,40 @@ class DeliveredViewController: UIViewController {
         
     }
     
-    
     @IBAction func toggleTip(_ sender: UIButton) {
         
         var tipAmount: Double = Double()
         
-        if sender == tipFifteenBtn {
-            tipFifteenBtn.isSelected = true
-            tipFifteenBtn.isUserInteractionEnabled = false
-            tipTwentyBtn.isSelected = false
-            tipTwentyBtn.isUserInteractionEnabled = true
-            tipTwentyFiveBtn.isSelected = false
-            tipTwentyFiveBtn.isUserInteractionEnabled = true
+        if sender == tipABtn {
+            tipABtn.isSelected = true
+            tipABtn.isUserInteractionEnabled = false
+            tipBBtn.isSelected = false
+            tipBBtn.isUserInteractionEnabled = true
+            tipCBtn.isSelected = false
+            tipCBtn.isUserInteractionEnabled = true
+            tipPercentage = 0.10
+            tipAmount = round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100
+            tipAmountLabel.text = String(format: "$%.02f", tipAmount)
+            totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.subtotal)!)
+        } else if sender == tipBBtn  {
+            tipABtn.isSelected = false
+            tipABtn.isUserInteractionEnabled = true
+            tipBBtn.isSelected = true
+            tipBBtn.isUserInteractionEnabled = false
+            tipCBtn.isSelected = false
+            tipCBtn.isUserInteractionEnabled = true
             tipPercentage = 0.15
             tipAmount = round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100
             tipAmountLabel.text = String(format: "$%.02f", tipAmount)
             totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.subtotal)!)
-        } else if sender == tipTwentyBtn  {
-            tipFifteenBtn.isSelected = false
-            tipFifteenBtn.isUserInteractionEnabled = true
-            tipTwentyBtn.isSelected = true
-            tipTwentyBtn.isUserInteractionEnabled = false
-            tipTwentyFiveBtn.isSelected = false
-            tipTwentyFiveBtn.isUserInteractionEnabled = true
+        } else if sender == tipCBtn {
+            tipABtn.isSelected = false
+            tipABtn.isUserInteractionEnabled = true
+            tipBBtn.isSelected = false
+            tipBBtn.isUserInteractionEnabled = true
+            tipCBtn.isSelected = true
+            tipCBtn.isUserInteractionEnabled = false
             tipPercentage = 0.20
-            tipAmount = round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100
-            tipAmountLabel.text = String(format: "$%.02f", tipAmount)
-            totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.subtotal)!)
-        } else if sender == tipTwentyFiveBtn {
-            tipFifteenBtn.isSelected = false
-            tipFifteenBtn.isUserInteractionEnabled = true
-            tipTwentyBtn.isSelected = false
-            tipTwentyBtn.isUserInteractionEnabled = true
-            tipTwentyFiveBtn.isSelected = true
-            tipTwentyFiveBtn.isUserInteractionEnabled = false
-            tipPercentage = 0.25
             tipAmount = round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100
             tipAmountLabel.text = String(format: "$%.02f", tipAmount)
             totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.subtotal)!)
@@ -131,18 +164,93 @@ class DeliveredViewController: UIViewController {
         fourthStar.setImage(UIImage.init(systemName: "star.fill"), for: .selected)
         fifthStar.setImage(UIImage.init(systemName: "star.fill"), for: .selected)
         
-        tipFifteenBtn.setBackgroundColor(UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1), for: .normal)
-        tipFifteenBtn.setBackgroundColor(UIColor.black, for: .selected)
-        tipTwentyBtn.setBackgroundColor(UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1), for: .normal)
-        tipTwentyBtn.setBackgroundColor(UIColor.black, for: .selected)
-        tipTwentyFiveBtn.setBackgroundColor(UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1), for: .normal)
-        tipTwentyFiveBtn.setBackgroundColor(UIColor.black, for: .selected)
+        tipABtn.setBackgroundColor(UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1), for: .normal)
+        tipABtn.setBackgroundColor(UIColor.black, for: .selected)
+        tipBBtn.setBackgroundColor(UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1), for: .normal)
+        tipBBtn.setBackgroundColor(UIColor.black, for: .selected)
+        tipCBtn.setBackgroundColor(UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1), for: .normal)
+        tipCBtn.setBackgroundColor(UIColor.black, for: .selected)
         
-        tipFifteenBtn.isSelected = true
+        firstStar.isSelected = true
+        secondStar.isSelected = true
+        thirdStar.isSelected = true
+        fourthStar.isSelected = true
+        fifthStar.isSelected = true
+        tipABtn.isSelected = true
         
         subtotalLabel.text = "$" + DeliveredViewController.subtotal
         tipAmountLabel.text = String(format: "$%.02f", round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100)
         totalAmountLabel.text = String(format: "$%.02f", round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100 + Double(DeliveredViewController.subtotal)!)
+    }
+    
+    //MARK: Response
+      struct Response: Decodable {
+          var result: Bool
+          var response: Array<String>
+          init() {
+              self.result = false
+              self.response = Array()
+          }
+      }
+    
+    // POST /completeOrder
+    func completeOrder(user_id: String,
+                     order_id: String,
+                     delivery_username: String,
+                     rating: String,
+                     cost: String,
+                     tip: String,
+                     completion: @escaping(Response) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "completeOrder") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonComplete = [
+            "user_id": user_id,
+            "order_id": order_id,
+            "delivery_username": delivery_username,
+            "rating": rating,
+            "cost": cost,
+            "tip": tip
+        ]
+        
+        let dataComplete: Data
+        do {
+            dataComplete = try JSONSerialization.data(withJSONObject: jsonComplete, options: [] )
+        } catch {
+            print("Error: Unable to convert JSON to Data object")
+            return
+        }
+       
+        let task = session.uploadTask(with: request, from: dataComplete) { data, response, error in
+            if let data = data {
+                var completeOrderResponse = Response()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                    completeOrderResponse.result = jsonResponse.result
+                    completeOrderResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(completeOrderResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    func run(after milliseconds: Int, completion: @escaping() -> Void) {
+        let deadline = DispatchTime.now() + .milliseconds(milliseconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }
     }
     
 

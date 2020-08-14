@@ -75,12 +75,16 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
             let reject = UIContextualAction(style: .normal, title: "Delete",
              handler: { (action, view, completionHandler) in
                
-                print("reject friend request")
-                
-                
-            //               self.run(after: 1000) {
-            //                   tableView.reloadData()
-            //               }
+                self.rejectFriendRequest(denier: UserDefaults.standard.string(forKey: "username")!, sender: sender) {(result: Response) in
+                    if result.result {
+                        FriendRequestsViewController.friendRequests.remove(at: indexPath.row)
+                    }
+                }
+            
+                self.run(after: 1000) {
+                    self.index = 0
+                    tableView.reloadData()
+                }
                completionHandler(true)
             })
         
@@ -146,6 +150,49 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
                     print(error)
                 }
                 completion(acceptFriendResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    // POST /rejectFollowRequest
+    func rejectFriendRequest(denier: String, sender: String, completion: @escaping(Response) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "denyFollowRequest") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonRequest = [
+            "denier": denier,
+            "sender": sender
+        ]
+        
+        let dataLogin: Data
+        do {
+            dataLogin = try JSONSerialization.data(withJSONObject: jsonRequest, options: [] )
+        } catch {
+            print("Error: Unable to convert JSON to Data object")
+            return
+        }
+       
+        let task = session.uploadTask(with: request, from: dataLogin) { data, response, error in
+            if let data = data {
+                var rejectFriendResponse = Response()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                    rejectFriendResponse.result = jsonResponse.result
+                    rejectFriendResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(rejectFriendResponse)
             }
         }
         task.resume()

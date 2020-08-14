@@ -95,7 +95,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                                             zone: orderIndex["segment"]!,
                                             creator: orderIndex["creator"]!,
                                             cost: orderIndex["cost"]!,
-                                            status: orderIndex["status"]!)
+                                            status: orderIndex["status"]!,
+                                            delivery_boy: orderIndex["delivery_boy"]!)
                     self.tempOrders.append(order)
                 }
    
@@ -143,6 +144,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         return UITableViewCell()
        }
+    
+
     
     // Cell Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

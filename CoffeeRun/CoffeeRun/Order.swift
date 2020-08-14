@@ -22,6 +22,7 @@ class Order {
     var creator: String
     var cost: String
     var status: String
+    var delivery_boy: String
     
     init(id: String,
         restaurant: String,
@@ -34,7 +35,8 @@ class Order {
         zone: String,
         creator: String,
         cost: String,
-        status: String) {
+        status: String,
+        delivery_boy: String) {
             self.id = id
             self.restaurant = restaurant
             self.size = size
@@ -47,6 +49,7 @@ class Order {
             self.creator = creator
             self.cost = cost
             self.status = status
+            self.delivery_boy = delivery_boy
     }
     
 }

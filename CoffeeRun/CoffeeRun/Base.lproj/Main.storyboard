@@ -678,12 +678,15 @@
                     </navigationItem>
                     <connections>
                         <outlet property="beverageLabel" destination="eAx-hQ-6aR" id="loV-G2-c83"/>
+                        <outlet property="deliveryFeeLabel" destination="By6-qr-MiD" id="Z3H-mn-acg"/>
                         <outlet property="detailsLabel" destination="tQN-4x-bPM" id="fFu-2x-9eY"/>
                         <outlet property="errorMsgLabel" destination="p9N-lS-bXK" id="jgZ-Fh-xo9"/>
                         <outlet property="floorLabel" destination="scF-Yr-D51" id="eno-PR-g6Z"/>
                         <outlet property="libraryLabel" destination="WoD-7R-roU" id="pfr-Wi-mUX"/>
                         <outlet property="sizeLabel" destination="eXV-jR-Kof" id="QOJ-IN-O9p"/>
                         <outlet property="subtotalLabel" destination="se5-Vm-cqI" id="rXN-yV-qZz"/>
+                        <outlet property="taxAmountLabel" destination="Txe-dt-lyV" id="9ih-Zf-v3C"/>
+                        <outlet property="totalAmountLabel" destination="A5m-1H-rCm" id="ZI1-n0-aNi"/>
                         <outlet property="vendorLabel" destination="678-SY-nPF" id="wC3-tz-caE"/>
                         <outlet property="zoneLabel" destination="d1g-df-9y2" id="2Xf-uH-4fN"/>
                         <segue destination="Cqb-v8-Jds" kind="show" identifier="toCurrentOrderSegue" id="4Cz-4Q-ULq"/>
@@ -1285,7 +1288,7 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="15%">
+                                                <state key="normal" title="10%">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <state key="selected">
@@ -1300,7 +1303,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="20%">
+                                                <state key="normal" title="15%">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <state key="selected">
@@ -1315,7 +1318,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="25%">
+                                                <state key="normal" title="20%">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <state key="selected">
@@ -1508,7 +1511,11 @@
                         <viewLayoutGuide key="safeArea" id="wbh-GK-Y9f"/>
                     </view>
                     <navigationItem key="navigationItem" id="il3-WD-g7Z">
-                        <barButtonItem key="rightBarButtonItem" title="Submit" id="GaB-C4-Ir1"/>
+                        <barButtonItem key="rightBarButtonItem" title="Submit" id="GaB-C4-Ir1">
+                            <connections>
+                                <action selector="clickCompleteOrder:" destination="yPM-Pa-1PQ" id="84U-Qm-skp"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="fifthStar" destination="8I6-F9-zl9" id="4Yg-ia-crb"/>
@@ -1517,14 +1524,16 @@
                         <outlet property="secondStar" destination="Tzc-3p-iBV" id="tLH-qb-ddE"/>
                         <outlet property="subtotalLabel" destination="dKE-Y0-M6V" id="XEu-2y-zw6"/>
                         <outlet property="thirdStar" destination="1WC-c7-Ybe" id="dHe-Rv-2ij"/>
+                        <outlet property="tipABtn" destination="Td1-Ux-4rq" id="rRT-PM-aPc"/>
                         <outlet property="tipAmountLabel" destination="hdX-Te-q2v" id="VhM-Pc-CBM"/>
-                        <outlet property="tipFifteenBtn" destination="Td1-Ux-4rq" id="NWR-Sl-u4g"/>
-                        <outlet property="tipTwentyBtn" destination="aLT-I2-Itx" id="pVW-5w-JXq"/>
-                        <outlet property="tipTwentyFiveBtn" destination="B9s-T8-KFo" id="Rj7-Bl-PtJ"/>
+                        <outlet property="tipBBtn" destination="aLT-I2-Itx" id="ZLP-tT-SUt"/>
+                        <outlet property="tipCBtn" destination="B9s-T8-KFo" id="rRD-OO-ayG"/>
                         <outlet property="totalAmountLabel" destination="I6d-Yk-NhD" id="Upe-5J-zI0"/>
+                        <segue destination="sRr-a3-ajz" kind="unwind" identifier="completeOrderToNewOrderSegue" unwindAction="unwindToOrderExistenceWithSegue:" id="gCa-nJ-kc0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WWt-ps-rJ5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="sRr-a3-ajz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4690" y="-531"/>
         </scene>

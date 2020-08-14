@@ -33,6 +33,11 @@ class PickupOrdersTableViewCell: UITableViewCell {
         
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+    }
+    
     func setOrder(order: Order) {
         vendorLabel.text = order.restaurant.replacingOccurrences(of: "_", with: " ")
         itemLabel.text = order.size + " " + order.beverage
