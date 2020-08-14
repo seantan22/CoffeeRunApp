@@ -155,12 +155,6 @@ app.get('/getNumberCurrentRunners', function(req, res){
     return;
 })
 
-app.get('/getCurrentOrderStatus', function(req, res){
-    var order_id = req.headers['order_id'];
-    get_methods.getStatusOfOrder(res, order_id);
-    return;
-})
-
 app.get('/getNumberOfAllOpenOrders', function(req, res){
     get_methods.getNumberOfAllOpenOrders(res);
     return;

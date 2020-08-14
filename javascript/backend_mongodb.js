@@ -236,17 +236,6 @@ module.exports = {
         db.close();     
         return JSON.stringify({result: true, response: ["Successfully updated."]});;
     },
-    getStatusOfOrder: async function(order_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
-        var client = db.db(dbName);
-        var record = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
-        if(record == null){
-            db.close();
-            return JSON.stringify({result: false, response: ['Order does not exist.']});
-        }
-        db.close();
-        return JSON.stringify({result: true, response: record.status});
-    },
     getOrdersByLibrary: async function(library){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -1177,15 +1166,15 @@ module.exports = {
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
-        var statusValue = await client.collection("Open_Orders").distinct("status", {_id: ObjectId(order_id)});
-        
-        if(statusValue == null || statusValue.length == 0){
+        var statusValue = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)});
+
+        if(statusValue == null){
             db.close();
             return JSON.stringify({result: false, response: ['Order does not exist.']});
         }
 
         db.close();
-        return JSON.stringify({result: true, response: [statusValue[0]]});
+        return JSON.stringify({result: true, response: [statusValue.status, statusValue.delivery_boy]});
     },
 
     // *********************************** GET BEVERAGES **************************************

@@ -53,11 +53,6 @@ module.exports = {
         res.send(response);
         return;
     },
-    getStatusOfOrder: async function(res, order_id){
-        response = await db.getStatusOfOrder(order_id);
-        res.send(response);
-        return;
-    },
     getMessages: async function(res, sender, receiver){
         response = await esql.getMessage(sender, receiver);
         res.send(response);
