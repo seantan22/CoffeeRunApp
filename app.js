@@ -122,7 +122,6 @@ app.post('/forgetPassword', function(req, res){
 app.post('/updateForgottenPassword', function(req, res){
     
     var email = req.body.email;
-
     var new_password = req.body.password;
 
     if (cred_checker.passwordStrength(req.body.new_password) || req.body.new_password == null || req.body.new_password == ""){

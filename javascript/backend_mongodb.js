@@ -200,7 +200,7 @@ module.exports = {
     updatePasswordFromReset: async function(email, new_password){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        var reset_record = await client.collection("Reset_Records").findOne({email: ObjectId(email)}).catch((error) => console.log(error));
+        var reset_record = await client.collection("Reset_Records").findOne({email: email}).catch((error) => console.log(error));
 
         if(reset_record == null){
             return JSON.stringify({result: false, response: ["Reset hasn't been called."]});;
@@ -217,7 +217,7 @@ module.exports = {
         // Log user in when they update password
 
         let resetInfo = {$set: {active: false}};
-        await client.collection("Reset_Records").updateOne({_id: ObjectId(id)}, resetInfo).catch((error) => console.log(error)); 
+        await client.collection("Reset_Records").updateOne({email: email}, resetInfo).catch((error) => console.log(error)); 
         db.close();     
 
         return JSON.stringify({result: true, response: ["Successfully updated."]});;
