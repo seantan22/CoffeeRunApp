@@ -1276,6 +1276,18 @@ module.exports = {
 
         return JSON.stringify({result: true, response: [sum.toString(), user_information.balance.toString()]});
     },
+    doesOrderExistForDelivery: async function(order_id){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        var orderStatus = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)});
+        
+        if(orderStatus == null){
+            return JSON.stringify({result: false, response: ["false"]});
+        }
+
+        return JSON.stringify({result: true, response: ["true"]});
+
+    }
 };
 
 async function detachOrderFromDelivery(order_record, client){

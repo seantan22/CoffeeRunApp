@@ -553,6 +553,12 @@ app.get('/getOrderStatus', function(req, res){
     return;
 })
 
+app.get('/doesOrderExistForDelivery', function(req, res){
+    var order_id = req.headers['order_id'];
+    get_methods.doesOrderExistForDelivery(res, order_id);
+    return;
+})
+
 
 // Delivery person when they complete order.
 app.get('/getTotalProfit', function(req, res){

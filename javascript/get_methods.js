@@ -115,6 +115,11 @@ module.exports = {
         res.send(response);
         return;
     },
+    doesOrderExistForDelivery: async function(res, order_id){
+        response = await db.doesOrderExistForDelivery(order_id);
+        res.send(response);
+        return;
+    },
 
     // *********************** UPDATE PRICING **********************
     getNewBalanceAfterOrder: async function(res, id){
