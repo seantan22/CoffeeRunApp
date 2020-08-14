@@ -193,7 +193,6 @@ module.exports = {
         updateInfo = {$set: {password: hashPassword}}
         await client.collection("User").updateOne({_id: user_record._id}, updateInfo).catch((error) => console.log(error)); 
     
-
         db.close();
         return JSON.stringify({result: true, response: ['An email has been sent to your account.']});
     },
@@ -210,16 +209,21 @@ module.exports = {
         }
     
         let hashPassword = await bcrypt.hash(new_password, await bcrypt.genSalt(8));
-
-        let personInfo = {$set: {password: hashPassword, loggedIn: true}};
-        await client.collection("User").updateOne({email: email}, personInfo).catch((error) => console.log(error)); 
        
-        // Log user in when they update password
+        let personInfo = {$set: {password: hashPassword}};
+        await client.collection("User").updateOne({email: email}, personInfo).catch((error) => console.log(error)); 
+        var user_record = await client.collection("User").findOne({email: email}, personInfo);
 
+        // Resent email if not verified.
+        if(!user_record.verified){
+            sendEmailNotVerified(email, user_record.verification_number);
+        }
+
+        // Log user in when they update password
         let resetInfo = {$set: {active: false}};
         await client.collection("Reset_Records").updateOne({email: email}, resetInfo).catch((error) => console.log(error)); 
+        
         db.close();     
-
         return JSON.stringify({result: true, response: ["Successfully updated."]});;
     },
     getStatusOfOrder: async function(order_id){
@@ -466,7 +470,9 @@ module.exports = {
         let newHashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(saltRounds));
 
         let personInfo = {$set: {username: username, password: newHashedPassword}};
-        await client.collection("User").updateOne({_id: ObjectId(id)}, personInfo).catch((error) => console.log(error)); 
+        response = await client.collection("User").updateOne({_id: ObjectId(id)}, personInfo).catch((error) => console.log(error)); 
+        console.log(response);
+        
         db.close();
     
         return JSON.stringify({result: true, response: ['Successfully updated credentials.']});
@@ -1250,6 +1256,26 @@ async function sendForgetPasswordEmail(address, id){
     logistics.sendMail(mailInfo);
     
     return new_pass;
+}
+
+async function sendEmailNotVerified(email, verification_code){
+  
+    var logistics = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'mcgillcoffeerun',
+            pass: 'CoffeeRun19!'
+        }
+     });
+
+    var mailInfo = {
+        from: 'McgillCoffeeRun@gmail.com',
+        to: email,
+        subject: 'CoffeeRun: Forget Password',
+        html: "<html><body><b>Password Reset, Not Verified?</b><br><br><p>We have noticed you have not verified your account after reseting your password. If you forgot the verification code, it is: " + verification_code + "</p>"
+    };
+
+    logistics.sendMail(mailInfo);
 }
 
 function getTimeSince(order_records){
