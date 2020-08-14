@@ -179,7 +179,7 @@ module.exports = {
         // Check if reset has already been sent.
         var reset_record = await client.collection("Reset_Records").findOne({email: email}).catch((error) => console.log(error));
 
-        if(reset_record != null) {
+        if(reset_record != null && reset_record.active) {
             return JSON.stringify({result: false, response: ['You already have a pending reset.']});
         }
 
