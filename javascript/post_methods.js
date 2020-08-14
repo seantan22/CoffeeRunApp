@@ -42,8 +42,8 @@ module.exports = {
         res.send(response);
         return response;
     },
-    completeOrder: async function(res, rating, order_id, user_id, delivery_id){
-        response = await db.completeOrder(rating, order_id, user_id, delivery_id);
+    completeOrder: async function(res, rating, order_id, user_id, delivery_username, cost, tip){
+        response = await db.completeOrder(rating, order_id, user_id, delivery_username, cost, tip);
         res.send(response);
         return response;
     },

@@ -15,6 +15,12 @@ app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 app.use(bodyParser.json());
 
+// **************************** TAX ***************************
+
+app.get('/getTaxRates', function(req, res){
+    get_methods.getTaxRates(res);
+    return;
+})
 
 // *************************** IMAGE ***************************
 
@@ -502,11 +508,13 @@ app.post('/completeOrder', function(req, res){
     }
 
     var user_id = req.body.user_id;
-    var delivery_id = req.body.delivery_id;
+    var delivery_username = req.body.deliver_username;
     var order_id = req.body.order_id;
     var rating = req.body.rating;
+    var cost = req.body.cost;
+    var tip = req.body.tip;
 
-    post_methods.completeOrder(res, rating, order_id, user_id, delivery_id);
+    post_methods.completeOrder(res, rating, order_id, user_id, delivery_username, cost, tip);
     return;
 
 })

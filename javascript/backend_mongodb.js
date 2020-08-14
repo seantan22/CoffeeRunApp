@@ -163,6 +163,15 @@ async function logoutWithCred(id){
 }
 
 module.exports = {
+    getTaxRates: async function(){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        var tax_records = await client.collection("Rates").findOne({Title: 'rates'}).catch((error) => console.log(error));
+        
+        // Delivery fee, GST, QST
+        return JSON.stringify({result: true, response: [tax_records.Delivery_Fee, tax_records.GST, tax_records.QST]});
+
+    },
     forgetPassword: async function(email){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
@@ -637,8 +646,30 @@ module.exports = {
             db.close();
             return checkCorruptUser;
         }
+        console.log('cost: ' + cost);
+        var tax_rates = await client.collection('Rates').findOne({Title: 'rates'}).catch((error) => console.log(error));
 
-        if(parseFloat(record.balance) < cost){
+        var GSTtaxP = tax_rates.GST;
+        var QSTtaxP = tax_rates.QST;
+        var TotalTax = parseFloat(GSTtaxP) + parseFloat(QSTtaxP);
+        
+        var DFP = tax_rates.Delivery_Fee;
+
+        // Round to 2 decimal places
+        var delivery_charge = parseFloat(cost) * parseFloat(DFP);
+        console.log('del: ' + delivery_charge);
+        
+        var taxed_charge = parseFloat(cost) * parseFloat(TotalTax);
+        console.log('tax: ' + taxed_charge);
+        
+        var tip_charge =  parseFloat(cost) * 0.20;
+        console.log('tip: ' + tip_charge);
+
+        var final_cost = Math.round((parseFloat(cost) + delivery_charge + taxed_charge + tip_charge) * 100) / 100;
+        console.log(final_cost);
+
+        // Highest tip% 25%. Tax in quebec: GST: 5%, QST: 9.975%
+        if(parseFloat(record.balance) < final_cost){
             db.close();
             return JSON.stringify({result: false, response: ['Not enough funds.']});
         }
@@ -946,9 +977,9 @@ module.exports = {
 
         return JSON.stringify({result: true, response: response});
     },
-    completeOrder: async function(delivery_rating, order_id, user_id, delivery_id){
+    completeOrder: async function(rating, order_id, user_id, delivery_username, cost, tip){
         
-        if(delivery_rating < 0 || delivery_rating > 5){
+        if(rating < 0 || rating > 5){
             db.close();
             return JSON.stringify({result: false, response: ['Please give a rating between 0 and 5.']});
         }
@@ -982,15 +1013,11 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['Orderer must be logged in to complete a transaction.']});
         }
-        if(user_record.balance < order_record.cost){
-            db.close();
-            return JSON.stringify({result: false, response: ['User does not have enough funds.']});
-        }
         if(order_record.creator != user_record.username){
             db.close();
             return JSON.stringify({result: false, response: ['User did not create the order.']});
         }
-        var delivery_record = await client.collection('User').findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
+        var delivery_record = await client.collection('User').findOne({delivery_username: delivery_username}).catch((error) => console.log(error));
 
         if(delivery_record == null){
             db.close();
@@ -1000,30 +1027,46 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['Delivery user has to be logged in to complete order.']});
         }
-        if(order_record.delivery_boy != delivery_record.username){
+        if(order_record.delivery_boy != delivery_username){
             db.close();
             return JSON.stringify({result: false, response: ['Delivery user does not exist.']});
         }
 
         // Check if transaction is correct
-        checkCorruptUser = await checkIfCorrupt('payment', client, user_record, order_record.cost);
+        checkCorruptUser = await checkIfCorrupt('payment', client, user_record, cost);
         if(!checkCorruptUser[0]){
             db.close();
             return checkCorruptUser;
         }
         // If delivery person is corrupt
-        checkCorruptDelivery = await checkIfCorrupt('payment', client, delivery_record, order_record.cost);
+        checkCorruptDelivery = await checkIfCorrupt('payment', client, delivery_record, cost);
         if(!checkCorruptDelivery[0]){
             await detachOrderFromDelivery(order_record, client);
             db.close();
             return checkCorruptDelivery;
         }
 
-        var newUserValue = parseFloat(checkCorruptUser[1]) - parseFloat(order_record.cost); 
-        var newDeliveryValue = parseFloat(checkCorruptDelivery[1]) + parseFloat(order_record.cost) 
+        // Get db tax
+        var tax_rates = await client.collection('User').findOne({Title: 'rates'}).catch((error) => console.log(error));
+        var GSTtaxP = tax_rates.GST;
+        var QSTtaxP = tax_rates.QST;
+        var TotalTax = parseFloat(GSTtaxP) + parseFloat(QSTtaxP);
+       
+        var DFP = tax_rates.Delivery_Fee;
+ 
+        var final_cost = Math.round((parseFloat(cost) + delivery_charge + taxed_charge + tip_charge) * 100) / 100;
+
+        // Round to 2 decimal places
+        var delivery_charge = parseFloat(cost) * parseFloat(DFP);        
+        var taxed_charge = parseFloat(cost) * parseFloat(TotalTax);        
+        var tip_charge =  parseFloat(cost) * parseFloat(tip);
+        var final_cost = Math.round((parseFloat(cost) + delivery_charge + taxed_charge + tip_charge) * 100) / 100;
+
+        var newUserValue = parseFloat(checkCorruptUser[1]) - final_cost; 
+        var newDeliveryValue = parseFloat(checkCorruptDelivery[1]) + final_cost;
 
         // Create transaction - balance for user
-        let transactionInfo = {type: 'payment', time_created: new Date(), transaction_value: order_record.cost, payer_name: user_record.username, payer_balance: {new_balance: newUserValue, previous_balance: user_record.balance}, payee_name: delivery_record.username, payee_balance: {new_balance: newDeliveryValue, previous_balance: delivery_record.balance}};
+        let transactionInfo = {type: 'payment', time_created: new Date(), transaction_value: final_cost, payer_name: user_record.username, payer_balance: {new_balance: newUserValue, previous_balance: user_record.balance}, payee_name: delivery_record.username, payee_balance: {new_balance: newDeliveryValue, previous_balance: delivery_record.balance}};
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
 
         // Update user information
@@ -1033,7 +1076,7 @@ module.exports = {
         let deliveryInformation = {$set: {balance: newDeliveryValue}};
         await client.collection("User").updateOne({_id: ObjectId(delivery_id)}, deliveryInformation).catch((error) => console.log(error)); 
         
-        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {cost: order_record.cost, transaction_id: transaction_history.ops[0]._id}, rating: delivery_rating};
+        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: cost, tax: taxed_charge, tip: tip_charge, delivery_fee: delivery_charge, transaction_id: transaction_history.ops[0]._id}, rating: delivery_rating};
         await client.collection("Closed_Orders").insertOne(closedInfo);
 
         // Delete open order
