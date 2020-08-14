@@ -34,8 +34,6 @@ class DeliveredViewController: UIViewController {
     
     @IBAction func clickCompleteOrder(_ sender: UIBarButtonItem) {
         
-        print(DeliveredViewController.delivererUsername)
-        
         completeOrder(  user_id: UserDefaults.standard.string(forKey: "user_id")!,
                         order_id: UserDefaults.standard.string(forKey: "order_id")!,
                         delivery_username: DeliveredViewController.delivererUsername,
@@ -44,11 +42,17 @@ class DeliveredViewController: UIViewController {
                         tip: String(tipPercentage)) {(result: Response) in
             
                 if result.result {
-                    print("Success! Order completed.")
+                    print(result.response)
                     
                     OrderExistenceViewController.doesOrderExist = false
                     UserDefaults.standard.removeObject(forKey: "order_id")
                     
+                    self.getNewBalanceAfterOrder(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: Response) in
+                        if result.result {
+                            ProfileViewController.balance = result.response[0]
+                        }
+                    }
+
                 } else {
                     print(result.response)
                 }
@@ -241,6 +245,37 @@ class DeliveredViewController: UIViewController {
                     print(error)
                 }
                 completion(completeOrderResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    // POST /getNewBalanceAfterOrder
+    func getNewBalanceAfterOrder(user_id: String, completion: @escaping(Response) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "getNewBalanceAfterOrder") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(user_id, forHTTPHeaderField: "user_id")
+       
+        let task = session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                var newBalanceResponse = Response()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                    newBalanceResponse.result = jsonResponse.result
+                    newBalanceResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(newBalanceResponse)
             }
         }
         task.resume()

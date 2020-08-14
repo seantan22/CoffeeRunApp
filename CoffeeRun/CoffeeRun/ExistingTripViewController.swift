@@ -22,8 +22,6 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(ExistingTripViewController.ordersToPickup)
-        
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -84,7 +82,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
         } else if state == "Picked Up" {
             title = NSLocalizedString("Mark as Delivered", comment: "Mark as Delivered")
         } else if state == "Delivered" {
-            title = NSLocalizedString("Delivered", comment: "Delivered")
+            title = NSLocalizedString("Awaiting Confirmation", comment: "Awaiting Confirmation")
         }
         
         let action = UIContextualAction(style: .normal, title: title,
@@ -99,6 +97,14 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
                 self.markDelivered(user_id: UserDefaults.standard.string(forKey: "user_id")!, order_id: ExistingTripViewController.ordersToPickup[indexPath.section].id)
                 
                 ExistingTripViewController.ordersToPickup[indexPath.section].status = "Delivered"
+                
+                // TODO: Add timer
+                    // Call /doesOrderExistForDelivery
+                        // If yes, do nothing
+                        // If no, remove from array + call /getTotalProfit(username: )
+                        // Once array = 0, segue out of page
+                
+                
                 
             } else if state == "Delivered" {
                 print("done")
