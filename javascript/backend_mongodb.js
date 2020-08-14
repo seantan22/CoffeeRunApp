@@ -996,7 +996,7 @@ module.exports = {
 
         if(user_record == null){
             db.close();
-            return JSON.stringify({result: false, response: ['User does not exist.']});
+            return JSON.stringify({result: false, response: ['Orderer does not exist.']});
         }
         if(!user_record.loggedIn){
             db.close();
@@ -1010,13 +1010,13 @@ module.exports = {
 
         if(delivery_record == null){
             db.close();
-            return JSON.stringify({result: false, response: ['User does not exist.']});
+            return JSON.stringify({result: false, response: ['Delivery person does not exist.']});
         }
         if(!delivery_record.loggedIn){
             db.close();
             return JSON.stringify({result: false, response: ['Delivery user has to be logged in to complete order.']});
         }
-        if(order_record.delivery_boy != delivery_username){
+        if(order_record.delivery_boy != delivery_record.username){
             db.close();
             return JSON.stringify({result: false, response: ['Delivery user is not assigned to that order.']});
         }
