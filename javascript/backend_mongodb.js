@@ -114,9 +114,10 @@ async function loginWithCred(email, password){
     // }
 
     // Check if in reset state
-    var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase(), active: true }).catch((error) => console.log(error));
+    var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase() }).catch((error) => console.log(error));
+    
     // Reset state
-    if(reset_record != null){
+    if(reset_record != null && reset_record.active){
         JSON.stringify({result: true, response: [record._id, record.username, record.verified.toString(), 'reset']});
     }
 
