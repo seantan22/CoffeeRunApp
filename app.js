@@ -492,7 +492,7 @@ app.post('/completeOrder', function(req, res){
         res.send(JSON.stringify({result: false, response: ["Please enter user_id."]}));
         return;
     }
-    if(req.body.delivery_id == null || req.body.delivery_id == ""){
+    if(req.body.delivery_username == null || req.body.delivery_username == ""){
         res.send(JSON.stringify({result: false, response: ["Please enter delivery_id."]}));
         return;
     }
