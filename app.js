@@ -15,6 +15,7 @@ app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 app.use(bodyParser.json());
 
+
 // **************************** TAX ***************************
 
 app.get('/getTaxRates', function(req, res){
@@ -548,8 +549,22 @@ app.get('/getLibraryInformation', function(req, res){
 
 app.get('/getOrderStatus', function(req, res){
     var order_id = req.headers['order_id'];
-
     get_methods.getOrderStatus(res, order_id);
+    return;
+})
+
+
+// Delivery person when they complete order.
+app.get('/getTotalProfit', function(req, res){
+    var username = req.headers['username'];
+    get_methods.getTotalProfitMade(res, username);
+    return;
+})
+
+// User payment order
+app.get('/getNewBalanceAfterOrder', function(req, res){
+    var user_id = req.headers['user_id'];
+    get_methods.getNewBalanceAfterOrder(res, user_id);
     return;
 })
 

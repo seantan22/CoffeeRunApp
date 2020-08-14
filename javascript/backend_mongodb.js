@@ -1237,7 +1237,39 @@ module.exports = {
         }      
 
         return JSON.stringify({result: true, response: order_list});
-    }
+    },
+
+    getNewBalanceAfterOrder: async function(user_id){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var user_information = await client.collection("User").findOne({_id: ObjectId(user_id)});
+        
+        if(user_information == null){
+            return JSON.stringify({result: false, response: ['User does not exist.']});
+        }
+        
+        return JSON.stringify({result: true, response: [user_information.balance.toString()]});
+    },
+    getTotalProfitMade: async function(username){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var sum = 0;
+        var closed_order_info = await client.collection("Closed_Orders").find({payee: username}).toArray();
+        
+        if(closed_order_info.length == 0){
+            return JSON.stringify({result: false, response: ['You have not made any profit.']});
+        }
+
+        for (var i = 0; i < closed_order_info.length; i++){
+
+            sum += Math.round(closed_order_info[i]['transaction']['delivery_fee'] * 100) / 100;
+
+        }
+
+        return JSON.stringify({result: true, response: [sum.toString()]});
+    },
 };
 
 async function detachOrderFromDelivery(order_record, client){

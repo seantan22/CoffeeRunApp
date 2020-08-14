@@ -116,6 +116,18 @@ module.exports = {
         return;
     },
 
+    // *********************** UPDATE PRICING **********************
+    getNewBalanceAfterOrder: async function(res, id){
+        response = await db.getNewBalanceAfterOrder(id);
+        res.send(response);
+        return;
+    },
+    getTotalProfitMade: async function(res, username){
+        response = await db.getTotalProfitMade(username);
+        res.send(response);
+        return;
+    },
+
     // *********************** IMAGES **********************
     getPicture: async function(res, username){
         response = await googleD.getPicture(username);
