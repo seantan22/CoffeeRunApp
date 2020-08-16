@@ -1466,7 +1466,7 @@ function formatDate(date) {
     if (day.length < 2) 
         day = '0' + day;
 
-    return [month, day, year].join('-');
+    return [month, day, year.toString().substring(2,4)].join('-');
 }
 
 function convertToNormalTime(time){
@@ -1489,8 +1489,7 @@ function convertToNormalTime(time){
     }
     
     timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes; 
-    timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds; 
-    timeValue += (hours >= 12) ? " P.M." : " A.M.";  
+    timeValue += (hours >= 12) ? " PM" : " AM";  
 
     return timeValue;
 }
@@ -1507,7 +1506,7 @@ function closedOrderDateReformatter(date){
     replace(/\..+/, '').split(' ');
 
     time_GMT = convertToNormalTime(reformat[1]);
-    
+
     return formated_date + ' ' + time_GMT;
 }
 
