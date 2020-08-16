@@ -1475,7 +1475,6 @@ function convertToNormalTime(time){
     // fetch
     var hours = Number(time[0]);
     var minutes = Number(time[1]);
-    var seconds = Number(time[2]);
 
     // calculate
     var timeValue;
@@ -1483,7 +1482,7 @@ function convertToNormalTime(time){
     if (hours > 0 && hours <= 12) {
     timeValue= "" + hours;
     } else if (hours > 12) {
-    timeValue= "" + (hours - 12);
+    timeValue= "" + (hours - 16);
     } else if (hours == 0) {
     timeValue= "12";
     }
