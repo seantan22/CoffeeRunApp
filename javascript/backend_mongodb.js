@@ -1083,7 +1083,7 @@ module.exports = {
         let deliveryInformation = {$set: {balance: newDeliveryValue}};
         await client.collection("User").updateOne({username: delivery_username}, deliveryInformation).catch((error) => console.log(error)); 
         
-        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost.toString(), subtotal: cost.toString(), tax:  (Math.round(taxed_charge*100)/100).toString(), tip: (Math.round(tip_charge*100)/100).toString(), delivery_fee: delivery_charge.toString(), transaction_id: transaction_history.ops[0]._id.toString()}, rating: rating};
+        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: parseFloat(cost), tax:  Math.round(taxed_charge*100)/100, tip: Math.round(tip_charge*100)/100, delivery_fee: Math.round(delivery_charge*100)/100, transaction_id: transaction_history.ops[0]._id}, rating: rating};
         await client.collection("Closed_Orders").insertOne(closedInfo);
 
         // Delete open order
