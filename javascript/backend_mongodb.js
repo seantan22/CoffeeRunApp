@@ -1514,17 +1514,13 @@ function closedOrderDateReformatter(date){
 function reformatClosedOrder(record){
 
     var orderArray = [];
+    var tempArray = [];
 
     record.forEach(function(order){
-        JSONResponse = {
-            time_closed: closedOrderDateReformatter(order.time_closed),
-            payer: order.payer,
-            payee: order.payee,
-            final: order.transaction.final.toString(),
-            rating: order.rating
-        }
+        tempArray = orderArray;
 
-        orderArray += JSONResponse;
+        // date, payer, payee, price, rating.
+        orderArray = tempArray.concat([[closedOrderDateReformatter(order.time_closed).toString(), order.payer, order.payee, order.transaction.final.toString(), order.rating]]);
     })
 
     return orderArray;
