@@ -1080,7 +1080,7 @@ module.exports = {
         let deliveryInformation = {$set: {balance: roundedNewDelivery}};
         await client.collection("User").updateOne({username: delivery_username}, deliveryInformation).catch((error) => console.log(error)); 
         
-        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: parseFloat(cost), tax:  Math.round(taxed_charge*100)/100, tip: Math.round(tip_charge*100)/100, delivery_fee: Math.round(delivery_charge*100)/100, transaction_id: transaction_history.ops[0]._id}, rating: rating};
+        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: parseFloat(cost), tax:  Math.round(taxed_charge*100)/100, tip: Math.round(tip_charge*100)/100, delivery_fee: Math.round(delivery_charge*100)/100, transaction_id: transaction_history.ops[0]._id}, rating: rating, size: order_record.size, beverage: order_record.beverage, vendor: order_record.restaurant};
         await client.collection("Closed_Orders").insertOne(closedInfo);
 
         // Delete open order
@@ -1520,7 +1520,7 @@ function reformatClosedOrder(record){
         tempArray = orderArray;
 
         // id, open, closed, payer, payee, price, rating.
-        orderArray = tempArray.concat([[order._id.toString(), closedOrderDateReformatter(order.time_opened), closedOrderDateReformatter(order.time_closed).toString(), order.payer, order.payee, order.transaction.final.toString(), order.rating]]);
+        orderArray = tempArray.concat([[order._id.toString(), closedOrderDateReformatter(order.time_opened), closedOrderDateReformatter(order.time_closed).toString(), order.payer, order.payee, order.transaction.final.toString(), order.rating, order.size, order.beverage, order.vendor]]);
     })
 
     return orderArray;
