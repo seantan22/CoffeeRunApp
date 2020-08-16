@@ -1,4 +1,5 @@
 module.exports = {
+    // interact
     getPass: function(){
         return 'NewLoc@lP@ss123!'
     }, 

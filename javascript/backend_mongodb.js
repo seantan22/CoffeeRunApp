@@ -318,7 +318,9 @@ module.exports = {
         
         db.close();
 
-        return ({result: true, response: [record.username, record.email, record.balance.toString()]}); 
+        var totalSum = await getTotalOnLogin(record.username);
+
+        return ({result: true, response: [record.username, record.email, record.balance.toString(), totalSum.toString()]}); 
     },
     getUsers: async function(current_user){
 
@@ -1289,6 +1291,26 @@ module.exports = {
 
     }
 };
+
+async function getTotalOnLogin(username){
+
+    var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+    var client = db.db(dbName);
+
+    var sum = 0;
+    var closed_order_info = await client.collection("Closed_Orders").find({payee: username}).toArray();
+    
+    if(closed_order_info.length == 0){
+        return 0;
+    }
+
+    for (var i = 0; i < closed_order_info.length; i++){
+
+        sum += Math.round(closed_order_info[i]['transaction']['delivery_fee'] * 100) / 100;
+
+    }
+    return sum;
+}
 
 async function detachOrderFromDelivery(order_record, client){
     
