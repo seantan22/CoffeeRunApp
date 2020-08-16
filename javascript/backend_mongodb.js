@@ -1519,8 +1519,8 @@ function reformatClosedOrder(record){
     record.forEach(function(order){
         tempArray = orderArray;
 
-        // date, payer, payee, price, rating.
-        orderArray = tempArray.concat([[closedOrderDateReformatter(order.time_closed).toString(), order.payer, order.payee, order.transaction.final.toString(), order.rating]]);
+        // id, open, closed, payer, payee, price, rating.
+        orderArray = tempArray.concat([[order._id.toString(), closedOrderDateReformatter(order.time_opened), closedOrderDateReformatter(order.time_closed).toString(), order.payer, order.payee, order.transaction.final.toString(), order.rating]]);
     })
 
     return orderArray;
