@@ -34,6 +34,7 @@ class DeliveredViewController: UIViewController {
     
     @IBAction func clickCompleteOrder(_ sender: UIBarButtonItem) {
         
+        sender.isEnabled = false
         completeOrder(  user_id: UserDefaults.standard.string(forKey: "user_id")!,
                         order_id: UserDefaults.standard.string(forKey: "order_id")!,
                         delivery_username: DeliveredViewController.delivererUsername,
@@ -42,8 +43,6 @@ class DeliveredViewController: UIViewController {
                         tip: String(tipPercentage)) {(result: Response) in
             
                 if result.result {
-                    print(result.response)
-                    
                     OrderExistenceViewController.doesOrderExist = false
                     UserDefaults.standard.removeObject(forKey: "order_id")
                     
@@ -52,12 +51,8 @@ class DeliveredViewController: UIViewController {
                             ProfileViewController.balance = result.response[0]
                         }
                     }
-
-                } else {
-                    print(result.response)
                 }
         }
-        
         run(after: 1000) {
             self.performSegue(withIdentifier: "completeOrderToNewOrderSegue", sender: self)
         }

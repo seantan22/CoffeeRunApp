@@ -13,6 +13,8 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    var checkForCompletionTimer: Timer?
+    
     @IBOutlet weak var tableView: UITableView!
     
     static var ordersToPickup: [Order] = Array()
@@ -27,6 +29,19 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
 
         self.navigationItem.setHidesBackButton(true, animated: true)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        for order in ExistingTripViewController.ordersToPickup {
+            if order.status == "Delivered" {
+                checkForCompletionTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(checkOrderExistence), userInfo: order.id, repeats: true)
+            }
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        checkForCompletionTimer?.invalidate()
     }
     
     // Number of Cells in Table
@@ -98,13 +113,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
                 
                 ExistingTripViewController.ordersToPickup[indexPath.section].status = "Delivered"
                 
-                // TODO: Add timer
-                    // Call /doesOrderExistForDelivery
-                        // If yes, do nothing
-                        // If no, remove from array + call /getTotalProfit(username: )
-                        // Once array = 0, segue out of page
-                
-                
+                self.checkForCompletionTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.checkOrderExistence), userInfo: ExistingTripViewController.ordersToPickup[indexPath.section].id, repeats: true)
                 
             } else if state == "Delivered" {
                 print("done")
@@ -120,6 +129,42 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
         let configuration = UISwipeActionsConfiguration(actions: [action])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
+        
+    }
+    
+    @objc func checkOrderExistence(timer: Timer) {
+        let order_id = timer.userInfo as! String
+        doesOrderExistForDelivery(order_id: order_id) {(result: Response) in
+            if result.response[0] == "false" {
+                var counter: Int = 0
+                for pickupOrder in ExistingTripViewController.ordersToPickup {
+                    if pickupOrder.id == order_id {
+                        ExistingTripViewController.ordersToPickup.remove(at: counter)
+                        self.getUpdatedFinancials(username: UserDefaults.standard.string(forKey: "username")!) {(result: Response) in
+                            if result.result {
+                                ProfileViewController.totalProfitMade = result.response[0]
+                                ProfileViewController.balance = result.response[1]
+                                self.index = 0
+                                DispatchQueue.main.async {
+                                   self.tableView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                    counter += 1
+                }
+            }
+            
+        }
+            
+        if ExistingTripViewController.ordersToPickup.count == 0 {
+            
+            
+            run(after: 1000) {
+                self.performSegue(withIdentifier: "emptyTripToExistenceSegue", sender: self)
+            }
+            
+        }
         
     }
     
@@ -166,13 +211,75 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     //MARK: Response
-       struct Response: Decodable {
-         var result: Bool
-         var response: Array<String>
-         init() {
-             self.result = false
-             self.response = Array()
-         }
+    struct Response: Decodable {
+     var result: Bool
+     var response: Array<String>
+     init() {
+         self.result = false
+         self.response = Array()
+     }
+    }
+    
+    // GET /doesOrderExistForDelivery
+    func doesOrderExistForDelivery(order_id: String, completion: @escaping(Response) -> ()) {
+        
+        let session = URLSession.shared
+        
+        guard let url = URL(string: testURL + "doesOrderExistForDelivery") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(order_id, forHTTPHeaderField: "order_id")
+       
+        let task = session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                var orderExistResponse = Response()
+                do {
+                    let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                    orderExistResponse.result = jsonResponse.result
+                    orderExistResponse.response = jsonResponse.response
+                } catch {
+                    print(error)
+                }
+                completion(orderExistResponse)
+            }
+        }
+        task.resume()
+    }
+    
+    // GET /getTotalProfit
+       func getUpdatedFinancials(username: String, completion: @escaping(Response) -> ()) {
+           
+           let session = URLSession.shared
+           
+           guard let url = URL(string: testURL + "getTotalProfit") else {
+               print("Error: Cannot create URL")
+               return
+           }
+           
+           var request = URLRequest(url: url)
+           request.httpMethod = "GET"
+           request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+           request.setValue(username, forHTTPHeaderField: "username")
+          
+           let task = session.dataTask(with: request) { data, response, error in
+               if let data = data {
+                   var financialsResponse = Response()
+                   do {
+                       let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
+                       financialsResponse.result = jsonResponse.result
+                       financialsResponse.response = jsonResponse.response
+                   } catch {
+                       print(error)
+                   }
+                   completion(financialsResponse)
+               }
+           }
+           task.resume()
        }
     
     

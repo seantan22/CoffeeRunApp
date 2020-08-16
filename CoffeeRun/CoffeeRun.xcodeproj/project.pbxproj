@@ -12,6 +12,7 @@
 		660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */; };
 		661D334424E24F83004BEE5B /* ConfirmSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */; };
 		661D334824E35199004BEE5B /* SelectedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D334724E35199004BEE5B /* SelectedOrderTableViewCell.swift */; };
+		662E319E24E9AAE60082C64F /* ClosedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E319D24E9AAE60082C64F /* ClosedOrder.swift */; };
 		66304E1324DB0C1000E557E9 /* SeatLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */; };
 		66304E1524DB0E4B00E557E9 /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */; };
 		66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CA724D4C49000B1A973 /* AppDelegate.swift */; };
@@ -25,6 +26,8 @@
 		66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC724D4E5E500B1A973 /* DesignableView.swift */; };
 		66316CCA24D4EA7D00B1A973 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CC924D4EA7D00B1A973 /* LoginViewController.swift */; };
 		66316CCE24D8CE3D00B1A973 /* AddFundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */; };
+		667CAD4924E9CD2D00809CF6 /* OrderHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667CAD4824E9CD2D00809CF6 /* OrderHistoryTableViewCell.swift */; };
+		667CAD4D24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667CAD4C24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift */; };
 		66923CD824D8E2FE002E731A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66923CD724D8E2FE002E731A /* SignUpViewController.swift */; };
 		66923CDA24D8EB5A002E731A /* ConfirmSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */; };
 		66ADC81D24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ADC81C24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift */; };
@@ -53,6 +56,7 @@
 		660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderBeverageViewController.swift; sourceTree = "<group>"; };
 		661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSelectionViewController.swift; sourceTree = "<group>"; };
 		661D334724E35199004BEE5B /* SelectedOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedOrderTableViewCell.swift; sourceTree = "<group>"; };
+		662E319D24E9AAE60082C64F /* ClosedOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedOrder.swift; sourceTree = "<group>"; };
 		66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatLocationViewController.swift; sourceTree = "<group>"; };
 		66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
 		66316CA424D4C49000B1A973 /* CoffeeRun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeRun.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +72,8 @@
 		66316CC724D4E5E500B1A973 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		66316CC924D4EA7D00B1A973 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFundsViewController.swift; sourceTree = "<group>"; };
+		667CAD4824E9CD2D00809CF6 /* OrderHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		667CAD4C24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		66923CD724D8E2FE002E731A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSignUpViewController.swift; sourceTree = "<group>"; };
 		66ADC81C24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +129,7 @@
 				66316CA724D4C49000B1A973 /* AppDelegate.swift */,
 				66316CA924D4C49000B1A973 /* SceneDelegate.swift */,
 				66ADC82624E0DB3400D0BEA7 /* Order.swift */,
+				662E319D24E9AAE60082C64F /* ClosedOrder.swift */,
 				66F09C0A24E383F600389304 /* User.swift */,
 				66316CC924D4EA7D00B1A973 /* LoginViewController.swift */,
 				66ADC81C24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift */,
@@ -151,7 +158,9 @@
 				66BC777324DEF15400778FBB /* TripDenyViewController.swift */,
 				66316CC124D4D15500B1A973 /* ProfileViewController.swift */,
 				66C11AAF24E5DCDD007B709A /* OrderHistoryViewController.swift */,
+				667CAD4824E9CD2D00809CF6 /* OrderHistoryTableViewCell.swift */,
 				66C11AB124E5DCF8007B709A /* PickupHistoryViewController.swift */,
+				667CAD4C24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift */,
 				66316CCD24D8CE3D00B1A973 /* AddFundsViewController.swift */,
 				66ADC82F24E20DDA00D0BEA7 /* WithdrawFundsViewController.swift */,
 				66316CAF24D4C49000B1A973 /* Main.storyboard */,
@@ -239,12 +248,14 @@
 				66BC776624DD0A2500778FBB /* DeliveredViewController.swift in Sources */,
 				661D334824E35199004BEE5B /* SelectedOrderTableViewCell.swift in Sources */,
 				66BC777024DDC7EB00778FBB /* TripExistenceViewController.swift in Sources */,
+				667CAD4924E9CD2D00809CF6 /* OrderHistoryTableViewCell.swift in Sources */,
 				66923CDA24D8EB5A002E731A /* ConfirmSignUpViewController.swift in Sources */,
 				66BC776024DCE30400778FBB /* OrderExistenceViewController.swift in Sources */,
 				66316CC424D4D2D300B1A973 /* HomeViewController.swift in Sources */,
 				66316CC224D4D15500B1A973 /* ProfileViewController.swift in Sources */,
 				66BC777224DDC8AF00778FBB /* ExistingTripViewController.swift in Sources */,
 				66F09C0724E381C300389304 /* FindUsersViewController.swift in Sources */,
+				667CAD4D24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift in Sources */,
 				66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */,
 				66C11AAE24E5C629007B709A /* FriendRequestTableViewCell.swift in Sources */,
 				660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */,
@@ -264,6 +275,7 @@
 				66BC776224DCE3FE00778FBB /* ExistingOrderViewController.swift in Sources */,
 				66316CC824D4E5E500B1A973 /* DesignableView.swift in Sources */,
 				66316CC024D4D14700B1A973 /* NewTripViewController.swift in Sources */,
+				662E319E24E9AAE60082C64F /* ClosedOrder.swift in Sources */,
 				66F09C0D24E44FF300389304 /* OrderToPickupTableViewCell.swift in Sources */,
 				66ADC83024E20DDA00D0BEA7 /* WithdrawFundsViewController.swift in Sources */,
 				66304E1324DB0C1000E557E9 /* SeatLocationViewController.swift in Sources */,

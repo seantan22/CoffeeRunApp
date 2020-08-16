@@ -50,7 +50,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     }
                 } else {
                     if result.response[2] == "true" {
-                        self.run(after: 1000) {
+                        self.run(after: 3000) {
                             if UserDefaults.standard.value(forKey: "user_id") != nil {
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
