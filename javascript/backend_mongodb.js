@@ -838,19 +838,13 @@ module.exports = {
         var username = record.username;
 
         var order_records = await client.collection("Closed_Orders").find({payer: username}).toArray();
-        var deliver_records = await client.collection("Closed_Orders").find({payee: username}).toArray();
+        var delivery_records = await client.collection("Closed_Orders").find({payee: username}).toArray();
         db.close();
 
-        var date_complete;
-        // Format dates: mm/dd/yy: time of delivery AM / PM
-        order_records.forEach(function(order) {
-
-            date_complete = order.time_closed;
-            console.log(date_complete)
-
-        })
+        repurposedOrder = reformatClosedOrder(order_records);
+        repurposedDelivery = reformatClosedOrder(delivery_records);
         
-        return JSON.stringify({result: true, response: [order_records, deliver_records]});
+        return JSON.stringify({result: true, response: [repurposedOrder, repurposedDelivery]});
    
     },
     getOrdersForDelivery: async function(id){
@@ -1072,15 +1066,18 @@ module.exports = {
         var newUserValue = parseFloat(checkCorruptUser[1]) - final_cost; 
         var newDeliveryValue = parseFloat(checkCorruptDelivery[1]) + final_cost;
 
+        var roundedNewUser = Math.round(newUserValue*100)/100;
+        var roundedNewDelivery = Math.round(newDeliveryValue*100)/100;
+
         // Create transaction - balance for user
-        let transactionInfo = {type: 'payment', time_created: new Date(), transaction_value: final_cost, payer_name: user_record.username, payer_balance: {new_balance: newUserValue, previous_balance: user_record.balance}, payee_name: delivery_record.username, payee_balance: {new_balance: newDeliveryValue, previous_balance: delivery_record.balance}};
+        let transactionInfo = {type: 'payment', time_created: new Date(), transaction_value: final_cost, payer_name: user_record.username, payer_balance: {new_balance: roundedNewUser, previous_balance: user_record.balance}, payee_name: delivery_record.username, payee_balance: {new_balance: roundedNewDelivery, previous_balance: delivery_record.balance}};
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
 
         // Update user information
-        let payerInformation = {$set: {balance: newUserValue}};
+        let payerInformation = {$set: {balance: roundedNewUser}};
         await client.collection("User").updateOne({_id: ObjectId(user_id)}, payerInformation).catch((error) => console.log(error)); 
         
-        let deliveryInformation = {$set: {balance: newDeliveryValue}};
+        let deliveryInformation = {$set: {balance: roundedNewDelivery}};
         await client.collection("User").updateOne({username: delivery_username}, deliveryInformation).catch((error) => console.log(error)); 
         
         let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: parseFloat(cost), tax:  Math.round(taxed_charge*100)/100, tip: Math.round(tip_charge*100)/100, delivery_fee: Math.round(delivery_charge*100)/100, transaction_id: transaction_history.ops[0]._id}, rating: rating};
@@ -1456,4 +1453,79 @@ function getTimeSince(order_records){
         }
     }
     return order_records;
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [month, day, year].join('-');
+}
+
+function convertToNormalTime(time){
+    time = time.split(':'); // convert to array
+
+    // fetch
+    var hours = Number(time[0]);
+    var minutes = Number(time[1]);
+    var seconds = Number(time[2]);
+
+    // calculate
+    var timeValue;
+
+    if (hours > 0 && hours <= 12) {
+    timeValue= "" + hours;
+    } else if (hours > 12) {
+    timeValue= "" + (hours - 12);
+    } else if (hours == 0) {
+    timeValue= "12";
+    }
+    
+    timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes; 
+    timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds; 
+    timeValue += (hours >= 12) ? " P.M." : " A.M.";  
+
+    return timeValue;
+}
+
+function closedOrderDateReformatter(date){
+
+    // Format date
+    var date_complete = date;
+    var formated_date = formatDate(date_complete);
+
+    // Format time
+    reformat = date_complete.toISOString().
+    replace(/T/, ' ').      
+    replace(/\..+/, '').split(' ');
+
+    time_GMT = convertToNormalTime(reformat[1]);
+    
+    return formated_date + ' ' + time_GMT;
+}
+
+function reformatClosedOrder(record){
+
+    var orderArray = [];
+
+    record.forEach(function(order){
+        JSONResponse = {
+            time_closed: closedOrderDateReformatter(order.time_closed),
+            payer: order.payer,
+            payee: order.payee,
+            final: order.transaction.final.toString(),
+            rating: order.rating
+        }
+
+        orderArray += JSONResponse;
+    })
+
+    return orderArray;
 }
