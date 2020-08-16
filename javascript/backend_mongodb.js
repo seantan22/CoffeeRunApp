@@ -841,8 +841,8 @@ module.exports = {
         var delivery_records = await client.collection("Closed_Orders").find({payee: username}).toArray();
         db.close();
 
-        repurposedOrder = reformatClosedOrder(order_records);
-        repurposedDelivery = reformatClosedOrder(delivery_records);
+        repurposedOrder = reformatClosedOrder(order_records.reverse());
+        repurposedDelivery = reformatClosedOrder(delivery_records.reverse());
         
         return JSON.stringify({result: true, response: [repurposedOrder, repurposedDelivery]});
    
