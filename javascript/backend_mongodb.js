@@ -108,10 +108,10 @@ async function loginWithCred(email, password){
         db.close();
         return JSON.stringify({result: false, response: ['Already logged in.']});
     }
-    // if(!record.verified){
-    //     db.close();
-    //     return JSON.stringify({result: false, response: 'Please verify your account: ' + record.phone_number});
-    // }
+    if(!record.verified){
+        db.close();
+        return JSON.stringify({result: false, response: ['Please verify your account: ' + record.phone_number]});
+    }
 
     // Check if in reset state
     var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase() }).catch((error) => console.log(error));
@@ -168,6 +168,8 @@ module.exports = {
         var client = db.db(dbName);
         var tax_records = await client.collection("Rates").findOne({Title: 'rates'}).catch((error) => console.log(error));
         
+        db.close();
+
         // Delivery fee, GST, QST
         return JSON.stringify({result: true, response: [tax_records.Delivery_Fee, tax_records.GST, tax_records.QST]});
 
@@ -178,10 +180,12 @@ module.exports = {
         var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
         
         if(user_record == null){
+            db.close();
             return JSON.stringify({result: false, response: ['User does not exist.']});
         }
 
         if(user_record.loggedIn){
+            db.close();
             return JSON.stringify({result: false, response: ['You can only reset your password when logged out.']});
         }
 
@@ -189,6 +193,7 @@ module.exports = {
         var reset_record = await client.collection("Reset_Records").findOne({email: email}).catch((error) => console.log(error));
 
         if(reset_record != null && reset_record.active) {
+            db.close();
             return JSON.stringify({result: false, response: ['You already have a pending reset.']});
         }
 
@@ -212,9 +217,11 @@ module.exports = {
         var reset_record = await client.collection("Reset_Records").findOne({email: email}).catch((error) => console.log(error));
 
         if(reset_record == null){
+            db.close();
             return JSON.stringify({result: false, response: ["Reset hasn't been called."]});;
         }
         if(!reset_record.active){
+            db.close();
             return JSON.stringify({result: false, response: ["Reset has already been made."]})
         }
     
@@ -224,7 +231,7 @@ module.exports = {
         await client.collection("User").updateOne({email: email}, personInfo).catch((error) => console.log(error)); 
         var user_record = await client.collection("User").findOne({email: email}, personInfo);
 
-        // Resent email if not verified.
+        // Resend email if not verified.
         if(!user_record.verified){
             sendEmailNotVerified(email, user_record.verification_number);
         }
@@ -969,14 +976,14 @@ module.exports = {
         return JSON.stringify({result: true, response: response});
     },
     completeOrder: async function(rating, order_id, user_id, delivery_username, cost, tip){
-        
+                
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
         if(rating < 0 || rating > 5){
             db.close();
             return JSON.stringify({result: false, response: ['Please give a rating between 0 and 5.']});
         }
-        
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
-        var client = db.db(dbName);
 
         var order_record = await client.collection('Open_Orders').findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
         
@@ -1083,6 +1090,7 @@ module.exports = {
         var client = db.db(dbName);
 
         var delivery_record = await client.collection('User').findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
+        
         if(delivery_record == null){
             db.close();
             return JSON.stringify({result: false, response: ['No delivery user exists.']});
@@ -1096,9 +1104,11 @@ module.exports = {
         }
 
         var cumulated_score = 0;
+
         for (var i = 0; i < close_orders_array.length; i++){
             cumulated_score += parseFloat(close_orders_array[i].rating);
         }
+
         db.close();
 
         let score = cumulated_score/parseFloat(close_orders_array.length);
@@ -1186,6 +1196,8 @@ module.exports = {
         var client = db.db(pName);
         var arrayOfVendors = await client.collection("ProductInformation").distinct("vendor");
 
+        db.close();
+
         return JSON.stringify({result: true, response: arrayOfVendors});
     },
     getBeveragesInfoFromVendor: async function(vendor){
@@ -1195,12 +1207,15 @@ module.exports = {
         // Master stores all information about beverages
         var response = await client.collection("ProductInformation").findOne({vendor: 'master'});
 
+        db.close();
         return JSON.stringify({result: true, response: [response.information[vendor].beverages, response.information[vendor].size]});
     },
     getBeveragesOfBevAndVendor: async function(vendor, beverage){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
         var arrayOfSizes = await client.collection("ProductInformation").distinct('size', {vendor: vendor,  beverage: beverage});
+
+        db.close();
 
         return JSON.stringify({result: true, response: arrayOfSizes});
     },
@@ -1213,6 +1228,8 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['That order does not exist.']});
         }
+
+        db.close();
         return JSON.stringify({result: true, response: [Order_Information.cost.toString()]});
     },
     getLibraryInformation: async function(){
@@ -1220,6 +1237,8 @@ module.exports = {
         var client = db.db(pName);
 
         var libraryInformation = await client.collection("LocationInformation").findOne();
+
+        db.close();
         return JSON.stringify({result: true, response: [libraryInformation.Libraries]});
     },
     getFriendOrders: async function(username){
@@ -1238,6 +1257,8 @@ module.exports = {
             }
         }      
 
+        db.close();
+
         return JSON.stringify({result: true, response: order_list});
     },
 
@@ -1248,9 +1269,12 @@ module.exports = {
         var user_information = await client.collection("User").findOne({_id: ObjectId(user_id)});
         
         if(user_information == null){
+            db.close();
             return JSON.stringify({result: false, response: ['User does not exist.']});
         }
         
+        db.close();
+
         return JSON.stringify({result: true, response: [user_information.balance.toString()]});
     },
     getTotalProfitMade: async function(username){
@@ -1261,12 +1285,14 @@ module.exports = {
         var closed_order_info = await client.collection("Closed_Orders").find({payee: username}).toArray();
         
         if(closed_order_info.length == 0){
+            db.close();
             return JSON.stringify({result: false, response: ['You have not made any profit.']});
         }
 
         var user_information = await client.collection("User").findOne({username: username});
         
         if(user_information == null){
+            db.close();
             return JSON.stringify({result: false, response: ['User does not exist.']});
         }
 
@@ -1276,6 +1302,7 @@ module.exports = {
 
         }
 
+        db.close();
         return JSON.stringify({result: true, response: [sum.toString(), user_information.balance.toString()]});
     },
     doesOrderExistForDelivery: async function(order_id){
@@ -1284,9 +1311,11 @@ module.exports = {
         var orderStatus = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)});
         
         if(orderStatus == null){
+            db.close();
             return JSON.stringify({result: false, response: ["false"]});
         }
 
+        db.close();
         return JSON.stringify({result: true, response: ["true"]});
 
     }
@@ -1301,6 +1330,7 @@ async function getTotalOnLogin(username){
     var closed_order_info = await client.collection("Closed_Orders").find({payee: username}).toArray();
     
     if(closed_order_info.length == 0){
+        db.close();
         return 0;
     }
 
@@ -1309,11 +1339,12 @@ async function getTotalOnLogin(username){
         sum += Math.round(closed_order_info[i]['transaction']['delivery_fee'] * 100) / 100;
 
     }
+
+    db.close();
     return sum;
 }
 
 async function detachOrderFromDelivery(order_record, client){
-    
     let orderInfo = {$set: {status: "Awaiting Runner", delivery_boy: ""}};
     await client.collection('Open_Orders').updateOne({_id: ObjectId(order_record._id)}, orderInfo).catch((error) => console.log(error));
     return ['Detached successfully.'];
