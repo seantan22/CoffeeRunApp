@@ -13,7 +13,8 @@
 		661D334424E24F83004BEE5B /* ConfirmSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */; };
 		661D334824E35199004BEE5B /* SelectedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D334724E35199004BEE5B /* SelectedOrderTableViewCell.swift */; };
 		662E319E24E9AAE60082C64F /* ClosedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E319D24E9AAE60082C64F /* ClosedOrder.swift */; };
-		66304E1324DB0C1000E557E9 /* SeatLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */; };
+		6630105D24EA172B0007F586 /* SelectLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6630105C24EA172B0007F586 /* SelectLibraryViewController.swift */; };
+		66304E1324DB0C1000E557E9 /* McLennan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1224DB0C1000E557E9 /* McLennan.swift */; };
 		66304E1524DB0E4B00E557E9 /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */; };
 		66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CA724D4C49000B1A973 /* AppDelegate.swift */; };
 		66316CAA24D4C49000B1A973 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66316CA924D4C49000B1A973 /* SceneDelegate.swift */; };
@@ -57,7 +58,8 @@
 		661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSelectionViewController.swift; sourceTree = "<group>"; };
 		661D334724E35199004BEE5B /* SelectedOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedOrderTableViewCell.swift; sourceTree = "<group>"; };
 		662E319D24E9AAE60082C64F /* ClosedOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedOrder.swift; sourceTree = "<group>"; };
-		66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatLocationViewController.swift; sourceTree = "<group>"; };
+		6630105C24EA172B0007F586 /* SelectLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLibraryViewController.swift; sourceTree = "<group>"; };
+		66304E1224DB0C1000E557E9 /* McLennan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = McLennan.swift; sourceTree = "<group>"; };
 		66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
 		66316CA424D4C49000B1A973 /* CoffeeRun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeRun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66316CA724D4C49000B1A973 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,7 +146,8 @@
 				66BC775F24DCE30400778FBB /* OrderExistenceViewController.swift */,
 				660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */,
 				660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */,
-				66304E1224DB0C1000E557E9 /* SeatLocationViewController.swift */,
+				6630105C24EA172B0007F586 /* SelectLibraryViewController.swift */,
+				66304E1224DB0C1000E557E9 /* McLennan.swift */,
 				66304E1424DB0E4B00E557E9 /* OrderSummaryViewController.swift */,
 				66BC776124DCE3FE00778FBB /* ExistingOrderViewController.swift */,
 				66BC776524DD0A2500778FBB /* DeliveredViewController.swift */,
@@ -250,6 +253,7 @@
 				66BC777024DDC7EB00778FBB /* TripExistenceViewController.swift in Sources */,
 				667CAD4924E9CD2D00809CF6 /* OrderHistoryTableViewCell.swift in Sources */,
 				66923CDA24D8EB5A002E731A /* ConfirmSignUpViewController.swift in Sources */,
+				6630105D24EA172B0007F586 /* SelectLibraryViewController.swift in Sources */,
 				66BC776024DCE30400778FBB /* OrderExistenceViewController.swift in Sources */,
 				66316CC424D4D2D300B1A973 /* HomeViewController.swift in Sources */,
 				66316CC224D4D15500B1A973 /* ProfileViewController.swift in Sources */,
@@ -278,7 +282,7 @@
 				662E319E24E9AAE60082C64F /* ClosedOrder.swift in Sources */,
 				66F09C0D24E44FF300389304 /* OrderToPickupTableViewCell.swift in Sources */,
 				66ADC83024E20DDA00D0BEA7 /* WithdrawFundsViewController.swift in Sources */,
-				66304E1324DB0C1000E557E9 /* SeatLocationViewController.swift in Sources */,
+				66304E1324DB0C1000E557E9 /* McLennan.swift in Sources */,
 				66316CCE24D8CE3D00B1A973 /* AddFundsViewController.swift in Sources */,
 				66F09C0B24E383F600389304 /* User.swift in Sources */,
 			);

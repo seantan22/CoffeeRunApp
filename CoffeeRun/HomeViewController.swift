@@ -13,6 +13,8 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    static var disableTabs: Bool = false
+    
     // Prevents double click on tab bar
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         return viewController != tabBarController.selectedViewController;
@@ -54,15 +56,44 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
          tabBarController?.delegate = self
         
+        HomeViewController.disableTabs = true
+        
+        if HomeViewController.disableTabs {
+            if let items = tabBarController?.tabBar.items {
+                items.forEach{ $0.isEnabled = false }
+            }
+        }
+        
+        getRates() {(result:ArrayOfStringsResponse) in
+           if result.result {
+               ExistingOrderViewController.deliveryFeeRate = result.response[0]
+               ExistingOrderViewController.gstRate = result.response[1]
+               ExistingOrderViewController.qstRate = result.response[2]
+           } else {
+               print(result.response)
+           }
+        }
+        
         checkIfOrderExist(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: OrderExistenceResponse) in
             
             OrderExistenceViewController.doesOrderExist = result.result
             
             if result.result {
-                ExistingOrderViewController.orderStatus = result.response[0]["status"]!
+                
                 DeliveredViewController.subtotal = result.response[0]["cost"]!
+                
+                ExistingOrderViewController.orderStatus     = result.response[0]["status"]!
+                ExistingOrderViewController.vendor          = result.response[0]["restaurant"]!
+                ExistingOrderViewController.size            = result.response[0]["size"]!
+                ExistingOrderViewController.beverage        = result.response[0]["beverage"]!
+                ExistingOrderViewController.details         = result.response[0]["details"]!
+                ExistingOrderViewController.library         = result.response[0]["library"]!
+                ExistingOrderViewController.floor           = result.response[0]["floor"]!
+                ExistingOrderViewController.zone            = result.response[0]["segment"]!
+                ExistingOrderViewController.subtotal        = result.response[0]["cost"]!
+                
+                
             }
-            
         }
         
         loadProfile(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: ArrayOfStringsResponse) in
@@ -76,7 +107,15 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                 print(result.response[0])
             }
         }
-    
+        
+        if HomeViewController.disableTabs {
+            run(after: 1500) {
+                if let items = self.tabBarController?.tabBar.items {
+                    items.forEach{ $0.isEnabled = true }
+                }
+                HomeViewController.disableTabs = false
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -267,11 +306,43 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         task.resume()
     }
     
+    //GET /getTaxRates
+     func getRates(completion: @escaping(ArrayOfStringsResponse) -> ()) {
+         
+         let session = URLSession.shared
+         
+         guard let url = URL(string: testURL + "getTaxRates") else {
+             print("Error: Cannot create URL")
+             return
+         }
+         
+         var request = URLRequest(url: url)
+         request.httpMethod = "GET"
+         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+         let task = session.dataTask(with: request) { data, response, error in
+             if let data = data {
+                 var ratesResponse = ArrayOfStringsResponse()
+                 do {
+                     let jsonResponse = try JSONDecoder().decode(ArrayOfStringsResponse.self, from: data)
+                     ratesResponse.result = jsonResponse.result
+                     ratesResponse.response = jsonResponse.response
+                 } catch {
+                     print(error)
+                 }
+                 completion(ratesResponse)
+             }
+         }
+         task.resume()
+     }
+    
     func run(after milliseconds: Int, completion: @escaping() -> Void) {
         let deadline = DispatchTime.now() + .milliseconds(milliseconds)
         DispatchQueue.main.asyncAfter(deadline: deadline) {
             completion()
         }
     }
+    
+    
     
 }

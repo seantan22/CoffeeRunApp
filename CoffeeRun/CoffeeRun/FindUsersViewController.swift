@@ -101,12 +101,14 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
             if state == "friends" {
               self.unfriend(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.row][0]) {(result: Response) in
                   if result.result {
-                      DispatchQueue.main.async {
-                          let alert = UIAlertController(title: "Friend Removed", message: FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
-                          alert.addAction(UIAlertAction(title: "Done", style: .default))
-                          self.present(alert, animated: true)
-                            FindUsersViewController.subUsers[indexPath.row][1] = "nothing"
-                      }
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Friend Removed", message: FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Done", style: .default))
+                        self.present(alert, animated: true)
+                        FindUsersViewController.subUsers[indexPath.row][1] = "nothing"
+                        let tempNumOfFriends = Int(ProfileViewController.numOfFriends)
+                        ProfileViewController.numOfFriends = String(tempNumOfFriends! - 1)
+                    }
                   }
               }
             } else if state == "pending" {

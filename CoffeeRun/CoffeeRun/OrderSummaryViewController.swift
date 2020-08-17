@@ -73,7 +73,16 @@ class OrderSummaryViewController: UIViewController {
                 
                 DeliveredViewController.subtotal = OrderSummaryViewController.subtotal
                 
-                self.run(after: 1000) {
+                ExistingOrderViewController.vendor          = OrderSummaryViewController.vendor
+                ExistingOrderViewController.size            = OrderSummaryViewController.size
+                ExistingOrderViewController.beverage        = OrderSummaryViewController.beverage
+                ExistingOrderViewController.details         = OrderSummaryViewController.details
+                ExistingOrderViewController.library         = OrderSummaryViewController.library
+                ExistingOrderViewController.floor           = OrderSummaryViewController.floor
+                ExistingOrderViewController.zone            = OrderSummaryViewController.zone
+                ExistingOrderViewController.subtotal        = OrderSummaryViewController.subtotal
+                
+                self.run(after: 2000) {
                     self.performSegue(withIdentifier: "toCurrentOrderSegue", sender: nil)
                 }
             } else {

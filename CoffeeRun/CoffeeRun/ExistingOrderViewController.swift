@@ -13,14 +13,38 @@ class ExistingOrderViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    static var gstRate: String = String()
+    static var qstRate: String = String()
+    static var deliveryFeeRate: String = String()
+    
     static var username: String = String()
     static var orderStatus: String = String()
+    static var vendor: String = String()
+    static var size: String = String()
+    static var beverage: String = String()
+    static var details: String = String()
+    static var library: String = String()
+    static var floor: String = String()
+    static var zone: String = String()
+    static var subtotal: String = String()
+    
     var statusTimer: Timer?
     
     //MARK: Properties
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
-    
+    @IBOutlet weak var vendorLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var beverageLabel: UILabel!
+    @IBOutlet weak var detailsLabel: UILabel!
+    @IBOutlet weak var libraryLabel: UILabel!
+    @IBOutlet weak var floorLabel: UILabel!
+    @IBOutlet weak var zoneLabel: UILabel!
+    @IBOutlet weak var subtotalLabel: UILabel!
+    @IBOutlet weak var gstAmountLabel: UILabel!
+    @IBOutlet weak var qstAmountLabel: UILabel!
+    @IBOutlet weak var deliveryFeeLabel: UILabel!
+    @IBOutlet weak var totalAmountLabel: UILabel!
     
     //MARK: Actions
     @IBAction func cancelOrderButton(_ sender: UIButton) {
@@ -30,6 +54,8 @@ class ExistingOrderViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             
             self.deleteOrder(username: ExistingOrderViewController.username, order_id: UserDefaults.standard.string(forKey: "order_id")!)
+            
+            self.statusTimer?.invalidate()
             self.run(after: 1000) {
                 self.performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: nil)
             }
@@ -51,6 +77,34 @@ class ExistingOrderViewController: UIViewController {
         cancelButton.isUserInteractionEnabled = true
         cancelButton.isHidden = false
         
+        let gstRate = Double(ExistingOrderViewController.gstRate)!
+        let qstRate = Double(ExistingOrderViewController.qstRate)!
+        let deliveryFeeRate = Double(ExistingOrderViewController.deliveryFeeRate)!
+        
+        let subtotal = Double(ExistingOrderViewController.subtotal)!
+        let gstAmount = subtotal * gstRate
+        let qstAmount = subtotal * qstRate
+        let deliveryFee = subtotal * deliveryFeeRate
+        let totalAmount = subtotal + gstAmount + qstAmount + deliveryFee
+        
+        vendorLabel.text = ExistingOrderViewController.vendor.replacingOccurrences(of: "_", with: " ")
+        sizeLabel.text = ExistingOrderViewController.size
+        beverageLabel.text = ExistingOrderViewController.beverage
+        if ExistingOrderViewController.details == "None" {
+            detailsLabel.text = ""
+        } else {
+            detailsLabel.text = ExistingOrderViewController.details
+        }
+        libraryLabel.text = ExistingOrderViewController.library
+        floorLabel.text = "Floor " + ExistingOrderViewController.floor
+        zoneLabel.text = "Zone " + ExistingOrderViewController.zone
+        
+        subtotalLabel.text = String(format: "$%.02f", subtotal)
+        gstAmountLabel.text = String(format: "$%.02f", gstAmount)
+        qstAmountLabel.text = String(format: "$%.02f", qstAmount)
+        deliveryFeeLabel.text = String(format: "$%.02f", deliveryFee)
+        totalAmountLabel.text = String(format: "$%.02f", totalAmount)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

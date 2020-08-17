@@ -40,30 +40,13 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
             OrderSummaryViewController.details = detailsTextField.text!
         }
         
-        
-        self.getLibraryInfo() {(result: Response) in
-            if result.result {
-                DispatchQueue.main.async {
-                    
-                    SeatLocationViewController.allLibraryInfo = result.response
-                    
-                    let array = Array(result.response[0].keys)
-                    SeatLocationViewController.libraries = array
-                    
-                    let innerArray = result.response[0][array[0]]!
-                    SeatLocationViewController.floors = innerArray["Floor"]!
-                    SeatLocationViewController.zones = innerArray["Zone"]!
-                }
-            }
-        }
-        
         self.getBeverageSubtotal(vendor: OrderSummaryViewController.vendor, beverage: OrderSummaryViewController.beverage, size: OrderSummaryViewController.size) {(result: BevPriceResponse) in
             if result.result {
                 DispatchQueue.main.async {
                     OrderSummaryViewController.subtotal = result.response[0]
                 }
                 self.run(after: 1000) {
-                    self.performSegue(withIdentifier: "toSeatLocationSegue", sender: nil)
+                    self.performSegue(withIdentifier: "toLibrarySelectionSegue", sender: nil)
                     sender.isEnabled = true
                 }
             } else {
@@ -139,37 +122,6 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
             self.result = false
             self.response = Array()
         }
-    }
-
-    
-    // GET /getLibraryInformation
-    func getLibraryInfo(completion: @escaping(Response) -> ()) {
-           
-        let session = URLSession.shared
-
-        guard let url = URL(string: testURL + "getLibraryInformation") else {
-            print("Error: Cannot create URL")
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let task = session.dataTask(with: request) { data, response, error in
-            var librariesResponse: Response = Response()
-            if let data = data {
-               do {
-                   let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
-                   librariesResponse.result = jsonResponse.result
-                   librariesResponse.response = jsonResponse.response
-               } catch {
-                   print(error)
-               }
-               completion(librariesResponse)
-            }
-        }
-        task.resume()
     }
     
     // GET /getPriceOfBeverage

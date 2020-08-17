@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "mclennan-floor.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
