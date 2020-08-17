@@ -82,6 +82,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         emailTextField.delegate = self;
         passwordTextField.delegate = self;
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [
+            UIColor(red: 27/255, green: 81/255, blue: 45/255, alpha: 1).cgColor,
+            UIColor(red: 27/255, green: 81/255, blue: 45/255, alpha: 1).cgColor,
+            UIColor.white.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     //MARK: Response
