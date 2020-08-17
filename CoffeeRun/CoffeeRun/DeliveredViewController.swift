@@ -13,9 +13,16 @@ class DeliveredViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    static var gstRate: String = String()
+    static var qstRate: String = String()
+    static var deliveryFeeRate: String = String()
+    
     var rating: Double = 5
     var tipPercentage: Double = 0.10
+    
     static var subtotal: String = String()
+    
+    static var costWithTaxesAndFees: String = String()
     
     static var delivererUsername: String = String()
     
@@ -126,7 +133,7 @@ class DeliveredViewController: UIViewController {
             tipPercentage = 0.10
             tipAmount = round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100
             tipAmountLabel.text = String(format: "$%.02f", tipAmount)
-            totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.subtotal)!)
+            totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.costWithTaxesAndFees)!)
         } else if sender == tipBBtn  {
             tipABtn.isSelected = false
             tipABtn.isUserInteractionEnabled = true
@@ -137,7 +144,7 @@ class DeliveredViewController: UIViewController {
             tipPercentage = 0.15
             tipAmount = round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100
             tipAmountLabel.text = String(format: "$%.02f", tipAmount)
-            totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.subtotal)!)
+            totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.costWithTaxesAndFees)!)
         } else if sender == tipCBtn {
             tipABtn.isSelected = false
             tipABtn.isUserInteractionEnabled = true
@@ -148,7 +155,7 @@ class DeliveredViewController: UIViewController {
             tipPercentage = 0.20
             tipAmount = round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100
             tipAmountLabel.text = String(format: "$%.02f", tipAmount)
-            totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.subtotal)!)
+            totalAmountLabel.text = String(format: "$%.02f", tipAmount + Double(DeliveredViewController.costWithTaxesAndFees)!)
         }
     }
     
@@ -156,6 +163,21 @@ class DeliveredViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationItem.setHidesBackButton(true, animated: true)
+        
+        let gstRate = Double(DeliveredViewController.gstRate)!
+        let qstRate = Double(DeliveredViewController.qstRate)!
+        let deliveryFeeRate = Double(DeliveredViewController.deliveryFeeRate)!
+        
+        let subtotal = Double(DeliveredViewController.subtotal)!
+        let gstAmount = subtotal * gstRate
+        let qstAmount = subtotal * qstRate
+        let deliveryFee = subtotal * deliveryFeeRate
+        let totalAmount = subtotal + gstAmount + qstAmount + deliveryFee
+        DeliveredViewController.costWithTaxesAndFees = String(totalAmount)
+        
+        subtotalLabel.text = String(format: "$%.02f", round(Double(DeliveredViewController.costWithTaxesAndFees)! * 100) / 100)
+        tipAmountLabel.text = String(format: "$%.02f", round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100)
+        totalAmountLabel.text = String(format: "$%.02f", round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100 + Double(DeliveredViewController.costWithTaxesAndFees)!)
         
         firstStar.setImage(UIImage.init(systemName: "star.fill"), for: .selected)
         secondStar.setImage(UIImage.init(systemName: "star.fill"), for: .selected)
@@ -176,10 +198,7 @@ class DeliveredViewController: UIViewController {
         fourthStar.isSelected = true
         fifthStar.isSelected = true
         tipABtn.isSelected = true
-        
-        subtotalLabel.text = "$" + DeliveredViewController.subtotal
-        tipAmountLabel.text = String(format: "$%.02f", round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100)
-        totalAmountLabel.text = String(format: "$%.02f", round(tipPercentage * Double(DeliveredViewController.subtotal)! * 100) / 100 + Double(DeliveredViewController.subtotal)!)
+
     }
     
     //MARK: Response

@@ -74,8 +74,8 @@ class ExistingOrderViewController: UIViewController {
 
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        cancelButton.isUserInteractionEnabled = true
-        cancelButton.isHidden = false
+        self.cancelButton.isUserInteractionEnabled = false
+        self.cancelButton.isHidden = true
         
         let gstRate = Double(ExistingOrderViewController.gstRate)!
         let qstRate = Double(ExistingOrderViewController.qstRate)!

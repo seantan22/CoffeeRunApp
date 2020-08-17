@@ -23,6 +23,10 @@ class OrderExistenceViewController: UIViewController {
                 OrderSummaryViewController.deliveryFeeRate = result.response[0]
                 OrderSummaryViewController.gstRate = result.response[1]
                 OrderSummaryViewController.qstRate = result.response[2]
+                
+                DeliveredViewController.deliveryFeeRate = result.response[0]
+                DeliveredViewController.gstRate = result.response[1]
+                DeliveredViewController.qstRate = result.response[2]
             } else {
                 print(result.response)
             }

@@ -66,9 +66,13 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         getRates() {(result:ArrayOfStringsResponse) in
            if result.result {
-               ExistingOrderViewController.deliveryFeeRate = result.response[0]
-               ExistingOrderViewController.gstRate = result.response[1]
-               ExistingOrderViewController.qstRate = result.response[2]
+                ExistingOrderViewController.deliveryFeeRate = result.response[0]
+                ExistingOrderViewController.gstRate = result.response[1]
+                ExistingOrderViewController.qstRate = result.response[2]
+
+                DeliveredViewController.deliveryFeeRate = result.response[0]
+                DeliveredViewController.gstRate = result.response[1]
+                DeliveredViewController.qstRate = result.response[2]
            } else {
                print(result.response)
            }
