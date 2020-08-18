@@ -20,13 +20,15 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
     @IBOutlet weak var sizePicker: UIPickerView!
     @IBOutlet weak var beveragePicker: UIPickerView!
     @IBOutlet weak var detailsTextField: UITextField!
-    
+    @IBOutlet weak var errorLabel: UILabel!
     
     //MARK: Actions
    
     @IBAction func toSeatLocation(_ sender: UIBarButtonItem) {
         
         sender.isEnabled = false
+        
+        errorLabel.text = ""
         
         let selectedSize = NewOrderBeverageViewController.sizes[sizePicker.selectedRow(inComponent: 0)]
         OrderSummaryViewController.size = selectedSize
@@ -50,7 +52,9 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
                     sender.isEnabled = true
                 }
             } else {
-                print("Error: You can't get this beverage in that size.")
+                DispatchQueue.main.async {
+                    self.errorLabel.text = "You can't get this beverage in that size."
+                }
                 self.run(after: 500) {
                     sender.isEnabled = true
                 }
@@ -62,6 +66,7 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
@@ -81,21 +86,49 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int,  forComponent component: Int) -> String? {
-          
+
           switch pickerView {
-              
+
           case sizePicker:
             return NewOrderBeverageViewController.sizes[row]
-              
+
           case beveragePicker:
             return NewOrderBeverageViewController.beverages[row]
-            
+
           default:
               return ""
           }
-          
+
       }
     
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        50
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        let pickerLabel = UILabel()
+        
+        pickerLabel.textColor = UIColor.black
+        pickerLabel.textAlignment = NSTextAlignment.center
+        pickerLabel.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.light)
+        
+        switch pickerView {
+            
+                case sizePicker:
+                      pickerLabel.text = NewOrderBeverageViewController.sizes[row]
+                      return pickerLabel
+        
+                case beveragePicker:
+                    pickerLabel.text = NewOrderBeverageViewController.beverages[row]
+                    return pickerLabel
+        
+                default:
+                    return pickerLabel
+                }
+        
+    }
+     
     override func viewDidLoad() {
         super.viewDidLoad()
          
@@ -103,7 +136,12 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
         sizePicker.delegate = self
         beveragePicker.dataSource = self
         beveragePicker.delegate = self
-
+        
+        self.errorLabel.text = ""
+        
+        sizePicker.applyDesign()
+        beveragePicker.applyDesign()
+        
      }
     
     struct Response: Decodable {

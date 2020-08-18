@@ -78,28 +78,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
            }
         }
         
-        checkIfOrderExist(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: OrderExistenceResponse) in
-            
-            OrderExistenceViewController.doesOrderExist = result.result
-            
-            if result.result {
-                
-                DeliveredViewController.subtotal = result.response[0]["cost"]!
-                
-                ExistingOrderViewController.orderStatus     = result.response[0]["status"]!
-                ExistingOrderViewController.vendor          = result.response[0]["restaurant"]!
-                ExistingOrderViewController.size            = result.response[0]["size"]!
-                ExistingOrderViewController.beverage        = result.response[0]["beverage"]!
-                ExistingOrderViewController.details         = result.response[0]["details"]!
-                ExistingOrderViewController.library         = result.response[0]["library"]!
-                ExistingOrderViewController.floor           = result.response[0]["floor"]!
-                ExistingOrderViewController.zone            = result.response[0]["segment"]!
-                ExistingOrderViewController.subtotal        = result.response[0]["cost"]!
-                
-                
-            }
-        }
-        
         loadProfile(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: ArrayOfStringsResponse) in
             if result.result {
                     ProfileViewController.username = result.response[0]
@@ -141,6 +119,34 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                 FriendRequestsViewController.friendRequests = result.response
             }
         }
+        
+        checkIfOrderExist(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: OrderExistenceResponse) in
+                   
+                   OrderExistenceViewController.doesOrderExist = result.result
+                   
+                   print(result.response)
+                   
+                   if result.result {
+                       
+                       UserDefaults.standard.set(result.response[0]["_id"]!, forKey: "order_id")
+                       
+                       print(result.response[0]["_id"]!)
+                       
+                       DeliveredViewController.subtotal = result.response[0]["cost"]!
+                       
+                       ExistingOrderViewController.orderStatus     = result.response[0]["status"]!
+                       ExistingOrderViewController.vendor          = result.response[0]["restaurant"]!
+                       ExistingOrderViewController.size            = result.response[0]["size"]!
+                       ExistingOrderViewController.beverage        = result.response[0]["beverage"]!
+                       ExistingOrderViewController.details         = result.response[0]["details"]!
+                       ExistingOrderViewController.library         = result.response[0]["library"]!
+                       ExistingOrderViewController.floor           = result.response[0]["floor"]!
+                       ExistingOrderViewController.zone            = result.response[0]["segment"]!
+                       ExistingOrderViewController.subtotal        = result.response[0]["cost"]!
+                       
+                       
+                   }
+               }
         
     }
     
@@ -207,9 +213,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                  } catch {
                      print(error)
                  }
-                if orderExistenceResponse.result {
-                    UserDefaults.standard.set(orderExistenceResponse.response[0]["_id"]!, forKey: "order_id")
-                }
                  completion(orderExistenceResponse)
              }
          }

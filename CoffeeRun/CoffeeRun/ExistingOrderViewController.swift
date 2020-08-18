@@ -13,6 +13,8 @@ class ExistingOrderViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    static var isCancelled: Bool = false
+    
     static var gstRate: String = String()
     static var qstRate: String = String()
     static var deliveryFeeRate: String = String()
@@ -53,8 +55,14 @@ class ExistingOrderViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             
-            self.deleteOrder(username: ExistingOrderViewController.username, order_id: UserDefaults.standard.string(forKey: "order_id")!)
+            print(UserDefaults.standard.string(forKey: "order_id")!)
             
+            self.deleteOrder(username: ExistingOrderViewController.username, order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: Response) in
+                if result.result {
+                    print(result.response)
+                       ExistingOrderViewController.isCancelled = true
+                }
+            }
             self.statusTimer?.invalidate()
             self.run(after: 1000) {
                 self.performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: nil)
@@ -108,6 +116,9 @@ class ExistingOrderViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        ExistingOrderViewController.isCancelled = false
+        
         callGetStatus()
         
         statusTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(callGetStatus), userInfo: nil, repeats: true)
@@ -119,6 +130,11 @@ class ExistingOrderViewController: UIViewController {
     
     @objc func callGetStatus() {
         
+        if ExistingOrderViewController.isCancelled {
+            performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: self)
+            return
+        }
+            
         getStatus(order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: Response) in
             DispatchQueue.main.async {
                 
@@ -188,7 +204,7 @@ class ExistingOrderViewController: UIViewController {
     }
     
     // POST /deleteOrder
-    func deleteOrder(username: String, order_id: String) {
+    func deleteOrder(username: String, order_id: String, completion: @escaping(Response) -> ()) {
            
            let session = URLSession.shared
 
@@ -227,6 +243,7 @@ class ExistingOrderViewController: UIViewController {
                     if deleteOrderResponse.result {
                        UserDefaults.standard.removeObject(forKey: "order_id")
                     }
+                completion(deleteOrderResponse)
                }
            }
 

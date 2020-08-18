@@ -125,10 +125,10 @@ class NewOrderVendorViewController: UIViewController {
     
         self.navigationItem.setHidesBackButton(true, animated: true)
     
-    timHortonsBtn.applyDesign()
-    pmBtn.applyDesign()
-    starbucksBtn.applyDesign()
-    secondCupBtn.applyDesign()
+        timHortonsBtn.applyShadow()
+        pmBtn.applyShadow()
+        starbucksBtn.applyShadow()
+        secondCupBtn.applyShadow()
     
     }
     
@@ -178,16 +178,4 @@ class NewOrderVendorViewController: UIViewController {
             completion()
         }
     }
-}
-
-extension UIButton {
-    
-    func applyDesign() {
-        self.layer.cornerRadius = 5
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowRadius = 10
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowOffset = CGSize(width: 0, height: -1)
-    }
-    
 }

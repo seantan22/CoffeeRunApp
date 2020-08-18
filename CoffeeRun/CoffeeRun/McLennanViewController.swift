@@ -8,7 +8,7 @@
 
 import UIKit
 
-class McLennan: UIViewController {
+class McLennanViewController: UIViewController {
     
     var prevZoneClicked: String = ""
     var prevFloorClicked: String = ""
@@ -37,7 +37,6 @@ class McLennan: UIViewController {
             print("Please select a floor & zone.")
         }
     }
-    
     
     
     @IBAction func toggleZone(_ sender: UIButton) {

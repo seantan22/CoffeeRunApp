@@ -29,6 +29,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var friendsLabel: UILabel!
     @IBOutlet weak var profitLabel: UILabel!
     
+    @IBOutlet weak var pickupHistoryButton: UIButton!
+    @IBOutlet weak var orderHistoryButton: UIButton!
+    
     
     @IBAction func logoutUser(_ sender: UIBarButtonItem) {
     
@@ -71,6 +74,9 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pickupHistoryButton.applyShadow()
+        orderHistoryButton.applyShadow()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +87,7 @@ class ProfileViewController: UIViewController {
         self.usernameLabel.text = ProfileViewController.username
         self.emailLabel.text = ProfileViewController.email
         self.balanceLabel.text = String(format: "$%.02f", balance)
-        self.friendsLabel.text = ProfileViewController.numOfFriends + " Friends"
+        self.friendsLabel.text = ProfileViewController.numOfFriends
         self.profitLabel.text = String(format: "$%.02f", profit)
         
         getHistory(user_id: UserDefaults.standard.value(forKey: "user_id")! as! String) {(result: AOAOAOStringsResponse) in
