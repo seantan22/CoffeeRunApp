@@ -3,10 +3,19 @@ const aws = require('aws-sdk');
 module.exports = {
     // interact
     getMongoURI: function(){
-        
-        var globalKey = new aws.S3({mongo_uri: process.env.mongodb_uri,});
-        return globalKey.config.mongo_uri;
+        var mongoKey = new aws.S3({mongo_uri: process.env.mongodb_uri,});
+        return mongoKey.config.mongo_uri;
     },
+    getGoogleAPIToken: function(){
+        var googleKey = new aws.S3({google_api: process.env.google_api,});
+        return googleKey.config.google_api;
+    },
+    getElephantUri: function(){
+        var elephantKey = new aws.S3({elephant_uri: process.env.elephant_uri,});
+        return elephantKey.config.elephant_uri;
+    },
+
+    
     getPass: function(){
         return 'NewLoc@lP@ss123!'
     }, 
