@@ -3,9 +3,9 @@ const aws = require('aws-sdk');
 module.exports = {
     // interact
     getMongoURI: function(){
-        return globalKeys = new aws.S3({
-            mongo_uri: process.env.mongodb_uri,
-        });
+        
+        var globalKey = new aws.S3({mongo_uri: process.env.mongodb_uri,});
+        return globalKey.config.mongo_uri;
     },
     getPass: function(){
         return 'NewLoc@lP@ss123!'
