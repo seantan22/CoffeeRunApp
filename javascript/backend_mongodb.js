@@ -1056,8 +1056,8 @@ module.exports = {
        
         var DFP = tax_rates.Delivery_Fee;
  
-        // Round to 2 decimal places
-        var delivery_charge = Math.round(parseFloat(cost) * parseFloat(DFP) * 100) / 100;        
+        // Round to 2 decimal places - $1.00 flat fee + 0.29%
+        var delivery_charge = Math.round(parseFloat(cost) * parseFloat(DFP) * 100) / 100 + 1.00;        
         var taxed_charge = parseFloat(cost) * parseFloat(TotalTax);        
         var tip_charge =  parseFloat(cost) * parseFloat(tip);
         var final_cost = Math.round((parseFloat(cost) + taxed_charge + tip_charge) * 100) / 100;
