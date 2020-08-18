@@ -119,7 +119,7 @@ class LawViewController: UIViewController {
             floorFiveButton.setTitleColor(UIColor.black, for: .normal)
         
         default:
-            print("default")
+            print("")
             
         }
         
@@ -151,7 +151,7 @@ class LawViewController: UIViewController {
             self.prevFloorClicked = "5"
         
         default:
-            print("default")
+            print("")
         }
         
         OrderSummaryViewController.floor = prevFloorClicked
@@ -168,7 +168,6 @@ class LawViewController: UIViewController {
         floorThreeButton.setTitleColor(UIColor.black, for: .normal)
         floorFourButton.setTitleColor(UIColor.black, for: .normal)
         floorFiveButton.setTitleColor(UIColor.black, for: .normal)
-        floorFourButton.setTitleColor(UIColor.black, for: .normal)
         
         floorOneButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         floorTwoButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)

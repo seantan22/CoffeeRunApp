@@ -149,6 +149,9 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // Cell Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if let cell = tableView.cellForRow(at: indexPath) {
                 UIView.animate(withDuration: 0.3, animations: {
                     if cell.contentView.backgroundColor == UIColor.green {

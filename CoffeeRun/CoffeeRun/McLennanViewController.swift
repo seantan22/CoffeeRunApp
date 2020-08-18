@@ -129,7 +129,7 @@ class McLennanViewController: UIViewController {
             floorSixButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
             floorSixButton.setTitleColor(UIColor.black, for: .normal)
         default:
-            print("default")
+            print("")
             
         }
         
@@ -156,7 +156,7 @@ class McLennanViewController: UIViewController {
             self.prevFloorClicked = "6"
             
         default:
-            print("default")
+            print("")
         }
         
         OrderSummaryViewController.floor = prevFloorClicked

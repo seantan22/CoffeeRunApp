@@ -89,6 +89,10 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
             return cell
    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     struct Response: Decodable {
       var result: Bool
       var response: Array<String>

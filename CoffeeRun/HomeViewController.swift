@@ -124,8 +124,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                    
                    OrderExistenceViewController.doesOrderExist = result.result
                    
-                   print(result.response)
-                   
                    if result.result {
                        
                        UserDefaults.standard.set(result.response[0]["_id"]!, forKey: "order_id")

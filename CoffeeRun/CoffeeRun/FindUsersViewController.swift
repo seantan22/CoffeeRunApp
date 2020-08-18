@@ -58,18 +58,25 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
      
     // Cell Content
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let hourglassImage = UIImage(systemName: "hourglass")
+        let hourglassView = UIImageView(image: hourglassImage)
+        let starImage = UIImage(systemName: "star.fill")
+        let starView = UIImageView(image: starImage)
+        
         if index < FindUsersViewController.subUsers.count {
          let user = FindUsersViewController.subUsers[index]
          let cell = tableView.dequeueReusableCell(withIdentifier: "UserItem", for: indexPath) as! UserTableViewCell
              cell.setUser(user: user[0])
             
             let state = user[1]
+        
             if state == "friends" {
-                cell.layer.borderColor = UIColor.systemGreen.cgColor
+                cell.accessoryView = starView
             } else if state == "pending" {
-                cell.layer.borderColor = UIColor.systemYellow.cgColor
+                cell.accessoryView = hourglassView
             } else {
-                cell.layer.borderColor = UIColor.white.cgColor
+                cell.accessoryView = UIImageView()
             }
             
             index += 1

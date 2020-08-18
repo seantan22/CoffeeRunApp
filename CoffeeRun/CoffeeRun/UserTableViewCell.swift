@@ -14,11 +14,7 @@ class UserTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        super.awakeFromNib()
-        
-        self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 2
+    
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
