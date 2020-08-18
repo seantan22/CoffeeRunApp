@@ -164,6 +164,10 @@ async function logoutWithCred(id){
 }
 
 module.exports = {
+    getTest: async function(){
+        return cred.getMongoURI();
+    },
+
     getTaxRates: async function(){
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);

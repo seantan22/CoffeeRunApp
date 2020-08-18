@@ -15,6 +15,11 @@ app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/test', function(req, res){
+    get_methods.getTest(res);
+    return;
+})
+
 
 // **************************** TAX ***************************
 

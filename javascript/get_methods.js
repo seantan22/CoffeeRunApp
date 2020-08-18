@@ -3,6 +3,14 @@ var esql = require('./backend_elephantSQL');
 var googleD = require('./backend_googDrive');
 
 module.exports = {
+
+    getTest: async function(res){
+        response = await db.getTest();
+        res.send(response);
+        return;
+    },
+
+
     getTaxRates: async function(res){
         response = await db.getTaxRates();
         res.send(response);
