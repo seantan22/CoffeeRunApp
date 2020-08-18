@@ -11,6 +11,7 @@ const { truncate } = require('fs');
 
 const dbName = 'CoffeeRun';
 const pName = 'Products';
+const sName = 'Statistics';
 
 const uri = "mongodb+srv://Dwarff19:" + cred.getPass() + "@coffeerun.y795l.azure.mongodb.net/" + dbName + "?retryWrites=true&w=majority";
 
@@ -1055,15 +1056,13 @@ module.exports = {
        
         var DFP = tax_rates.Delivery_Fee;
  
-        var final_cost = Math.round((parseFloat(cost) + delivery_charge + taxed_charge + tip_charge) * 100) / 100;
-
         // Round to 2 decimal places
-        var delivery_charge = parseFloat(cost) * parseFloat(DFP);        
+        var delivery_charge = Math.round(parseFloat(cost) * parseFloat(DFP) * 100) / 100;        
         var taxed_charge = parseFloat(cost) * parseFloat(TotalTax);        
         var tip_charge =  parseFloat(cost) * parseFloat(tip);
-        var final_cost = Math.round((parseFloat(cost) + delivery_charge + taxed_charge + tip_charge) * 100) / 100;
+        var final_cost = Math.round((parseFloat(cost) + taxed_charge + tip_charge) * 100) / 100;
 
-        var newUserValue = parseFloat(checkCorruptUser[1]) - final_cost; 
+        var newUserValue = parseFloat(checkCorruptUser[1]) - final_cost - delivery_charge; 
         var newDeliveryValue = parseFloat(checkCorruptDelivery[1]) + final_cost;
 
         var roundedNewUser = Math.round(newUserValue*100)/100;
@@ -1086,6 +1085,9 @@ module.exports = {
         // Delete open order
         await client.collection("Open_Orders").deleteOne({_id: ObjectId(order_id)}).catch((error) => console.log(error)); 
         db.close(); 
+
+        // Update delivery fee.
+        await updateAdminFees(delivery_charge);
         
         return JSON.stringify({result: true, response: ['Successfully completed transaction.']});
     },
@@ -1522,4 +1524,23 @@ function reformatClosedOrder(record){
     })
 
     return orderArray;
+}
+
+async function updateAdminFees(updateAdminFees){
+
+    var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+    var client = db.db(sName);
+
+    var administration_information = await client.collection("Administration").findOne({type: 'admin'});
+
+    var current_total = administration_information.earned;
+    var new_total = updateAdminFees + current_total;
+
+    let setAdmin = {$set: {earned: new_total}};
+    await client.collection("Administration").updateOne({type: 'admin'}, setAdmin).catch((error) => console.log(error)); ;
+    
+    db.close();
+
+    return;
+
 }
