@@ -891,7 +891,7 @@ module.exports = {
         return_record.forEach(function(order){
 
             order.NewPropertyName = 'friends';
-            order['frinds'] = (order.creator in friend_dictionary).toString();
+            order['friends'] = (order.creator in friend_dictionary).toString();
 
         });
 
