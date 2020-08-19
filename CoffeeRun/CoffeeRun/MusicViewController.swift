@@ -12,7 +12,10 @@ class MusicViewController: UIViewController {
     
     var prevZoneClicked: String = ""
     var prevFloorClicked: String = ""
-
+    
+    @IBOutlet weak var zoneAButton: UIButton!
+    @IBOutlet weak var zoneBButton: UIButton!
+    
     @IBOutlet weak var floorThreeButton: UIButton!
     @IBOutlet weak var floorFourButton: UIButton!
     @IBOutlet weak var floorFiveButton: UIButton!
@@ -26,6 +29,39 @@ class MusicViewController: UIViewController {
         }
         
     }
+    
+    @IBAction func toggleZone(_ sender: UIButton) {
+        
+        switch self.prevZoneClicked {
+            
+        case "A":
+            zoneAButton.backgroundColor = UIColor.clear
+        case "B":
+            zoneBButton.backgroundColor = UIColor.clear
+        default:
+            print("")
+            
+        }
+        
+        
+        switch sender {
+            
+        case zoneAButton:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "A"
+            
+        case zoneBButton:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "B"
+            
+        default:
+            print("")
+        }
+        
+        OrderSummaryViewController.zone = prevZoneClicked
+        
+    }
+    
     
     @IBAction func toggleFloor(_ sender: UIButton) {
         

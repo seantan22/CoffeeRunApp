@@ -55,7 +55,7 @@ class LawViewController: UIViewController {
         case "G":
             zoneGButton.backgroundColor = UIColor.clear
         default:
-            print("default")
+            print("")
             
         }
         
@@ -91,7 +91,7 @@ class LawViewController: UIViewController {
             self.prevZoneClicked = "G"
             
         default:
-            print("default")
+            print("")
         }
         
         OrderSummaryViewController.zone = prevZoneClicked

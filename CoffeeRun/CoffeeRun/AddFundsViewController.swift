@@ -54,7 +54,6 @@ class AddFundsViewController: UIViewController {
         let velocity = sender.velocity(in: view)
         
         if velocity.x > 0 {
-            if balanceTextField.text != "" {
                 if sender.state == .began {
                                       
                       originPointArrow = swipeArrowView.center
@@ -66,39 +65,40 @@ class AddFundsViewController: UIViewController {
                    }
            
                   } else if sender.state == .ended {
-                    
-                    if position.x < 350.0 {
-                        swipeArrowView.center = CGPoint(x: 40.0, y: originPointArrow.y)
-                    } else {
-                        swipeArrowView.center = CGPoint(x: 40.0, y: originPointArrow.y)
+                        if balanceTextField.text! == "" {
+                            swipeArrowView.center = CGPoint(x: originPointArrow.x, y: originPointArrow.y)
+                            print("Please enter an amount.")
+                        }
                         
-                          deposit(user_id: UserDefaults.standard.string(forKey: "user_id")!,
-                                  funds: balanceTextField.text!) {(result: Response) in
+                        if position.x < 350.0 {
+                            swipeArrowView.center = CGPoint(x: 40.0, y: originPointArrow.y)
+                        } else {
+                            swipeArrowView.center = CGPoint(x: 40.0, y: originPointArrow.y)
+                            
+                              deposit(user_id: UserDefaults.standard.string(forKey: "user_id")!,
+                                      funds: balanceTextField.text!) {(result: Response) in
 
-                              if result.result {
-                                  ProfileViewController.balance = result.response[0]
+                                  if result.result {
+                                      ProfileViewController.balance = result.response[0]
 
-                                  DispatchQueue.main.async {
-                                      self.balanceLabel.text = String(format: "$%.02f", self.balance)
+                                      DispatchQueue.main.async {
+                                          self.balanceLabel.text = String(format: "$%.02f", self.balance)
 
-                                      let alert = UIAlertController(title: "Deposit Successful!", message: "", preferredStyle: .alert)
+                                          let alert = UIAlertController(title: "Deposit Successful!", message: "", preferredStyle: .alert)
 
-                                      alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
-                                          self.performSegue(withIdentifier: "depositToProfileSegue", sender: self)
-                                      }))
-                                      self.present(alert, animated: true)
+                                          alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
+                                              self.performSegue(withIdentifier: "depositToProfileSegue", sender: self)
+                                          }))
+                                          self.present(alert, animated: true)
+                                      }
+                                  } else {
+                                    self.swipeArrowView.center = CGPoint(x: self.originPointArrow.x, y: self.originPointArrow.y)
+                                      print("Error: " + result.response[0])
                                   }
-                              } else {
-                                  print("Error: " + result.response[0])
                               }
-                          }
-                    }
-                       
+                        }
                   }
-            } else {
-                print("Please enter an amount.")
-            }
-            }
+        }
   
     }
     
