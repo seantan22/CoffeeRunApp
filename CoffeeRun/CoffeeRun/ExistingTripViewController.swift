@@ -17,7 +17,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var tableView: UITableView!
     
-    static var ordersToPickup: [Order] = Array()
+    static var ordersToPickup: [OrderWithFriends] = Array()
     
     var index: Int = 0
 

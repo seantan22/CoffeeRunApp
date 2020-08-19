@@ -21,7 +21,7 @@ class PickupOrdersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     
-        self.layer.cornerRadius = 5
+//        self.layer.cornerRadius = 5
         self.layer.borderWidth = 0.5
         self.layer.shadowColor = UIColor.red.cgColor
         self.layer.shadowRadius = 10
@@ -42,7 +42,7 @@ class PickupOrdersTableViewCell: UITableViewCell {
 
     }
     
-    func setOrder(order: Order) {
+    func setOrder(order: OrderWithFriends) {
         vendorLabel.text = order.restaurant.replacingOccurrences(of: "_", with: " ")
         itemLabel.text = order.size + " " + order.beverage
         costLabel.text = "$" + order.cost

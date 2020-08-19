@@ -33,7 +33,7 @@ class SelectedOrderTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setOrder(order: Order) {
+    func setOrder(order: OrderWithFriends) {
         vendorLabel.text = order.restaurant.replacingOccurrences(of: "_", with: " ")
         itemLabel.text = order.size + " " + order.beverage
         detailsLabel.text = order.details

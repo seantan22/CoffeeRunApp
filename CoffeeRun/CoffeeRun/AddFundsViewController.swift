@@ -13,13 +13,16 @@ class AddFundsViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    var dragAmount = CGSize.zero
+    
     //MARK: Properties
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var balanceTextField: UITextField!
-    @IBOutlet weak var slideToDepositButton: UIButton!
+    @IBOutlet weak var swipeArrowView: UIImageView!
     
+    var originPointArrow: CGPoint!
+
     let balance: Double = Double(ProfileViewController.balance)!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,40 +41,65 @@ class AddFundsViewController: UIViewController {
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         
         balanceTextField.inputAccessoryView = toolBar
-        
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
-        
-        slideToDepositButton.addGestureRecognizer(rightSwipe)
 
     }
     
-    @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
-        if sender.state == .ended {
-            if balanceTextField.text! == "" {
-                print("Please enter an amount.")
-            } else {
-                deposit(user_id: UserDefaults.standard.string(forKey: "user_id")!,
-                        funds: balanceTextField.text!) {(result: Response) in
-                            
-                    if result.result {
-                        ProfileViewController.balance = result.response[0]
-                       
-                        DispatchQueue.main.async {
-                            self.balanceLabel.text = String(format: "$%.02f", self.balance)
-                            
-                            let alert = UIAlertController(title: "Deposit Successful!", message: "", preferredStyle: .alert)
-
-                            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
-                                self.performSegue(withIdentifier: "depositToProfileSegue", sender: self)
-                            }))
-                            self.present(alert, animated: true)
-                        }
+    
+    @IBAction func handleSwipe(_ sender: UIPanGestureRecognizer) {
+        
+        let translation = sender.translation(in: view)
+        
+        let position = sender.location(in: view)
+        
+        let velocity = sender.velocity(in: view)
+        
+        if velocity.x > 0 {
+            if balanceTextField.text != "" {
+                if sender.state == .began {
+                                      
+                      originPointArrow = swipeArrowView.center
+                      
+                  } else if sender.state == .changed {
+                      
+                   if position.x > 40.0 && position.x < 350.0 {
+                           swipeArrowView.center = CGPoint(x: originPointArrow.x + translation.x, y: originPointArrow.y)
+                   }
+           
+                  } else if sender.state == .ended {
+                    
+                    if position.x < 350.0 {
+                        swipeArrowView.center = CGPoint(x: 40.0, y: originPointArrow.y)
                     } else {
-                        print("Error: " + result.response[0])
+                        swipeArrowView.center = CGPoint(x: 40.0, y: originPointArrow.y)
+                        
+                          deposit(user_id: UserDefaults.standard.string(forKey: "user_id")!,
+                                  funds: balanceTextField.text!) {(result: Response) in
+
+                              if result.result {
+                                  ProfileViewController.balance = result.response[0]
+
+                                  DispatchQueue.main.async {
+                                      self.balanceLabel.text = String(format: "$%.02f", self.balance)
+
+                                      let alert = UIAlertController(title: "Deposit Successful!", message: "", preferredStyle: .alert)
+
+                                      alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
+                                          self.performSegue(withIdentifier: "depositToProfileSegue", sender: self)
+                                      }))
+                                      self.present(alert, animated: true)
+                                  }
+                              } else {
+                                  print("Error: " + result.response[0])
+                              }
+                          }
                     }
-                }
+                       
+                  }
+            } else {
+                print("Please enter an amount.")
             }
-        }
+            }
+  
     }
     
     @objc func doneClicked() {

@@ -1825,6 +1825,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j1V-bd-rMb">
                                 <rect key="frame" x="20" y="308.5" width="374" height="484.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderItem" rowHeight="125" id="i5V-NX-RzX" customClass="PickupOrdersTableViewCell" customModule="CoffeeRun" customModuleProvider="target">
@@ -2167,6 +2168,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7ff-BE-cmC">
                                 <rect key="frame" x="20" y="197.5" width="374" height="595.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectedOrderItem" rowHeight="200" id="Smc-v6-5b6" customClass="SelectedOrderTableViewCell" customModule="CoffeeRun" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="374" height="200"/>
@@ -3106,20 +3108,6 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4g-sK-o7B">
-                                <rect key="frame" x="50" y="603" width="314" height="70"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="BfE-gE-nVg"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title=" Slide to Deposit" image="arrow.right.circle.fill" catalog="system">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
-                                </state>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="A1k-3b-KzI">
                                 <rect key="frame" x="0.0" y="363" width="414" height="78"/>
                                 <subviews>
@@ -3143,20 +3131,55 @@
                                     <constraint firstAttribute="trailing" secondItem="2VH-Bf-vb9" secondAttribute="trailing" id="nzK-rG-9Kw"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3wc-8Z-lwG">
+                                <rect key="frame" x="20" y="610" width="374" height="76"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Swipe to Deposit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drj-fu-eX3">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="78"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.right.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Fzo-ph-F3o">
+                                        <rect key="frame" x="15" y="8.5" width="60" height="59"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="OGZ-0Q-BZM"/>
+                                            <constraint firstAttribute="height" constant="60" id="QpP-pK-iqp"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="zwW-PR-cWk" appends="YES" id="vjN-Bt-CMu"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="Fzo-ph-F3o" firstAttribute="leading" secondItem="3wc-8Z-lwG" secondAttribute="leading" constant="15" id="20d-PC-1P4"/>
+                                    <constraint firstAttribute="bottom" secondItem="Fzo-ph-F3o" secondAttribute="bottom" constant="8" id="7s9-RN-qhP"/>
+                                    <constraint firstAttribute="bottom" secondItem="Drj-fu-eX3" secondAttribute="bottom" id="JDl-Bg-0sw"/>
+                                    <constraint firstItem="Drj-fu-eX3" firstAttribute="leading" secondItem="3wc-8Z-lwG" secondAttribute="leading" id="LSP-wb-sHM"/>
+                                    <constraint firstItem="Fzo-ph-F3o" firstAttribute="top" secondItem="3wc-8Z-lwG" secondAttribute="top" constant="8" id="h9m-ML-d4G"/>
+                                    <constraint firstItem="Drj-fu-eX3" firstAttribute="top" secondItem="3wc-8Z-lwG" secondAttribute="top" id="pBD-qn-mSl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Drj-fu-eX3" secondAttribute="trailing" id="xzR-WR-bmJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="3wc-8Z-lwG" firstAttribute="leading" secondItem="5ft-2w-TK4" secondAttribute="leading" constant="20" id="7n7-fn-lir"/>
                             <constraint firstItem="Grh-gB-ltM" firstAttribute="centerY" secondItem="ZLI-iR-Y7b" secondAttribute="centerY" constant="-200" id="Cbi-B6-frd"/>
-                            <constraint firstItem="q4g-sK-o7B" firstAttribute="leading" secondItem="5ft-2w-TK4" secondAttribute="leading" constant="50" id="DUA-dh-rxB"/>
                             <constraint firstItem="Grh-gB-ltM" firstAttribute="centerX" secondItem="ZLI-iR-Y7b" secondAttribute="centerX" id="F1N-ia-1uq"/>
                             <constraint firstItem="Grh-gB-ltM" firstAttribute="leading" secondItem="5ft-2w-TK4" secondAttribute="leading" id="GcA-C0-1Pk"/>
                             <constraint firstItem="5ft-2w-TK4" firstAttribute="trailing" secondItem="A1k-3b-KzI" secondAttribute="trailing" id="HQx-6b-FcB"/>
-                            <constraint firstItem="q4g-sK-o7B" firstAttribute="centerY" secondItem="ZLI-iR-Y7b" secondAttribute="centerY" constant="190" id="J3j-Kx-jJK"/>
-                            <constraint firstItem="q4g-sK-o7B" firstAttribute="centerX" secondItem="ZLI-iR-Y7b" secondAttribute="centerX" id="YFr-gt-UIj"/>
-                            <constraint firstItem="5ft-2w-TK4" firstAttribute="trailing" secondItem="q4g-sK-o7B" secondAttribute="trailing" constant="50" id="aIG-q7-r3e"/>
+                            <constraint firstItem="5ft-2w-TK4" firstAttribute="trailing" secondItem="3wc-8Z-lwG" secondAttribute="trailing" constant="20" id="RFh-qc-pko"/>
+                            <constraint firstItem="3wc-8Z-lwG" firstAttribute="centerY" secondItem="ZLI-iR-Y7b" secondAttribute="centerY" constant="200" id="WbK-Y9-R6k"/>
                             <constraint firstItem="A1k-3b-KzI" firstAttribute="top" secondItem="Grh-gB-ltM" secondAttribute="bottom" constant="75" id="fOC-SI-0P4"/>
                             <constraint firstItem="5ft-2w-TK4" firstAttribute="trailing" secondItem="Grh-gB-ltM" secondAttribute="trailing" id="hUy-Kg-cbz"/>
+                            <constraint firstItem="3wc-8Z-lwG" firstAttribute="centerX" secondItem="ZLI-iR-Y7b" secondAttribute="centerX" id="qnZ-RF-tqN"/>
                             <constraint firstItem="A1k-3b-KzI" firstAttribute="leading" secondItem="ZLI-iR-Y7b" secondAttribute="leading" id="wpd-AQ-6c5"/>
+                            <constraint firstItem="3wc-8Z-lwG" firstAttribute="centerX" secondItem="ZLI-iR-Y7b" secondAttribute="centerX" id="yNU-ZI-W14"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5ft-2w-TK4"/>
                     </view>
@@ -3164,15 +3187,19 @@
                     <connections>
                         <outlet property="balanceLabel" destination="Nwu-ws-1mb" id="fZp-f4-N0c"/>
                         <outlet property="balanceTextField" destination="4Wr-5i-KE8" id="tzR-TE-MOw"/>
-                        <outlet property="slideToDepositButton" destination="q4g-sK-o7B" id="9uW-SB-bUA"/>
+                        <outlet property="swipeArrowView" destination="Fzo-ph-F3o" id="YxG-04-GfD"/>
                         <segue destination="Ddh-5P-gho" kind="unwind" identifier="depositToProfileSegue" unwindAction="unwindToProfileWithSegue:" id="3rZ-ga-iWX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgG-fV-AlD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Ddh-5P-gho" userLabel="Exit" sceneMemberID="exit"/>
-                <swipeGestureRecognizer direction="right" id="zXq-w0-IOZ"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="zwW-PR-cWk">
+                    <connections>
+                        <action selector="handleSwipe:" destination="AmW-Ny-7nf" id="ztq-AV-Y8E"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1699" y="3739"/>
+            <point key="canvasLocation" x="1698.5507246376812" y="3738.6160714285711"/>
         </scene>
         <!--Withdraw-->
         <scene sceneID="EqS-dL-zfW">
@@ -4045,7 +4072,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="wRC-7u-HUK"/>
         <segue reference="cV3-b0-J7a"/>
-        <segue reference="HNp-XA-NIh"/>
+        <segue reference="4Cz-4Q-ULq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.8941258192" green="0.39218041300000001" blue="0.39212569590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>

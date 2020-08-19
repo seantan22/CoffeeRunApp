@@ -15,13 +15,13 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var ordersTimer: Timer?
     
-    var orders: [Order] = Array()
+    var orders: [OrderWithFriends] = Array()
     
-    var tempOrders: [Order] = Array()
+    var tempOrders: [OrderWithFriends] = Array()
     
     var index: Int = 0
     
-    var selectedOrders: [Order] = Array()
+    var selectedOrders: [OrderWithFriends] = Array()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -74,8 +74,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     //TODO: get orders, iterate through with for loop
-    func populateArray() -> [Order] {
-        getOrders() {(result: Response) in
+    func populateArray() -> [OrderWithFriends] {
+        getOrders(username: UserDefaults.standard.string(forKey: "username")!) {(result: Response) in
             if result.result {
                 NewTripViewController.numOpenOrders = String(result.response.count)
                 DispatchQueue.main.async {
@@ -84,7 +84,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.index = 0
                 self.tempOrders = []
                 for orderIndex in result.response {
-                        let order = Order(  id: orderIndex["_id"]!,
+                        let order = OrderWithFriends(  id: orderIndex["_id"]!,
                                             restaurant: orderIndex["restaurant"]!,
                                             size: orderIndex["size"]!,
                                             beverage: orderIndex["beverage"]!,
@@ -96,7 +96,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                                             creator: orderIndex["creator"]!,
                                             cost: orderIndex["cost"]!,
                                             status: orderIndex["status"]!,
-                                            delivery_boy: orderIndex["delivery_boy"]!)
+                                            delivery_boy: orderIndex["delivery_boy"]!,
+                                            friends: orderIndex["friends"]!)
                     self.tempOrders.append(order)
                 }
    
@@ -139,10 +140,18 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 let order = self.orders[index]
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItem", for: indexPath) as! PickupOrdersTableViewCell
                 cell.setOrder(order: order)
+                
+                let starImage = UIImage(systemName: "star.fill")
+                let starView = UIImageView(image: starImage)
+                
+                if order.friends == "true" {
+                    cell.accessoryView = starView
+                }
+                
                 index += 1
                 return cell
             }
-        return UITableViewCell()
+            return UITableViewCell()
        }
     
 
@@ -175,7 +184,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    func checkIfSelected(array: Array<Order>, order: Order) -> Bool {
+    func checkIfSelected(array: [OrderWithFriends], order: OrderWithFriends) -> Bool {
         for specificOrder in array {
             if specificOrder.creator == order.creator {
                 return true
@@ -184,7 +193,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         return false
     }
     
-    func getOrderIndex(array: Array<Order>, order: Order) -> Int {
+    func getOrderIndex(array: [OrderWithFriends], order: OrderWithFriends) -> Int {
         var counter: Int = 0
         for specificOrder in array {
             if specificOrder.creator == order.creator {
@@ -208,7 +217,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     // GET /getOrders
-    func getOrders(completion: @escaping(Response) -> ()) {
+    func getOrders(username: String, completion: @escaping(Response) -> ()) {
         
         let session = URLSession.shared
         
@@ -220,6 +229,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(username, forHTTPHeaderField: "username")
        
         let task = session.dataTask(with: request) { data, response, error in
             if let data = data {

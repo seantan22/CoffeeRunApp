@@ -44,19 +44,20 @@ class TripExistenceViewController: UIViewController {
                             TripExistenceViewController.doesTripExist = result.result
                             ExistingTripViewController.ordersToPickup = []
                             for orderIndex in result.response {
-                                    let order = Order(  id: orderIndex["_id"]!,
-                                                        restaurant: orderIndex["restaurant"]!,
-                                                        size: orderIndex["size"]!,
-                                                        beverage: orderIndex["beverage"]!,
-                                                        details: orderIndex["details"]!,
-                                                        time: orderIndex["time"]!,
-                                                        library: orderIndex["library"]!,
-                                                        floor: orderIndex["floor"]!,
-                                                        zone: orderIndex["segment"]!,
-                                                        creator: orderIndex["creator"]!,
-                                                        cost: orderIndex["cost"]!,
-                                                        status: orderIndex["status"]!,
-                                                        delivery_boy: orderIndex["delivery_boy"]!)
+                                    let order = OrderWithFriends(   id: orderIndex["_id"]!,
+                                                                    restaurant: orderIndex["restaurant"]!,
+                                                                    size: orderIndex["size"]!,
+                                                                    beverage: orderIndex["beverage"]!,
+                                                                    details: orderIndex["details"]!,
+                                                                    time: orderIndex["time"]!,
+                                                                    library: orderIndex["library"]!,
+                                                                    floor: orderIndex["floor"]!,
+                                                                    zone: orderIndex["segment"]!,
+                                                                    creator: orderIndex["creator"]!,
+                                                                    cost: orderIndex["cost"]!,
+                                                                    status: orderIndex["status"]!,
+                                                                    delivery_boy: orderIndex["delivery_boy"]!,
+                                                                    friends: orderIndex["friends"]!)
                                 
                                 ExistingTripViewController.ordersToPickup.append(order)
                             }

@@ -48,6 +48,7 @@
 		66C11AB024E5DCDD007B709A /* OrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C11AAF24E5DCDD007B709A /* OrderHistoryViewController.swift */; };
 		66C11AB224E5DCF8007B709A /* PickupHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C11AB124E5DCF8007B709A /* PickupHistoryViewController.swift */; };
 		66C3533D24E5BD6900ABD9BA /* FriendRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3533C24E5BD6900ABD9BA /* FriendRequestsViewController.swift */; };
+		66C777FC24ECD823006BBB0D /* OrderWithFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C777FB24ECD823006BBB0D /* OrderWithFriends.swift */; };
 		66D0551424EB9DFD007D2C75 /* Havana-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66C2F67C24EB98E2005B7815 /* Havana-Italic.ttf */; };
 		66D0551524EB9DFD007D2C75 /* Havana-Rounded.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66C2F67B24EB98E2005B7815 /* Havana-Rounded.ttf */; };
 		66D0551624EB9DFD007D2C75 /* Havana-Shadows.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66C2F67D24EB98E3005B7815 /* Havana-Shadows.ttf */; };
@@ -111,6 +112,7 @@
 		66C2F67C24EB98E2005B7815 /* Havana-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Havana-Italic.ttf"; sourceTree = "<group>"; };
 		66C2F67D24EB98E3005B7815 /* Havana-Shadows.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Havana-Shadows.ttf"; sourceTree = "<group>"; };
 		66C3533C24E5BD6900ABD9BA /* FriendRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsViewController.swift; sourceTree = "<group>"; };
+		66C777FB24ECD823006BBB0D /* OrderWithFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderWithFriends.swift; sourceTree = "<group>"; };
 		66D9AED524EB6D1B005F63E5 /* LawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LawViewController.swift; sourceTree = "<group>"; };
 		66F09C0624E381C200389304 /* FindUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsersViewController.swift; sourceTree = "<group>"; };
 		66F09C0824E383B300389304 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				66316CA724D4C49000B1A973 /* AppDelegate.swift */,
 				66316CA924D4C49000B1A973 /* SceneDelegate.swift */,
 				66ADC82624E0DB3400D0BEA7 /* Order.swift */,
+				66C777FB24ECD823006BBB0D /* OrderWithFriends.swift */,
 				662E319D24E9AAE60082C64F /* ClosedOrder.swift */,
 				66F09C0A24E383F600389304 /* User.swift */,
 				66316CC924D4EA7D00B1A973 /* LoginViewController.swift */,
@@ -298,6 +301,7 @@
 				66F09C0724E381C300389304 /* FindUsersViewController.swift in Sources */,
 				667CAD4D24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift in Sources */,
 				66316CA824D4C49000B1A973 /* AppDelegate.swift in Sources */,
+				66C777FC24ECD823006BBB0D /* OrderWithFriends.swift in Sources */,
 				66C11AAE24E5C629007B709A /* FriendRequestTableViewCell.swift in Sources */,
 				660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */,
 				66ADC81D24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift in Sources */,

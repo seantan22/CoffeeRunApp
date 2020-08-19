@@ -169,9 +169,9 @@ class DeliveredViewController: UIViewController {
         let deliveryFeeRate = Double(DeliveredViewController.deliveryFeeRate)!
         
         let subtotal = Double(DeliveredViewController.subtotal)!
-        let gstAmount = subtotal * gstRate
-        let qstAmount = subtotal * qstRate
-        let deliveryFee = subtotal * deliveryFeeRate
+        let gstAmount = round(subtotal * gstRate * 100) / 100
+        let qstAmount = round(subtotal * qstRate * 100) / 100
+        let deliveryFee = (round(subtotal * deliveryFeeRate * 100) / 100) + 1.0
         let totalAmount = subtotal + gstAmount + qstAmount + deliveryFee
         DeliveredViewController.costWithTaxesAndFees = String(totalAmount)
         

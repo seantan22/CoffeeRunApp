@@ -13,7 +13,7 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
-    static var selectedOrders: Array<Order> = Array()
+    static var selectedOrders: [OrderWithFriends] = Array()
 
     @IBOutlet weak var tableView: UITableView!
     

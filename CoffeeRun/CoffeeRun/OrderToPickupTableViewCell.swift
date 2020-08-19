@@ -33,12 +33,12 @@ class OrderToPickupTableViewCell: UITableViewCell {
     }
 
     
-    func setOrder(order: Order) {
+    func setOrder(order: OrderWithFriends) {
         vendorLabel.text = order.restaurant.replacingOccurrences(of: "_", with: " ")
         itemLabel.text = order.size + " " + order.beverage
         detailsLabel.text = order.details
         costLabel.text = "Cost: $" + order.cost
-        profitLabel.text = "Est. Profit: $" + String(round(Double(order.cost)! * 0.15 * 100) / 100)
+        profitLabel.text = "Est. Profit: $" + String(round(Double(order.cost)! * 0.10 * 100) / 100)
         createdAtLabel.text = "Placed " + order.time
         creatorLabel.text = "by " + order.creator
         locationLabel.text = order.library + " " + order.floor + order.zone
