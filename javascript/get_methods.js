@@ -31,8 +31,8 @@ module.exports = {
         res.send(response);
         return;
     },
-    getAllOrders: async function(res){
-        response = await db.getAllOpenOrders();
+    getAllOrders: async function(res, username){
+        response = await db.getAllOpenOrders(username);
         res.send(response);
         return;
     },

@@ -298,7 +298,8 @@ app.delete('/deleteUser', function (req, res){
 // ****************************** ORDERS **************************
 
 app.get('/getOrders', function(req, res){
-    get_methods.getAllOrders(res);
+    var username = req.headers['username'];
+    get_methods.getAllOrders(res, username);
     return;
 })
 

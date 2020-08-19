@@ -873,13 +873,28 @@ module.exports = {
         
         return JSON.stringify({result: true, response: return_record});
     },
-    getAllOpenOrders: async function(){
+    getAllOpenOrders: async function(username){
+        var friend_list = JSON.parse(await esql.getAllFriends(username))['response'];
+        var friend_dictionary = {}
+
+        friend_list.forEach(function(friend){
+            friend_dictionary[friend] = true
+        })
+        
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var order_records = await client.collection("Open_Orders").find({delivery_boy: ""}).toArray();
         db.close();
 
         var return_record = getTimeSince(order_records);
+
+        return_record.forEach(function(order){
+
+            order.NewPropertyName = 'friends';
+            order['frinds'] = order.creator in friend_dictionary;
+
+        });
+
         return JSON.stringify({result: true, response: return_record});
     },
     attachOrder: async function(order_id, delivery_id){
