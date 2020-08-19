@@ -29,15 +29,20 @@ class McLennanViewController: UIViewController {
     @IBOutlet weak var floorFiveButton: UIButton!
     @IBOutlet weak var floorSixButton: UIButton!
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     @IBAction func finishSelectingLibrary(_ sender: Any) {
+        
+        errorLabel.text = ""
         
         if prevFloorClicked != "" && prevZoneClicked != "" {
             performSegue(withIdentifier: "mclennanToSummarySegue", sender: self)
-        } else {
-            print("Please select a floor & zone.")
+        } else if prevFloorClicked == "" {
+            errorLabel.text = "Please select a floor."
+        } else if prevZoneClicked == "" {
+            errorLabel.text = "Please select a zone."
         }
     }
-    
     
     @IBAction func toggleZone(_ sender: UIButton) {
         
@@ -166,6 +171,8 @@ class McLennanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        errorLabel.text = ""
         
         floorTwoButton.setTitleColor(UIColor.black, for: .normal)
         floorThreeButton.setTitleColor(UIColor.black, for: .normal)

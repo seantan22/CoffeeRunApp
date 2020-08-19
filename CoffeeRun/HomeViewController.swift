@@ -13,6 +13,11 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    @IBOutlet weak var orderCard: UIView!
+    @IBOutlet weak var pickupCard: UIView!
+    @IBOutlet weak var profileCard: UIView!
+    @IBOutlet weak var friendsCard: UIView!
+    
     static var disableTabs: Bool = false
     
     // Prevents double click on tab bar
@@ -55,6 +60,15 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         super.viewDidLoad()
         
          tabBarController?.delegate = self
+        
+        orderCard.cardShadow()
+        orderCard.backgroundColor = UIColor(red: 64/255, green: 201/255, blue: 162/255, alpha: 0.4)
+        pickupCard.cardShadow()
+        pickupCard.backgroundColor = UIColor(red: 240/255, green: 200/255, blue: 8/255, alpha: 0.4)
+        profileCard.cardShadow()
+        profileCard.backgroundColor = UIColor(red: 142/255, green: 103/255, blue: 121/255, alpha: 0.4)
+        friendsCard.cardShadow()
+        friendsCard.backgroundColor = UIColor(red: 8/255, green: 103/255, blue: 136/255, alpha: 0.4)
         
         HomeViewController.disableTabs = true
         
