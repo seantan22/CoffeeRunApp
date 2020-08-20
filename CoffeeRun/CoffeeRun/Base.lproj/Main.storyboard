@@ -3269,15 +3269,23 @@
                                     <constraint firstAttribute="trailing" secondItem="Drj-fu-eX3" secondAttribute="trailing" id="xzR-WR-bmJ"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJW-ej-nDY">
+                                <rect key="frame" x="151.5" y="180" width="111" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="ZJW-ej-nDY" firstAttribute="centerX" secondItem="ZLI-iR-Y7b" secondAttribute="centerX" id="7ZH-0p-CYT"/>
                             <constraint firstItem="3wc-8Z-lwG" firstAttribute="leading" secondItem="5ft-2w-TK4" secondAttribute="leading" constant="20" id="7n7-fn-lir"/>
                             <constraint firstItem="Grh-gB-ltM" firstAttribute="centerY" secondItem="ZLI-iR-Y7b" secondAttribute="centerY" constant="-200" id="Cbi-B6-frd"/>
                             <constraint firstItem="Grh-gB-ltM" firstAttribute="centerX" secondItem="ZLI-iR-Y7b" secondAttribute="centerX" id="F1N-ia-1uq"/>
                             <constraint firstItem="Grh-gB-ltM" firstAttribute="leading" secondItem="5ft-2w-TK4" secondAttribute="leading" id="GcA-C0-1Pk"/>
                             <constraint firstItem="5ft-2w-TK4" firstAttribute="trailing" secondItem="A1k-3b-KzI" secondAttribute="trailing" id="HQx-6b-FcB"/>
                             <constraint firstItem="5ft-2w-TK4" firstAttribute="trailing" secondItem="3wc-8Z-lwG" secondAttribute="trailing" constant="20" id="RFh-qc-pko"/>
+                            <constraint firstItem="ZJW-ej-nDY" firstAttribute="top" secondItem="5ft-2w-TK4" secondAttribute="top" constant="40" id="Sse-d9-bDW"/>
                             <constraint firstItem="3wc-8Z-lwG" firstAttribute="centerY" secondItem="ZLI-iR-Y7b" secondAttribute="centerY" constant="200" id="WbK-Y9-R6k"/>
                             <constraint firstItem="A1k-3b-KzI" firstAttribute="top" secondItem="Grh-gB-ltM" secondAttribute="bottom" constant="75" id="fOC-SI-0P4"/>
                             <constraint firstItem="5ft-2w-TK4" firstAttribute="trailing" secondItem="Grh-gB-ltM" secondAttribute="trailing" id="hUy-Kg-cbz"/>
@@ -3290,6 +3298,7 @@
                     <connections>
                         <outlet property="balanceLabel" destination="Nwu-ws-1mb" id="fZp-f4-N0c"/>
                         <outlet property="balanceTextField" destination="4Wr-5i-KE8" id="tzR-TE-MOw"/>
+                        <outlet property="errorLabel" destination="ZJW-ej-nDY" id="UYR-ab-KFA"/>
                         <outlet property="swipeArrowView" destination="Fzo-ph-F3o" id="YxG-04-GfD"/>
                         <segue destination="Ddh-5P-gho" kind="unwind" identifier="depositToProfileSegue" unwindAction="unwindToProfileWithSegue:" id="3rZ-ga-iWX"/>
                     </connections>
@@ -3387,6 +3396,12 @@
                                     <constraint firstItem="Uwg-dB-yfT" firstAttribute="leading" secondItem="FY6-UH-XYs" secondAttribute="leading" constant="10" id="nPK-1U-fmX"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBr-0p-DAd">
+                                <rect key="frame" x="151.5" y="180" width="111" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -3394,8 +3409,10 @@
                             <constraint firstItem="E4o-DB-mOv" firstAttribute="trailing" secondItem="05A-7p-4Mb" secondAttribute="trailing" id="3Rz-6C-yLF"/>
                             <constraint firstItem="05A-7p-4Mb" firstAttribute="trailing" secondItem="7DK-2m-nQA" secondAttribute="trailing" id="47d-77-0JF"/>
                             <constraint firstItem="FY6-UH-XYs" firstAttribute="centerY" secondItem="YUy-Iy-knW" secondAttribute="centerY" constant="200" id="D7T-LX-9gb"/>
+                            <constraint firstItem="eBr-0p-DAd" firstAttribute="centerX" secondItem="YUy-Iy-knW" secondAttribute="centerX" id="WZS-Qg-am9"/>
                             <constraint firstItem="FY6-UH-XYs" firstAttribute="leading" secondItem="05A-7p-4Mb" secondAttribute="leading" constant="20" id="X7Z-ne-PdV"/>
                             <constraint firstItem="E4o-DB-mOv" firstAttribute="centerY" secondItem="YUy-Iy-knW" secondAttribute="centerY" constant="-200" id="Y8Q-T8-D6e"/>
+                            <constraint firstItem="eBr-0p-DAd" firstAttribute="top" secondItem="05A-7p-4Mb" secondAttribute="top" constant="40" id="cCJ-XJ-Ned"/>
                             <constraint firstItem="E4o-DB-mOv" firstAttribute="centerX" secondItem="YUy-Iy-knW" secondAttribute="centerX" id="d8w-mm-zfk"/>
                             <constraint firstItem="05A-7p-4Mb" firstAttribute="trailing" secondItem="FY6-UH-XYs" secondAttribute="trailing" constant="20" id="eKg-DO-Bs2"/>
                             <constraint firstItem="E4o-DB-mOv" firstAttribute="leading" secondItem="05A-7p-4Mb" secondAttribute="leading" id="lg7-ic-cKo"/>
@@ -3408,6 +3425,7 @@
                     <connections>
                         <outlet property="balanceLabel" destination="Vn2-TT-7G6" id="ciE-Tg-lFy"/>
                         <outlet property="balanceTextField" destination="ML4-ET-Nig" id="nCF-nU-VP4"/>
+                        <outlet property="errorLabel" destination="eBr-0p-DAd" id="aHA-fl-5tP"/>
                         <outlet property="swipeArrowView" destination="Uwg-dB-yfT" id="OM1-yi-3gP"/>
                         <segue destination="eUx-3p-Vlv" kind="unwind" identifier="withdrawToProfileSegue" unwindAction="unwindToProfileWithSegue:" id="CIL-Lo-A7G"/>
                     </connections>
@@ -4098,9 +4116,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="HYk-rW-5e7">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textShadowColor" red="0.8941258192" green="0.39218041300000001" blue="0.39212569590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <offsetWrapper key="textShadowOffset" horizontal="-1" vertical="0.0"/>
                         </textAttributes>
                     </navigationBar>
