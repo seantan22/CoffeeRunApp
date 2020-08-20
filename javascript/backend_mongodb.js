@@ -1032,10 +1032,6 @@ module.exports = {
             db.close();
             return JSON.stringify({result: false, response: ['Delivery person does not exist.']});
         }
-        if(!delivery_record.loggedIn){
-            db.close();
-            return JSON.stringify({result: false, response: ['Delivery user has to be logged in to complete order.']});
-        }
         if(order_record.delivery_boy != delivery_record.username){
             db.close();
             return JSON.stringify({result: false, response: ['Delivery user is not assigned to that order.']});
