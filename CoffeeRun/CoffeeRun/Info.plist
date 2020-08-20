@@ -74,6 +74,11 @@
 		<string>Havana-Rounded.ttf</string>
 		<string>Havana-Shadows.ttf</string>
 		<string>Havana.ttf</string>
+		<string>BebasNeue-Book.ttf</string>
+		<string>BebasNeue-Light.ttf</string>
+		<string>BebasNeue-Regular.ttf</string>
+		<string>BebasNeue-Thin.ttf</string>
+		<string>BebasNeue-Bold.ttf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
