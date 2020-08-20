@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const cred = require('./cred');
 const { ObjectID } = require('mongodb');
+const crypto = require('crypto');
 
 const esql = require('./backend_elephantSQL');
 const { truncate } = require('fs');
@@ -345,21 +346,22 @@ module.exports = {
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var record_response = await client.collection("User").find().toArray();
-        db.close();
 
         // Get all requests and pending for display of users
-        var followRequestArray = await esql.getAllRecordsForUser(current_user);
+        var followRequestArray = await getAllRecordsForUser(current_user, client);
         var dictionary = {};
         var result = "";
+
+        db.close();
 
         // Process through info and store in dictionary for easy search.
         for (var i = 0; i < followRequestArray.length; i++){
             record = followRequestArray[i];
 
-            if(record['sender'] == current_user){
-                dictionary[record['receiver']] = record['confirmation'].toString();
+            if(record.sender == current_user){
+                dictionary[record.receiver] = record.confirmation.toString();
             } else {
-                dictionary[record['sender']] = record['confirmation'].toString();
+                dictionary[record.sender] = record.confirmation.toString();
             }
         }
 
@@ -874,15 +876,16 @@ module.exports = {
         return JSON.stringify({result: true, response: return_record});
     },
     getAllOpenOrders: async function(username){
-        var friend_list = JSON.parse(await esql.getAllFriends(username))['response'];
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+        
+        var friend_list = JSON.parse(await getAllFriends(username, client));
         var friend_dictionary = {}
 
         friend_list.forEach(function(friend){
             friend_dictionary[friend] = true
         })
         
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
-        var client = db.db(dbName);
         var order_records = await client.collection("Open_Orders").find({delivery_boy: ""}).toArray();
         db.close();
 
@@ -1268,12 +1271,13 @@ module.exports = {
         return JSON.stringify({result: true, response: [libraryInformation.Libraries]});
     },
     getFriendOrders: async function(username){
-        var friend_list = JSON.parse(await esql.getAllFriends(username))['response'];
-        var order_list = [];
-        var record;
 
         var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
+
+        var friend_list = JSON.parse(await getAllFriends(username, client));
+        var order_list = [];
+        var record;
 
         for (var i = 0; i < friend_list.length; i++){
             record = await client.collection("Open_Orders").findOne({creator: friend_list[i]});
@@ -1344,8 +1348,143 @@ module.exports = {
         db.close();
         return JSON.stringify({result: true, response: ["true"]});
 
-    }
+    },
+
+    // ************************************* FOLLOWERS *****************************************
+
+    followUser: async function(sender, receiver){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var hash = await createHash(sender, receiver);
+
+        var followerRequest = await client.collection("Friends").findOne({hash: hash});  
+
+        // Check that no requests have already been sent
+        if(followerRequest != null){
+
+            if(followerRequest.confirmation){
+                db.close();
+                return JSON.stringify({result: false, response: ['Already friends.']}); 
+            } else {
+                db.close();
+                return JSON.stringify({result: false, response: ['Friend request pending.']}); 
+            }       
+
+        }
+        friendsResponse = {hash: hash, sender: sender, receiver: receiver, confirmation: false}
+        await client.collection("Friends").insertOne(friendsResponse);
+
+        db.close();
+        return JSON.stringify({result: true, response: ['Request has been sent.']}); 
+
+    },
+    acceptUserFollowRequest: async function(acceptor, sender){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var hash = await createHash(acceptor, sender);
+
+        var followerRequest = await client.collection("Friends").findOne({hash: hash});  
+        
+        if(followerRequest == null){
+            db.close();
+            return JSON.stringify({result: false, response: ['No pending requests.']});     
+        }
+                  
+        if(followerRequest.confirmation){
+            db.close();
+            return JSON.stringify({result: false, response: ['You are already friends.']});  
+        }
+        
+        var updatedRequest = {$set: {confirmation: true}};
+        await client.collection("Friends").updateOne({hash: hash}, updatedRequest);
+        db.close();
+       
+        return JSON.stringify({result: true, response: ['You are now friends with ' + sender]}); 
+    },
+    // Get all requests to current user
+    getAllFollowerRequests: async function(user){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var returnArray = [];
+        
+        var followerRequests = await client.collection("Friends").find({confirmation: false, receiver: user}).toArray();  
+        
+        db.close();
+
+        followerRequests.forEach(function(friendRequest){
+            returnArray.push(friendRequest.sender);
+        })
+        
+        return JSON.stringify({result: true, response: returnArray});
+    },
+    getAllFollowerPending: async function(user){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var returnArray = [];
+        
+        var followerRequests = await client.collection("Friends").find({confirmation: false, sender: user}).toArray();  
+        
+        db.close();
+
+        followerRequests.forEach(function(friendRequest){
+            returnArray.push(friendRequest.receiver);
+        })
+        
+        return JSON.stringify({result: true, response: returnArray});
+    },
+    getAllFriends: async function(user){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var returnArray = [];
+        var followerRequests = await client.collection("Friends").find({confirmation: true, $or: [{sender: user}, {receiver: user}]}).toArray();  
+        
+        db.close();
+
+        followerRequests.forEach(function(friendRequest){
+
+            if(friendRequest.sender == user){
+                returnArray.push(friendRequest.receiver);
+            } else {
+                returnArray.push(friendRequest.sender);
+            }
+
+        })
+        
+        return JSON.stringify({result: true, response: returnArray});
+    },
+    deleteFriendship: async function(deleter, victim){
+        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var client = db.db(dbName);
+
+        var hash = await createHash(deleter, victim);
+
+        var deleteQuery = {hash: hash};
+        await client.collection("Friends").deleteOne(deleteQuery);
+
+        db.close();
+        return JSON.stringify({result: true, response: ['Friendship has been deleted.']});
+    },
 };
+
+async function getAllFriends(user, client){
+    var returnArray = [];
+    var followerRequests = await client.collection("Friends").find({confirmation: true, $or: [{sender: user}, {receiver: user}]}).toArray();  
+    followerRequests.forEach(function(friendRequest){
+
+        if(friendRequest.sender == user){
+            returnArray.push(friendRequest.receiver);
+        } else {
+            returnArray.push(friendRequest.sender);
+        }
+
+    })
+    return returnArray;
+}
 
 async function getTotalOnLogin(username){
 
@@ -1561,5 +1700,29 @@ async function updateAdminFees(updateAdminFees){
     db.close();
 
     return;
+}
 
+// For follower request
+
+async function createHash(sender, receiver){
+    
+    var joined = "";
+    
+    // Alphabetical order for consistent ids
+    if (sender < receiver){
+        // Sender is first in the alphabet
+        joined = sender + receiver;
+    } else {
+        joined = receiver + sender;
+    }
+
+    return crypto.createHash('md5').update(joined).digest('hex');
+}
+
+// For internal use.
+async function getAllRecordsForUser(user, client){
+    var recordsForUser = await client.collection("Friends").find({$or: [{sender: user}, {receiver: user}]}).toArray();  
+    db.close();
+
+    return recordsForUser;
 }

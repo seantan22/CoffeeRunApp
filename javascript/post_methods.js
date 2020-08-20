@@ -1,5 +1,4 @@
 var db = require('./backend_mongodb');
-var esql = require('./backend_elephantSQL');
 var gdrive = require('./backend_googDrive');
 
 module.exports = {
@@ -65,20 +64,20 @@ module.exports = {
 
     // ********* MESSAGING ***********
 
-    sendMessage: async function(res, message, sender, receiver){
-        response = await esql.sendMessage(message, sender, receiver);
-        res.send(response);
-        return;
-    },
+    // sendMessage: async function(res, message, sender, receiver){
+    //     response = await esql.sendMessage(message, sender, receiver);
+    //     res.send(response);
+    //     return;
+    // },
 
     // *********** FOLLOW ************
     followUser: async function(res, sender, receiver){
-        response = await esql.followUser(sender, receiver);
+        response = await db.followUser(sender, receiver);
         res.send(response);
         return;
     },
     acceptUserFollowRequest: async function(res, acceptor, sender){
-        response = await esql.acceptUserFollowRequest(acceptor, sender);
+        response = await db.acceptUserFollowRequest(acceptor, sender);
         res.send(response);
         return;
     },

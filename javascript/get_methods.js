@@ -1,5 +1,4 @@
 var db = require('./backend_mongodb');
-var esql = require('./backend_elephantSQL');
 var googleD = require('./backend_googDrive');
 
 module.exports = {
@@ -61,11 +60,11 @@ module.exports = {
         res.send(response);
         return;
     },
-    getMessages: async function(res, sender, receiver){
-        response = await esql.getMessage(sender, receiver);
-        res.send(response);
-        return;
-    },
+    // getMessages: async function(res, sender, receiver){
+    //     response = await esql.getMessage(sender, receiver);
+    //     res.send(response);
+    //     return;
+    // },
     getVendors: async function(res){
         response = await db.getVendors();
         res.send(response);
@@ -109,17 +108,17 @@ module.exports = {
 
     // ********************* FOLLOWERS *******************
     getAllFollowerRequests: async function(res, user){
-        response = await esql.getAllFollowerRequests(user);
+        response = await db.getAllFollowerRequests(user);
         res.send(response);
         return;
     },
     getAllFollowerPending: async function(res, user){
-        response = await esql.getAllFollowerPending(user);
+        response = await db.getAllFollowerPending(user);
         res.send(response);
         return;
     },
     getAllFriends: async function(res, user){
-        response = await esql.getAllFriends(user);
+        response = await db.getAllFriends(user);
         res.send(response);
         return;
     },
