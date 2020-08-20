@@ -1722,7 +1722,5 @@ async function createHash(sender, receiver){
 // For internal use.
 async function getAllRecordsForUser(user, client){
     var recordsForUser = await client.collection("Friends").find({$or: [{sender: user}, {receiver: user}]}).toArray();  
-    db.close();
-
     return recordsForUser;
 }
