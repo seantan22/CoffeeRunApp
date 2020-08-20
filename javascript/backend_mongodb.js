@@ -536,9 +536,9 @@ module.exports = {
             return JSON.stringify({result: false, response: ['Cannot withdraw funds when you have a pending order.']});
         }
 
-        if(funds <= 0.00 || funds > 50.00){
+        if(funds <= 0.00 || funds > user_record.balance){
             db.close();
-            return JSON.stringify({result: false, response: ['Please withdraw between $0.00 and $50.00.']});
+            return JSON.stringify({result: false, response: ['Please withdraw between $0.00 and $' + user_record.balance + '.']});
         }
         if(funds > user_record.balance){
             db.close();
