@@ -813,6 +813,7 @@ module.exports = {
         }
 
         db.close();
+
         return JSON.stringify({result: true, response: order_records});
     },
     getClosedOrders: async function(id){
@@ -839,6 +840,7 @@ module.exports = {
    
     },
     getOrdersForDelivery: async function(id){
+
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
@@ -853,11 +855,11 @@ module.exports = {
         var username = delivery_record.username;
 
         var order_records = await client.collection("Open_Orders").find({delivery_boy: username}).toArray();
-                
+        
         var return_record = getTimeSince(order_records);
         db.close();
-        
-        return JSON.stringify({result: true, response: return_record});
+
+        return JSON.stringify({result: true, response: attachFriendToOrderArray(return_record)});
     },
     getAllOpenOrders: async function(username){
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -1706,4 +1708,16 @@ async function createHash(sender, receiver){
 async function getAllRecordsForUser(user, client){
     var recordsForUser = await client.collection("Friends").find({$or: [{sender: user}, {receiver: user}]}).toArray();  
     return recordsForUser;
+}
+
+function attachFriendToOrderArray(array){
+
+    array.forEach(function(order){
+
+        order.friends = "";
+
+    })
+
+    return array;
+
 }
