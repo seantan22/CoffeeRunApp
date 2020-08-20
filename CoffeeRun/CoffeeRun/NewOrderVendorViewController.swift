@@ -130,6 +130,8 @@ class NewOrderVendorViewController: UIViewController {
         starbucksBtn.applyShadow()
         secondCupBtn.applyShadow()
     
+        view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
+    
     }
     
     struct Response: Decodable {

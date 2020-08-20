@@ -17,6 +17,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var errorMsgLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signInButton: UIButton!
+    
     
     @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
     }
@@ -82,6 +84,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         emailTextField.delegate = self;
         passwordTextField.delegate = self;
+        
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        signInButton.mainButton()
         
     }
     

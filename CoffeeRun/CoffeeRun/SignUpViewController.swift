@@ -18,6 +18,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var signUpButton: UIButton!
+    
     
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
@@ -105,6 +107,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         usernameTextField.delegate = self;
         passwordTextField.delegate = self;
         confirmPasswordTextField.delegate = self;
+        
+        signUpButton.mainButton()
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
     }
     

@@ -68,6 +68,8 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         d1TextField.becomeFirstResponder()
+        
+         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
     }
     
     @objc func textdidChange(textField: UITextField) {
