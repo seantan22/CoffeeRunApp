@@ -2,10 +2,10 @@ const aws = require('aws-sdk');
 
 module.exports = {
     // interact
-    getMongoURI: function(){
-        var mongoKey = new aws.S3({mongo_uri: process.env.mongodb_uri,});
-        return mongoKey.config.mongo_uri;
-    },
+    // getMongoURI: function(){
+    //     var mongoKey = new aws.S3({mongo_uri: process.env.mongodb_uri,});
+    //     return mongoKey.config.mongo_uri;
+    // },
     getGoogleAPIToken: function(){
         var googleKey = new aws.S3({google_api: process.env.google_api,});
         return googleKey.config.google_api;
@@ -15,7 +15,9 @@ module.exports = {
         return elephantKey.config.elephant_uri;
     },
 
-    
+    getMongoUri(){
+        return 'mongodb+srv://Dwarff19:NewLoc@lP@ss123!@coffeerun.y795l.azure.mongodb.net/CoffeeRun?retryWrites=true&w=majority'
+    },
     getPass: function(){
         return 'NewLoc@lP@ss123!'
     }, 

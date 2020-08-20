@@ -1,29 +1,13 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
-const TMClient = require('textmagic-rest-client');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const cred = require('./cred');
-const { ObjectID } = require('mongodb');
 const crypto = require('crypto');
-
-const esql = require('./backend_elephantSQL');
-const { truncate } = require('fs');
 
 const dbName = 'CoffeeRun';
 const pName = 'Products';
 const sName = 'Statistics';
-
-const uri = "mongodb+srv://Dwarff19:" + cred.getPass() + "@coffeerun.y795l.azure.mongodb.net/" + dbName + "?retryWrites=true&w=majority";
-
-// Upon login for the first time, send SMS message.
-function sendSMS(phone_number, verification_code){
-    var c = new TMClient('alexgruenwald', 'fzRW0tCWGeQHpenejnz8dt5mBMcjab');
-    // Phone number format - no '-' allowed.
-    number = '+1' + phone_number.split('-').join('');
-    c.Messages.send({text: 'Welcome to CoffeeRun! Your verification code is: ' + verification_code, phones: number});
-    return [true, 'Verification code send.'];
-}
 
 // Gets the previous VIABLE balance
 function getPreviousValue(transaction_history, user_record){
@@ -79,7 +63,7 @@ async function checkIfCorrupt(type, client, user_record, funds){
 async function checkIfInputIsUnique(key, value){
     var existence = false;
     
-    var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+    var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
     var client = db.db(dbName);
     
     var record = await client.collection("User").findOne({ [key]: value }).catch((error) => console.log(error));
@@ -93,7 +77,7 @@ async function checkIfInputIsUnique(key, value){
 }
 
 async function loginWithCred(email, password){
-    var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+    var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
     var client = db.db(dbName);
     
     var record = await client.collection("User").findOne({ email: email.toLowerCase() }).catch((error) => console.log(error));
@@ -142,7 +126,7 @@ async function loginWithCred(email, password){
 
 async function logoutWithCred(id){
 
-    var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+    var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
     var client = db.db(dbName);
     
     var record = await client.collection("User").findOne({ _id: ObjectId(id)}).catch((error) => console.log(error));
@@ -166,11 +150,11 @@ async function logoutWithCred(id){
 
 module.exports = {
     getTest: async function(){
-        return cred.getMongoURI();
+        return cred.getMongocred.getMongoUri()();
     },
 
     getTaxRates: async function(){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var tax_records = await client.collection("Rates").findOne({Title: 'rates'}).catch((error) => console.log(error));
         
@@ -181,7 +165,7 @@ module.exports = {
 
     },
     forgetPassword: async function(email){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
         
@@ -218,7 +202,7 @@ module.exports = {
         return JSON.stringify({result: true, response: ['An email has been sent to your account.']});
     },
     updatePasswordFromReset: async function(email, new_password){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var reset_record = await client.collection("Reset_Records").findOne({email: email}).catch((error) => console.log(error));
 
@@ -250,21 +234,21 @@ module.exports = {
         return JSON.stringify({result: true, response: ["Successfully updated."]});;
     },
     getOrdersByLibrary: async function(library){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         number_of_orders = await client.collection("Open_Orders").countDocuments({library: library});
         db.close();
         return JSON.stringify({result: true, response: number_of_orders});
     },
     getNumberOfAllOpenOrders: async function(){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         number_of_orders = await client.collection("Open_Orders").countDocuments();
         db.close();
         return JSON.stringify({result: true, response: number_of_orders.toString()});
     },
     getCurrentRunners: async function(){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         
         // Get all unique runners.
@@ -281,7 +265,7 @@ module.exports = {
         return JSON.stringify({result: true, response: ['Thank you for your review.']});
     },
     verifyUser: async function(id, verification_number){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var record = await client.collection("User").findOne({_id: ObjectId(id)});
 
@@ -315,7 +299,7 @@ module.exports = {
     // ************************************** USER ***************************************
 
     getUser: async function(id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var record = await client.collection("User").findOne({_id: ObjectId(id)});
         
@@ -343,7 +327,7 @@ module.exports = {
         var slice_2 = [];
         var added = false;
 
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var record_response = await client.collection("User").find().toArray();
 
@@ -416,7 +400,7 @@ module.exports = {
     },
     addUser: async function(username, password, mail, number){
         var starting_balance = 0;
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         verification_code = Math.floor(100000 + Math.random() * 899999);
@@ -439,7 +423,7 @@ module.exports = {
     updateUser: async function(id, username, password){
         var hasUpdated = false;
 
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var record = await client.collection("User").findOne({ _id: ObjectId(id)}).catch((error) => console.log(error));
@@ -495,7 +479,7 @@ module.exports = {
     },
     deleteUser: async function(id){
         
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var record = await client.collection("User").findOne({ _id: ObjectId(id) }).catch((error) => console.log(error));
         
@@ -531,7 +515,7 @@ module.exports = {
 
     // WITHDRAW AND DEPOSIT USES CUSTOMER LEDGER
     withdraw: async function(user_id, funds){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id) }).catch((error) => console.log(error));
 
@@ -585,7 +569,7 @@ module.exports = {
         return JSON.stringify({result: true, response: ['' + parseFloat(rounded_balance)]});
     },
     deposit: async function(user_id, funds){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id) }).catch((error) => console.log(error));
 
@@ -630,7 +614,7 @@ module.exports = {
 
     createOrder: async function(beverage, size, details, restaurant, library, floor, segment, cost, status, id){
 
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         // Check if user exists.
@@ -714,7 +698,7 @@ module.exports = {
         return JSON.stringify({result: true, response: [response.ops[0]._id]});
     },
     updateOrder: async function(id, username, beverage, size, details, restaurant, library, floor, segment, cost, status){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         // Check if order exists.
@@ -751,7 +735,7 @@ module.exports = {
         return JSON.stringify({result: true, response: ['Order successfully updated.']});
     },
     updateOrderStatus: async function(order_id, delivery_id, status) {
-        var db = await MongoClient.connect(uri, {useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), {useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         // Check if order exists.
@@ -783,7 +767,7 @@ module.exports = {
 
     },
     deleteOrder: async function(id, username){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         // Check if order exists.
@@ -808,7 +792,7 @@ module.exports = {
         return JSON.stringify({result: true, response: ['Successfully deleted order.']});
     },
     getOrderForUser: async function(id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         // Check if user exists.
@@ -832,7 +816,7 @@ module.exports = {
         return JSON.stringify({result: true, response: order_records});
     },
     getClosedOrders: async function(id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         // Check if user exists.
@@ -855,7 +839,7 @@ module.exports = {
    
     },
     getOrdersForDelivery: async function(id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         // Check if user exists.
@@ -876,10 +860,10 @@ module.exports = {
         return JSON.stringify({result: true, response: return_record});
     },
     getAllOpenOrders: async function(username){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         
-        var friend_list = JSON.parse(await getAllFriends(username, client));
+        var friend_list = await getAllFriends(username, client);
         var friend_dictionary = {}
 
         friend_list.forEach(function(friend){
@@ -893,15 +877,14 @@ module.exports = {
 
         return_record.forEach(function(order){
 
-            order.NewPropertyName = 'friends';
-            order['friends'] = (order.creator in friend_dictionary).toString();
+            order.friends = (order.creator in friend_dictionary).toString();
 
         });
 
         return JSON.stringify({result: true, response: return_record});
     },
     attachOrder: async function(order_id, delivery_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         
         // Check if users exists.
@@ -963,7 +946,7 @@ module.exports = {
 
     },
     detachOrder: async function(order_id, delivery_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var order_record = await client.collection('Open_Orders').findOne({_id: ObjectId(order_id)}).catch((error) => console.log(error));
@@ -1002,7 +985,7 @@ module.exports = {
     },
     completeOrder: async function(rating, order_id, user_id, delivery_username, cost, tip){
                 
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         if(rating < 0 || rating > 5){
@@ -1115,7 +1098,7 @@ module.exports = {
     },
 
     getDeliveryRating: async function(delivery_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var delivery_record = await client.collection('User').findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
@@ -1173,7 +1156,7 @@ module.exports = {
     },
     // Only admin privilege
     cleanFlagged: async function(user_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var user_record = await client.collection("User").findOne({ _id: ObjectId(user_id)}).catch((error) => console.log(error));
         
@@ -1205,7 +1188,7 @@ module.exports = {
         return JSON.stringify({result: true, response: ['Account: ' + user_record.username + ' has been reactivated.']});
     },
     getOrderStatus: async function(order_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var statusValue = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)});
@@ -1221,7 +1204,7 @@ module.exports = {
 
     // *********************************** GET BEVERAGES **************************************
     getVendors: async function(){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
         var arrayOfVendors = await client.collection("ProductInformation").distinct("vendor");
 
@@ -1230,7 +1213,7 @@ module.exports = {
         return JSON.stringify({result: true, response: arrayOfVendors});
     },
     getBeveragesInfoFromVendor: async function(vendor){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
 
         // Master stores all information about beverages
@@ -1240,7 +1223,7 @@ module.exports = {
         return JSON.stringify({result: true, response: [response.information[vendor].beverages, response.information[vendor].size]});
     },
     getBeveragesOfBevAndVendor: async function(vendor, beverage){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
         var arrayOfSizes = await client.collection("ProductInformation").distinct('size', {vendor: vendor,  beverage: beverage});
 
@@ -1249,7 +1232,7 @@ module.exports = {
         return JSON.stringify({result: true, response: arrayOfSizes});
     },
     getBeveragePrice: async function(vendor, beverage, size){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
         var Order_Information = await client.collection("ProductInformation").findOne({vendor: vendor, beverage: beverage, size: size});
 
@@ -1262,7 +1245,7 @@ module.exports = {
         return JSON.stringify({result: true, response: [Order_Information.cost.toString()]});
     },
     getLibraryInformation: async function(){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(pName);
 
         var libraryInformation = await client.collection("LocationInformation").findOne();
@@ -1272,7 +1255,7 @@ module.exports = {
     },
     getFriendOrders: async function(username){
 
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var friend_list = JSON.parse(await getAllFriends(username, client));
@@ -1293,7 +1276,7 @@ module.exports = {
     },
 
     getNewBalanceAfterOrder: async function(user_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var user_information = await client.collection("User").findOne({_id: ObjectId(user_id)});
@@ -1308,7 +1291,7 @@ module.exports = {
         return JSON.stringify({result: true, response: [user_information.balance.toString()]});
     },
     getTotalProfitMade: async function(username){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var sum = 0;
@@ -1336,7 +1319,7 @@ module.exports = {
         return JSON.stringify({result: true, response: [sum.toString(), user_information.balance.toString()]});
     },
     doesOrderExistForDelivery: async function(order_id){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
         var orderStatus = await client.collection("Open_Orders").findOne({_id: ObjectId(order_id)});
         
@@ -1353,7 +1336,7 @@ module.exports = {
     // ************************************* FOLLOWERS *****************************************
 
     followUser: async function(sender, receiver){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var hash = await createHash(sender, receiver);
@@ -1380,7 +1363,7 @@ module.exports = {
 
     },
     acceptUserFollowRequest: async function(acceptor, sender){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var hash = await createHash(acceptor, sender);
@@ -1405,7 +1388,7 @@ module.exports = {
     },
     // Get all requests to current user
     getAllFollowerRequests: async function(user){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var returnArray = [];
@@ -1421,7 +1404,7 @@ module.exports = {
         return JSON.stringify({result: true, response: returnArray});
     },
     getAllFollowerPending: async function(user){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var returnArray = [];
@@ -1437,7 +1420,7 @@ module.exports = {
         return JSON.stringify({result: true, response: returnArray});
     },
     getAllFriends: async function(user){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var returnArray = [];
@@ -1458,7 +1441,7 @@ module.exports = {
         return JSON.stringify({result: true, response: returnArray});
     },
     deleteFriendship: async function(deleter, victim){
-        var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
         var hash = await createHash(deleter, victim);
@@ -1488,7 +1471,7 @@ async function getAllFriends(user, client){
 
 async function getTotalOnLogin(username){
 
-    var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+    var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
     var client = db.db(dbName);
 
     var sum = 0;
@@ -1686,7 +1669,7 @@ function reformatClosedOrder(record){
 
 async function updateAdminFees(updateAdminFees){
 
-    var db = await MongoClient.connect(uri, { useUnifiedTopology: true }).catch((error) => console.log(error));
+    var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
     var client = db.db(sName);
 
     var administration_information = await client.collection("Administration").findOne({type: 'admin'});
