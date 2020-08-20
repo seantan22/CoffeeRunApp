@@ -59,16 +59,18 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         tabBarController?.delegate = self
+        self.tabBarController?.tabBar.barTintColor = .black
         
-        orderCard.cardShadow()
-        orderCard.backgroundColor = UIColor(red: 64/255, green: 201/255, blue: 162/255, alpha: 0.4)
-        pickupCard.cardShadow()
-        pickupCard.backgroundColor = UIColor(red: 240/255, green: 200/255, blue: 8/255, alpha: 0.4)
-        profileCard.cardShadow()
-        profileCard.backgroundColor = UIColor(red: 142/255, green: 103/255, blue: 121/255, alpha: 0.4)
-        friendsCard.cardShadow()
-        friendsCard.backgroundColor = UIColor(red: 8/255, green: 103/255, blue: 136/255, alpha: 0.4)
+        tabBarController?.delegate = self
+        
+        
+        
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
+        orderCard.card()
+        pickupCard.card()
+        profileCard.card()
+        friendsCard.card()
         
         HomeViewController.disableTabs = true
         

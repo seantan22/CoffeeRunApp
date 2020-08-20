@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6600E55E24E5B5FC0084C1B8 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6600E55D24E5B5FC0084C1B8 /* ResetPasswordViewController.swift */; };
 		660173E324DA2AE0006D9346 /* NewOrderVendorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660173E224DA2AE0006D9346 /* NewOrderVendorViewController.swift */; };
+		660BC7F024EF117C00E3380B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EA6CEC24EF0D6E00E3507F /* Constants.swift */; };
 		660F875424DAF5ED00978B4B /* NewOrderBeverageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F875324DAF5ED00978B4B /* NewOrderBeverageViewController.swift */; };
 		661D334424E24F83004BEE5B /* ConfirmSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D334324E24F83004BEE5B /* ConfirmSelectionViewController.swift */; };
 		661D334824E35199004BEE5B /* SelectedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661D334724E35199004BEE5B /* SelectedOrderTableViewCell.swift */; };
@@ -34,6 +35,16 @@
 		667CAD4D24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667CAD4C24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift */; };
 		66923CD824D8E2FE002E731A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66923CD724D8E2FE002E731A /* SignUpViewController.swift */; };
 		66923CDA24D8EB5A002E731A /* ConfirmSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */; };
+		6696AC1924EF0B8E00F4F16C /* BebasNeue-Bold.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 6696AC0F24EF0B7A00F4F16C /* BebasNeue-Bold.ttf */; };
+		6696AC1A24EF0B8E00F4F16C /* BebasNeue-Book.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 6696AC1124EF0B7A00F4F16C /* BebasNeue-Book.ttf */; };
+		6696AC1B24EF0B8E00F4F16C /* BebasNeue-Light.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 6696AC1024EF0B7A00F4F16C /* BebasNeue-Light.ttf */; };
+		6696AC1C24EF0B8E00F4F16C /* BebasNeue-Regular.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 6696AC1324EF0B7A00F4F16C /* BebasNeue-Regular.ttf */; };
+		6696AC1D24EF0B8E00F4F16C /* BebasNeue-Thin.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 6696AC1224EF0B7A00F4F16C /* BebasNeue-Thin.ttf */; };
+		6696AC1E24EF0BA100F4F16C /* BebasNeue-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6696AC0F24EF0B7A00F4F16C /* BebasNeue-Bold.ttf */; };
+		6696AC1F24EF0BA100F4F16C /* BebasNeue-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6696AC1124EF0B7A00F4F16C /* BebasNeue-Book.ttf */; };
+		6696AC2024EF0BA100F4F16C /* BebasNeue-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6696AC1024EF0B7A00F4F16C /* BebasNeue-Light.ttf */; };
+		6696AC2124EF0BA100F4F16C /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6696AC1324EF0B7A00F4F16C /* BebasNeue-Regular.ttf */; };
+		6696AC2224EF0BA100F4F16C /* BebasNeue-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6696AC1224EF0B7A00F4F16C /* BebasNeue-Thin.ttf */; };
 		66ADC81D24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ADC81C24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift */; };
 		66ADC82124E0C6BB00D0BEA7 /* PickupOrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ADC82024E0C6BB00D0BEA7 /* PickupOrdersTableViewCell.swift */; };
 		66ADC82724E0DB3400D0BEA7 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ADC82624E0DB3400D0BEA7 /* Order.swift */; };
@@ -94,6 +105,11 @@
 		667CAD4C24E9CDBF00809CF6 /* PickupHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		66923CD724D8E2FE002E731A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		66923CD924D8EB5A002E731A /* ConfirmSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSignUpViewController.swift; sourceTree = "<group>"; };
+		6696AC0F24EF0B7A00F4F16C /* BebasNeue-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BebasNeue-Bold.ttf"; path = "../../../../Downloads/BebasNeue/TTF/BebasNeue-Bold.ttf"; sourceTree = "<group>"; };
+		6696AC1024EF0B7A00F4F16C /* BebasNeue-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BebasNeue-Light.ttf"; path = "../../../../Downloads/BebasNeue/TTF/BebasNeue-Light.ttf"; sourceTree = "<group>"; };
+		6696AC1124EF0B7A00F4F16C /* BebasNeue-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BebasNeue-Book.ttf"; path = "../../../../Downloads/BebasNeue/TTF/BebasNeue-Book.ttf"; sourceTree = "<group>"; };
+		6696AC1224EF0B7A00F4F16C /* BebasNeue-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BebasNeue-Thin.ttf"; path = "../../../../Downloads/BebasNeue/TTF/BebasNeue-Thin.ttf"; sourceTree = "<group>"; };
+		6696AC1324EF0B7A00F4F16C /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BebasNeue-Regular.ttf"; path = "../../../../Downloads/BebasNeue/TTF/BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		66ADC81C24E0B4C400D0BEA7 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		66ADC82024E0C6BB00D0BEA7 /* PickupOrdersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupOrdersTableViewCell.swift; sourceTree = "<group>"; };
 		66ADC82624E0DB3400D0BEA7 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -114,6 +130,7 @@
 		66C3533C24E5BD6900ABD9BA /* FriendRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsViewController.swift; sourceTree = "<group>"; };
 		66C777FB24ECD823006BBB0D /* OrderWithFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderWithFriends.swift; sourceTree = "<group>"; };
 		66D9AED524EB6D1B005F63E5 /* LawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LawViewController.swift; sourceTree = "<group>"; };
+		66EA6CEC24EF0D6E00E3507F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		66F09C0624E381C200389304 /* FindUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsersViewController.swift; sourceTree = "<group>"; };
 		66F09C0824E383B300389304 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		66F09C0A24E383F600389304 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -150,8 +167,15 @@
 		66316CA624D4C49000B1A973 /* CoffeeRun */ = {
 			isa = PBXGroup;
 			children = (
+				6696AC0F24EF0B7A00F4F16C /* BebasNeue-Bold.ttf */,
+				6696AC1124EF0B7A00F4F16C /* BebasNeue-Book.ttf */,
+				6696AC1024EF0B7A00F4F16C /* BebasNeue-Light.ttf */,
+				6696AC1324EF0B7A00F4F16C /* BebasNeue-Regular.ttf */,
+				6696AC1224EF0B7A00F4F16C /* BebasNeue-Thin.ttf */,
 				66316CA724D4C49000B1A973 /* AppDelegate.swift */,
 				66316CA924D4C49000B1A973 /* SceneDelegate.swift */,
+				6678759A24EB87C200D27BF3 /* Style.swift */,
+				66EA6CEC24EF0D6E00E3507F /* Constants.swift */,
 				66ADC82624E0DB3400D0BEA7 /* Order.swift */,
 				66C777FB24ECD823006BBB0D /* OrderWithFriends.swift */,
 				662E319D24E9AAE60082C64F /* ClosedOrder.swift */,
@@ -197,7 +221,6 @@
 				66C2F67B24EB98E2005B7815 /* Havana-Rounded.ttf */,
 				66C2F67D24EB98E3005B7815 /* Havana-Shadows.ttf */,
 				66C2F67A24EB98E2005B7815 /* Havana.ttf */,
-				6678759A24EB87C200D27BF3 /* Style.swift */,
 				66316CB224D4C49600B1A973 /* Assets.xcassets */,
 				66316CB424D4C49600B1A973 /* LaunchScreen.storyboard */,
 				66316CB724D4C49600B1A973 /* Info.plist */,
@@ -264,6 +287,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6696AC1E24EF0BA100F4F16C /* BebasNeue-Bold.ttf in Resources */,
+				6696AC1F24EF0BA100F4F16C /* BebasNeue-Book.ttf in Resources */,
+				6696AC2024EF0BA100F4F16C /* BebasNeue-Light.ttf in Resources */,
+				6696AC2124EF0BA100F4F16C /* BebasNeue-Regular.ttf in Resources */,
+				6696AC2224EF0BA100F4F16C /* BebasNeue-Thin.ttf in Resources */,
 				66D0551424EB9DFD007D2C75 /* Havana-Italic.ttf in Resources */,
 				66D0551524EB9DFD007D2C75 /* Havana-Rounded.ttf in Resources */,
 				66D0551624EB9DFD007D2C75 /* Havana-Shadows.ttf in Resources */,
@@ -281,6 +309,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				660BC7F024EF117C00E3380B /* Constants.swift in Sources */,
+				6696AC1924EF0B8E00F4F16C /* BebasNeue-Bold.ttf in Sources */,
+				6696AC1A24EF0B8E00F4F16C /* BebasNeue-Book.ttf in Sources */,
+				6696AC1B24EF0B8E00F4F16C /* BebasNeue-Light.ttf in Sources */,
+				6696AC1C24EF0B8E00F4F16C /* BebasNeue-Regular.ttf in Sources */,
+				6696AC1D24EF0B8E00F4F16C /* BebasNeue-Thin.ttf in Sources */,
 				66E9912024EB9D6A0089B1EF /* Havana-Italic.ttf in Sources */,
 				66E9912124EB9D6A0089B1EF /* Havana-Rounded.ttf in Sources */,
 				66E9912224EB9D6A0089B1EF /* Havana-Shadows.ttf in Sources */,

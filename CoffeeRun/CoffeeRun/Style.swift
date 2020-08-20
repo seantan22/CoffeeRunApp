@@ -11,7 +11,6 @@ import UIKit
 extension UIButton {
     
     func applyShadow() {
-        self.layer.cornerRadius = 5
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowRadius = 10
         self.layer.shadowOpacity = 0.5
@@ -25,6 +24,13 @@ extension UIButton {
         self.layer.shadowOpacity = 0.75
         self.layer.shadowOffset = CGSize(width: 0, height: -1)
 //        self.layer.borderWidth = 0.5
+    }
+    
+    func mainButton() {
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 25
+        self.applyShadow()
+        self.setGradientBackground(colorA: Colors.darkPurple, colorB: Colors.darkBlue)
     }
     
 }
@@ -44,12 +50,27 @@ extension UIPickerView {
 
 extension UIView {
     
-    func cardShadow() {
-        self.layer.cornerRadius = 3
+    func card() {
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 10
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowRadius = 5
         self.layer.shadowOpacity = 0.5
         self.layer.shadowOffset = CGSize(width: 0, height: -1)
+        self.setGradientBackground(colorA: Colors.cardA, colorB: Colors.cardB)
     }
-    
+
+    func setGradientBackground(colorA: UIColor, colorB: UIColor) {
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = [colorA.cgColor, colorB.cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
 }
+
+

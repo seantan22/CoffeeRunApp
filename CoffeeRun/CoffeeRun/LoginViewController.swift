@@ -17,6 +17,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var errorMsgLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signInButton: UIButton!
+    
     
     @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
     }
@@ -83,13 +85,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self;
         passwordTextField.delegate = self;
         
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.view.bounds
-        gradientLayer.colors = [
-            UIColor(red: 27/255, green: 81/255, blue: 45/255, alpha: 1).cgColor,
-            UIColor(red: 27/255, green: 81/255, blue: 45/255, alpha: 1).cgColor,
-            UIColor.white.cgColor]
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        signInButton.mainButton()
+        
     }
     
     //MARK: Response

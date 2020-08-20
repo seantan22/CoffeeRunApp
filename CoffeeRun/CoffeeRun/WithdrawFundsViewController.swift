@@ -17,6 +17,7 @@ class WithdrawFundsViewController: UIViewController {
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var balanceTextField: UITextField!
     @IBOutlet weak var swipeArrowView: UIImageView!
+    @IBOutlet weak var errorLabel: UILabel!
     
     var originPointArrow: CGPoint!
     
@@ -25,6 +26,8 @@ class WithdrawFundsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        errorLabel.text = ""
 
         balanceTextField.becomeFirstResponder()
         
@@ -45,6 +48,8 @@ class WithdrawFundsViewController: UIViewController {
     
     @IBAction func handleSwipe(_ sender: UIPanGestureRecognizer) {
         
+        errorLabel.text = ""
+        
         let translation = sender.translation(in: view)
         let position = sender.location(in: view)
         let velocity = sender.velocity(in: view)
@@ -63,7 +68,7 @@ class WithdrawFundsViewController: UIViewController {
             } else if sender.state == .ended {
                 if balanceTextField.text! == "" {
                     swipeArrowView.center = CGPoint(x: originPointArrow.x, y: originPointArrow.y)
-                    print("Please enter an amount.")
+                    self.errorLabel.text = "Please enter an amount."
                 } else {
                     withdraw(user_id: UserDefaults.standard.string(forKey: "user_id")!,
                             funds: balanceTextField.text!) {(result: Response) in
@@ -83,7 +88,7 @@ class WithdrawFundsViewController: UIViewController {
                             }
                         } else {
                             self.swipeArrowView.center = CGPoint(x: self.originPointArrow.x, y: self.originPointArrow.y)
-                            print("Error: " + result.response[0])
+                            self.errorLabel.text = result.response[0]
                         }
                     }
                 }

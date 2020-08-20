@@ -19,6 +19,8 @@ class AddFundsViewController: UIViewController {
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var balanceTextField: UITextField!
     @IBOutlet weak var swipeArrowView: UIImageView!
+    @IBOutlet weak var errorLabel: UILabel!
+    
     
     var originPointArrow: CGPoint!
 
@@ -28,6 +30,8 @@ class AddFundsViewController: UIViewController {
         super.viewDidLoad()
         
         balanceTextField.becomeFirstResponder()
+        
+        errorLabel.text = ""
         
         self.balanceLabel.text = String(format: "$%.02f", balance)
         
@@ -46,6 +50,8 @@ class AddFundsViewController: UIViewController {
     
     
     @IBAction func handleSwipe(_ sender: UIPanGestureRecognizer) {
+        
+        errorLabel.text = ""
         
         let translation = sender.translation(in: view)
         
@@ -67,7 +73,7 @@ class AddFundsViewController: UIViewController {
                   } else if sender.state == .ended {
                         if balanceTextField.text! == "" {
                             swipeArrowView.center = CGPoint(x: originPointArrow.x, y: originPointArrow.y)
-                            print("Please enter an amount.")
+                            self.errorLabel.text = "Please enter an amount."
                         }
                         
                         if position.x < 350.0 {
@@ -94,7 +100,7 @@ class AddFundsViewController: UIViewController {
                                   } else {
                                     DispatchQueue.main.async {
                                         self.swipeArrowView.center = CGPoint(x: self.originPointArrow.x, y: self.originPointArrow.y)
-                                        print("Error: " + result.response[0])
+                                        self.errorLabel.text = "Please deposit a maximum of $50.00."
                                     }
                                   }
                               }
