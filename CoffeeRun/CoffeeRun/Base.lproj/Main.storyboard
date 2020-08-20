@@ -922,7 +922,7 @@
                                                 <rect key="frame" x="0.0" y="300" width="340" height="250"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="60"/>
-                                                <state key="normal" title="Redpath" backgroundImage="redpath-library">
+                                                <state key="normal" title="Redpath" backgroundImage="redpath">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -933,18 +933,19 @@
                                                 <rect key="frame" x="0.0" y="600" width="340" height="250"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="60"/>
-                                                <state key="normal" title="Law" backgroundImage="law-library">
+                                                <state key="normal" title="Law" backgroundImage="law">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="lawButton:" destination="LHr-1o-UxC" eventType="touchUpInside" id="tJQ-2B-3XJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivE-0O-HOy">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivE-0O-HOy">
                                                 <rect key="frame" x="0.0" y="900" width="340" height="250"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="60"/>
-                                                <state key="normal" title="Music" backgroundImage="music-library">
+                                                <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="12" maxY="0.0"/>
+                                                <state key="normal" title="Music" backgroundImage="landscape-music">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -4212,15 +4213,15 @@
         <image name="blank-profile-pic" width="720" height="720"/>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="landscape-music" width="494" height="325"/>
+        <image name="law" width="4032" height="2268"/>
         <image name="law-floor" width="643" height="432"/>
-        <image name="law-library" width="518" height="389"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="mclennan-floor" width="544" height="511"/>
         <image name="music-floor" width="788" height="279"/>
-        <image name="music-library" width="499" height="373"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="premiere_moison" width="282" height="272"/>
-        <image name="redpath-library" width="800" height="600"/>
+        <image name="redpath" width="4032" height="2268"/>
         <image name="secondcup" width="1198" height="507"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="starbucks" width="1200" height="1215"/>

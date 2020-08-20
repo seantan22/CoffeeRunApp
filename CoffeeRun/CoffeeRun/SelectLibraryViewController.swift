@@ -51,7 +51,6 @@ class SelectLibraryViewController: UIViewController {
         redpathButton.libraryImage()
         lawButton.libraryImage()
         musicButton.libraryImage()
-        
     }
     
 }
