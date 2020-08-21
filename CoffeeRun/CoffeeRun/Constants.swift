@@ -23,4 +23,14 @@ struct Colors {
     static let cardA = UIColor(red: 68/255, green: 0/255, blue: 136/255, alpha: 1.0)
     static let cardB = UIColor(red: 84/255, green: 91/255, blue: 190/255, alpha: 1.0)
     
+    // GRADIENT #4
+    static let receiptA = UIColor(red: 251/255, green: 241/255, blue: 255/255, alpha: 1.0)
+    static let receiptB = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+}
+
+struct URLs {
+    
+    static let testingURL = ""
+    static let deployedURL = ""
+    
 }

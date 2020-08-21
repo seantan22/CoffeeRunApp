@@ -14,9 +14,11 @@ class OrderExistenceViewController: UIViewController {
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
     static var doesOrderExist: Bool = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
         getRates() {(result:Response) in
             if result.result {
@@ -35,7 +37,9 @@ class OrderExistenceViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-          if OrderExistenceViewController.doesOrderExist {
+          
+        if OrderExistenceViewController.doesOrderExist {
+                
                   self.performSegue(withIdentifier: "toExistingOrderSegue", sender: nil)
               } else {
                   self.performSegue(withIdentifier: "toNewOrderSegue", sender: nil)
@@ -82,5 +86,8 @@ class OrderExistenceViewController: UIViewController {
         task.resume()
     }
     
+    
+    @IBAction func unwindToOrderExistence(segue: UIStoryboardSegue) {
+    }
     
 }

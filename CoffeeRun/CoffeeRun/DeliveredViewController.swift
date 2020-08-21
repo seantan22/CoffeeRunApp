@@ -13,6 +13,8 @@ class DeliveredViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
+    var window: UIWindow?
+    
     static var gstRate: String = String()
     static var qstRate: String = String()
     static var deliveryFeeRate: String = String()
@@ -58,10 +60,12 @@ class DeliveredViewController: UIViewController {
                             ProfileViewController.balance = result.response[0]
                         }
                     }
+                    
+                    self.run(after: 1000) {
+                        self.performSegue(withIdentifier: "completeOrderToNewOrderSegue", sender: self)
+                    }
+                    
                 }
-        }
-        run(after: 1000) {
-            self.performSegue(withIdentifier: "completeOrderToNewOrderSegue", sender: self)
         }
         
     }

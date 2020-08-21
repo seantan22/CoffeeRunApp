@@ -59,6 +59,16 @@ extension UIView {
         self.layer.shadowOffset = CGSize(width: 0, height: -1)
         self.setGradientBackground(colorA: Colors.cardA, colorB: Colors.cardB)
     }
+    
+    func receipt() {
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 10
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowRadius = 3
+        self.layer.shadowOpacity = 0.9
+        self.layer.shadowOffset = CGSize(width: 0, height: -1)
+        self.setGradientBackground(colorA: Colors.receiptA, colorB: Colors.receiptB)
+    }
 
     func setGradientBackground(colorA: UIColor, colorB: UIColor) {
         

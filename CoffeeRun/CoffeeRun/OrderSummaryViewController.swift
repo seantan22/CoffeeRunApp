@@ -33,6 +33,9 @@ class OrderSummaryViewController: UIViewController {
     static var deliveryFeeAmount: String = String()
     
     //MARK: Properties
+    
+    @IBOutlet weak var receiptCard: UIView!
+    
     @IBOutlet weak var errorMsgLabel: UILabel!
     @IBOutlet weak var vendorLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
@@ -96,6 +99,10 @@ class OrderSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
+        receiptCard.receipt()
+        
         let gstRate = Double(OrderSummaryViewController.gstRate)!
         let qstRate = Double(OrderSummaryViewController.qstRate)!
         let deliveryFeeRate = Double(OrderSummaryViewController.deliveryFeeRate)!
@@ -118,10 +125,10 @@ class OrderSummaryViewController: UIViewController {
         floorLabel.text = "Floor " + OrderSummaryViewController.floor
         zoneLabel.text = "Zone " + OrderSummaryViewController.zone
         
-        subtotalLabel.text = String(format: "$%.02f", subtotal)
-        gstAmountLabel.text = String(format: "$%.02f", gstAmount)
-        qstAmountLabel.text = String(format: "$%.02f", qstAmount)
-        deliveryFeeLabel.text = String(format: "$%.02f", deliveryFee)
+        subtotalLabel.text = String(format: "%.02f", subtotal)
+        gstAmountLabel.text = String(format: "%.02f", gstAmount)
+        qstAmountLabel.text = String(format: "%.02f", qstAmount)
+        deliveryFeeLabel.text = String(format: "%.02f", deliveryFee)
         totalAmountLabel.text = String(format: "$%.02f", totalAmount)
         
     }

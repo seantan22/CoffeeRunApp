@@ -13,8 +13,8 @@ class NewOrderVendorViewController: UIViewController {
     var testURL = "http://localhost:5000/"
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
-    @IBAction func unwindToOrderExistence(segue: UIStoryboardSegue) {
-    }
+
+
     
     //MARK: Properties
     @IBOutlet weak var timHortonsBtn: UIButton!

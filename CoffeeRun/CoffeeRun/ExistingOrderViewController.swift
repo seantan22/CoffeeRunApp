@@ -82,6 +82,8 @@ class ExistingOrderViewController: UIViewController {
 
         self.navigationItem.setHidesBackButton(true, animated: true)
         
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
         self.cancelButton.isUserInteractionEnabled = false
         self.cancelButton.isHidden = true
         

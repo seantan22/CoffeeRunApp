@@ -63,8 +63,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         tabBarController?.delegate = self
         
-        
-        
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
         orderCard.card()
@@ -107,9 +105,11 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         }
         
         if HomeViewController.disableTabs {
-            run(after: 1500) {
+            run(after: 2000) {
                 if let items = self.tabBarController?.tabBar.items {
-                    items.forEach{ $0.isEnabled = true }
+                    items.forEach{
+                        $0.isEnabled = true
+                    }
                 }
                 HomeViewController.disableTabs = false
             }
