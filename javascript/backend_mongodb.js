@@ -645,7 +645,7 @@ module.exports = {
         var DFP = tax_rates.Delivery_Fee;
 
         // Round to 2 decimal places
-        var delivery_charge = parseFloat(cost) * parseFloat(DFP);
+        var delivery_charge = parseFloat(cost) * parseFloat(DFP) + 1.00;
         console.log('del: ' + delivery_charge);
         
         var taxed_charge = parseFloat(cost) * parseFloat(TotalTax);
