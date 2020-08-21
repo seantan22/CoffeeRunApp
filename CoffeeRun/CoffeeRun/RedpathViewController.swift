@@ -87,6 +87,8 @@ class RedpathViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
+        
         floorBaseButton.setTitleColor(UIColor.black, for: .normal)
         floorOneButton.setTitleColor(UIColor.black, for: .normal)
         floorTwoButton.setTitleColor(UIColor.black, for: .normal)

@@ -109,6 +109,8 @@ class MusicViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
 
         floorThreeButton.setTitleColor(UIColor.black, for: .normal)
         floorFourButton.setTitleColor(UIColor.black, for: .normal)

@@ -245,9 +245,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vy8-dy-mmb">
-                                <rect key="frame" x="20" y="144" width="374" height="669"/>
+                                <rect key="frame" x="20" y="164" width="374" height="629"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserItem" rowHeight="50" id="RLg-iW-reG" customClass="UserTableViewCell" customModule="CoffeeRun" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="374" height="50"/>
@@ -277,7 +278,8 @@
                                 </prototypes>
                             </tableView>
                             <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="eJg-cM-CaU">
-                                <rect key="frame" x="20" y="88" width="374" height="56"/>
+                                <rect key="frame" x="20" y="108" width="374" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
                             </searchBar>
                         </subviews>
@@ -287,9 +289,9 @@
                             <constraint firstItem="eJg-cM-CaU" firstAttribute="centerX" secondItem="Lee-Xx-Uhf" secondAttribute="centerX" id="HM6-wB-Uzx"/>
                             <constraint firstItem="Vy8-dy-mmb" firstAttribute="leading" secondItem="FvH-7g-o8B" secondAttribute="leading" constant="20" id="IsD-OG-3xx"/>
                             <constraint firstItem="FvH-7g-o8B" firstAttribute="trailing" secondItem="Vy8-dy-mmb" secondAttribute="trailing" constant="20" id="KmB-0S-CQo"/>
-                            <constraint firstItem="eJg-cM-CaU" firstAttribute="top" secondItem="FvH-7g-o8B" secondAttribute="top" id="Riz-jP-uZU"/>
+                            <constraint firstItem="eJg-cM-CaU" firstAttribute="top" secondItem="FvH-7g-o8B" secondAttribute="top" constant="20" id="Riz-jP-uZU"/>
                             <constraint firstItem="eJg-cM-CaU" firstAttribute="leading" secondItem="FvH-7g-o8B" secondAttribute="leading" constant="20" id="rFk-Fd-NbS"/>
-                            <constraint firstItem="Vy8-dy-mmb" firstAttribute="bottom" secondItem="FvH-7g-o8B" secondAttribute="bottom" id="wC9-4o-Nbw"/>
+                            <constraint firstItem="Vy8-dy-mmb" firstAttribute="bottom" secondItem="FvH-7g-o8B" secondAttribute="bottom" constant="-20" id="wC9-4o-Nbw"/>
                             <constraint firstItem="FvH-7g-o8B" firstAttribute="trailing" secondItem="eJg-cM-CaU" secondAttribute="trailing" constant="20" id="yau-xW-mC7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FvH-7g-o8B"/>

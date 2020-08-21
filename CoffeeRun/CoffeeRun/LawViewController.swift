@@ -163,6 +163,8 @@ class LawViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
+        
         floorOneButton.setTitleColor(UIColor.black, for: .normal)
         floorTwoButton.setTitleColor(UIColor.black, for: .normal)
         floorThreeButton.setTitleColor(UIColor.black, for: .normal)

@@ -29,6 +29,10 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.dataSource = self
         searchBar.delegate = self
         
+        tableView.backgroundColor = UIColor.clear
+        
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
         tableView.reloadData()
     }
     
@@ -46,14 +50,27 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         index = 0
         tableView.reloadData()
     }
+
+    
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 0.4
+        }
+    
+        // Space between cells
+        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            let spacer = UIView()
+            spacer.backgroundColor = UIColor.white
+            return spacer
+        }
+    
     
     // Number of Cells in Table
      func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return FindUsersViewController.users.count
      }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FindUsersViewController.users.count
+        return 1
      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -116,6 +133,18 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
                         let alert = UIAlertController(title: "Friend Removed", message: FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Done", style: .default))
                         self.present(alert, animated: true)
+                        
+                        var counter: Int = 0
+                        
+                        for person in FindUsersViewController.users {
+                            if person[0] == FindUsersViewController.subUsers[indexPath.row][0] {
+                                FindUsersViewController.users[counter][1] = "nothing"
+                                break
+                            }
+                            counter += 1
+                        }
+                        
+                        
                         FindUsersViewController.subUsers[indexPath.row][1] = "nothing"
                         let tempNumOfFriends = Int(ProfileViewController.numOfFriends)
                         ProfileViewController.numOfFriends = String(tempNumOfFriends! - 1)
@@ -131,8 +160,22 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
                         let alert = UIAlertController(title: "Request Sent!", message: "", preferredStyle: .alert)
                            alert.addAction(UIAlertAction(title: "Done", style: .default))
                            self.present(alert, animated: true)
+                        
+                        var counter: Int = 0
+                        
+                        for person in FindUsersViewController.users {
+                            if person[0] == FindUsersViewController.subUsers[indexPath.row][0] {
+                                FindUsersViewController.users[counter][1] = "pending"
+                                break
+                            }
+                            counter += 1
+                        }
+                        
                             FindUsersViewController.subUsers[indexPath.row][1] = "pending"
                        }
+                    
+                        
+                    
                    }
                }
             }

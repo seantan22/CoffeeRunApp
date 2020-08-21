@@ -137,6 +137,8 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
         beveragePicker.dataSource = self
         beveragePicker.delegate = self
         
+        view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
+        
         self.errorLabel.text = ""
         
         sizePicker.applyDesign()

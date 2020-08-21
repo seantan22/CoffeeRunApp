@@ -172,6 +172,8 @@ class McLennanViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
+        
         errorLabel.text = ""
         
         floorTwoButton.setTitleColor(UIColor.black, for: .normal)

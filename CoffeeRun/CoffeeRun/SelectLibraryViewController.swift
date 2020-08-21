@@ -47,6 +47,8 @@ class SelectLibraryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
+        
         mclennanButton.libraryImage()
         redpathButton.libraryImage()
         lawButton.libraryImage()
