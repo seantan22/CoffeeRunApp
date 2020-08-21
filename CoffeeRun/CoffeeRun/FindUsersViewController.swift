@@ -30,7 +30,6 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         searchBar.delegate = self
         
         tableView.backgroundColor = UIColor.clear
-        
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
         tableView.reloadData()
@@ -50,27 +49,15 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         index = 0
         tableView.reloadData()
     }
-
-    
-        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return 0.4
-        }
-    
-        // Space between cells
-        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            let spacer = UIView()
-            spacer.backgroundColor = UIColor.white
-            return spacer
-        }
     
     
     // Number of Cells in Table
      func numberOfSections(in tableView: UITableView) -> Int {
-        return FindUsersViewController.users.count
+        return 1
      }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return FindUsersViewController.users.count
      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

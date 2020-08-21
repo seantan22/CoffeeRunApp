@@ -18,6 +18,8 @@ class TripExistenceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
     }
     
     @IBAction func unwindToTripExistence(segue: UIStoryboardSegue) {

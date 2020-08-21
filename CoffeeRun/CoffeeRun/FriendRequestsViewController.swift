@@ -15,6 +15,7 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
     var deployedURL = "https://coffeerunapp.herokuapp.com/"
     
     static var friendRequests: Array<String> = Array()
+    static var noRequests: Array<String> = ["No Friend Requests."]
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,21 +27,37 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.backgroundColor = UIColor.clear
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
         tableView.reloadData()
 
     }
-    
+
+
     // Number of Cells in Table
      func numberOfSections(in tableView: UITableView) -> Int {
         return 1
      }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if FriendRequestsViewController.friendRequests.count == 0 {
+            return FriendRequestsViewController.noRequests.count
+        }
+
         return FriendRequestsViewController.friendRequests.count
      }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
      
     // Cell Content
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        print("test")
+        
         if index < FriendRequestsViewController.friendRequests.count {
             let user = FriendRequestsViewController.friendRequests[index]
                let cell = tableView.dequeueReusableCell(withIdentifier: "FriendRequestItem", for: indexPath) as! FriendRequestTableViewCell
@@ -48,20 +65,36 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
                index += 1
                return cell
         }
-        return UITableViewCell()
+        
+        if FriendRequestsViewController.friendRequests.count == 0 {
+            let user = FriendRequestsViewController.noRequests[index]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FriendRequestItem", for: indexPath) as! FriendRequestTableViewCell
+               cell.setUser(user: user)
+            index += 1
+            return cell
+        }
+        
+        return FriendRequestTableViewCell()
     }
     
     // Swipe Cell
        func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
            
+        
+        if FriendRequestsViewController.friendRequests.count != 0 {
+            
             let sender = FriendRequestsViewController.friendRequests[indexPath.row]
         
             let accept = UIContextualAction(style: .normal, title: "Accept",
              handler: { (action, view, completionHandler) in
                
+                print("click accept")
+                
                 self.acceptFriendRequest(acceptor: UserDefaults.standard.string(forKey: "username")!, sender: sender) {(result: Response) in
                     if result.result {
                         FriendRequestsViewController.friendRequests.remove(at: indexPath.row)
+                    } else {
+                        print(result.response)
                     }
                 }
                 
@@ -75,9 +108,13 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
             let reject = UIContextualAction(style: .normal, title: "Delete",
              handler: { (action, view, completionHandler) in
                
+                print("click delete")
+                
                 self.rejectFriendRequest(denier: UserDefaults.standard.string(forKey: "username")!, sender: sender) {(result: Response) in
                     if result.result {
                         FriendRequestsViewController.friendRequests.remove(at: indexPath.row)
+                    } else {
+                        print(result.response)
                     }
                 }
             
@@ -93,7 +130,8 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
             let configuration = UISwipeActionsConfiguration(actions: [accept, reject])
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
-           
+        }
+        return UISwipeActionsConfiguration()
        }
     
     func tableView(_ tableView: UITableView,
