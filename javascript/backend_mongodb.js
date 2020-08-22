@@ -94,10 +94,10 @@ async function loginWithCred(email, password){
         db.close();
         return JSON.stringify({result: false, response: ['Already logged in.']});
     }
-    if(!record.verified){
-        db.close();
-        return JSON.stringify({result: false, response: ['Please verify your account: ' + record.phone_number]});
-    }
+    // if(!record.verified){
+    //     db.close();
+    //     return JSON.stringify({result: false, response: ['Please verify your account: ' + record.phone_number]});
+    // }
 
     // Check if in reset state
     var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase() }).catch((error) => console.log(error));
