@@ -167,7 +167,7 @@ module.exports = {
     forgetPassword: async function(email){
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        var user_record = await client.collection("User").findOne({email: email}).catch((error) => console.log(error));
+        var user_record = await client.collection("User").findOne({email: email.toLowerCase()}).catch((error) => console.log(error));
         
         if(user_record == null){
             db.close();
