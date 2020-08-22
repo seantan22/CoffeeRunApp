@@ -10,9 +10,6 @@ import UIKit
 
 class DeliveredViewController: UIViewController {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     var window: UIWindow?
     
     static var gstRate: String = String()
@@ -226,7 +223,7 @@ class DeliveredViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "completeOrder") else {
+        guard let url = URL(string: URLs.URL + "completeOrder") else {
             print("Error: Cannot create URL")
             return
         }
@@ -273,7 +270,7 @@ class DeliveredViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getNewBalanceAfterOrder") else {
+        guard let url = URL(string: URLs.URL + "getNewBalanceAfterOrder") else {
             print("Error: Cannot create URL")
             return
         }

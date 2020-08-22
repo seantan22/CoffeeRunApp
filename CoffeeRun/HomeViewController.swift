@@ -10,9 +10,6 @@ import UIKit
 
 class HomeViewController: UIViewController, UITabBarControllerDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     @IBOutlet weak var orderCard: UIView!
     @IBOutlet weak var pickupCard: UIView!
     @IBOutlet weak var profileCard: UIView!
@@ -176,7 +173,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getUser") else {
+        guard let url = URL(string: URLs.URL + "getUser") else {
             print("Error: Cannot create URL")
             return
         }
@@ -207,7 +204,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         let session = URLSession.shared
          
-         guard let url = URL(string: testURL + "getOrderByUser") else {
+        guard let url = URL(string: URLs.URL + "getOrderByUser") else {
              print("Error: Cannot create URL")
              return
          }
@@ -239,7 +236,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getAllFriends") else {
+        guard let url = URL(string: URLs.URL + "getAllFriends") else {
             print("Error: Cannot create URL")
             return
         }
@@ -270,7 +267,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getUsers") else {
+        guard let url = URL(string: URLs.URL + "getUsers") else {
             print("Error: Cannot create URL")
             return
         }
@@ -301,7 +298,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getAllFollowerRequests") else {
+        guard let url = URL(string: URLs.URL + "getAllFollowerRequests") else {
             print("Error: Cannot create URL")
             return
         }
@@ -332,7 +329,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
          
          let session = URLSession.shared
          
-         guard let url = URL(string: testURL + "getTaxRates") else {
+        guard let url = URL(string: URLs.URL + "getTaxRates") else {
              print("Error: Cannot create URL")
              return
          }

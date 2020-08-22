@@ -10,10 +10,7 @@ import UIKit
 
 class ForgotPasswordViewController: UIViewController {
 
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-
-    //MARK: Properties
+     //MARK: Properties
     @IBOutlet weak var emailTextField: UITextField!
     
     //MARK: Actions
@@ -66,7 +63,7 @@ class ForgotPasswordViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "forgetPassword") else {
+        guard let url = URL(string: URLs.URL + "forgetPassword") else {
             print("Error: Cannot create URL")
             return
         }

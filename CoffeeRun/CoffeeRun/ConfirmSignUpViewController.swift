@@ -10,9 +10,6 @@ import UIKit
 
 class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     var result: Bool = false
     
     static var user_id: String = String()
@@ -122,7 +119,7 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "verify") else {
+        guard let url = URL(string: URLs.URL + "verify") else {
             print("Error: Cannot create URL")
             return
         }

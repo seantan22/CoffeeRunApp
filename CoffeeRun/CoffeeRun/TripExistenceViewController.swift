@@ -10,9 +10,6 @@ import UIKit
 
 class TripExistenceViewController: UIViewController {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     static var doesTripExist: Bool = false
 
     override func viewDidLoad() {
@@ -113,7 +110,7 @@ class TripExistenceViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getNumberOfAllOpenOrders") else {
+        guard let url = URL(string: URLs.URL + "getNumberOfAllOpenOrders") else {
             print("Error: Cannot create URL")
             return
         }
@@ -143,7 +140,7 @@ class TripExistenceViewController: UIViewController {
         
         let session = URLSession.shared
          
-         guard let url = URL(string: testURL + "getOrderByUser") else {
+        guard let url = URL(string: URLs.URL + "getOrderByUser") else {
              print("Error: Cannot create URL")
              return
          }
@@ -177,7 +174,7 @@ class TripExistenceViewController: UIViewController {
         
         let session = URLSession.shared
          
-         guard let url = URL(string: testURL + "getOrderDelivery") else {
+        guard let url = URL(string: URLs.URL + "getOrderDelivery") else {
              print("Error: Cannot create URL")
              return
          }

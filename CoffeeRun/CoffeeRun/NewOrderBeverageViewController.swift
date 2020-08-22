@@ -10,9 +10,6 @@ import UIKit
 
 class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     static var sizes: Array<String> = Array()
     static var beverages: Array<String> = Array()
     
@@ -169,7 +166,7 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
            
         let session = URLSession.shared
 
-        guard let url = URL(string: testURL + "getPriceOfBeverage") else {
+        guard let url = URL(string: URLs.URL + "getPriceOfBeverage") else {
             print("Error: Cannot create URL")
             return
         }

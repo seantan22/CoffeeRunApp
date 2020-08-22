@@ -29,8 +29,10 @@ struct Colors {
 }
 
 struct URLs {
+   
+    static let testingURL = "http://localhost:5000/"
+    static let deployedURL = "https://coffeerunapp.herokuapp.com/"
     
-    static let testingURL = ""
-    static let deployedURL = ""
+    static let URL = deployedURL
     
 }

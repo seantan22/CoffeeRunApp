@@ -10,9 +10,6 @@ import UIKit
 
 class AddFundsViewController: UIViewController {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     var dragAmount = CGSize.zero
     
     //MARK: Properties
@@ -130,7 +127,7 @@ class AddFundsViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "deposit") else {
+        guard let url = URL(string: URLs.URL + "deposit") else {
             print("Error: Cannot create URL")
             return
         }

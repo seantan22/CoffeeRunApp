@@ -10,9 +10,6 @@ import UIKit
 
 class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     static var selectedOrders: [OrderWithFriends] = Array()
 
     @IBOutlet weak var tableView: UITableView!
@@ -107,7 +104,7 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "attachDelivery") else {
+        guard let url = URL(string: URLs.URL + "attachDelivery") else {
             print("Error: Cannot create URL")
             return
         }

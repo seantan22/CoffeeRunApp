@@ -10,9 +10,6 @@ import UIKit
 
 class OrderExistenceViewController: UIViewController {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     static var doesOrderExist: Bool = false
     
     override func viewDidLoad() {
@@ -61,7 +58,7 @@ class OrderExistenceViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getTaxRates") else {
+        guard let url = URL(string: URLs.URL + "getTaxRates") else {
             print("Error: Cannot create URL")
             return
         }

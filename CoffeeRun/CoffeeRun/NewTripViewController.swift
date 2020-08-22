@@ -10,9 +10,6 @@ import UIKit
 
 class NewTripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     var ordersTimer: Timer?
     
     var orders: [OrderWithFriends] = Array()
@@ -221,7 +218,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getOrders") else {
+        guard let url = URL(string: URLs.URL + "getOrders") else {
             print("Error: Cannot create URL")
             return
         }

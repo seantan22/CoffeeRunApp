@@ -10,9 +10,6 @@ import UIKit
 
 class ExistingOrderViewController: UIViewController {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     static var isCancelled: Bool = false
     
     static var gstRate: String = String()
@@ -179,7 +176,7 @@ class ExistingOrderViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getOrderStatus") else {
+        guard let url = URL(string: URLs.URL + "getOrderStatus") else {
             print("Error: Cannot create URL")
             return
         }
@@ -210,7 +207,7 @@ class ExistingOrderViewController: UIViewController {
            
            let session = URLSession.shared
 
-           guard let url = URL(string: testURL + "deleteOrder") else {
+        guard let url = URL(string: URLs.URL + "deleteOrder") else {
             print("Error: Cannot create URL")
             return
            }

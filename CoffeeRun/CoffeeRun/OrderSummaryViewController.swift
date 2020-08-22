@@ -10,9 +10,6 @@ import UIKit
 
 class OrderSummaryViewController: UIViewController {
 
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     //MARK: Rates
     static var gstRate: String = String()
     static var qstRate: String = String()
@@ -157,7 +154,7 @@ class OrderSummaryViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "createOrder") else {
+        guard let url = URL(string: URLs.URL + "createOrder") else {
             print("Error: Cannot create URL")
             return
         }

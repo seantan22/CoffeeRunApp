@@ -10,9 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     //MARK: Properties
     @IBOutlet weak var errorMsgLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
@@ -105,7 +102,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "login") else {
+        guard let url = URL(string: URLs.URL + "login") else {
             print("Error: Cannot create URL")
             return
         }

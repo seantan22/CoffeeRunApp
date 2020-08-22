@@ -10,9 +10,6 @@ import UIKit
 
 class ExistingTripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     var checkForCompletionTimer: Timer?
     
     @IBOutlet weak var tableView: UITableView!
@@ -229,7 +226,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "doesOrderExistForDelivery") else {
+        guard let url = URL(string: URLs.URL + "doesOrderExistForDelivery") else {
             print("Error: Cannot create URL")
             return
         }
@@ -260,7 +257,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
            
            let session = URLSession.shared
            
-           guard let url = URL(string: testURL + "getTotalProfit") else {
+        guard let url = URL(string: URLs.URL + "getTotalProfit") else {
                print("Error: Cannot create URL")
                return
            }
@@ -292,7 +289,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
 
         let session = URLSession.shared
 
-        guard let url = URL(string: testURL + "detachDelivery") else {
+        guard let url = URL(string: URLs.URL + "detachDelivery") else {
             print("Error: Cannot create URL")
             return
         }
@@ -334,7 +331,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
 
         let session = URLSession.shared
 
-        guard let url = URL(string: testURL + "markPickedUp") else {
+        guard let url = URL(string: URLs.URL + "markPickedUp") else {
             print("Error: Cannot create URL")
             return
         }
@@ -376,7 +373,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
 
         let session = URLSession.shared
 
-        guard let url = URL(string: testURL + "markDelivered") else {
+        guard let url = URL(string: URLs.URL + "markDelivered") else {
             print("Error: Cannot create URL")
             return
         }

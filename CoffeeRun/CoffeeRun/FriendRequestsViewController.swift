@@ -10,10 +10,6 @@ import UIKit
 
 class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     static var friendRequests: Array<String> = Array()
     static var noRequests: Array<String> = ["No Friend Requests."]
     
@@ -155,7 +151,7 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "acceptFollowRequest") else {
+        guard let url = URL(string: URLs.URL + "acceptFollowRequest") else {
             print("Error: Cannot create URL")
             return
         }
@@ -198,7 +194,7 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "denyFollowRequest") else {
+        guard let url = URL(string: URLs.URL + "denyFollowRequest") else {
             print("Error: Cannot create URL")
             return
         }

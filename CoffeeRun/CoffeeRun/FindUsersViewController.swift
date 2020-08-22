@@ -10,9 +10,6 @@ import UIKit
 
 class FindUsersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     static var users: Array<Array<String>> = Array(Array())
     static var subUsers: Array<Array<String>> = Array(Array())
     
@@ -200,7 +197,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "sendFollowRequest") else {
+        guard let url = URL(string: URLs.URL + "sendFollowRequest") else {
             print("Error: Cannot create URL")
             return
         }
@@ -243,7 +240,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "deleteFriendship") else {
+        guard let url = URL(string: URLs.URL + "deleteFriendship") else {
             print("Error: Cannot create URL")
             return
         }

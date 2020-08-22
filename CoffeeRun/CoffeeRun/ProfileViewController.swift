@@ -10,9 +10,6 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     @IBAction func unwindToProfile(segue: UIStoryboardSegue) {
     }
     
@@ -131,7 +128,7 @@ class ProfileViewController: UIViewController {
         
         let session = URLSession.shared
 
-        guard let url = URL(string: testURL + "logout") else {
+        guard let url = URL(string: URLs.URL + "logout") else {
          print("Error: Cannot create URL")
          return
         }
@@ -176,7 +173,7 @@ class ProfileViewController: UIViewController {
         
         let session = URLSession.shared
         
-        guard let url = URL(string: testURL + "getClosedOrdersByUser") else {
+        guard let url = URL(string: URLs.URL + "getClosedOrdersByUser") else {
             print("Error: Cannot create URL")
             return
         }

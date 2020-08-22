@@ -10,9 +10,6 @@ import UIKit
 
 class OrderHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var testURL = "http://localhost:5000/"
-    var deployedURL = "https://coffeerunapp.herokuapp.com/"
-    
     static var orderHistory: [ClosedOrder] = Array()
 
     @IBOutlet weak var tableView: UITableView!
