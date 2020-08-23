@@ -226,20 +226,20 @@ app.get('/getRating', function(req, res){
 })
 
 app.post('/createUser', function (req, res) {
-    if (req.body.username == null || req.body.username == ""){
-        res.send(JSON.stringify({result: false, response: ["Please fill in the username."]}));
-        return;
-    }
-    if (cred_checker.passwordStrength(req.body.password) || req.body.password == null || req.body.password == ""){
-        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate password."]}));
-        return;
-    }
     if (cred_checker.emailStrength(req.body.email) || req.body.email == null || req.body.email == ""){
         res.send(JSON.stringify({result: false, response: ["Please enter an appropriate mcgill email."]}));
         return;
     }
     if (cred_checker.phoneStrength(req.body.phone_number) || req.body.phone_number == null || req.body.phone_number == ""){
         res.send(JSON.stringify({result: false, response: ["Please enter an appropriate phone number."]}));
+        return;
+    }
+    if (req.body.username == null || req.body.username == ""){
+        res.send(JSON.stringify({result: false, response: ["Please fill in the username."]}));
+        return;
+    }
+    if (cred_checker.passwordStrength(req.body.password) || req.body.password == null || req.body.password == ""){
+        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate password."]}));
         return;
     }
     
