@@ -34,13 +34,11 @@ class OrderExistenceViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-          
         if OrderExistenceViewController.doesOrderExist {
-                
-                  self.performSegue(withIdentifier: "toExistingOrderSegue", sender: nil)
-              } else {
-                  self.performSegue(withIdentifier: "toNewOrderSegue", sender: nil)
-              }
+              self.performSegue(withIdentifier: "toExistingOrderSegue", sender: nil)
+          } else {
+              self.performSegue(withIdentifier: "toNewOrderSegue", sender: nil)
+          }
     }
     
     //MARK: Response

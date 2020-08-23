@@ -52,12 +52,9 @@ class ExistingOrderViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             
-            print(UserDefaults.standard.string(forKey: "order_id")!)
-            
             self.deleteOrder(username: ExistingOrderViewController.username, order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: Response) in
                 if result.result {
-                    print(result.response)
-                       ExistingOrderViewController.isCancelled = true
+                        ExistingOrderViewController.isCancelled = true
                 }
             }
             self.statusTimer?.invalidate()
