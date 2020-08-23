@@ -227,7 +227,7 @@ app.get('/getRating', function(req, res){
 
 app.post('/createUser', function (req, res) {
     if (cred_checker.emailStrength(req.body.email) || req.body.email == null || req.body.email == ""){
-        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate mcgill email."]}));
+        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate McGill email."]}));
         return;
     }
     if (cred_checker.phoneStrength(req.body.phone_number) || req.body.phone_number == null || req.body.phone_number == ""){
