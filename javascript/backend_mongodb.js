@@ -94,21 +94,17 @@ async function loginWithCred(email, password){
         db.close();
         return JSON.stringify({result: false, response: ['Already logged in.']});
     }
-    // if(!record.verified){
-    //     db.close();
-    //     return JSON.stringify({result: false, response: ['Please verify your account: ' + record.phone_number]});
-    // }
-
-    // Check if in reset state
-    var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase(), active: true }).catch((error) => console.log(error));
-
     if(!(await bcrypt.compare(password, record.password))){
         db.close();
         return JSON.stringify({result: false, response: ['Password is incorrect.']});
     }
 
+    // Check if in reset state
+    var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase(), active: true }).catch((error) => console.log(error));
+
     // Reset state
     if(reset_record != null && reset_record.active){
+        db.close();
         return JSON.stringify({result: true, response: [record._id, record.username, record.verified.toString(), 'reset']});
     }
 
