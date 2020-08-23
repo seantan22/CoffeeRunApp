@@ -102,14 +102,14 @@ async function loginWithCred(email, password){
     // Check if in reset state
     var reset_record = await client.collection("Reset_Records").findOne({ email: email.toLowerCase(), active: true }).catch((error) => console.log(error));
 
-    // Reset state
-    if(reset_record != null && reset_record.active){
-        return JSON.stringify({result: true, response: [record._id, record.username, record.verified.toString(), 'reset']});
-    }
-
     if(!(await bcrypt.compare(password, record.password))){
         db.close();
         return JSON.stringify({result: false, response: ['Password is incorrect.']});
+    }
+
+    // Reset state
+    if(reset_record != null && reset_record.active){
+        return JSON.stringify({result: true, response: [record._id, record.username, record.verified.toString(), 'reset']});
     }
 
     if(record.verified){
