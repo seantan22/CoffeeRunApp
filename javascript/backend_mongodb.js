@@ -224,7 +224,7 @@ module.exports = {
 
         // Log user in when they update password
         let resetInfo = {$set: {active: false}};
-        await client.collection("Reset_Records").updateOne({email: email}, resetInfo).catch((error) => console.log(error)); 
+        await client.collection("Reset_Records").updateOne({email: email, active: true}, resetInfo).catch((error) => console.log(error)); 
         
         db.close();     
         return JSON.stringify({result: true, response: ["Successfully updated."]});;
