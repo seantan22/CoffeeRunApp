@@ -14,6 +14,10 @@ module.exports = {
         var elephantKey = new aws.S3({elephant_uri: process.env.elephant_uri,});
         return elephantKey.config.elephant_uri;
     },
+    getGMailPassword: function(){
+        var gmailKey = new aws.S3({gmail_pass: process.env.gmail_pass,});
+        return gmailKey.config.gmail_pass;
+    },
 
     getMongoUri(){
         return 'mongodb+srv://Dwarff19:NewLoc@lP@ss123!@coffeerun.y795l.azure.mongodb.net/CoffeeRun?retryWrites=true&w=majority'

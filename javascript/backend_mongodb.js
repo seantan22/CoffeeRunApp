@@ -200,7 +200,7 @@ module.exports = {
     updatePasswordFromReset: async function(email, new_password){
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        var reset_record = await client.collection("Reset_Records").findOne({email: email}).catch((error) => console.log(error));
+        var reset_record = await client.collection("Reset_Records").findOne({email: email, active: true}).catch((error) => console.log(error));
 
         if(reset_record == null){
             db.close();
@@ -1550,7 +1550,7 @@ async function sendEmailNotVerified(email, verification_code){
     var mailInfo = {
         from: 'McgillCoffeeRun@gmail.com',
         to: email,
-        subject: 'CoffeeRun: Forget Password',
+        subject: 'CoffeeRun: Password Reset',
         html: "<html><body><b>Password Reset, Not Verified?</b><br><br><p>We have noticed you have not verified your account after reseting your password. If you forgot the verification code, it is: " + verification_code + "</p>"
     };
 
