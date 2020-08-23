@@ -165,6 +165,8 @@ class DeliveredViewController: UIViewController {
 
         self.navigationItem.setHidesBackButton(true, animated: true)
         
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
         let gstRate = Double(DeliveredViewController.gstRate)!
         let qstRate = Double(DeliveredViewController.qstRate)!
         let deliveryFeeRate = Double(DeliveredViewController.deliveryFeeRate)!

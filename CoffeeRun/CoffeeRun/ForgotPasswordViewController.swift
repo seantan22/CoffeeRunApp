@@ -11,30 +11,38 @@ import UIKit
 class ForgotPasswordViewController: UIViewController {
 
      //MARK: Properties
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var sendButton: UIButton!
     
     //MARK: Actions
     @IBAction func sendResetPasswordEmail(_ sender: UIButton) {
+        
+        errorLabel.text = ""
         
         let email = emailTextField.text!
         
         if email != "" {
             forgotPassword(email: email) {(result: Response) in
                 
-                print(result.response)
-            }
-            
-            DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Sent!", message: "A temporary password was sent to your email."
-                    , preferredStyle: .alert)
+                if !result.result {
+                    DispatchQueue.main.async {
+                        self.errorLabel.text = result.response[0]
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Sent!", message: "A temporary password was sent to your email."
+                            , preferredStyle: .alert)
 
-                alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
-                    self.performSegue(withIdentifier: "resetToLoginSegue", sender: self)
-                }))
-                self.present(alert, animated: true)
+                        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
+                            self.performSegue(withIdentifier: "resetToLoginSegue", sender: self)
+                        }))
+                        self.present(alert, animated: true)
+                    }
+                }
             }
         } else {
-            print("Enter your email address.")
+            errorLabel.text = "Enter your email address."
         }
     
     }
@@ -44,7 +52,13 @@ class ForgotPasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        errorLabel.text = ""
+        
+        sendButton.mainButton()
+        emailTextField.styleTextInput()
 
+       view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
        
     }
     

@@ -26,9 +26,15 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var friendsLabel: UILabel!
     @IBOutlet weak var profitLabel: UILabel!
     
+    @IBOutlet weak var userInfo: UIView!
+    
     @IBOutlet weak var pickupHistoryButton: UIButton!
     @IBOutlet weak var orderHistoryButton: UIButton!
     
+    @IBOutlet weak var friendsStat: UIView!
+    @IBOutlet weak var profitStat: UIView!
+    
+    @IBOutlet weak var accountBalance: UIView!
     
     @IBAction func logoutUser(_ sender: UIBarButtonItem) {
     
@@ -73,8 +79,13 @@ class ProfileViewController: UIViewController {
         
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
-        pickupHistoryButton.applyShadow()
-        orderHistoryButton.applyShadow()
+        pickupHistoryButton.historyButton()
+        orderHistoryButton.historyButton()
+        
+        userInfo.card()
+        accountBalance.card()
+        friendsStat.card()
+        profitStat.card()
         
     }
     

@@ -13,26 +13,42 @@ class ResetPasswordViewController: UIViewController {
      static var email: String = String()
     
     //MARK: Properties
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var resetButton: UIButton!
+    
     
     //MARK: Actions
     @IBAction func resetPasswordButton(_ sender: UIButton) {
         
+        errorLabel.text = ""
+        
         if newPasswordTextField.text == "" || confirmPasswordTextField.text == "" {
-            print("Please enter in a new password.")
+            errorLabel.text = "Please enter in a new password."
         } else {
             if newPasswordTextField.text == confirmPasswordTextField.text {
                 resetPassword(email: ResetPasswordViewController.email, password: newPasswordTextField.text!) {(result: Response) in
-                    
-                    if result.result {
-                        print("Success! Password reset.")
+                   
+                    DispatchQueue.main.async {
+                        if result.result {
+                                let alert = UIAlertController(title: "Your password has been reset.", message: "", preferredStyle: .alert)
+
+                                alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
+                                    self.performSegue(withIdentifier: "unwindToLoginSegue", sender: self)
+                                }))
+                                self.present(alert, animated: true)
+                        } else {
+                            self.errorLabel.text = result.response[0]
+                        }
                     }
-                    
                 }
-                performSegue(withIdentifier: "unwindToLoginSegue", sender: self)
+                
             } else {
-                print("Passwords do not match.")
+                DispatchQueue.main.async {
+                    self.errorLabel.text = "Passwords do not match."
+                }
+                
             }
         }
     }
@@ -42,6 +58,14 @@ class ResetPasswordViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationItem.setHidesBackButton(true, animated: true);
+        
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
+        newPasswordTextField.styleTextInput()
+        confirmPasswordTextField.styleTextInput()
+        resetButton.mainButton()
+        
+        errorLabel.text = ""
         
     }
     

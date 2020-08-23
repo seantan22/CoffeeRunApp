@@ -119,10 +119,10 @@ class NewOrderVendorViewController: UIViewController {
     
         self.navigationItem.setHidesBackButton(true, animated: true)
     
-        timHortonsBtn.applyShadow()
-        pmBtn.applyShadow()
-        starbucksBtn.applyShadow()
-        secondCupBtn.applyShadow()
+        timHortonsBtn.cardButton()
+        pmBtn.cardButton()
+        starbucksBtn.cardButton()
+        secondCupBtn.cardButton()
     
         view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
     

@@ -104,6 +104,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self;
         confirmPasswordTextField.delegate = self;
         
+        emailTextField.styleTextInput()
+        phoneTextField.styleTextInput()
+        usernameTextField.styleTextInput()
+        passwordTextField.styleTextInput()
+        confirmPasswordTextField.styleTextInput()
+        
         signUpButton.mainButton()
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         

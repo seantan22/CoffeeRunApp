@@ -35,6 +35,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func loginUser(_ sender: UIButton) {
         
         errorMsgLabel.text = ""
+        
+        signInButton.isEnabled = false
 
         let email = emailTextField.text!
         let password = passwordTextField.text!
@@ -69,6 +71,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
             } else {
                 DispatchQueue.main.async {
+                    self.signInButton.isEnabled = true
                     self.errorMsgLabel.text = result.response[0]
                 }
             }
@@ -82,9 +85,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self;
         passwordTextField.delegate = self;
         
+        self.signInButton.isEnabled = true
+        
+        emailTextField.styleTextInput()
+        passwordTextField.styleTextInput()
+        
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         signInButton.mainButton()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.signInButton.isEnabled = true
     }
     
     //MARK: Response

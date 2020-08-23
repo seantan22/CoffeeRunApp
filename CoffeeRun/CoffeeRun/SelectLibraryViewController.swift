@@ -49,10 +49,10 @@ class SelectLibraryViewController: UIViewController {
         
         view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
         
-        mclennanButton.libraryImage()
-        redpathButton.libraryImage()
-        lawButton.libraryImage()
-        musicButton.libraryImage()
+        mclennanButton.cardButton()
+        redpathButton.cardButton()
+        lawButton.cardButton()
+        musicButton.cardButton()
     }
     
 }

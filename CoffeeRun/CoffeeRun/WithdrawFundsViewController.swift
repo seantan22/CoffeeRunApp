@@ -28,6 +28,8 @@ class WithdrawFundsViewController: UIViewController {
 
         balanceTextField.becomeFirstResponder()
         
+         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
         self.balanceLabel.text = String(format: "$%.02f", balance)
         
         let toolBar = UIToolbar()

@@ -28,6 +28,8 @@ class AddFundsViewController: UIViewController {
         
         balanceTextField.becomeFirstResponder()
         
+         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
         errorLabel.text = ""
         
         self.balanceLabel.text = String(format: "$%.02f", balance)

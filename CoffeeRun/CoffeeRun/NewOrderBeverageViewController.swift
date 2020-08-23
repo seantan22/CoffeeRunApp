@@ -19,6 +19,9 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
     @IBOutlet weak var detailsTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     
+    @IBOutlet weak var sizeSection: UIView!
+    @IBOutlet weak var bevSection: UIView!
+    
     //MARK: Actions
    
     @IBAction func toSeatLocation(_ sender: UIBarButtonItem) {
@@ -135,16 +138,15 @@ class NewOrderBeverageViewController: UIViewController, UIPickerViewDataSource, 
         beveragePicker.delegate = self
         
         view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
+        beveragePicker.backgroundColor = UIColor.clear
+        sizePicker.backgroundColor = UIColor.clear
+        detailsTextField.styleTextInput()
         
-        beveragePicker.backgroundColor = UIColor(white: 1.0, alpha: 0.1)
-        
-        sizePicker.backgroundColor = UIColor(white: 1.0, alpha: 0.1)
+        sizeSection.card()
+        bevSection.card()
         
         self.errorLabel.text = ""
-        
-        sizePicker.applyDesign()
-        beveragePicker.applyDesign()
-        
+    
      }
     
     struct Response: Decodable {
