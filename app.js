@@ -137,7 +137,7 @@ app.post('/updateForgottenPassword', function(req, res){
     var new_password = req.body.password;
 
     if (cred_checker.passwordStrength(new_password) || new_password == null || new_password == ""){
-        res.send(JSON.stringify({result: false, response: ["Please enter an appropriate password."]}));
+        res.send(JSON.stringify({result: false, response: ["Please enter a stronger password."]}));
         return;
     }
 
