@@ -12,6 +12,9 @@ class McLennanViewController: UIViewController {
     
     var prevZoneClicked: String = ""
     var prevFloorClicked: String = ""
+
+    @IBOutlet weak var segmentCard: UIView!
+    @IBOutlet weak var floorCard: UIView!
     
     //MARK: Properties
     @IBOutlet weak var zoneAButton: UIButton!
@@ -171,6 +174,9 @@ class McLennanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        segmentCard.card()
+        floorCard.card()
         
         view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
         
