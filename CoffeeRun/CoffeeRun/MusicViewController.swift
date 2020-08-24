@@ -13,6 +13,9 @@ class MusicViewController: UIViewController {
     var prevZoneClicked: String = ""
     var prevFloorClicked: String = ""
     
+    @IBOutlet weak var zoneCard: UIView!
+    @IBOutlet weak var floorCard: UIView!
+    
     @IBOutlet weak var zoneAButton: UIButton!
     @IBOutlet weak var zoneBButton: UIButton!
     
@@ -109,6 +112,9 @@ class MusicViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        zoneCard.card()
+        floorCard.card()
         
         view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
 

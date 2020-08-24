@@ -18,6 +18,9 @@ class RedpathViewController: UIViewController {
     @IBOutlet weak var floorTwoButton: UIButton!
     @IBOutlet weak var floorThreeButton: UIButton!
     
+    @IBOutlet weak var zoneCard: UIView!
+    @IBOutlet weak var floorCard: UIView!
+    
     @IBAction func finishSelectingLocation(_ sender: UIBarButtonItem) {
         
         if prevFloorClicked != "" && prevZoneClicked != "" {
@@ -86,6 +89,9 @@ class RedpathViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        zoneCard.card()
+        floorCard.card()
         
         view.setGradientBackground(colorA: Colors.lightBlue, colorB: Colors.lightPurple)
         
