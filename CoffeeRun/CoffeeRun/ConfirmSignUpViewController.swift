@@ -16,6 +16,7 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
     static var username: String = String()
     
     //MARK: Properties
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var d1TextField: UITextField!
     @IBOutlet weak var d2TextField: UITextField!
     @IBOutlet weak var d3TextField: UITextField!
@@ -25,6 +26,8 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Actions
     @IBAction func verifyUser(_ sender: UIBarButtonItem) {
+        
+        errorLabel.text = ""
         
         let codeArray = [d1TextField.text!, d2TextField.text!, d3TextField.text!, d4TextField.text!, d5TextField.text!, d6TextField.text!]
 
@@ -43,7 +46,9 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
                 (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
                     .changeRootViewController(tabBarController)
             } else {
-                print("Error: Invalid verification code.")
+                DispatchQueue.main.async {
+                    self.errorLabel.text = "Incorrect Verification Code. Try Again."
+                }
             }
         }
         
@@ -54,12 +59,14 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
 
         self.navigationItem.setHidesBackButton(true, animated: true);
         
-        d1TextField.addTarget(self, action: #selector(self.textdidChange(textField:)), for: UIControl.Event.editingChanged)
-        d2TextField.addTarget(self, action: #selector(self.textdidChange(textField:)), for: UIControl.Event.editingChanged)
-        d3TextField.addTarget(self, action: #selector(self.textdidChange(textField:)), for: UIControl.Event.editingChanged)
-        d4TextField.addTarget(self, action: #selector(self.textdidChange(textField:)), for: UIControl.Event.editingChanged)
-        d5TextField.addTarget(self, action: #selector(self.textdidChange(textField:)), for: UIControl.Event.editingChanged)
-        d6TextField.addTarget(self, action: #selector(self.textdidChange(textField:)), for: UIControl.Event.editingChanged)
+        errorLabel.text = ""
+        
+        d1TextField.delegate = self
+        d2TextField.delegate = self
+        d3TextField.delegate = self
+        d4TextField.delegate = self
+        d5TextField.delegate = self
+        d6TextField.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,37 +76,48 @@ class ConfirmSignUpViewController: UIViewController, UITextFieldDelegate {
          view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
     }
     
-    @objc func textdidChange(textField: UITextField) {
-        let text = textField.text
-        
-        if text?.utf16.count == 1 {
-            
-            switch textField {
-                
-            case d1TextField:
-                d2TextField.becomeFirstResponder()
-                break
-            case d2TextField:
-                d3TextField.becomeFirstResponder()
-                break
-            case d3TextField:
-                d4TextField.becomeFirstResponder()
-                break
-            case d4TextField:
-                d5TextField.becomeFirstResponder()
-                break
-            case d5TextField:
-                d6TextField.becomeFirstResponder()
-                break
-            case d6TextField:
-                d6TextField.resignFirstResponder()
-                break
-            default:
-                break
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string != "" {
+            if textField.text == "" {
+                textField.text = string
+            } else {
+                if textField == d1TextField {
+                    d2TextField.becomeFirstResponder()
+                    d2TextField.text = string
+                } else if textField == d2TextField {
+                    d3TextField.becomeFirstResponder()
+                    d3TextField.text = string
+                } else if textField == d3TextField {
+                    d4TextField.becomeFirstResponder()
+                    d4TextField.text = string
+                } else if textField == d4TextField {
+                    d5TextField.becomeFirstResponder()
+                    d5TextField.text = string
+                } else if textField == d5TextField {
+                    d6TextField.becomeFirstResponder()
+                    d6TextField.text = string
+                } else if textField == d6TextField {
+                    textField.resignFirstResponder()
+                }
             }
-            
+            return false
         } else {
-            
+            textField.text = string
+            if textField.text!.count == 0 {
+                if textField == d2TextField {
+                    d1TextField.becomeFirstResponder()
+                } else if textField == d3TextField {
+                    d2TextField.becomeFirstResponder()
+                } else if textField == d4TextField {
+                   d3TextField.becomeFirstResponder()
+                } else if textField == d5TextField {
+                    d4TextField.becomeFirstResponder()
+                } else if textField == d6TextField {
+                   d5TextField.becomeFirstResponder()
+                }
+                return false
+            }
+            return false
         }
     }
     
