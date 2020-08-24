@@ -44,6 +44,8 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
         tableView.delegate = self
         tableView.dataSource = self
         
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
         selectedOrdersLabel.text = "You've selected " + String(ConfirmSelectionViewController.selectedOrders.count) + " orders:"
         
         var totalCost: Double = 0.0

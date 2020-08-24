@@ -54,13 +54,10 @@ class ExistingOrderViewController: UIViewController {
             
             self.deleteOrder(username: ExistingOrderViewController.username, order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: Response) in
                 if result.result {
-                        ExistingOrderViewController.isCancelled = true
+                    ExistingOrderViewController.isCancelled = false
                 }
             }
-            self.statusTimer?.invalidate()
-            self.run(after: 1000) {
-                self.performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: nil)
-            }
+           
              
             }))
         
@@ -127,33 +124,41 @@ class ExistingOrderViewController: UIViewController {
     @objc func callGetStatus() {
         
         if ExistingOrderViewController.isCancelled {
+            OrderExistenceViewController.doesOrderExist = false
             performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: self)
-            return
-        }
-            
-        getStatus(order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: Response) in
-            DispatchQueue.main.async {
-                
-                if result.response[0] != "Awaiting Runner" {
-                    self.cancelButton.isUserInteractionEnabled = false
-                    self.cancelButton.isHidden = true
-                    DeliveredViewController.delivererUsername = result.response[1]
+        } else {
+            getStatus(order_id: UserDefaults.standard.string(forKey: "order_id")!) {(result: Response) in
+                if result.result {
+                    DispatchQueue.main.async {
+                        if result.response[0] != "Awaiting Runner" {
+                            self.cancelButton.isUserInteractionEnabled = false
+                            self.cancelButton.isHidden = true
+                            DeliveredViewController.delivererUsername = result.response[1]
+                        } else {
+                            self.cancelButton.isUserInteractionEnabled = true
+                            self.cancelButton.isHidden = false
+                        }
+                        
+                        self.statusLabel.text = result.response[0]
+                        
+                        if self.statusLabel.text == "Awaiting Runner" {
+                            self.statusLabel.backgroundColor = UIColor(red: 38/255, green: 136/255, blue: 227/255, alpha: 1)
+                        } else if self.statusLabel.text == "In Progress" || self.statusLabel.text == "Picked Up" {
+                            self.statusLabel.backgroundColor = UIColor(red: 244/255, green: 211/255, blue: 94/255, alpha: 1)
+                        } else if self.statusLabel.text == "Delivered" {
+                            self.performSegue(withIdentifier: "toDeliveredSegue", sender: nil)
+                        } else if self.statusLabel.text == "Order does not exist." {
+                            self.performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: nil)
+                        }
+                    }
                 } else {
-                    self.cancelButton.isUserInteractionEnabled = true
-                    self.cancelButton.isHidden = false
+                    ExistingOrderViewController.isCancelled = true
+                    OrderExistenceViewController.doesOrderExist = false
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: self)
+                    }
                 }
                 
-                self.statusLabel.text = result.response[0]
-                
-                if self.statusLabel.text == "Awaiting Runner" {
-                    self.statusLabel.backgroundColor = UIColor(red: 38/255, green: 136/255, blue: 227/255, alpha: 1)
-                } else if self.statusLabel.text == "In Progress" || self.statusLabel.text == "Picked Up" {
-                    self.statusLabel.backgroundColor = UIColor(red: 244/255, green: 211/255, blue: 94/255, alpha: 1)
-                } else if self.statusLabel.text == "Delivered" {
-                    self.performSegue(withIdentifier: "toDeliveredSegue", sender: nil)
-                } else if self.statusLabel.text == "Order does not exist." {
-                    self.performSegue(withIdentifier: "cancelOrderToExistenceSegue", sender: nil)
-                }
             }
         }
     }
@@ -238,6 +243,7 @@ class ExistingOrderViewController: UIViewController {
                     }
                     if deleteOrderResponse.result {
                        UserDefaults.standard.removeObject(forKey: "order_id")
+                        ExistingOrderViewController.isCancelled = true
                     }
                 completion(deleteOrderResponse)
                }

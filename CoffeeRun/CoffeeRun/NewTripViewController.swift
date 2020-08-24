@@ -53,6 +53,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
     
     }
     
