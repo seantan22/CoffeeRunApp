@@ -39,6 +39,6 @@ struct URLs {
     static let testingURL = "http://localhost:5000/"
     static let deployedURL = "https://coffeerunapp.herokuapp.com/"
     
-    static let URL = testingURL
+    static let URL = deployedURL
     
 }
