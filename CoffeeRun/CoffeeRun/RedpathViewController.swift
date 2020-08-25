@@ -41,12 +41,18 @@ class RedpathViewController: UIViewController {
     
     @IBOutlet weak var floorCard: UIView!
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     @IBAction func finishSelectingLocation(_ sender: UIBarButtonItem) {
         
-        if prevFloorClicked != "" && prevZoneClicked != "" {
-            performSegue(withIdentifier: "redpathToSummarySegue", sender: self)
+        errorLabel.text = ""
+        
+        if prevFloorClicked == "" {
+            errorLabel.text = "Please select a floor."
+        } else if prevZoneClicked == ""{
+            errorLabel.text = "Please select a zone."
         } else {
-            print("Please select a floor & zone.")
+            performSegue(withIdentifier: "redpathToSummarySegue", sender: self)
         }
         
     }
@@ -180,7 +186,7 @@ class RedpathViewController: UIViewController {
         floorTwoButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         floorThreeButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
        
-
+        errorLabel.text = ""
     }
 
 }

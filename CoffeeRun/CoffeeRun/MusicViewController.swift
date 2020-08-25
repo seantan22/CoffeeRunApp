@@ -13,6 +13,8 @@ class MusicViewController: UIViewController {
     var prevZoneClicked: String = ""
     var prevFloorClicked: String = ""
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     @IBOutlet weak var zoneCard: UIView!
     @IBOutlet weak var floorCard: UIView!
     
@@ -25,10 +27,14 @@ class MusicViewController: UIViewController {
     
     @IBAction func finishSelectingLocation(_ sender: UIBarButtonItem) {
         
-            if prevFloorClicked != "" && prevZoneClicked != "" {
-            performSegue(withIdentifier: "musicToSummarySegue", sender: self)
+        errorLabel.text = ""
+        
+        if prevFloorClicked == "" {
+            errorLabel.text = "Please select a floor."
+        } else if  prevZoneClicked == "" {
+            errorLabel.text = "Please select a zone."
         } else {
-            print("Please select a floor & zone.")
+            performSegue(withIdentifier: "musicToSummarySegue", sender: self)
         }
         
     }
@@ -125,6 +131,8 @@ class MusicViewController: UIViewController {
         floorThreeButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         floorFourButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         floorFiveButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+        
+        errorLabel.text = ""
         
     }
     

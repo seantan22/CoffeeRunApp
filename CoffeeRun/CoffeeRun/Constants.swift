@@ -23,15 +23,22 @@ struct Colors {
     static let cardA = UIColor(red: 240/255, green: 250/255, blue: 255/255, alpha: 1.0)
     static let cardB = UIColor(red: 245/255, green: 250/255, blue: 255/255, alpha: 1.0)
     
-    // GRADIENT #4
-    static let receiptA = UIColor(red: 241/255, green: 251/255, blue: 255/255, alpha: 1.0)
-    static let receiptB = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
-    
-    //GRADIENT #5
+    //GRADIENT #4
     static let textInputA = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 0.7)
     static let textInputB = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 0.7)
     
+    // GRADIENT #5 - Awaiting Runner Badge
+    static let awaitingA = UIColor(red: 255/255, green: 231/255, blue: 108/255, alpha: 0.7)
+    static let awaitingB = UIColor(red: 255/255, green: 247/255, blue: 141/255, alpha: 0.7)
     
+    // GRADIENT #6 - In Progress Badge
+    static let progressA = UIColor(red: 255/255, green: 231/255, blue: 108/255, alpha: 0.7)
+    static let progressB = UIColor(red: 255/255, green: 247/255, blue: 141/255, alpha: 0.7)
+    
+    
+    // STATUS LABELS
+    static let statusBlue = UIColor(red: 86/255, green: 86/255, blue: 255/255, alpha: 1.0)
+    static let statusGreen = UIColor(red: 0/255, green: 204/255, blue: 0/255, alpha: 1.0)
 }
 
 struct URLs {

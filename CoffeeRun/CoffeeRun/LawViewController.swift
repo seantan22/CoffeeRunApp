@@ -13,6 +13,8 @@ class LawViewController: UIViewController {
     var prevZoneClicked: String = ""
     var prevFloorClicked: String = ""
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     @IBOutlet weak var zoneCard: UIView!
     @IBOutlet weak var floorCard: UIView!
     
@@ -32,10 +34,18 @@ class LawViewController: UIViewController {
     
     @IBAction func finishSelectingLocation(_ sender: UIBarButtonItem) {
         
-        if prevFloorClicked != "" && prevZoneClicked != "" {
-            performSegue(withIdentifier: "lawToSummarySegue", sender: self)
+        errorLabel.text = ""
+        
+        if prevFloorClicked == "" {
+            DispatchQueue.main.async {
+                self.errorLabel.text = "Please select a floor."
+            }
+        } else if prevZoneClicked == "" {
+            DispatchQueue.main.async {
+                self.errorLabel.text = "Please select a zone."
+            }
         } else {
-            print("Please select a floor & zone.")
+            performSegue(withIdentifier: "lawToSummarySegue", sender: self)
         }
     }
     
@@ -183,6 +193,7 @@ class LawViewController: UIViewController {
         floorFourButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         floorFiveButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         
+        errorLabel.text = ""
 
     }
     

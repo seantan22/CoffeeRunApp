@@ -62,7 +62,6 @@ extension UIView {
         self.layer.shadowRadius = 10
         self.layer.shadowOpacity = 0.75
         self.layer.shadowOffset = CGSize(width: 0, height: -1)
-        self.setGradientBackground(colorA: Colors.receiptA, colorB: Colors.receiptB)
     }
 
     func setGradientBackground(colorA: UIColor, colorB: UIColor) {
@@ -75,6 +74,29 @@ extension UIView {
         layer.insertSublayer(gradientLayer, at: 0)
     }
     
+}
+
+extension UILabel {
+    
+    func awaitingRunner() {
+        self.layer.cornerRadius = 25
+        self.backgroundColor = UIColor.white
+        self.textColor = UIColor.lightGray
+    }
+    
+    func inProgress() {
+        self.layer.cornerRadius = 25
+        self.backgroundColor = Colors.statusBlue
+        self.textColor = UIColor.white
+        
+        
+    }
+    
+    func pickedUp() {
+        self.layer.cornerRadius = 25
+        self.backgroundColor = Colors.statusGreen
+        self.textColor = UIColor.white
+    }
 }
 
 extension UITextField {

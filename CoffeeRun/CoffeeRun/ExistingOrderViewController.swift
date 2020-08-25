@@ -30,6 +30,8 @@ class ExistingOrderViewController: UIViewController {
     var statusTimer: Timer?
     
     //MARK: Properties
+    @IBOutlet weak var receiptCard: UIView!
+    
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var vendorLabel: UILabel!
@@ -74,6 +76,8 @@ class ExistingOrderViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
+        receiptCard.receipt()
         
         self.cancelButton.isUserInteractionEnabled = false
         self.cancelButton.isHidden = true
@@ -142,9 +146,11 @@ class ExistingOrderViewController: UIViewController {
                         self.statusLabel.text = result.response[0]
                         
                         if self.statusLabel.text == "Awaiting Runner" {
-                            self.statusLabel.backgroundColor = UIColor(red: 38/255, green: 136/255, blue: 227/255, alpha: 1)
-                        } else if self.statusLabel.text == "In Progress" || self.statusLabel.text == "Picked Up" {
-                            self.statusLabel.backgroundColor = UIColor(red: 244/255, green: 211/255, blue: 94/255, alpha: 1)
+                            self.statusLabel.awaitingRunner()
+                        } else if self.statusLabel.text == "In Progress" {
+                            self.statusLabel.inProgress()
+                        } else if self.statusLabel.text == "Picked Up" {
+                            self.statusLabel.pickedUp()
                         } else if self.statusLabel.text == "Delivered" {
                             self.performSegue(withIdentifier: "toDeliveredSegue", sender: nil)
                         } else if self.statusLabel.text == "Order does not exist." {

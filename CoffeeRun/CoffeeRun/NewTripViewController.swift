@@ -55,6 +55,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.dataSource = self
         
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
+        tableView.backgroundColor = UIColor.clear
     
     }
     
