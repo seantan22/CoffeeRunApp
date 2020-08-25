@@ -32,7 +32,7 @@ class RedpathViewController: UIViewController {
     @IBOutlet weak var buttonAfloor3: UIButton!
     @IBOutlet weak var buttonBfloor3: UIButton!
     @IBOutlet weak var buttonCfloor3: UIButton!
-    @IBOutlet weak var buttonDfloor3: UIButton!
+ 
     
     @IBOutlet weak var zoneCardB: UIView!
     @IBOutlet weak var zoneCard1: UIView!

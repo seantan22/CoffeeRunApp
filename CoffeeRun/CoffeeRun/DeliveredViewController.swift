@@ -38,6 +38,11 @@ class DeliveredViewController: UIViewController {
     @IBOutlet weak var tipAmountLabel: UILabel!
     @IBOutlet weak var totalAmountLabel: UILabel!
     
+    @IBOutlet weak var enjoySection: UIView!
+    @IBOutlet weak var ratingSection: UIView!
+    @IBOutlet weak var tipSection: UIView!
+    @IBOutlet weak var costSection: UIView!
+    
     @IBAction func clickCompleteOrder(_ sender: UIBarButtonItem) {
         
         sender.isEnabled = false
@@ -162,6 +167,11 @@ class DeliveredViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        enjoySection.card()
+        ratingSection.card()
+        tipSection.card()
+        costSection.card()
 
         self.navigationItem.setHidesBackButton(true, animated: true)
         
