@@ -18,6 +18,15 @@ class RedpathViewController: UIViewController {
     @IBOutlet weak var floorTwoButton: UIButton!
     @IBOutlet weak var floorThreeButton: UIButton!
     
+    @IBOutlet weak var buttonAfloorB: UIButton!
+    @IBOutlet weak var buttonBfloorB: UIButton!
+    @IBOutlet weak var buttonCfloorB: UIButton!
+    @IBOutlet weak var buttonDfloorB: UIButton!
+    @IBOutlet weak var buttonEfloorB: UIButton!
+    @IBOutlet weak var buttonFfloorB: UIButton!
+    @IBOutlet weak var buttonGfloorB: UIButton!
+    @IBOutlet weak var buttonHfloorB: UIButton!
+    
     @IBOutlet weak var buttonAfloor1: UIButton!
     @IBOutlet weak var buttonBfloor1: UIButton!
     @IBOutlet weak var buttonCfloor1: UIButton!
