@@ -18,6 +18,8 @@ class AddFundsViewController: UIViewController {
     @IBOutlet weak var swipeArrowView: UIImageView!
     @IBOutlet weak var errorLabel: UILabel!
     
+    @IBOutlet weak var balanceSection: UIView!
+    
     
     var originPointArrow: CGPoint!
 
@@ -31,6 +33,8 @@ class AddFundsViewController: UIViewController {
          view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
         errorLabel.text = ""
+        
+        balanceSection.card()
         
         self.balanceLabel.text = String(format: "$%.02f", balance)
         

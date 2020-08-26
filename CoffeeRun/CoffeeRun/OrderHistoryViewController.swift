@@ -19,6 +19,8 @@ class OrderHistoryViewController: UIViewController, UITableViewDataSource, UITab
 
            tableView.delegate = self
            tableView.dataSource = self
+        
+            view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
 
     }
     

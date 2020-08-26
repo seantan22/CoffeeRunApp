@@ -170,7 +170,6 @@ class DeliveredViewController: UIViewController {
         
         enjoySection.card()
         ratingSection.card()
-        tipSection.card()
         costSection.card()
 
         self.navigationItem.setHidesBackButton(true, animated: true)
