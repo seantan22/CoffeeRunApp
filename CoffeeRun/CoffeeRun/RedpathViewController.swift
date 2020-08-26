@@ -58,7 +58,7 @@ class RedpathViewController: UIViewController {
         
         if prevFloorClicked == "" {
             errorLabel.text = "Please select a floor."
-        } else if prevZoneClicked == ""{
+        } else if prevZoneClicked == "" {
             errorLabel.text = "Please select a zone."
         } else {
             performSegue(withIdentifier: "redpathToSummarySegue", sender: self)
@@ -68,29 +68,7 @@ class RedpathViewController: UIViewController {
     
     @IBAction func toggleZoneForCybertech(_ sender: UIButton) {
         
-        switch self.prevZoneClicked {
-            
-        case "A":
-            buttonAfloorB.backgroundColor = UIColor.clear
-        case "B":
-            buttonBfloorB.backgroundColor = UIColor.clear
-        case "C":
-            buttonCfloorB.backgroundColor = UIColor.clear
-        case "D":
-            buttonDfloorB.backgroundColor = UIColor.clear
-        case "E":
-            buttonEfloorB.backgroundColor = UIColor.clear
-        case "F":
-            buttonFfloorB.backgroundColor = UIColor.clear
-        case "G":
-            buttonGfloorB.backgroundColor = UIColor.clear
-        case "H":
-            buttonHfloorB.backgroundColor = UIColor.clear
-        default:
-            print("default")
-            
-        }
-        
+        clearZoneBasement()
         
         switch sender {
             
@@ -136,23 +114,7 @@ class RedpathViewController: UIViewController {
     
     
     @IBAction func toggleZoneForFloorOne(_ sender: UIButton) {
-    
-        switch self.prevZoneClicked {
-            
-        case "A":
-            buttonAfloor1.backgroundColor = UIColor.clear
-        case "B":
-            buttonBfloor1.backgroundColor = UIColor.clear
-        case "C":
-            buttonCfloor1.backgroundColor = UIColor.clear
-        case "D":
-            buttonDfloor1.backgroundColor = UIColor.clear
-        case "E":
-            buttonEfloor1.backgroundColor = UIColor.clear
-        default:
-            print("default")
-            
-        }
+        clearZoneFOne()
         
         
         switch sender {
@@ -188,20 +150,7 @@ class RedpathViewController: UIViewController {
     
     @IBAction func toggleZoneForFloorTwo(_ sender: UIButton) {
     
-        switch self.prevZoneClicked {
-            
-        case "A":
-            buttonAfloor2.backgroundColor = UIColor.clear
-        case "B":
-            buttonBfloor2.backgroundColor = UIColor.clear
-        case "C":
-            buttonCfloor2.backgroundColor = UIColor.clear
-        case "D":
-            buttonDfloor2.backgroundColor = UIColor.clear
-        default:
-            print("default")
-            
-        }
+        clearZoneFTwo()
         
         switch sender {
             
@@ -232,19 +181,6 @@ class RedpathViewController: UIViewController {
     
     @IBAction func toggleZoneForFloorThree(_ sender: UIButton) {
         
-        switch self.prevZoneClicked {
-            
-        case "A":
-            buttonAfloor3.backgroundColor = UIColor.clear
-        case "B":
-            buttonBfloor3.backgroundColor = UIColor.clear
-        case "C":
-            buttonCfloor3.backgroundColor = UIColor.clear
-        default:
-            print("default")
-            
-        }
-        
         switch sender {
             
         case buttonAfloor3:
@@ -274,25 +210,29 @@ class RedpathViewController: UIViewController {
                case "B":
                    floorBaseButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                    floorBaseButton.setTitleColor(UIColor.black, for: .normal)
-
+                   clearZoneBasement()
+            
                case "1":
                    floorOneButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                    floorOneButton.setTitleColor(UIColor.black, for: .normal)
-
+                   clearZoneFOne()
                 
                case "2":
                    floorTwoButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                    floorTwoButton.setTitleColor(UIColor.black, for: .normal)
-
+                   clearZoneFTwo()
+            
                case "3":
                    floorThreeButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                    floorThreeButton.setTitleColor(UIColor.black, for: .normal)
-
+                   clearZoneFThree()
                
                default:
                    print("default")
                    
                }
+        
+                self.prevZoneClicked = ""
                
                switch sender {
                 
@@ -328,16 +268,86 @@ class RedpathViewController: UIViewController {
                
     }
     
+    func clearZoneBasement(){
+        switch self.prevZoneClicked {
+                                
+        case "A":
+           buttonAfloorB.backgroundColor = UIColor.clear
+        case "B":
+           buttonBfloorB.backgroundColor = UIColor.clear
+        case "C":
+           buttonCfloorB.backgroundColor = UIColor.clear
+        case "D":
+           buttonDfloorB.backgroundColor = UIColor.clear
+        case "E":
+           buttonEfloorB.backgroundColor = UIColor.clear
+        case "F":
+           buttonFfloorB.backgroundColor = UIColor.clear
+        case "G":
+           buttonGfloorB.backgroundColor = UIColor.clear
+        case "H":
+           buttonHfloorB.backgroundColor = UIColor.clear
+        default:
+           print("default")
+           
+        }
+    }
+    
+    func clearZoneFOne(){
+        switch self.prevZoneClicked {
+        case "A":
+           buttonAfloor1.backgroundColor = UIColor.clear
+        case "B":
+           buttonBfloor1.backgroundColor = UIColor.clear
+        case "C":
+           buttonCfloor1.backgroundColor = UIColor.clear
+        case "D":
+           buttonDfloor1.backgroundColor = UIColor.clear
+        case "E":
+           buttonEfloor1.backgroundColor = UIColor.clear
+        default:
+           print("default")
+           
+        }
+    }
+    
+    func clearZoneFTwo(){
+        switch self.prevZoneClicked {
+                     
+        case "A":
+            buttonAfloor2.backgroundColor = UIColor.clear
+        case "B":
+            buttonBfloor2.backgroundColor = UIColor.clear
+        case "C":
+            buttonCfloor2.backgroundColor = UIColor.clear
+        case "D":
+            buttonDfloor2.backgroundColor = UIColor.clear
+        default:
+            print("default")
+        }
+    }
+    
+    func clearZoneFThree(){
+        switch self.prevZoneClicked {
+            
+        case "A":
+            buttonAfloor3.backgroundColor = UIColor.clear
+        case "B":
+            buttonBfloor3.backgroundColor = UIColor.clear
+        case "C":
+            buttonCfloor3.backgroundColor = UIColor.clear
+        default:
+            print("default")
+            
+        }
+    }
+    
     func basementSegments(isHidden: Bool){
         
         zoneCardB.isHidden = isHidden
         zoneCard1.isHidden = !isHidden
         zoneCard2.isHidden = !isHidden
         zoneCard3.isHidden = !isHidden
-        
-        if(!isHidden){
-            
-        }
         
     }
     
