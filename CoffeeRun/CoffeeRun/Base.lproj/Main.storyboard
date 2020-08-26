@@ -1091,71 +1091,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icB-4d-31J">
-                                <rect key="frame" x="20" y="340" width="374" height="254"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Zone:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgy-yL-pSI">
-                                        <rect key="frame" x="0.0" y="10" width="374" height="21.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redpath_groundfloor" translatesAutoresizingMaskIntoConstraints="NO" id="S70-vg-T5d" userLabel="image">
-                                        <rect key="frame" x="0.0" y="34" width="374" height="212"/>
-                                    </imageView>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ux5-kr-yDH">
-                                        <rect key="frame" x="123" y="68" width="81" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <state key="normal" title="A">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zys-cf-fu5">
-                                        <rect key="frame" x="160" y="126" width="76" height="49"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <state key="normal" title="C">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJD-eY-diT">
-                                        <rect key="frame" x="238" y="126" width="92" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <state key="normal" title="D">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEz-tl-wa7">
-                                        <rect key="frame" x="206" y="53" width="162" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <state key="normal" title="B">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uq6-sa-hLK">
-                                        <rect key="frame" x="34" y="178" width="185" height="54"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <state key="normal" title="E">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="S70-vg-T5d" firstAttribute="top" secondItem="icB-4d-31J" secondAttribute="top" constant="34" id="3Mm-cX-spA"/>
-                                    <constraint firstItem="Hgy-yL-pSI" firstAttribute="top" secondItem="icB-4d-31J" secondAttribute="top" constant="10" id="8P1-0i-gBL"/>
-                                    <constraint firstAttribute="bottom" secondItem="S70-vg-T5d" secondAttribute="bottom" constant="8" id="B3c-cc-7g8"/>
-                                    <constraint firstAttribute="trailing" secondItem="Hgy-yL-pSI" secondAttribute="trailing" id="OIS-Fo-O20"/>
-                                    <constraint firstItem="S70-vg-T5d" firstAttribute="leading" secondItem="icB-4d-31J" secondAttribute="leading" id="bf0-wg-Q6Z"/>
-                                    <constraint firstAttribute="bottom" secondItem="Hgy-yL-pSI" secondAttribute="bottom" constant="222.5" id="jCF-90-YNc"/>
-                                    <constraint firstAttribute="trailing" secondItem="S70-vg-T5d" secondAttribute="trailing" id="rMY-nt-A3Y"/>
-                                    <constraint firstItem="Hgy-yL-pSI" firstAttribute="leading" secondItem="icB-4d-31J" secondAttribute="leading" id="rjs-EI-h5I"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvN-n2-AKj">
                                 <rect key="frame" x="20" y="191" width="374" height="128"/>
                                 <subviews>
@@ -1231,6 +1166,86 @@
                                     <constraint firstAttribute="bottom" secondItem="WU8-Vo-jUm" secondAttribute="bottom" constant="20" id="xV1-cv-my9"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icB-4d-31J">
+                                <rect key="frame" x="20" y="340" width="374" height="254"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Zone:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgy-yL-pSI">
+                                        <rect key="frame" x="0.0" y="10" width="374" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redpath_groundfloor" translatesAutoresizingMaskIntoConstraints="NO" id="S70-vg-T5d" userLabel="image">
+                                        <rect key="frame" x="0.0" y="34" width="374" height="212"/>
+                                    </imageView>
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ux5-kr-yDH">
+                                        <rect key="frame" x="123" y="68" width="81" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="A">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorOne:" destination="hNX-aO-ffc" eventType="touchUpInside" id="ko3-E2-KzP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zys-cf-fu5">
+                                        <rect key="frame" x="160" y="126" width="76" height="49"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="C">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorOne:" destination="hNX-aO-ffc" eventType="touchUpInside" id="qQz-2j-3s1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJD-eY-diT">
+                                        <rect key="frame" x="238" y="126" width="92" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="D">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorOne:" destination="hNX-aO-ffc" eventType="touchUpInside" id="PtQ-hP-cLd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEz-tl-wa7">
+                                        <rect key="frame" x="206" y="53" width="162" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="B">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorOne:" destination="hNX-aO-ffc" eventType="touchUpInside" id="1hI-bd-g2L"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uq6-sa-hLK">
+                                        <rect key="frame" x="34" y="178" width="185" height="54"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="E">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorOne:" destination="hNX-aO-ffc" eventType="touchUpInside" id="jup-Lm-Feh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="S70-vg-T5d" firstAttribute="top" secondItem="icB-4d-31J" secondAttribute="top" constant="34" id="3Mm-cX-spA"/>
+                                    <constraint firstItem="Hgy-yL-pSI" firstAttribute="top" secondItem="icB-4d-31J" secondAttribute="top" constant="10" id="8P1-0i-gBL"/>
+                                    <constraint firstAttribute="bottom" secondItem="S70-vg-T5d" secondAttribute="bottom" constant="8" id="B3c-cc-7g8"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hgy-yL-pSI" secondAttribute="trailing" id="OIS-Fo-O20"/>
+                                    <constraint firstItem="S70-vg-T5d" firstAttribute="leading" secondItem="icB-4d-31J" secondAttribute="leading" id="bf0-wg-Q6Z"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hgy-yL-pSI" secondAttribute="bottom" constant="222.5" id="jCF-90-YNc"/>
+                                    <constraint firstAttribute="trailing" secondItem="S70-vg-T5d" secondAttribute="trailing" id="rMY-nt-A3Y"/>
+                                    <constraint firstItem="Hgy-yL-pSI" firstAttribute="leading" secondItem="icB-4d-31J" secondAttribute="leading" id="rjs-EI-h5I"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diY-Te-52F">
                                 <rect key="frame" x="20" y="340" width="374" height="254"/>
                                 <subviews>
@@ -1243,6 +1258,9 @@
                                         <state key="normal" title="B">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorTwo:" destination="hNX-aO-ffc" eventType="touchUpInside" id="JEV-HO-g4I"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixY-KZ-l30">
                                         <rect key="frame" x="201" y="71" width="150" height="67"/>
@@ -1250,6 +1268,9 @@
                                         <state key="normal" title="C">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorTwo:" destination="hNX-aO-ffc" eventType="touchUpInside" id="kfR-fd-Xjg"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV2-UM-ckg">
                                         <rect key="frame" x="296" y="140" width="72" height="91"/>
@@ -1257,6 +1278,9 @@
                                         <state key="normal" title="D">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorTwo:" destination="hNX-aO-ffc" eventType="touchUpInside" id="zLm-7g-yxJ"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Zone:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6f-Fn-8bV">
                                         <rect key="frame" x="0.0" y="10" width="374" height="21.5"/>
@@ -1270,6 +1294,9 @@
                                         <state key="normal" title="A">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorTwo:" destination="hNX-aO-ffc" eventType="touchUpInside" id="YbH-AO-Uy9"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1312,6 +1339,9 @@
                                         <state key="normal" title="B">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorThree:" destination="hNX-aO-ffc" eventType="touchUpInside" id="go8-ne-Hyd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21h-yV-qoq">
                                         <rect key="frame" x="82" y="150" width="101" height="33"/>
@@ -1319,6 +1349,9 @@
                                         <state key="normal" title="C">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorThree:" destination="hNX-aO-ffc" eventType="touchUpInside" id="gMR-4n-Mpr"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59T-Qq-I5R">
                                         <rect key="frame" x="35" y="58" width="122" height="91"/>
@@ -1326,6 +1359,9 @@
                                         <state key="normal" title="A">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForFloorThree:" destination="hNX-aO-ffc" eventType="touchUpInside" id="v3Y-Ol-gZf"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Zone:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LlV-pO-Wwn">
                                         <rect key="frame" x="0.0" y="10" width="374" height="21.5"/>
@@ -1378,6 +1414,9 @@
                                         <state key="normal" title="A">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForCybertech:" destination="hNX-aO-ffc" eventType="touchUpInside" id="khM-aT-KXn"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dl5-zm-wbb">
                                         <rect key="frame" x="114" y="47" width="99" height="43"/>
@@ -1385,6 +1424,9 @@
                                         <state key="normal" title="B">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForCybertech:" destination="hNX-aO-ffc" eventType="touchUpInside" id="vIi-BM-Eaw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOs-mY-zYV">
                                         <rect key="frame" x="214" y="47" width="74" height="43"/>
@@ -1392,6 +1434,9 @@
                                         <state key="normal" title="C">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForCybertech:" destination="hNX-aO-ffc" eventType="touchUpInside" id="0hc-JE-BeS"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0EP-bK-vAE">
                                         <rect key="frame" x="88" y="101" width="191" height="64"/>
@@ -1399,6 +1444,9 @@
                                         <state key="normal" title="D">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForCybertech:" destination="hNX-aO-ffc" eventType="touchUpInside" id="E2s-wA-X5p"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fvs-fY-XI8">
                                         <rect key="frame" x="301" y="55" width="65" height="110"/>
@@ -1406,6 +1454,9 @@
                                         <state key="normal" title="E">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForCybertech:" destination="hNX-aO-ffc" eventType="touchUpInside" id="uit-hI-UDt"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCy-6q-fyB">
                                         <rect key="frame" x="14" y="174" width="101" height="68"/>
@@ -1413,6 +1464,9 @@
                                         <state key="normal" title="F">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForCybertech:" destination="hNX-aO-ffc" eventType="touchUpInside" id="Kfs-7f-SqW"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WY2-kP-yBX">
                                         <rect key="frame" x="211" y="173" width="155" height="69"/>
@@ -1420,6 +1474,9 @@
                                         <state key="normal" title="H">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForCybertech:" destination="hNX-aO-ffc" eventType="touchUpInside" id="ycy-eU-WW6"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2C7-AA-fiU">
                                         <rect key="frame" x="117" y="173" width="81" height="69"/>
@@ -1427,6 +1484,9 @@
                                         <state key="normal" title="G">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleZoneForCybertech:" destination="hNX-aO-ffc" eventType="touchUpInside" id="ZwG-pf-4n4"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -5042,7 +5102,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="wRC-7u-HUK"/>
-        <segue reference="IgA-aC-Nf4"/>
+        <segue reference="IKa-vJ-pDj"/>
         <segue reference="4Cz-4Q-ULq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

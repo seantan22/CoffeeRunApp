@@ -66,6 +66,207 @@ class RedpathViewController: UIViewController {
         
     }
     
+    @IBAction func toggleZoneForCybertech(_ sender: UIButton) {
+        
+        switch self.prevZoneClicked {
+            
+        case "A":
+            buttonAfloorB.backgroundColor = UIColor.clear
+        case "B":
+            buttonBfloorB.backgroundColor = UIColor.clear
+        case "C":
+            buttonCfloorB.backgroundColor = UIColor.clear
+        case "D":
+            buttonDfloorB.backgroundColor = UIColor.clear
+        case "E":
+            buttonEfloorB.backgroundColor = UIColor.clear
+        case "F":
+            buttonFfloorB.backgroundColor = UIColor.clear
+        case "G":
+            buttonGfloorB.backgroundColor = UIColor.clear
+        case "H":
+            buttonHfloorB.backgroundColor = UIColor.clear
+        default:
+            print("default")
+            
+        }
+        
+        
+        switch sender {
+            
+        case buttonAfloorB:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "A"
+            
+        case buttonBfloorB:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "B"
+            
+        case buttonCfloorB:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "C"
+            
+        case buttonDfloorB:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "D"
+            
+        case buttonEfloorB:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "E"
+            
+        case buttonFfloorB:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "F"
+            
+        case buttonGfloorB:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "G"
+            
+        case buttonHfloorB:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "H"
+            
+        default:
+            print("default")
+        }
+        
+        OrderSummaryViewController.zone = prevZoneClicked
+        
+    }
+    
+    
+    @IBAction func toggleZoneForFloorOne(_ sender: UIButton) {
+    
+        switch self.prevZoneClicked {
+            
+        case "A":
+            buttonAfloor1.backgroundColor = UIColor.clear
+        case "B":
+            buttonBfloor1.backgroundColor = UIColor.clear
+        case "C":
+            buttonCfloor1.backgroundColor = UIColor.clear
+        case "D":
+            buttonDfloor1.backgroundColor = UIColor.clear
+        case "E":
+            buttonEfloor1.backgroundColor = UIColor.clear
+        default:
+            print("default")
+            
+        }
+        
+        
+        switch sender {
+            
+        case buttonAfloor1:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "A"
+            
+        case buttonBfloor1:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "B"
+            
+        case buttonCfloor1:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "C"
+            
+        case buttonDfloor1:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "D"
+            
+        case buttonEfloor1:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "E"
+            
+        default:
+            print("default")
+        }
+        
+        OrderSummaryViewController.zone = prevZoneClicked
+    
+    }
+    
+    
+    @IBAction func toggleZoneForFloorTwo(_ sender: UIButton) {
+    
+        switch self.prevZoneClicked {
+            
+        case "A":
+            buttonAfloor2.backgroundColor = UIColor.clear
+        case "B":
+            buttonBfloor2.backgroundColor = UIColor.clear
+        case "C":
+            buttonCfloor2.backgroundColor = UIColor.clear
+        case "D":
+            buttonDfloor2.backgroundColor = UIColor.clear
+        default:
+            print("default")
+            
+        }
+        
+        switch sender {
+            
+        case buttonAfloor2:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "A"
+            
+        case buttonBfloor2:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "B"
+            
+        case buttonCfloor2:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "C"
+            
+        case buttonDfloor2:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "D"
+            
+        default:
+            print("default")
+        }
+        
+        OrderSummaryViewController.zone = prevZoneClicked
+            
+    }
+    
+    
+    @IBAction func toggleZoneForFloorThree(_ sender: UIButton) {
+        
+        switch self.prevZoneClicked {
+            
+        case "A":
+            buttonAfloor3.backgroundColor = UIColor.clear
+        case "B":
+            buttonBfloor3.backgroundColor = UIColor.clear
+        case "C":
+            buttonCfloor3.backgroundColor = UIColor.clear
+        default:
+            print("default")
+            
+        }
+        
+        switch sender {
+            
+        case buttonAfloor3:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "A"
+            
+        case buttonBfloor3:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "B"
+            
+        case buttonCfloor3:
+            sender.backgroundColor = UIColor.systemGreen
+            self.prevZoneClicked = "C"
+            
+        default:
+            print("default")
+        }
+        
+        OrderSummaryViewController.zone = prevZoneClicked
+        
+    }
+    
     @IBAction func toggleFloor(_ sender: UIButton) {
         
         switch self.prevFloorClicked {
