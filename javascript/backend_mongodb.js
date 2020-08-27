@@ -200,7 +200,7 @@ module.exports = {
     updatePasswordFromReset: async function(email, new_password){
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        var reset_record = await client.collection("Reset_Records").findOne({email: email}).catch((error) => console.log(error));
+        var reset_record = await client.collection("Reset_Records").findOne({email: email, active: true}).catch((error) => console.log(error));
 
         if(reset_record == null){
             db.close();
