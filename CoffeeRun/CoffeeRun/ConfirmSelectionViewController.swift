@@ -70,12 +70,13 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
     }
     
     // Space between cells
-    private func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> Int {
-        return 1
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5.0
     }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let spacer = UIView()
-        spacer.backgroundColor = UIColor.white
+        spacer.backgroundColor = UIColor.clear
         return spacer
     }
     

@@ -50,12 +50,23 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
     
     // Number of Cells in Table
      func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return FindUsersViewController.users.count
      }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FindUsersViewController.users.count
+        return 1
      }
+    
+   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5.0
+    }
+
+    // Space between cells
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let spacer = UIView()
+        spacer.backgroundColor = UIColor.clear
+        return spacer
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -93,7 +104,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
     // Swipe Cell
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let user = FindUsersViewController.subUsers[indexPath.row]
+        let user = FindUsersViewController.subUsers[indexPath.section]
         
         let state = user[1]
         
@@ -111,17 +122,17 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
           handler: { (action, view, completionHandler) in
             
             if state == "friends" {
-              self.unfriend(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.row][0]) {(result: Response) in
+              self.unfriend(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.section][0]) {(result: Response) in
                   if result.result {
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Friend Removed", message: FindUsersViewController.subUsers[indexPath.row][0], preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Friend Removed", message: FindUsersViewController.subUsers[indexPath.section][0], preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Done", style: .default))
                         self.present(alert, animated: true)
                         
                         var counter: Int = 0
                         
                         for person in FindUsersViewController.users {
-                            if person[0] == FindUsersViewController.subUsers[indexPath.row][0] {
+                            if person[0] == FindUsersViewController.subUsers[indexPath.section][0] {
                                 FindUsersViewController.users[counter][1] = "nothing"
                                 break
                             }
@@ -129,7 +140,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
                         }
                         
                         
-                        FindUsersViewController.subUsers[indexPath.row][1] = "nothing"
+                        FindUsersViewController.subUsers[indexPath.section][1] = "nothing"
                         let tempNumOfFriends = Int(ProfileViewController.numOfFriends)
                         ProfileViewController.numOfFriends = String(tempNumOfFriends! - 1)
                     }
@@ -138,7 +149,7 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
             } else if state == "pending" {
               print("PENDING")
             } else {
-               self.sendFriendRequest(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.row][0]) {(result: Response) in
+               self.sendFriendRequest(sender: UserDefaults.standard.string(forKey: "username")!, receiver: FindUsersViewController.subUsers[indexPath.section][0]) {(result: Response) in
                    if result.result {
                        DispatchQueue.main.async {
                         let alert = UIAlertController(title: "Request Sent!", message: "", preferredStyle: .alert)
@@ -148,14 +159,14 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
                         var counter: Int = 0
                         
                         for person in FindUsersViewController.users {
-                            if person[0] == FindUsersViewController.subUsers[indexPath.row][0] {
+                            if person[0] == FindUsersViewController.subUsers[indexPath.section][0] {
                                 FindUsersViewController.users[counter][1] = "pending"
                                 break
                             }
                             counter += 1
                         }
                         
-                            FindUsersViewController.subUsers[indexPath.row][1] = "pending"
+                            FindUsersViewController.subUsers[indexPath.section][1] = "pending"
                        }
                     
                         

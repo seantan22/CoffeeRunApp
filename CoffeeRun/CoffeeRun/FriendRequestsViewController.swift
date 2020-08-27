@@ -33,16 +33,27 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
 
     // Number of Cells in Table
      func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-     }
-
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if FriendRequestsViewController.friendRequests.count == 0 {
             return FriendRequestsViewController.noRequests.count
         }
 
         return FriendRequestsViewController.friendRequests.count
+     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+           return 5.0
+       }
+
+       // Space between cells
+       func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+           let spacer = UIView()
+           spacer.backgroundColor = UIColor.clear
+           return spacer
+       }
+
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 1
      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -79,7 +90,7 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
         
         if FriendRequestsViewController.friendRequests.count != 0 {
             
-            let sender = FriendRequestsViewController.friendRequests[indexPath.row]
+            let sender = FriendRequestsViewController.friendRequests[indexPath.section]
         
             let accept = UIContextualAction(style: .normal, title: "Accept",
              handler: { (action, view, completionHandler) in
@@ -88,7 +99,7 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
                 
                 self.acceptFriendRequest(acceptor: UserDefaults.standard.string(forKey: "username")!, sender: sender) {(result: Response) in
                     if result.result {
-                        FriendRequestsViewController.friendRequests.remove(at: indexPath.row)
+                        FriendRequestsViewController.friendRequests.remove(at: indexPath.section)
                     } else {
                         print(result.response)
                     }
@@ -108,7 +119,7 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
                 
                 self.rejectFriendRequest(denier: UserDefaults.standard.string(forKey: "username")!, sender: sender) {(result: Response) in
                     if result.result {
-                        FriendRequestsViewController.friendRequests.remove(at: indexPath.row)
+                        FriendRequestsViewController.friendRequests.remove(at: indexPath.section)
                     } else {
                         print(result.response)
                     }

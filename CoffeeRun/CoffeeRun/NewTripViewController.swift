@@ -162,7 +162,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let cell = tableView.cellForRow(at: indexPath) {
                 UIView.animate(withDuration: 0.3, animations: {
-                    if cell.contentView.backgroundColor == UIColor.green {
+                    if cell.contentView.backgroundColor == Colors.selectBlue {
                         cell.contentView.backgroundColor = UIColor.white
                         let selectedOrder = self.orders[indexPath.section]
                         if self.checkIfSelected(array: self.selectedOrders, order: selectedOrder) {
@@ -170,7 +170,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                         }
                     } else {
                          if self.selectedOrders.count < 3 {
-                            cell.contentView.backgroundColor = UIColor.green
+                            cell.contentView.backgroundColor = Colors.selectBlue
                             let selectedOrder = self.orders[indexPath.section]
                             if !self.checkIfSelected(array: self.selectedOrders, order: selectedOrder) {
                                 self.selectedOrders = self.selectedOrders + [selectedOrder]
