@@ -17,26 +17,36 @@ class OrderHistoryViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 
-           tableView.delegate = self
-           tableView.dataSource = self
+            tableView.delegate = self
+            tableView.dataSource = self
         
             view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
-
+            tableView.backgroundColor = UIColor.clear
     }
     
     // Number of Cells in Table
      func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return OrderHistoryViewController.orderHistory.count
      }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return OrderHistoryViewController.orderHistory.count
+        return 1
      }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        10.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let spacer = UIView()
+        spacer.backgroundColor = UIColor.clear
+        return spacer
+    }
      
     // Cell Content
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-        let order = OrderHistoryViewController.orderHistory[indexPath.row]
+        let order = OrderHistoryViewController.orderHistory[indexPath.section]
          let cell = tableView.dequeueReusableCell(withIdentifier: "OrderHistoryItem", for: indexPath) as! OrderHistoryTableViewCell
              cell.setOrder(order: order)
         

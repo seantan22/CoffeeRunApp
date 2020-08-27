@@ -18,10 +18,14 @@ class OrderHistoryTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
-        self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 0.5
+
+        self.layer.cornerRadius = 5
+        self.layer.borderWidth = 0.25
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowRadius = 5
+        self.layer.shadowOpacity = 0.4
+        self.layer.shadowOffset = CGSize(width: 0, height: -1)
+        self.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,6 +42,7 @@ class OrderHistoryTableViewCell: UITableViewCell {
         costLabel.text = String(format: "$%.02f", cost)
         completedAtLabel.text = order.time_closed
         completedByLabel.text = order.payee
+    
     }
 
 }

@@ -20,24 +20,20 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var selectedOrders: [OrderWithFriends] = Array()
     
+    @IBOutlet weak var availableOrdersView: UIView!
+    
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: Actions
     @IBAction func clickSelectButton(_ sender: UIBarButtonItem) {
-        
         if self.selectedOrders.count > 0 {
-            
             ConfirmSelectionViewController.selectedOrders = self.selectedOrders
             
             self.performSegue(withIdentifier: "toConfirmSelectionSegue", sender: self)
         } else {
             print("Please select an order.")
         }
-        
-        
-        
     }
-    
     
     /** OVERALL PAGE VIEW **/
     
@@ -55,6 +51,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.dataSource = self
         
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
+        availableOrdersView.card()
         
         tableView.backgroundColor = UIColor.clear
     
@@ -124,14 +122,14 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
            return 1
        }
     
-        private func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> Int {
-            return 1
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 10.0
         }
     
         // Space between cells
         func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             let spacer = UIView()
-            spacer.backgroundColor = UIColor.white
+            spacer.backgroundColor = UIColor.clear
             return spacer
         }
     

@@ -21,13 +21,7 @@ class PickupOrdersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     
-//        self.layer.cornerRadius = 5
-        self.layer.borderWidth = 0.5
-        self.layer.shadowColor = UIColor.red.cgColor
-        self.layer.shadowRadius = 10
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowOffset = CGSize(width: 0, height: -1)
-        self.layer.masksToBounds = true
+        self.card()
         
     }
 

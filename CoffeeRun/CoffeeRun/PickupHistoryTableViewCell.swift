@@ -19,8 +19,8 @@ class PickupHistoryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 0.5
+        self.card()
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
