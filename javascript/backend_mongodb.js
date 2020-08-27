@@ -683,16 +683,12 @@ module.exports = {
 
         // Round to 2 decimal places
         var delivery_charge = parseFloat(cost) * parseFloat(DFP) + 1.00;
-        console.log('del: ' + delivery_charge);
         
         var taxed_charge = parseFloat(cost) * parseFloat(TotalTax);
-        console.log('tax: ' + taxed_charge);
         
         var tip_charge =  parseFloat(cost) * 0.20;
-        console.log('tip: ' + tip_charge);
 
         var final_cost = Math.round((parseFloat(cost) + delivery_charge + taxed_charge + tip_charge) * 100) / 100;
-        console.log(final_cost);
 
         // Highest tip% 25%. Tax in quebec: GST: 5%, QST: 9.975%
         if(parseFloat(record.balance) < final_cost){
