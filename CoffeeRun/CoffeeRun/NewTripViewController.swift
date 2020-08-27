@@ -28,14 +28,19 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     //MARK: Actions
     @IBAction func clickSelectButton(_ sender: UIBarButtonItem) {
+        
+        errorLabel.text = ""
+        
         if self.selectedOrders.count > 0 {
             ConfirmSelectionViewController.selectedOrders = self.selectedOrders
             
             self.performSegue(withIdentifier: "toConfirmSelectionSegue", sender: self)
         } else {
-            print("Please select an order.")
+            errorLabel.text = "Please select an order."
         }
     }
     
@@ -59,6 +64,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
         availableOrdersView.card()
         
         tableView.backgroundColor = UIColor.clear
+        
+        errorLabel.text = ""
     
     }
     
@@ -179,7 +186,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 // Check to make sure the cell is in selectedOrders
                 if self.checkIfSelected(array: self.selectedOrders, order: order) {
-                    if cell.contentView.backgroundColor == UIColor.white{
+                    print("test")
+                    if cell.backgroundColor == UIColor.white {
                         cell.contentView.backgroundColor = Colors.selectBlue
                     }
                 }
