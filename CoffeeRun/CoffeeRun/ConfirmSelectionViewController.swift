@@ -19,7 +19,7 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var totalCostLabel: UILabel!
     @IBOutlet weak var estProfitLabel: UILabel!
     
-    @IBOutlet weak var costView: UIStackView!
+    @IBOutlet weak var profitView: UIView!
     
     //MARK: Actions
     @IBAction func startTripButton(_ sender: UIBarButtonItem) {
@@ -49,8 +49,8 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
         tableView.backgroundColor = UIColor.clear
-        
-        costView.card()
+
+        profitView.card()
         
         selectedOrdersLabel.text = "You've selected " + String(ConfirmSelectionViewController.selectedOrders.count) + " orders:"
         
@@ -77,7 +77,7 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
     
     // Space between cells
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5.0
+        return 10.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
