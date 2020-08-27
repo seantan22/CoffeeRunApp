@@ -16,6 +16,10 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var tempOrders: [OrderWithFriends] = Array()
     
+    var clearChosenCell: Int = -1
+    
+    var previousOrderCount: Int = 0
+    
     var index: Int = 0
     
     var selectedOrders: [OrderWithFriends] = Array()
@@ -60,7 +64,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         self.availableOrdersLabel.text = NewTripViewController.numOpenOrders
-        ordersTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(callGetOrders), userInfo: nil, repeats: true)
+        ordersTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(callGetOrders), userInfo: nil, repeats: true)
         
     }
     
@@ -81,7 +85,12 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                     self.availableOrdersLabel.text = NewTripViewController.numOpenOrders
                 }
                 self.index = 0
+                
+                print(self.selectedOrders.count)
+                
+                self.previousOrderCount = self.tempOrders.count
                 self.tempOrders = []
+                
                 for orderIndex in result.response {
                         let order = OrderWithFriends(  id: orderIndex["_id"]!,
                                             restaurant: orderIndex["restaurant"]!,
@@ -105,14 +114,30 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         self.tableView.reloadData()
+        
+        if (self.previousOrderCount != self.tempOrders.count){
+            // First, check if deleted item was highlighted
+            if (self.selectedOrders.count != 0 && self.tempOrders.count < self.previousOrderCount){
+            
+                // Find the deleted order
+                for selectedOrder in self.selectedOrders {
+                    
+                    if !self.checkIfSelected(array: self.tempOrders, order: selectedOrder) {
+                       
+                        // If deleted order was selected, get rid of it
+                        self.selectedOrders.remove(at: self.getOrderIndex(array: self.selectedOrders, order: selectedOrder))
+                        
+                    }
+                }
+            }
+        }
+        
         return tempOrders
     }
     
     
     /** TABLE VIEW **/
     
-        
-       
        // Number of Cells in Table
        func numberOfSections(in tableView: UITableView) -> Int {
            return orders.count
@@ -135,6 +160,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
        // Cell Content
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
             if index < orders.count {
                 let order = self.orders[index]
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItem", for: indexPath) as! PickupOrdersTableViewCell
@@ -142,6 +168,16 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 let starImage = UIImage(systemName: "star.fill")
                 let starView = UIImageView(image: starImage)
+                
+                // Each loop, check to make sure that if cell is chosen, it actually exists in selectedorders
+                if cell.contentView.backgroundColor == Colors.selectBlue {
+                    
+                    // It should exist in selectedOrders
+                    if !self.checkIfSelected(array: self.selectedOrders, order: order){
+                        cell.contentView.backgroundColor = UIColor.white
+                    }
+                    
+                }
                 
                 if order.friends == "true" {
                     cell.accessoryView = starView

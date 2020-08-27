@@ -3652,13 +3652,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgo-9K-uiX">
-                                <rect key="frame" x="75" y="140" width="264" height="204"/>
+                                <rect key="frame" x="40" y="140" width="334" height="204"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="IKx-Fw-qeY">
-                                        <rect key="frame" x="10" y="10" width="244" height="184"/>
+                                        <rect key="frame" x="10" y="10" width="314" height="184"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank-profile-pic" translatesAutoresizingMaskIntoConstraints="NO" id="PYV-cd-YaQ">
-                                                <rect key="frame" x="72" y="0.0" width="100" height="100"/>
+                                                <rect key="frame" x="107" y="0.0" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="6yx-Ed-nEe"/>
                                                     <constraint firstAttribute="width" constant="100" id="r83-UV-xSd"/>
@@ -3666,13 +3666,13 @@
                                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hv-gF-ZN5">
-                                                <rect key="frame" x="0.0" y="102" width="244" height="50"/>
+                                                <rect key="frame" x="35" y="102" width="244" height="50"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="28"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RiI-AQ-Zr1">
-                                                <rect key="frame" x="0.0" y="154" width="244" height="30"/>
+                                                <rect key="frame" x="4" y="154" width="306" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="rAM-Cy-MOR"/>
                                                 </constraints>
@@ -3681,6 +3681,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="RiI-AQ-Zr1" secondAttribute="trailing" constant="4" id="CTf-sT-TcJ"/>
+                                            <constraint firstItem="RiI-AQ-Zr1" firstAttribute="leading" secondItem="IKx-Fw-qeY" secondAttribute="leading" constant="4" id="gaQ-NP-cmK"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -3896,9 +3900,9 @@
                             <constraint firstItem="pU9-9b-HMr" firstAttribute="trailing" secondItem="QIn-oA-x0K" secondAttribute="trailing" constant="20" id="DyK-Jf-ud5"/>
                             <constraint firstItem="QIn-oA-x0K" firstAttribute="centerX" secondItem="5rL-03-Q8y" secondAttribute="centerX" id="Rby-Mt-w9b"/>
                             <constraint firstItem="lgo-9K-uiX" firstAttribute="top" secondItem="pU9-9b-HMr" secondAttribute="top" id="SKh-yH-Gf6"/>
-                            <constraint firstItem="lgo-9K-uiX" firstAttribute="leading" secondItem="5rL-03-Q8y" secondAttribute="leading" constant="75" id="UMD-d1-Opq"/>
+                            <constraint firstItem="lgo-9K-uiX" firstAttribute="leading" secondItem="5rL-03-Q8y" secondAttribute="leading" constant="40" id="UMD-d1-Opq"/>
                             <constraint firstItem="QIn-oA-x0K" firstAttribute="centerY" secondItem="5rL-03-Q8y" secondAttribute="centerY" id="ZzA-wN-Q28"/>
-                            <constraint firstAttribute="trailing" secondItem="lgo-9K-uiX" secondAttribute="trailing" constant="75" id="hHt-kA-ttY"/>
+                            <constraint firstAttribute="trailing" secondItem="lgo-9K-uiX" secondAttribute="trailing" constant="40" id="hHt-kA-ttY"/>
                             <constraint firstItem="pU9-9b-HMr" firstAttribute="trailing" secondItem="Az6-Lq-qa5" secondAttribute="trailing" constant="50" id="nfS-ND-H46"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pU9-9b-HMr"/>
