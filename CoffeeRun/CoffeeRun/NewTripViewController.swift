@@ -171,12 +171,17 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 // Each loop, check to make sure that if cell is chosen, it actually exists in selectedorders
                 if cell.contentView.backgroundColor == Colors.selectBlue {
-                    
                     // It should exist in selectedOrders
                     if !self.checkIfSelected(array: self.selectedOrders, order: order){
                         cell.contentView.backgroundColor = UIColor.white
                     }
-                    
+                }
+                
+                // Check to make sure the cell is in selectedOrders
+                if self.checkIfSelected(array: self.selectedOrders, order: order) {
+                    if cell.contentView.backgroundColor == UIColor.white{
+                        cell.contentView.backgroundColor = Colors.selectBlue
+                    }
                 }
                 
                 if order.friends == "true" {
