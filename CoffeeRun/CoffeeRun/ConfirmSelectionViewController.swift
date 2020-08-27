@@ -19,6 +19,8 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var totalCostLabel: UILabel!
     @IBOutlet weak var estProfitLabel: UILabel!
     
+    @IBOutlet weak var costView: UIStackView!
+    
     //MARK: Actions
     @IBAction func startTripButton(_ sender: UIBarButtonItem) {
         
@@ -45,6 +47,10 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
         tableView.dataSource = self
         
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
+        tableView.backgroundColor = UIColor.clear
+        
+        costView.card()
         
         selectedOrdersLabel.text = "You've selected " + String(ConfirmSelectionViewController.selectedOrders.count) + " orders:"
         

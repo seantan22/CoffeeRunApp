@@ -3120,31 +3120,43 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PUa-iV-42b">
-                                <rect key="frame" x="20" y="160" width="374" height="81.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gS0-TF-yYn">
+                                <rect key="frame" x="20" y="150" width="374" height="101.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Cost:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c91-s4-r0c">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Estimated Profit: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Lf-5l-8A5">
-                                        <rect key="frame" x="0.0" y="30.5" width="374" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You've selected ____ orders." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJF-Hx-EX8">
-                                        <rect key="frame" x="0.0" y="61" width="374" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PUa-iV-42b">
+                                        <rect key="frame" x="10" y="10" width="354" height="81.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Cost:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c91-s4-r0c">
+                                                <rect key="frame" x="0.0" y="0.0" width="354" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Estimated Profit: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Lf-5l-8A5">
+                                                <rect key="frame" x="0.0" y="30.5" width="354" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You've selected ____ orders." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJF-Hx-EX8">
+                                                <rect key="frame" x="0.0" y="61" width="354" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="PUa-iV-42b" secondAttribute="trailing" constant="10" id="7pL-Ov-9SV"/>
+                                    <constraint firstItem="PUa-iV-42b" firstAttribute="top" secondItem="gS0-TF-yYn" secondAttribute="top" constant="10" id="GCh-sz-NnN"/>
+                                    <constraint firstAttribute="bottom" secondItem="PUa-iV-42b" secondAttribute="bottom" constant="10" id="KKW-dk-q89"/>
+                                    <constraint firstItem="PUa-iV-42b" firstAttribute="leading" secondItem="gS0-TF-yYn" secondAttribute="leading" constant="10" id="h0i-pj-hyb"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7ff-BE-cmC">
-                                <rect key="frame" x="20" y="249" width="374" height="543.5"/>
+                                <rect key="frame" x="20" y="259" width="374" height="534"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -3286,13 +3298,12 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="PUa-iV-42b" firstAttribute="centerX" secondItem="U5I-p4-Bc2" secondAttribute="centerX" id="AMn-Oj-Sd2"/>
-                            <constraint firstItem="7ff-BE-cmC" firstAttribute="top" secondItem="PUa-iV-42b" secondAttribute="bottom" constant="8" id="F7R-Es-d09"/>
-                            <constraint firstItem="PUa-iV-42b" firstAttribute="leading" secondItem="dXd-JF-IVn" secondAttribute="leading" constant="20" id="GZV-dD-GcI"/>
+                            <constraint firstItem="gS0-TF-yYn" firstAttribute="top" secondItem="dXd-JF-IVn" secondAttribute="top" constant="10" id="2Xv-Na-Vfe"/>
+                            <constraint firstItem="gS0-TF-yYn" firstAttribute="leading" secondItem="dXd-JF-IVn" secondAttribute="leading" constant="20" id="5OE-7p-zOl"/>
+                            <constraint firstItem="dXd-JF-IVn" firstAttribute="trailing" secondItem="gS0-TF-yYn" secondAttribute="trailing" constant="20" id="J44-d8-iwh"/>
                             <constraint firstItem="dXd-JF-IVn" firstAttribute="bottom" secondItem="7ff-BE-cmC" secondAttribute="bottom" constant="20" id="MQQ-Yf-Wly"/>
                             <constraint firstItem="7ff-BE-cmC" firstAttribute="leading" secondItem="dXd-JF-IVn" secondAttribute="leading" constant="20" id="SFA-kR-olw"/>
-                            <constraint firstItem="dXd-JF-IVn" firstAttribute="trailing" secondItem="PUa-iV-42b" secondAttribute="trailing" constant="20" id="THu-Jv-epx"/>
-                            <constraint firstItem="PUa-iV-42b" firstAttribute="top" secondItem="dXd-JF-IVn" secondAttribute="top" constant="20" id="uxe-rJ-H1V"/>
+                            <constraint firstItem="7ff-BE-cmC" firstAttribute="top" secondItem="1HT-LT-6RJ" secondAttribute="bottom" constant="10" id="Wc3-6D-DGR"/>
                             <constraint firstItem="dXd-JF-IVn" firstAttribute="trailing" secondItem="7ff-BE-cmC" secondAttribute="trailing" constant="20" id="wQP-ZH-cSp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dXd-JF-IVn"/>
@@ -3306,6 +3317,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="costView" destination="PUa-iV-42b" id="v4d-2u-cQb"/>
                         <outlet property="estProfitLabel" destination="4Lf-5l-8A5" id="hKv-4q-jTr"/>
                         <outlet property="selectedOrdersLabel" destination="VJF-Hx-EX8" id="k9p-aj-2JD"/>
                         <outlet property="tableView" destination="7ff-BE-cmC" id="dEu-eV-DSm"/>

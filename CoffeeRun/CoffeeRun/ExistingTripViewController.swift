@@ -26,6 +26,8 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
 
         self.navigationItem.setHidesBackButton(true, animated: true)
         
+        tableView.backgroundColor = UIColor.clear
+        
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
     }
@@ -53,12 +55,13 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
      }
      
      // Space between cells
-     private func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> Int {
-         return 1
-     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5.0
+    }
+    
      func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
          let spacer = UIView()
-         spacer.backgroundColor = UIColor.white
+         spacer.backgroundColor = UIColor.clear
          return spacer
      }
      
