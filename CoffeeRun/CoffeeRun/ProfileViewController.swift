@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController {
     static var email: String = String()
     static var balance: String = String()
     static var numOfFriends: String = String()
+    static var userRating: String = String()
     static var totalProfitMade: String = String()
     
     //MARK: Properties
@@ -24,6 +25,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var friendsLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    
     @IBOutlet weak var profitLabel: UILabel!
     
     @IBOutlet weak var userInfo: UIView!
@@ -32,6 +35,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var orderHistoryButton: UIButton!
     
     @IBOutlet weak var friendsStat: UIView!
+    @IBOutlet weak var ratingStat: UIView!
     @IBOutlet weak var profitStat: UIView!
     
     @IBOutlet weak var accountBalance: UIView!
@@ -85,6 +89,7 @@ class ProfileViewController: UIViewController {
         userInfo.card()
         accountBalance.card()
         friendsStat.card()
+        ratingStat.card()
         profitStat.card()
         
     }
@@ -93,11 +98,13 @@ class ProfileViewController: UIViewController {
     
         let balance: Double = Double(ProfileViewController.balance)!
         let profit: Double = Double(ProfileViewController.totalProfitMade)!
+        let rating: Double = Double(ProfileViewController.userRating)!
         
         self.usernameLabel.text = ProfileViewController.username
         self.emailLabel.text = ProfileViewController.email
         self.balanceLabel.text = String(format: "$%.02f", balance)
         self.friendsLabel.text = ProfileViewController.numOfFriends
+        self.ratingLabel.text = String(format: "%.01f/5.0", rating)
         self.profitLabel.text = String(format: "$%.02f", profit)
         
         getHistory(user_id: UserDefaults.standard.value(forKey: "user_id")! as! String) {(result: AOAOAOStringsResponse) in

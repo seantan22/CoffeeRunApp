@@ -27,6 +27,8 @@ class ExistingOrderViewController: UIViewController {
     static var zone: String = String()
     static var subtotal: String = String()
     
+    @IBOutlet weak var pickedUpByLabel: UILabel!
+    
     var statusTimer: Timer?
     
     //MARK: Properties
@@ -74,6 +76,8 @@ class ExistingOrderViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationItem.setHidesBackButton(true, animated: true)
+        
+        pickedUpByLabel.isHidden = true
         
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
         
@@ -137,10 +141,13 @@ class ExistingOrderViewController: UIViewController {
                         if result.response[0] != "Awaiting Runner" {
                             self.cancelButton.isUserInteractionEnabled = false
                             self.cancelButton.isHidden = true
+                            self.pickedUpByLabel.isHidden = false
+                            self.pickedUpByLabel.text = "Assigned to " + result.response[1]
                             DeliveredViewController.delivererUsername = result.response[1]
                         } else {
                             self.cancelButton.isUserInteractionEnabled = true
                             self.cancelButton.isHidden = false
+                            self.pickedUpByLabel.isHidden = true
                         }
                         
                         self.statusLabel.text = result.response[0]

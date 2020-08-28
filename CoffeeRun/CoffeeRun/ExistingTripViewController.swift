@@ -150,6 +150,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
                             if result.result {
                                 ProfileViewController.totalProfitMade = result.response[0]
                                 ProfileViewController.balance = result.response[1]
+                                ProfileViewController.userRating = result.response[2]
                                 self.index = 0
                                 DispatchQueue.main.async {
                                    self.tableView.reloadData()

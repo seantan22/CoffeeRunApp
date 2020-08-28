@@ -39,7 +39,6 @@ class TripExistenceViewController: UIViewController {
                     self.checkIfTripExists(user_id: UserDefaults.standard.string(forKey: "user_id")!) {(result: ExistenceResponse) in
                            
                         if result.response.count != 0 {
-                            print(result.response)
                             TripExistenceViewController.doesTripExist = result.result
                             ExistingTripViewController.ordersToPickup = []
                             for orderIndex in result.response {
