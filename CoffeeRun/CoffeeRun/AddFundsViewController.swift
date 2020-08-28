@@ -103,7 +103,7 @@ class AddFundsViewController: UIViewController {
                                   } else {
                                     DispatchQueue.main.async {
                                         self.swipeArrowView.center = CGPoint(x: self.originPointArrow.x, y: self.originPointArrow.y)
-                                        self.errorLabel.text = "Please deposit a maximum of $50.00."
+                                        self.errorLabel.text = result.response[0]
                                     }
                                   }
                               }
