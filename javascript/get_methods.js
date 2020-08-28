@@ -3,8 +3,8 @@ var googleD = require('./backend_googDrive');
 
 module.exports = {
 
-    getTest: async function(res){
-        response = await db.getTest();
+    getTest: async function(res, test){
+        response = await db.getTest(test);
         res.send(response);
         return;
     },

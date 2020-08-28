@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const cred = require('./cred');
 const crypto = require('crypto');
+const Filter = require('bad-words');
 
 const dbName = 'CoffeeRun';
 const pName = 'Products';
@@ -145,8 +146,10 @@ async function logoutWithCred(id){
 }
 
 module.exports = {
-    getTest: async function(){
-        return cred.getMongoUri()();
+    getTest: async function(test){
+        var filter = new Filter(); 
+
+        return filter.isProfane(test);
     },
 
     getTaxRates: async function(){
@@ -396,6 +399,12 @@ module.exports = {
     },
     addUser: async function(username, password, mail, number){
         var starting_balance = 0;
+        var filter = new Filter(); 
+
+        if (filter.isProfane(username)) {
+            return JSON.stringify({result: false, response: ["Please use appropriate language for your username."]});      
+        }
+
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
 
