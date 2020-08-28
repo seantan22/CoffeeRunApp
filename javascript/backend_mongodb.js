@@ -537,7 +537,7 @@ module.exports = {
         
         // Previous withdrawals
         if (withdraw_record_history.length != 0){
-            time_limit = 48;
+            time_limit = 24;
 
             time_since = withdraw_record_history[0].time_created;
             current_time = new Date();
@@ -546,11 +546,15 @@ module.exports = {
             if(difference < time_limit){
 
                 db.close();
-                return JSON.stringify({result: false, response: ['You can withdraw again in ' + Math.round(48 - difference) + ' hours.']});
-            
+                if(difference > 23){
+                    return JSON.stringify({result: false, response: ['You can withdraw again in ' + Math.round(24 - difference) + ' hour.']});
+                }
+ 
+                return JSON.stringify({result: false, response: ['You can withdraw again in ' + Math.round(24 - difference) + ' hours.']});
+                
             }
         }
-        
+       
         //Cannot withdraw if you have an order.
         var order_record = await client.collection("Open_Orders").findOne({creator: user_record.username}).catch((error) => console.log(error));
 
@@ -610,7 +614,7 @@ module.exports = {
         }
         if(funds <= 5.00 || funds > 50.00){
             db.close();
-            return JSON.stringify({result: false, response: ['Please deposit between $0.00 and $50.00.']});
+            return JSON.stringify({result: false, response: ['Please deposit between $5.00 and $50.00.']});
         }
 
          // Deposit limit: Once every 24 hours - 1 days
