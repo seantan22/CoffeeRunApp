@@ -402,7 +402,7 @@ module.exports = {
         var filter = new Filter(); 
 
         if (filter.isProfane(username)) {
-            return JSON.stringify({result: false, response: ["Please use appropriate language for your username."]});      
+            return JSON.stringify({result: false, response: ["Inappropriate language detected."]});      
         }
 
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
@@ -1551,7 +1551,7 @@ function sendEmail(address, verification_code){
         from: 'McgillCoffeeRun@gmail.com',
         to: address,
         subject: 'Welcome to CoffeeRun!',
-        html: '<html><body><p>Thanks for joining CoffeeRun!</p><p>To verify your account, please enter the following code into your app:</p><br><h4><b>' + verification_code + '</b></h4><br><p>Cheers,</p><p>The CoffeeRun Team</p><br><i><p>Having trouble? Contact us at mcgillcoffeerun@gmail.com.</p></i></body></html>'
+        html: '<html><body><p>Thanks for joining CoffeeRun!</p><p>To verify your account, please enter the following code into your app:</p><h4><b>' + verification_code + '</b></h4><p>Cheers,</p><p>The CoffeeRun Team</p><i><p>Having trouble? Contact us at mcgillcoffeerun@gmail.com.</p></i></body></html>'
     };
 
     logistics.sendMail(mailInfo);
