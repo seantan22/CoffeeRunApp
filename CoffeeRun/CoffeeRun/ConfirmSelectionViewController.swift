@@ -28,9 +28,6 @@ class ConfirmSelectionViewController: UIViewController, UITableViewDataSource, U
         
         for order in ConfirmSelectionViewController.selectedOrders {
             attachDeliveryPersonToOrder(user_id: UserDefaults.standard.string(forKey: "user_id")!, order_id: order.id) {(result: Response) in
-                if result.result {
-                    print(result.response[0])
-                }
             }
         }
         

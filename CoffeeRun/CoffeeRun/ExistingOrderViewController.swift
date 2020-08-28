@@ -243,7 +243,6 @@ class ExistingOrderViewController: UIViewController {
                     do {
                         let jsonResponse = try JSONDecoder().decode(Response.self, from: data)
                         deleteOrderResponse.response = jsonResponse.response
-                        print(deleteOrderResponse.response)
                     } catch {
                         print("Error: Struct and JSON response do not match.")
                     }
