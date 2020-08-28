@@ -1333,7 +1333,7 @@ module.exports = {
 
         for (var i = 0; i < closed_order_info.length; i++){
 
-            sum += Math.round(closed_order_info[i]['transaction']['delivery_fee'] * 100) / 100;
+            sum += Math.round(closed_order_info[i]['transaction']['tip'] * 100) / 100;
 
         }
 
