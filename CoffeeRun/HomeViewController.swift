@@ -99,6 +99,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                     ProfileViewController.userRating = result.response[4]
             } else {
                 ProfileViewController.userRating = "0"
+                print(result.response[0])
             }
         }
         

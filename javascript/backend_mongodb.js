@@ -313,17 +313,17 @@ module.exports = {
         }
         
         var score = await getDeliveryRating(id, client);
+        var value = 0.0;
 
-        if (!score[0]) {
-            db.close();
-            return JSON.stringify({result: false, response: [score[1]]})
+        if (score[0]) {
+            value = score[1];
         }
 
         db.close();
 
         var totalSum = await getTotalOnLogin(record.username);
 
-        return ({result: true, response: [record.username, record.email, record.balance.toString(), totalSum.toString(), score[1].toString()]}); 
+        return ({result: true, response: [record.username, record.email, record.balance.toString(), totalSum.toString(), value.toString()]}); 
     },
     getUsers: async function(current_user){
 
@@ -1338,14 +1338,13 @@ module.exports = {
         }
 
         var score = await getDeliveryRating(user_information._id, client);
-
-        if (!score[0]) {
-            db.close();
-            return JSON.stringify({result: false, response: [score[1]]})
+        var value = 0.0;
+        if (score[0]) {
+            value = score[1];
         }
 
         db.close();
-        return JSON.stringify({result: true, response: [sum.toString(), user_information.balance.toString(), score[1].toString()]});
+        return JSON.stringify({result: true, response: [sum.toString(), user_information.balance.toString(), value.toString()]});
     },
     doesOrderExistForDelivery: async function(order_id){
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
