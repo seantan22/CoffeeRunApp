@@ -672,7 +672,7 @@ module.exports = {
             db.close();
             return checkCorruptUser;
         }
-        console.log('cost: ' + cost);
+
         var tax_rates = await client.collection('Rates').findOne({Title: 'rates'}).catch((error) => console.log(error));
 
         var GSTtaxP = tax_rates.GST;

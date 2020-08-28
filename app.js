@@ -496,15 +496,15 @@ app.post('/deposit', function(req, res){
 app.post('/completeOrder', function(req, res){
 
     if(req.body.user_id == null || req.body.user_id == ""){
-        res.send(JSON.stringify({result: false, response: ["Please enter user_id."]}));
+        res.send(JSON.stringify({result: false, response: ["Please enter an user."]}));
         return;
     }
     if(req.body.delivery_username == null || req.body.delivery_username == ""){
-        res.send(JSON.stringify({result: false, response: ["Please enter delivery_id."]}));
+        res.send(JSON.stringify({result: false, response: ["Please enter a delivery user."]}));
         return;
     }
     if(req.body.order_id == null || req.body.order_id == ""){
-        res.send(JSON.stringify({result: false, response: ["Please enter order_id."]}));
+        res.send(JSON.stringify({result: false, response: ["Please enter an order."]}));
         return;
     }
 

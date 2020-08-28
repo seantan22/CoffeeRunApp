@@ -197,6 +197,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
                 
                 index += 1
+                
+                cell.prepareForReuse()
                 return cell
             }
             return UITableViewCell()
