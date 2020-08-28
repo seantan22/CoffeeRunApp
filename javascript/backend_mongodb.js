@@ -1533,8 +1533,8 @@ function sendEmail(address, verification_code){
     var logistics = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'mcgillcoffeerun',
-            pass: 'CoffeeRun19!'
+            user: cred.getGMailUsername,
+            pass: cred.getGMailPassword
         }
      });
 
@@ -1557,8 +1557,8 @@ async function sendForgetPasswordEmail(address, id){
     var logistics = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'mcgillcoffeerun',
-            pass: 'CoffeeRun19!'
+            user: cred.getGMailUsername,
+            pass: cred.getGMailPassword
         }
      });
 
@@ -1579,8 +1579,8 @@ async function sendEmailNotVerified(email, verification_code){
     var logistics = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'mcgillcoffeerun',
-            pass: 'CoffeeRun19!'
+            user: cred.getGMailUsername,
+            pass: cred.getGMailPassword
         }
      });
 
