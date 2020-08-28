@@ -146,7 +146,7 @@ async function logoutWithCred(id){
 
 module.exports = {
     getTest: async function(){
-        return cred.getMongocred.getMongoUri()();
+        return cred.getMongoUri()();
     },
 
     getTaxRates: async function(){
