@@ -1541,8 +1541,8 @@ function sendEmail(address, verification_code){
     var mailInfo = {
         from: 'McgillCoffeeRun@gmail.com',
         to: address,
-        subject: 'CoffeeRun: Verification Code',
-        text: 'Thank you for joining the CoffeeRun Family. Your verification code is ' + verification_code
+        subject: 'Welcome to CoffeeRun!',
+        text: '<html><body><p>Thanks for joining CoffeeRun!</p><br><br><p>To verify your account, please enter the following code into your app:</p><br><br><h4><b>' + verification_code + '</b></h4><br><br><p>Cheers,</p><br><p>The CoffeeRun Team</p><br><br><i><p>Having trouble? Contact us at mcgillcoffeerun@gmail.com</p></i></body></html>'
     };
 
     logistics.sendMail(mailInfo);
