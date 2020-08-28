@@ -2,9 +2,9 @@ const aws = require('aws-sdk');
 
 module.exports = {
     // interact
-    getMongoURI: function(){
-        var mongoKey = new aws.S3({mongo_uri: process.env.mongodb_uri,});
-        return mongoKey.config.mongo_uri;
+    getMongoUri: function(){
+        var mongoKey = new aws.S3({mongodb_uri: process.env.mongodb_uri,});
+        return mongoKey.config.mongodb_uri;
     },
     getGoogleAPIToken: function(){
         var googleKey = new aws.S3({google_api: process.env.google_api,});
