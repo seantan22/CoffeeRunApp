@@ -91,8 +91,11 @@ class WithdrawFundsViewController: UIViewController {
                                 self.present(alert, animated: true)
                             }
                         } else {
-                            self.swipeArrowView.center = CGPoint(x: self.originPointArrow.x, y: self.originPointArrow.y)
-                            self.errorLabel.text = result.response[0]
+                            DispatchQueue.main.async {
+                                self.swipeArrowView.center = CGPoint(x: self.originPointArrow.x, y: self.originPointArrow.y)
+                                self.errorLabel.text = result.response[0]
+                            }
+                            
                         }
                     }
                 }

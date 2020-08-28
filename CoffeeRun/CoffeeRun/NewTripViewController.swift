@@ -169,8 +169,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 cell.setOrder(order: order)
                 
-                let starImage = UIImage(systemName: "star.fill")
-                let starView = UIImageView(image: starImage)
+//                let starImage = UIImage(systemName: "star.fill")
+//                let starView = UIImageView(image: starImage)
                 
                 // Each loop, check to make sure that if cell is chosen, it actually exists in selectedorders
                 if cell.contentView.backgroundColor == Colors.selectBlue {
@@ -188,7 +188,9 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
                 
                 if order.friends == "true" {
-                    cell.accessoryView = starView
+                    cell.layer.borderColor = UIColor.black.cgColor
+                    cell.layer.borderWidth = 2.0
+//                    cell.accessoryView = starView
                 }
 
                 return cell
