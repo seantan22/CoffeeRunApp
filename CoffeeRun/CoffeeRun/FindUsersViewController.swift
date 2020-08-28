@@ -13,8 +13,6 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
     static var users: Array<Array<String>> = Array(Array())
     static var subUsers: Array<Array<String>> = Array(Array())
     
-    var index: Int = 0
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -43,7 +41,6 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
                 FindUsersViewController.subUsers.append(user)
             }
         }
-        index = 0
         tableView.reloadData()
     }
     
@@ -80,10 +77,12 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
         let starImage = UIImage(systemName: "star.fill")
         let starView = UIImageView(image: starImage)
         
-        if index < FindUsersViewController.subUsers.count {
-         let user = FindUsersViewController.subUsers[index]
-         let cell = tableView.dequeueReusableCell(withIdentifier: "UserItem", for: indexPath) as! UserTableViewCell
-             cell.setUser(user: user[0])
+        if indexPath[0] < FindUsersViewController.subUsers.count {
+            
+            let user = FindUsersViewController.subUsers[indexPath[0]]
+            
+             let cell = tableView.dequeueReusableCell(withIdentifier: "UserItem", for: indexPath) as! UserTableViewCell
+            cell.setUser(user: user[0])
             
             let state = user[1]
         
@@ -94,11 +93,13 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
             } else {
                 cell.accessoryView = UIImageView()
             }
-            
-            index += 1
+        
+            return cell
+        } else {
+            let cell = UITableViewCell()
+            cell.backgroundColor = UIColor.clear
             return cell
         }
-        return UITableViewCell()
     }
     
     // Swipe Cell
@@ -175,7 +176,6 @@ class FindUsersViewController: UIViewController, UITableViewDataSource, UITableV
                }
             }
             self.run(after: 1000) {
-                self.index = 0
                 tableView.reloadData()
             }
             completionHandler(true)

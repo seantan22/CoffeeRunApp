@@ -15,8 +15,6 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
     
     @IBOutlet weak var tableView: UITableView!
     
-    var index: Int = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,21 +61,17 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
     // Cell Content
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print("test")
-        
-        if index < FriendRequestsViewController.friendRequests.count {
-            let user = FriendRequestsViewController.friendRequests[index]
+        if indexPath[0] < FriendRequestsViewController.friendRequests.count {
+            let user = FriendRequestsViewController.friendRequests[indexPath[0]]
                let cell = tableView.dequeueReusableCell(withIdentifier: "FriendRequestItem", for: indexPath) as! FriendRequestTableViewCell
                   cell.setUser(user: user)
-               index += 1
                return cell
         }
         
         if FriendRequestsViewController.friendRequests.count == 0 {
-            let user = FriendRequestsViewController.noRequests[index]
+            let user = FriendRequestsViewController.noRequests[indexPath[0]]
             let cell = tableView.dequeueReusableCell(withIdentifier: "FriendRequestItem", for: indexPath) as! FriendRequestTableViewCell
                cell.setUser(user: user)
-            index += 1
             return cell
         }
         
@@ -106,7 +100,6 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
                 }
                 
                 self.run(after: 1000) {
-                    self.index = 0
                     tableView.reloadData()
                 }
                completionHandler(true)
@@ -126,7 +119,6 @@ class FriendRequestsViewController: UIViewController, UITableViewDelegate, UITab
                 }
             
                 self.run(after: 1000) {
-                    self.index = 0
                     tableView.reloadData()
                 }
                completionHandler(true)

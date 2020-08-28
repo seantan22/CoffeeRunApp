@@ -340,8 +340,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fXe-GT-RnO">
+                                <rect key="frame" x="20" y="140" width="374" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="80K-ZX-Itt"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uw7-Aq-65O">
-                                <rect key="frame" x="20" y="160" width="374" height="633"/>
+                                <rect key="frame" x="20" y="140" width="374" height="653"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendRequestItem" id="wuj-2E-9GB" customClass="FriendRequestTableViewCell" customModule="CoffeeRun" customModuleProvider="target">
@@ -374,8 +381,11 @@
                         <constraints>
                             <constraint firstItem="ULl-cL-sKx" firstAttribute="trailing" secondItem="uw7-Aq-65O" secondAttribute="trailing" constant="20" id="QQ0-yv-UaU"/>
                             <constraint firstItem="ULl-cL-sKx" firstAttribute="bottom" secondItem="uw7-Aq-65O" secondAttribute="bottom" constant="20" id="UOs-Gc-nMV"/>
+                            <constraint firstAttribute="trailing" secondItem="fXe-GT-RnO" secondAttribute="trailing" constant="20" id="Znl-Il-395"/>
                             <constraint firstItem="uw7-Aq-65O" firstAttribute="leading" secondItem="ULl-cL-sKx" secondAttribute="leading" constant="20" id="fvm-vd-kGh"/>
-                            <constraint firstItem="uw7-Aq-65O" firstAttribute="top" secondItem="ULl-cL-sKx" secondAttribute="top" constant="20" id="xNz-lw-xHx"/>
+                            <constraint firstItem="uw7-Aq-65O" firstAttribute="top" secondItem="fXe-GT-RnO" secondAttribute="bottom" id="in0-g8-ihZ"/>
+                            <constraint firstItem="fXe-GT-RnO" firstAttribute="top" secondItem="ULl-cL-sKx" secondAttribute="top" id="pte-V3-c4I"/>
+                            <constraint firstItem="fXe-GT-RnO" firstAttribute="leading" secondItem="Z55-fy-h5x" secondAttribute="leading" constant="20" id="tIL-u5-TaD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ULl-cL-sKx"/>
                     </view>
@@ -2741,6 +2751,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thX-AY-3xl">
+                                <rect key="frame" x="20" y="308.5" width="374" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="hYJ-R6-2ZT"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j1V-bd-rMb">
                                 <rect key="frame" x="20" y="308.5" width="374" height="484.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2867,16 +2884,16 @@
                                     <constraint firstAttribute="trailing" secondItem="Fsm-2J-I3y" secondAttribute="trailing" constant="10" id="uyM-rT-wAM"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a maximum of 3 orders to pick up:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rN-Nt-ktk">
-                                <rect key="frame" x="20" y="280" width="374" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvt-pW-l8a">
                                 <rect key="frame" x="151.5" y="246" width="111" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a maximum of 3 orders to pick up:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rN-Nt-ktk">
+                                <rect key="frame" x="20" y="279.5" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -2885,12 +2902,15 @@
                             <constraint firstItem="riT-SK-P9X" firstAttribute="bottom" secondItem="j1V-bd-rMb" secondAttribute="bottom" constant="20" id="3Gw-5y-xvu"/>
                             <constraint firstItem="CkM-Lf-PIv" firstAttribute="centerX" secondItem="CPQ-g1-wrL" secondAttribute="centerX" id="3i2-2o-iQb"/>
                             <constraint firstItem="lvt-pW-l8a" firstAttribute="centerX" secondItem="CPQ-g1-wrL" secondAttribute="centerX" id="5vC-Sh-Saa"/>
-                            <constraint firstItem="8rN-Nt-ktk" firstAttribute="leading" secondItem="riT-SK-P9X" secondAttribute="leading" constant="20" id="JF1-tp-oqQ"/>
-                            <constraint firstItem="j1V-bd-rMb" firstAttribute="top" secondItem="8rN-Nt-ktk" secondAttribute="bottom" constant="8" id="K5Q-pd-C3h"/>
+                            <constraint firstItem="thX-AY-3xl" firstAttribute="top" secondItem="8rN-Nt-ktk" secondAttribute="bottom" constant="8.5" id="Lau-lC-x47"/>
+                            <constraint firstAttribute="trailing" secondItem="thX-AY-3xl" secondAttribute="trailing" constant="20" id="MiU-4x-w8Y"/>
                             <constraint firstItem="lvt-pW-l8a" firstAttribute="top" secondItem="CkM-Lf-PIv" secondAttribute="bottom" constant="8" id="arH-8q-vhH"/>
+                            <constraint firstItem="riT-SK-P9X" firstAttribute="trailing" secondItem="8rN-Nt-ktk" secondAttribute="trailing" constant="20" id="eu7-VL-fYX"/>
                             <constraint firstItem="riT-SK-P9X" firstAttribute="trailing" secondItem="j1V-bd-rMb" secondAttribute="trailing" constant="20" id="hf6-8e-xEw"/>
                             <constraint firstItem="CkM-Lf-PIv" firstAttribute="centerY" secondItem="CPQ-g1-wrL" secondAttribute="centerY" constant="-250" id="j9B-Ux-df2"/>
-                            <constraint firstItem="riT-SK-P9X" firstAttribute="trailing" secondItem="8rN-Nt-ktk" secondAttribute="trailing" constant="20" id="zlS-4b-NOU"/>
+                            <constraint firstItem="j1V-bd-rMb" firstAttribute="top" secondItem="thX-AY-3xl" secondAttribute="bottom" id="kcW-Bs-Hs5"/>
+                            <constraint firstItem="thX-AY-3xl" firstAttribute="leading" secondItem="CPQ-g1-wrL" secondAttribute="leading" constant="20" id="rqy-vP-to5"/>
+                            <constraint firstItem="8rN-Nt-ktk" firstAttribute="leading" secondItem="riT-SK-P9X" secondAttribute="leading" constant="20" id="y1n-Oa-kWi"/>
                             <constraint firstItem="j1V-bd-rMb" firstAttribute="leading" secondItem="riT-SK-P9X" secondAttribute="leading" constant="20" id="zsM-3F-ANj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="riT-SK-P9X"/>
@@ -2912,7 +2932,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kM0-gh-WZ0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4488" y="1361"/>
+            <point key="canvasLocation" x="4486.9565217391309" y="1360.0446428571429"/>
         </scene>
         <!--Pickup-->
         <scene sceneID="HMX-x5-HOT">

@@ -31,9 +31,13 @@ class PickupOrdersTableViewCell: UITableViewCell {
         
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
+    func clearOrder() {
+//        vendorLabel.text = ""
+//        itemLabel.text = ""
+//        costLabel.text = ""
+//        createdAtLabel.text = ""
+//        usernameLabel.text = ""
+//        libraryLabel.text = ""
     }
     
     func setOrder(order: OrderWithFriends) {

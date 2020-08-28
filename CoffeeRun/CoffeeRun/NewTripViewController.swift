@@ -11,18 +11,13 @@ import UIKit
 class NewTripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var ordersTimer: Timer?
-    
     var orders: [OrderWithFriends] = Array()
-    
     var tempOrders: [OrderWithFriends] = Array()
-    
     var clearChosenCell: Int = -1
-    
     var previousOrderCount: Int = 0
-    
     var index: Int = 0
-    
     var selectedOrders: [OrderWithFriends] = Array()
+    var isFirst: Bool = true
     
     @IBOutlet weak var availableOrdersView: UIView!
     
@@ -93,7 +88,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
                 self.index = 0
                 
-                print(self.selectedOrders.count)
+                self.isFirst = true
                 
                 self.previousOrderCount = self.tempOrders.count
                 self.tempOrders = []
@@ -168,9 +163,19 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
        // Cell Content
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItem", for: indexPath) as! PickupOrdersTableViewCell
+        
+            if isFirst {
+                index = indexPath[0]
+                isFirst = false
+            }
+        
             if index < orders.count {
+
+                print(indexPath)
+                
                 let order = self.orders[index]
-                let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItem", for: indexPath) as! PickupOrdersTableViewCell
+                
                 cell.setOrder(order: order)
                 
                 let starImage = UIImage(systemName: "star.fill")
@@ -186,7 +191,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 // Check to make sure the cell is in selectedOrders
                 if self.checkIfSelected(array: self.selectedOrders, order: order) {
-                    print("test")
                     if cell.backgroundColor == UIColor.white {
                         cell.contentView.backgroundColor = Colors.selectBlue
                     }
@@ -197,12 +201,12 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
                 
                 index += 1
-                return cell
+                
+            } else {
+                cell.clearOrder()
             }
-            return UITableViewCell()
+            return cell
        }
-    
-
     
     // Cell Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
