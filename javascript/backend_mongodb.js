@@ -312,11 +312,18 @@ module.exports = {
             return JSON.stringify({result: false, response: ['Have to be logged in to get user information.']});
         }
         
+        var score = await getDeliveryRating(id, client);
+
+        if (!score[0]) {
+            db.close();
+            return JSON.stringify({result: false, response: [score[1]]})
+        }
+
         db.close();
 
         var totalSum = await getTotalOnLogin(record.username);
 
-        return ({result: true, response: [record.username, record.email, record.balance.toString(), totalSum.toString()]}); 
+        return ({result: true, response: [record.username, record.email, record.balance.toString(), totalSum.toString(), score[1].toString()]}); 
     },
     getUsers: async function(current_user){
 
@@ -1141,35 +1148,6 @@ module.exports = {
         return JSON.stringify({result: true, response: ['Successfully completed transaction.']});
     },
 
-    getDeliveryRating: async function(delivery_id){
-        var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
-        var client = db.db(dbName);
-
-        var delivery_record = await client.collection('User').findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
-        
-        if(delivery_record == null){
-            db.close();
-            return JSON.stringify({result: false, response: ['No delivery user exists.']});
-        }
-
-        var username = delivery_record.username;
-        var close_orders_array = await client.collection('Closed_Orders').find({payee: username}).toArray();
-        if(close_orders_array.length == 0){
-            db.close();
-            return JSON.stringify({result: false, response: ['No ratings for this user.']});
-        }
-
-        var cumulated_score = 0;
-
-        for (var i = 0; i < close_orders_array.length; i++){
-            cumulated_score += parseFloat(close_orders_array[i].rating);
-        }
-
-        db.close();
-
-        let score = cumulated_score/parseFloat(close_orders_array.length);
-        return [true, score];
-    },
     // Check if user credentials are unique
     checkIfUnique: async function(number, input){
 
@@ -1762,4 +1740,28 @@ function attachFriendToOrderArray(array){
 
     return array;
 
+}
+
+async function getDeliveryRating(delivery_id, client){
+      
+    var delivery_record = await client.collection('User').findOne({_id: ObjectId(delivery_id)}).catch((error) => console.log(error));
+    
+    if(delivery_record == null){
+        return [false, 'No delivery user exists.'];
+    }
+
+    var username = delivery_record.username;
+    var close_orders_array = await client.collection('Closed_Orders').find({payee: username}).toArray();
+    if(close_orders_array.length == 0){
+        return [false, 'No ratings for this user.'];
+    }
+
+    var cumulated_score = 0;
+
+    for (var i = 0; i < close_orders_array.length; i++){
+        cumulated_score += parseFloat(close_orders_array[i].rating);
+    }
+
+    let score = cumulated_score/parseFloat(close_orders_array.length);
+    return [true, score];
 }
