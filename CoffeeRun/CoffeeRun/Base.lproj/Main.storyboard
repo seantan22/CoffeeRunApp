@@ -340,8 +340,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ObX-up-zrn">
+                                <rect key="frame" x="20" y="140" width="374" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="efg-rf-BFl"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uw7-Aq-65O">
-                                <rect key="frame" x="20" y="160" width="374" height="633"/>
+                                <rect key="frame" x="20" y="140" width="374" height="653"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendRequestItem" id="wuj-2E-9GB" customClass="FriendRequestTableViewCell" customModule="CoffeeRun" customModuleProvider="target">
@@ -372,10 +379,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="uw7-Aq-65O" firstAttribute="top" secondItem="ObX-up-zrn" secondAttribute="bottom" id="AiB-oq-rcJ"/>
                             <constraint firstItem="ULl-cL-sKx" firstAttribute="trailing" secondItem="uw7-Aq-65O" secondAttribute="trailing" constant="20" id="QQ0-yv-UaU"/>
                             <constraint firstItem="ULl-cL-sKx" firstAttribute="bottom" secondItem="uw7-Aq-65O" secondAttribute="bottom" constant="20" id="UOs-Gc-nMV"/>
+                            <constraint firstAttribute="trailing" secondItem="ObX-up-zrn" secondAttribute="trailing" constant="20" id="bc5-7X-2aL"/>
                             <constraint firstItem="uw7-Aq-65O" firstAttribute="leading" secondItem="ULl-cL-sKx" secondAttribute="leading" constant="20" id="fvm-vd-kGh"/>
-                            <constraint firstItem="uw7-Aq-65O" firstAttribute="top" secondItem="ULl-cL-sKx" secondAttribute="top" constant="20" id="xNz-lw-xHx"/>
+                            <constraint firstItem="ObX-up-zrn" firstAttribute="top" secondItem="ULl-cL-sKx" secondAttribute="top" id="kmA-kY-tcb"/>
+                            <constraint firstItem="ObX-up-zrn" firstAttribute="leading" secondItem="Z55-fy-h5x" secondAttribute="leading" constant="20" id="uiC-BH-9l2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ULl-cL-sKx"/>
                     </view>

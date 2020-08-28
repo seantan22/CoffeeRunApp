@@ -70,7 +70,7 @@ class McLennanViewController: UIViewController {
         case "I":
             zoneIButton.backgroundColor = UIColor.clear
         default:
-            print("default")
+            print("")
             
         }
         
@@ -114,7 +114,7 @@ class McLennanViewController: UIViewController {
             self.prevZoneClicked = "I"
             
         default:
-            print("default")
+            print("")
         }
         
         OrderSummaryViewController.zone = prevZoneClicked

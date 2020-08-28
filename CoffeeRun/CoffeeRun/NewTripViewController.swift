@@ -112,7 +112,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
    
             } else {
-                print("Error: Unable to retrieve order(s).")
+                self.errorLabel.text = "Unable to retrieve order(s)."
             }
         }
         self.tableView.reloadData()
@@ -182,7 +182,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 // Check to make sure the cell is in selectedOrders
                 if self.checkIfSelected(array: self.selectedOrders, order: order) {
-                    print("test")
                     if cell.backgroundColor == UIColor.white {
                         cell.contentView.backgroundColor = Colors.selectBlue
                     }

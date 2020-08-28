@@ -141,8 +141,6 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                        
                        UserDefaults.standard.set(result.response[0]["_id"]!, forKey: "order_id")
                        
-                       print(result.response[0]["_id"]!)
-                       
                        DeliveredViewController.subtotal = result.response[0]["cost"]!
                        
                        ExistingOrderViewController.orderStatus     = result.response[0]["status"]!

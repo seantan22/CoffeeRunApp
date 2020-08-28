@@ -122,7 +122,7 @@ class ExistingTripViewController: UIViewController, UITableViewDataSource, UITab
                 self.checkForCompletionTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.checkOrderExistence), userInfo: ExistingTripViewController.ordersToPickup[indexPath.section].id, repeats: true)
                 
             } else if state == "Delivered" {
-                print("done")
+                print("")
             }
         
             self.run(after: 1000) {

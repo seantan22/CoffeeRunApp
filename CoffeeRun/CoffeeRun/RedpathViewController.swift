@@ -105,7 +105,7 @@ class RedpathViewController: UIViewController {
             self.prevZoneClicked = "H"
             
         default:
-            print("default")
+            print("")
         }
         
         OrderSummaryViewController.zone = prevZoneClicked
@@ -140,7 +140,7 @@ class RedpathViewController: UIViewController {
             self.prevZoneClicked = "E"
             
         default:
-            print("default")
+            print("")
         }
         
         OrderSummaryViewController.zone = prevZoneClicked
@@ -171,7 +171,7 @@ class RedpathViewController: UIViewController {
             self.prevZoneClicked = "D"
             
         default:
-            print("default")
+            print("")
         }
         
         OrderSummaryViewController.zone = prevZoneClicked
@@ -196,7 +196,7 @@ class RedpathViewController: UIViewController {
             self.prevZoneClicked = "C"
             
         default:
-            print("default")
+            print("")
         }
         
         OrderSummaryViewController.zone = prevZoneClicked
@@ -228,7 +228,7 @@ class RedpathViewController: UIViewController {
                    clearZoneFThree()
                
                default:
-                   print("default")
+                   print("")
                    
                }
         
@@ -288,7 +288,7 @@ class RedpathViewController: UIViewController {
         case "H":
            buttonHfloorB.backgroundColor = UIColor.clear
         default:
-           print("default")
+           print("")
            
         }
     }
@@ -306,7 +306,7 @@ class RedpathViewController: UIViewController {
         case "E":
            buttonEfloor1.backgroundColor = UIColor.clear
         default:
-           print("default")
+           print("")
            
         }
     }
@@ -323,7 +323,7 @@ class RedpathViewController: UIViewController {
         case "D":
             buttonDfloor2.backgroundColor = UIColor.clear
         default:
-            print("default")
+            print("")
         }
     }
     
@@ -337,7 +337,7 @@ class RedpathViewController: UIViewController {
         case "C":
             buttonCfloor3.backgroundColor = UIColor.clear
         default:
-            print("default")
+            print("")
             
         }
     }
