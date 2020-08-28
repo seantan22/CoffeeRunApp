@@ -38,10 +38,10 @@ struct Colors {
     
     // STATUS LABELS
     static let statusBlue = UIColor(red: 86/255, green: 86/255, blue: 255/255, alpha: 1.0)
-    static let statusGreen = UIColor(red: 0/255, green: 204/255, blue: 0/255, alpha: 1.0)
+    static let statusGreen = UIColor(red: 54/255, green: 211/255, blue: 151/255, alpha: 1.0)
     
     // ORDERS
-    static let selectBlue = UIColor(red: 12/255, green: 72/255, blue: 151/255, alpha: 0.8)
+    static let selectBlue = UIColor(red: 196/255, green: 243/255, blue: 253/255, alpha: 0.8)
 }
 
 struct URLs {

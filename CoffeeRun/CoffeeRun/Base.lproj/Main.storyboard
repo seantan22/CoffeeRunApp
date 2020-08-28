@@ -3355,7 +3355,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="Tza-3N-cjk">
-                                <rect key="frame" x="20" y="159.5" width="374" height="577"/>
+                                <rect key="frame" x="20" y="184.5" width="374" height="577"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDT-Qd-Q1U">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="128"/>
@@ -3619,12 +3619,20 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OuE-GT-cV1">
+                                <rect key="frame" x="151.5" y="150" width="111" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="OuE-GT-cV1" firstAttribute="centerX" secondItem="hYT-Io-hS7" secondAttribute="centerX" id="3N3-cH-OcC"/>
                             <constraint firstItem="Tza-3N-cjk" firstAttribute="leading" secondItem="wbh-GK-Y9f" secondAttribute="leading" constant="20" id="5kc-00-kE4"/>
+                            <constraint firstItem="OuE-GT-cV1" firstAttribute="top" secondItem="wbh-GK-Y9f" secondAttribute="top" constant="10" id="Vax-9h-xfw"/>
                             <constraint firstItem="wbh-GK-Y9f" firstAttribute="trailing" secondItem="Tza-3N-cjk" secondAttribute="trailing" constant="20" id="dIc-GU-fUc"/>
-                            <constraint firstItem="Tza-3N-cjk" firstAttribute="centerY" secondItem="hYT-Io-hS7" secondAttribute="centerY" id="hl9-om-Dhv"/>
+                            <constraint firstItem="Tza-3N-cjk" firstAttribute="centerY" secondItem="hYT-Io-hS7" secondAttribute="centerY" constant="25" id="hl9-om-Dhv"/>
                             <constraint firstItem="Tza-3N-cjk" firstAttribute="centerX" secondItem="hYT-Io-hS7" secondAttribute="centerX" id="ncZ-Mc-i6X"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wbh-GK-Y9f"/>
@@ -3639,6 +3647,7 @@
                     <connections>
                         <outlet property="costSection" destination="a89-ec-dQm" id="ZaY-fP-mE6"/>
                         <outlet property="enjoySection" destination="SDT-Qd-Q1U" id="29G-if-W2c"/>
+                        <outlet property="errorLabel" destination="OuE-GT-cV1" id="xlu-gy-CIB"/>
                         <outlet property="fifthStar" destination="8I6-F9-zl9" id="4Yg-ia-crb"/>
                         <outlet property="firstStar" destination="kws-dh-6Zx" id="uOj-On-o76"/>
                         <outlet property="fourthStar" destination="g4G-VP-bIW" id="no9-mL-TEM"/>

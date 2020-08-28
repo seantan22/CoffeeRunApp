@@ -19,9 +19,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     var clearChosenCell: Int = -1
     
     var previousOrderCount: Int = 0
-    
-    var index: Int = 0
-    
+
     var selectedOrders: [OrderWithFriends] = Array()
     
     @IBOutlet weak var availableOrdersView: UIView!
@@ -71,7 +69,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         self.availableOrdersLabel.text = NewTripViewController.numOpenOrders
-        ordersTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(callGetOrders), userInfo: nil, repeats: true)
+        ordersTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(callGetOrders), userInfo: nil, repeats: true)
         
     }
     
@@ -91,9 +89,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 DispatchQueue.main.async {
                     self.availableOrdersLabel.text = NewTripViewController.numOpenOrders
                 }
-                self.index = 0
-                
-                print(self.selectedOrders.count)
                 
                 self.previousOrderCount = self.tempOrders.count
                 self.tempOrders = []
@@ -167,10 +162,11 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
     
        // Cell Content
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-            if index < orders.count {
-                let order = self.orders[index]
+        
+            if indexPath[0] < orders.count {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItem", for: indexPath) as! PickupOrdersTableViewCell
+                let order = self.orders[indexPath[0]]
+                
                 cell.setOrder(order: order)
                 
                 let starImage = UIImage(systemName: "star.fill")
@@ -195,10 +191,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                 if order.friends == "true" {
                     cell.accessoryView = starView
                 }
-                
-                index += 1
-                
-                cell.prepareForReuse()
+
                 return cell
             }
             return UITableViewCell()
@@ -227,7 +220,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITableVie
                                 self.selectedOrders = self.selectedOrders + [selectedOrder]
                             }
                         } else {
-                            print("You can only select 3 orders max.")
+                            self.errorLabel.text = "You can only select 3 orders max."
                         }
                     }
                 })

@@ -10,6 +10,8 @@ import UIKit
 
 class DeliveredViewController: UIViewController {
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     var window: UIWindow?
     
     static var gstRate: String = String()
@@ -45,6 +47,8 @@ class DeliveredViewController: UIViewController {
     
     @IBAction func clickCompleteOrder(_ sender: UIBarButtonItem) {
         
+        errorLabel.text = ""
+        
         sender.isEnabled = false
         completeOrder(  user_id: UserDefaults.standard.string(forKey: "user_id")!,
                         order_id: UserDefaults.standard.string(forKey: "order_id")!,
@@ -66,12 +70,13 @@ class DeliveredViewController: UIViewController {
                     self.run(after: 1000) {
                         self.performSegue(withIdentifier: "completeOrderToNewOrderSegue", sender: self)
                     }
-                    
+                } else {
+                    DispatchQueue.main.async {
+                        self.errorLabel.text = result.response[0]
+                    }
                 }
         }
-        
     }
-    
     
     //MARK: Actions
     @IBAction func toggleRating(_ sender: UIButton) {
@@ -175,6 +180,8 @@ class DeliveredViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         view.setGradientBackground(colorA: Colors.lightPurple, colorB: Colors.lightBlue)
+        
+        errorLabel.text = ""
         
         let gstRate = Double(DeliveredViewController.gstRate)!
         let qstRate = Double(DeliveredViewController.qstRate)!
