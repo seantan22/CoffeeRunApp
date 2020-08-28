@@ -98,7 +98,7 @@ class HomeViewController: UIViewController, UITabBarControllerDelegate {
                     ProfileViewController.totalProfitMade = result.response[3]
                     ProfileViewController.userRating = result.response[4]
             } else {
-                print(result.response[0])
+                ProfileViewController.userRating = "0"
             }
         }
         
