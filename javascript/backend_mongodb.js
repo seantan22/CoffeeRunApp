@@ -1337,8 +1337,15 @@ module.exports = {
 
         }
 
+        var score = await getDeliveryRating(user_information._id, client);
+
+        if (!score[0]) {
+            db.close();
+            return JSON.stringify({result: false, response: [score[1]]})
+        }
+
         db.close();
-        return JSON.stringify({result: true, response: [sum.toString(), user_information.balance.toString()]});
+        return JSON.stringify({result: true, response: [sum.toString(), user_information.balance.toString(), score[1].toString()]});
     },
     doesOrderExistForDelivery: async function(order_id){
         var db = await MongoClient.connect(cred.getMongoUri(), { useUnifiedTopology: true }).catch((error) => console.log(error));
