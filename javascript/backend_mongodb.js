@@ -1639,7 +1639,14 @@ function formatDate(date) {
 }
 
 function convertToNormalTime(time){
-    time = time.split(':'); // convert to array
+
+    var localOffset = time.getTimezoneOffset() * 60000;
+    var localDate = time.getTime();
+
+    var utc = localDate - localOffset;
+    updatedDate = new Date(utc);
+
+    time = updatedDate.split(':'); // convert to array
 
     // fetch
     var hours = Number(time[0]);
