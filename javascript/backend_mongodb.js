@@ -1775,5 +1775,9 @@ function getCurrentDateTimeZone(){
     var localDate = date.getTime();
 
     var utc = localDate - localOffset;
-    return new Date(utc);
+    var newServerDate = new Date(utc);
+
+    // subtract 4 hours to make it ET
+    newServerDate.setHours(newServerDate.getHours() - 4);
+    return newServerDate;    
 }
