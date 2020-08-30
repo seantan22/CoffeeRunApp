@@ -17,7 +17,6 @@ app.use(bodyParser.json());
 
 app.get('/test', function(req, res){
     var test = req.headers['input'];
-
     get_methods.getTest(res, test);
     return;
 })

@@ -53,7 +53,7 @@ async function checkIfCorrupt(type, client, user_record, funds){
         let personInfo = {$set: {username: user_record.username, password: user_record.password, email: user_record.email, phone_number: user_record.phone_number, loggedIn: false, balance: user_record.balance, flagged: true}};
         await client.collection("User").updateOne({_id: ObjectId(user_record._id)}, personInfo).catch((error) => console.log(error)); 
         
-        await client.collection("Transaction").insertOne({flagged: true, type: type, time_created: new Date(), transaction_value: funds, username: user_record.username, balance: {expected_balance: previous_balance, corrupt_balance: user_record.balance}});
+        await client.collection("Transaction").insertOne({flagged: true, type: type, time_created: getCurrentDateTimeZone(), transaction_value: funds, username: user_record.username, balance: {expected_balance: previous_balance, corrupt_balance: user_record.balance}});
 
         return JSON.stringify({result: false, response: ['Your balance is incorrect and has been flagged.']});
     }
@@ -147,9 +147,7 @@ async function logoutWithCred(id){
 
 module.exports = {
     getTest: async function(test){
-        var filter = new Filter(); 
-
-        return filter.isProfane(test);
+        return getCurrentDateTimeZone()
     },
 
     getTaxRates: async function(){
@@ -187,7 +185,7 @@ module.exports = {
         }
 
         // Create an instance with an id of the password
-        let passwordResetInstance = {active: true, email: email, time: new Date()};
+        let passwordResetInstance = {active: true, email: email, time: getCurrentDateTimeZone()};
         await client.collection("Reset_Records").insertOne(passwordResetInstance).catch((error) => console.log(error)); 
 
         new_pass = await sendForgetPasswordEmail(email, user_record._id);
@@ -258,7 +256,7 @@ module.exports = {
     makeReview: async function(username, review){
         var db = await MongoClient.connect(urclient.collection.distincti, { useUnifiedTopology: true }).catch((error) => console.log(error));
         var client = db.db(dbName);
-        let reviewInfo = {time: new Date(), username: username, review: review};
+        let reviewInfo = {time: getCurrentDateTimeZone(), username: username, review: review};
         await client.collection("Reviews").insertOne(reviewInfo);
         db.close();
         return JSON.stringify({result: true, response: ['Thank you for your review.']});
@@ -547,7 +545,7 @@ module.exports = {
             time_limit = 24;
 
             time_since = withdraw_record_history[0].time_created;
-            current_time = new Date();
+            current_time = getCurrentDateTimeZone();
 
             difference = Math.abs(current_time - time_since) / 36e5;
             if(difference < time_limit){
@@ -596,7 +594,7 @@ module.exports = {
         await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
-        let transactionInfo = {flagged: false, type: 'withdraw', time_created: new Date(), amount_drawn: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
+        let transactionInfo = {flagged: false, type: 'withdraw', time_created: getCurrentDateTimeZone(), amount_drawn: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
         await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
@@ -632,7 +630,7 @@ module.exports = {
              time_limit = 24;
  
              time_since = deposit_record_history[0].time_created;
-             current_time = new Date();
+             current_time = getCurrentDateTimeZone();
  
              difference = Math.abs(current_time - time_since) / 36e5;
              if(difference < time_limit){
@@ -660,7 +658,7 @@ module.exports = {
         await client.collection("User").updateOne({_id: ObjectId(user_id)}, personInfo).catch((error) => console.log(error)); 
 
         // Create transaction of record.
-        let transactionInfo = {flagged: false, type: 'deposit', time_created: new Date(), amount_deposited: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
+        let transactionInfo = {flagged: false, type: 'deposit', time_created: getCurrentDateTimeZone(), amount_deposited: funds, username: user_record.username, balance: {new_balance: rounded_balance, previous_balance: user_record.balance}};
         await client.collection("Transaction").insertOne(transactionInfo);
         db.close();
 
@@ -732,7 +730,7 @@ module.exports = {
             return JSON.stringify({result: false, response: ['You already have a pending order.']});
         }
 
-        let personInfo = {  time: new Date(), 
+        let personInfo = {  time: getCurrentDateTimeZone(), 
                             beverage: beverage, 
                             size: size, 
                             details: details, 
@@ -908,7 +906,7 @@ module.exports = {
         var username = delivery_record.username;
 
         var order_records = await client.collection("Open_Orders").find({delivery_boy: username}).toArray();
-        
+
         var return_record = getTimeSince(order_records);
         db.close();
 
@@ -1125,7 +1123,7 @@ module.exports = {
         var roundedNewDelivery = Math.round(newDeliveryValue*100)/100;
 
         // Create transaction - balance for user
-        let transactionInfo = {type: 'payment', time_created: new Date(), transaction_value: final_cost, payer_name: user_record.username, payer_balance: {new_balance: roundedNewUser, previous_balance: user_record.balance}, payee_name: delivery_record.username, payee_balance: {new_balance: roundedNewDelivery, previous_balance: delivery_record.balance}};
+        let transactionInfo = {type: 'payment', time_created: getCurrentDateTimeZone(), transaction_value: final_cost, payer_name: user_record.username, payer_balance: {new_balance: roundedNewUser, previous_balance: user_record.balance}, payee_name: delivery_record.username, payee_balance: {new_balance: roundedNewDelivery, previous_balance: delivery_record.balance}};
         var transaction_history = await client.collection("Transaction").insertOne(transactionInfo);
 
         // Update user information
@@ -1135,7 +1133,7 @@ module.exports = {
         let deliveryInformation = {$set: {balance: roundedNewDelivery}};
         await client.collection("User").updateOne({username: delivery_username}, deliveryInformation).catch((error) => console.log(error)); 
         
-        let closedInfo = {time_closed: new Date(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: parseFloat(cost), tax:  Math.round(taxed_charge*100)/100, tip: Math.round(tip_charge*100)/100, delivery_fee: Math.round(delivery_charge*100)/100, transaction_id: transaction_history.ops[0]._id}, rating: rating, size: order_record.size, beverage: order_record.beverage, vendor: order_record.restaurant};
+        let closedInfo = {time_closed: getCurrentDateTimeZone(), time_opened: order_record.time, payer: order_record.creator, payee: order_record.delivery_boy, transaction: {final: final_cost, subtotal: parseFloat(cost), tax:  Math.round(taxed_charge*100)/100, tip: Math.round(tip_charge*100)/100, delivery_fee: Math.round(delivery_charge*100)/100, transaction_id: transaction_history.ops[0]._id}, rating: rating, size: order_record.size, beverage: order_record.beverage, vendor: order_record.restaurant};
         await client.collection("Closed_Orders").insertOne(closedInfo);
 
         // Delete open order
@@ -1596,7 +1594,7 @@ function getTimeSince(order_records){
     if(order_records.length != 0){
         for (var i = 0; i < order_records.length; i++){
             var previous_time = order_records[i].time;
-            var current_time = new Date();
+            var current_time = getCurrentDateTimeZone()
 
             var seconds = (current_time.getTime() - previous_time.getTime())/1000;
             
@@ -1640,13 +1638,7 @@ function formatDate(date) {
 
 function convertToNormalTime(time){
 
-    var localOffset = time.getTimezoneOffset() * 60000;
-    var localDate = time.getTime();
-
-    var utc = localDate - localOffset;
-    updatedDate = new Date(utc);
-
-    time = updatedDate.split(':'); // convert to array
+    time = time.split(':'); // convert to array
 
     // fetch
     var hours = Number(time[0]);
@@ -1775,4 +1767,13 @@ async function getDeliveryRating(delivery_id, client){
 
     let score = cumulated_score/parseFloat(close_orders_array.length);
     return [true, score];
+}
+
+function getCurrentDateTimeZone(){
+    var date = new Date();
+    var localOffset = date.getTimezoneOffset() * 60000;
+    var localDate = date.getTime();
+
+    var utc = localDate - localOffset;
+    return new Date(utc);
 }

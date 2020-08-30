@@ -4,18 +4,10 @@ var googleD = require('./backend_googDrive');
 module.exports = {
 
     getTest: async function(res, test){
-        //response = await db.getTest(test);
-        var date = new Date();
-        var localOffset = date.getTimezoneOffset() * 60000;
-        var localDate = date.getTime();
-
-        var utc = localDate - localOffset;
-        console.log(new Date(utc));
-
-        res.send();
+        response = await db.getTest(test);
+        res.send(response);
         return;
     },
-
 
     getTaxRates: async function(res){
         response = await db.getTaxRates();
