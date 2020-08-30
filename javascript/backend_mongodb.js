@@ -1651,7 +1651,7 @@ function convertToNormalTime(time){
     if (hours > 0 && hours <= 12) {
     timeValue= "" + hours;
     } else if (hours > 12) {
-    timeValue= "" + (hours - 16);
+    timeValue= "" + (hours - 12);
     } else if (hours == 0) {
     timeValue= "12";
     }
