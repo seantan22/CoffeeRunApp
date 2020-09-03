@@ -1535,7 +1535,7 @@ function sendEmail(address, verification_code){
         from: 'beyvo.contact@gmail.com',
         to: address,
         subject: 'Welcome to BEYVO!',
-        html: '<html><body><p>Thanks for joining BEYVO!</p><p>To verify your account, please enter the following code into your app:</p><h4><b>' + verification_code + '</b></h4><p>Cheers,</p><p>The BEYVO Team</p><i><p>Having trouble? Contact us at beyvo@gmail.com.</p></i></body></html>'
+        html: '<html><body><p>Thanks for joining BEYVO!</p><p>To verify your account, please enter the following code into your app:</p><h4><b>' + verification_code + '</b></h4><p>Cheers,</p><p>The BEYVO Team</p><i><p>Having trouble? Contact us at beyvo.contact@gmail.com.</p></i></body></html>'
     };
 
     logistics.sendMail(mailInfo);
