@@ -1532,10 +1532,10 @@ function sendEmail(address, verification_code){
      });
 
     var mailInfo = {
-        from: 'McgillCoffeeRun@gmail.com',
+        from: 'beyvo.contact@gmail.com',
         to: address,
-        subject: 'Welcome to CoffeeRun!',
-        html: '<html><body><p>Thanks for joining CoffeeRun!</p><p>To verify your account, please enter the following code into your app:</p><h4><b>' + verification_code + '</b></h4><p>Cheers,</p><p>The CoffeeRun Team</p><i><p>Having trouble? Contact us at mcgillcoffeerun@gmail.com.</p></i></body></html>'
+        subject: 'Welcome to BEYVO!',
+        html: '<html><body><p>Thanks for joining BEYVO!</p><p>To verify your account, please enter the following code into your app:</p><h4><b>' + verification_code + '</b></h4><p>Cheers,</p><p>The BEYVO Team</p><i><p>Having trouble? Contact us at beyvo@gmail.com.</p></i></body></html>'
     };
 
     logistics.sendMail(mailInfo);
@@ -1556,10 +1556,10 @@ async function sendForgetPasswordEmail(address, id){
      });
 
     var mailInfo = {
-        from: 'McgillCoffeeRun@gmail.com',
+        from: 'beyvo.contact@gmail.com',
         to: address,
-        subject: 'CoffeeRun: Forget Password',
-        html: "<html><body><b>Password Reset</b><br><br><p>This account's password has been reset. To choose a new password, please log back into CoffeeRun using the temporary password:</p><br><b style='text-align:center'>" + new_pass + "</b></p><br><p>If you did not send the reset request, ignore this email.</p>"
+        subject: 'BEYVO: Forget Password',
+        html: "<html><body><b>Password Reset</b><br><br><p>This account's password has been reset. To choose a new password, please log back into BEYVO using the temporary password:</p><br><b style='text-align:center'>" + new_pass + "</b></p><br><p>If you did not send the reset request, ignore this email.</p>"
     };
 
     logistics.sendMail(mailInfo);
@@ -1578,9 +1578,9 @@ async function sendEmailNotVerified(email, verification_code){
      });
 
     var mailInfo = {
-        from: 'McgillCoffeeRun@gmail.com',
+        from: 'beyvo.contact@gmail.com',
         to: email,
-        subject: 'CoffeeRun: Forget Password',
+        subject: 'BEYVO: Forget Password',
         html: "<html><body><b>Password Reset, Not Verified?</b><br><br><p>We have noticed you have not verified your account after reseting your password. If you forgot the verification code, it is: " + verification_code + "</p>"
     };
 
